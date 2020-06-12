@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/presentation/user/auth_button_ui.dart';
-import 'package:pmsb4/redux/app_state.dart';
+import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class AuthButton extends StatelessWidget {

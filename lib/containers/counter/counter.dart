@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/counter_action.dart';
 import 'package:pmsb4/presentation/counter/counter_ui.dart';
-import 'package:pmsb4/redux/app_state.dart';
 import 'package:pmsb4/selectors/counter/selector.dart';
+import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class HomePage extends StatelessWidget {

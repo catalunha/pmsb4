@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pmsb4/app_store.dart';
 import 'package:pmsb4/containers/counter/counter.dart';
-import 'package:pmsb4/redux/app_state.dart';
-import 'package:pmsb4/redux/app_store.dart';
 import 'package:pmsb4/routes.dart';
+import 'package:pmsb4/states/app_state.dart';
 
 void main() {
   runApp(MyApp());

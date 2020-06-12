@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/redux/app_state.dart';
+import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createAuthMiddleware() {
