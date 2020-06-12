@@ -22,47 +22,21 @@ Middleware<AppState> _createLoginMiddleware() {
 
     try {
       print('Inciando autenticação...');
-      // final AuthResult authResult = await
-      AuthResult authResult;
-      _auth
-          .signInWithEmailAndPassword(
-              email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta')
-          .then((value) {
-        authResult = value;
-            user = authResult.user;
-      print('user');
-      print(user);
-      }).catchError((onError) {
-        print(onError);
-      });
-
-      // final GoogleSignIn googleSignIn = GoogleSignIn();
-      //   // Future<bool> signInWithGoole() async {
-      //   final GoogleSignInAccount googleSignInAccount =
-      //       await googleSignIn.signIn();
-      //   final GoogleSignInAuthentication googleSignInAuthentication =
-      //       await googleSignInAccount.authentication;
-      //   final AuthCredential credential = GoogleAuthProvider.getCredential(
-      //     idToken: googleSignInAuthentication.idToken,
-      //     accessToken: googleSignInAuthentication.accessToken,
-      //   );
-      // final AuthResult authResult =
-      //     await _auth.signInWithCredential(credential);
+      final AuthResult authResult = await _auth.signInWithEmailAndPassword(
+          email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
       user = authResult.user;
-      print('user');
-      print(user);
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
+      print('user:');
+      print(user.uid);
+      print(user.displayName);
+      // assert(!user.isAnonymous);
+      // assert(await user.getIdToken() != null);
+      // final FirebaseUser currentUser = await _auth.currentUser();
+      // assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
-      //   return true;
-      // }
-
+      next(action);
     } catch (error) {
       store.dispatch(UserLoginFail(error: error));
     }
-    next(action);
   };
 }
 
@@ -72,7 +46,6 @@ Middleware<AppState> _createLoginWithGoogleMiddleware() {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
-      // Future<bool> signInWithGoole() async {
       final GoogleSignInAccount googleSignInAccount =
           await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -84,13 +57,11 @@ Middleware<AppState> _createLoginWithGoogleMiddleware() {
       final AuthResult authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
+      // assert(!user.isAnonymous);
+      // assert(await user.getIdToken() != null);
+      // final FirebaseUser currentUser = await _auth.currentUser();
+      // assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
-      //   return true;
-      // }
 
     } catch (error) {
       store.dispatch(UserLoginFail(error: error));
@@ -106,9 +77,9 @@ Middleware<AppState> _createLogoutMiddleware() {
       await _auth.signOut();
       print('logout.');
       store.dispatch(UserLogoutSuccessful());
+      next(action);
     } catch (error) {
       print('_createLogoutMiddleware: $error');
     }
-    next(action);
   };
 }

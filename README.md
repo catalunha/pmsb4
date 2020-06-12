@@ -9,7 +9,9 @@ A integração do PMSB3 com esta versão, PMSB4 em Redux, será analisada futura
 * Toda as classes, variaveis e pastas em ingles. 
 
 # keys
+Ainda falta analisar melhor este material: https://developer.android.com/studio/publish/app-signing
 
+Instruçẽos abaixo foram feitas do firebase no registro do app:
 keytool -exportcert -list -v \
 -alias pmsb4 -keystore pmsb4.keystore
 

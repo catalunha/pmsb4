@@ -5,6 +5,22 @@ import 'package:pmsb4/presentation/user/auth_button_ui.dart';
 import 'package:pmsb4/redux/app_state.dart';
 import 'package:redux/redux.dart';
 
+class AuthButton extends StatelessWidget {
+  AuthButton({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, _ViewModel>(
+      converter: _ViewModel.fromStore,
+      builder: (BuildContext context, _ViewModel _viewModel) {
+        return AuthButtonUI(
+          buttonText: _viewModel.buttonText,
+          onPressedCallBack: _viewModel.onPressedCallBack,
+        );
+      },
+    );
+  }
+}
+
 class _ViewModel {
   final String buttonText;
   final Function onPressedCallBack;
@@ -25,21 +41,5 @@ class _ViewModel {
             store.dispatch(UserLogout());
           }
         });
-  }
-}
-
-class AuthButton extends StatelessWidget {
-  AuthButton({Key key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, _ViewModel>(
-      converter: _ViewModel.fromStore,
-      builder: (BuildContext context, _ViewModel _viewModel) {
-        return AuthButtonUI(
-          buttonText: _viewModel.buttonText,
-          onPressedCallBack: _viewModel.onPressedCallBack,
-        );
-      },
-    );
   }
 }

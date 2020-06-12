@@ -13,7 +13,7 @@ class UserState {
   }
   UserState copyWith({FirebaseUser firebaseUser}) {
     return UserState(
-      firebaseUser: firebaseUser ?? this.firebaseUser,
+      firebaseUser: firebaseUser,
     );
   }
 

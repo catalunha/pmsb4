@@ -24,7 +24,7 @@ class AuthButtonUI extends StatelessWidget {
               padding: EdgeInsets.only(right: 20.0),
               child: Image.asset(
                 'assets/images/google01.jpg',
-                width: 30.0,
+                width: 70.0,
               ),
             ),
             Text(

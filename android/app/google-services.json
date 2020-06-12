@@ -76,6 +76,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "167336774894-n70ou79uqd9ka8rvl5r8iv9trvk5tahc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pmsbto.pmsb4",
+            "certificate_hash": "87a0cdcf136dd269bc40f299ebdb2b0c618ff8fe"
+          }
+        },
+        {
           "client_id": "167336774894-420fqntgilm6vui5uhscige9dig0sah7.apps.googleusercontent.com",
           "client_type": 3
         }
