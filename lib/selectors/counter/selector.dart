@@ -1,4 +1,3 @@
-import 'package:pmsb4/redux/app_state.dart';
 import 'package:pmsb4/states/counter_state.dart';
 
 int factorial(int n) {

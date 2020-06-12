@@ -15,8 +15,10 @@ dependencies:
   meta:
   redux:
   flutter_redux:
+  redux_logging: ^0.4.0
   cloud_firestore: ^0.13.6
   firebase_auth: ^0.16.1
+  google_sign_in: ^4.5.1
   
 dev_dependencies:
   flutter_test:

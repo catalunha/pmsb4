@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+class UserAction{}
 
-class User {}
+class UserLogin extends UserAction {}
 
-class UserLoginSuccessful {
+class UserLoginSuccessful extends UserAction{
   final FirebaseUser firebaseUser;
 
   UserLoginSuccessful({this.firebaseUser});
@@ -12,7 +13,7 @@ class UserLoginSuccessful {
   }
 }
 
-class UserLoginFail {
+class UserLoginFail extends UserAction{
   final dynamic error;
 
   UserLoginFail({this.error});
@@ -23,9 +24,9 @@ class UserLoginFail {
   }
 }
 
-class UserLogout {}
+class UserLogout extends UserAction{}
 
-class UserLogoutSuccessful {
+class UserLogoutSuccessful extends UserAction{
   UserLogoutSuccessful();
   @override
   String toString() {
