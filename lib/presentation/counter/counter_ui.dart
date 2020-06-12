@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/user/auth_button.dart';
 
 class HomePageUI extends StatelessWidget {
   final int counter;
@@ -24,6 +25,7 @@ class HomePageUI extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            AuthButton(),
             Text('Increment to: $counter'),
             Text('Factorial:$factorial'),
           ],
