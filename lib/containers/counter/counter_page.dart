@@ -30,7 +30,7 @@ class _ViewModel {
 class CounterPage extends StatelessWidget {
   final String title;
 
-  const CounterPage({Key key, this.title}) : super(key: key);
+  const CounterPage({Key key, this.title='teste'}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
