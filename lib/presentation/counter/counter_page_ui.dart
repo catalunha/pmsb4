@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/containers/user/auth_button.dart';
+import 'package:pmsb4/containers/components/logout_button.dart';
 
-class HomePageUI extends StatelessWidget {
+class CounterPageUI extends StatelessWidget {
   final int counter;
   final Function increment;
   final int factorial;
   final String title;
-  const HomePageUI({
+  const CounterPageUI({
     Key key,
     this.counter,
     this.increment,
@@ -25,7 +25,7 @@ class HomePageUI extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AuthButton(),
+            LogoutButton(),
             Text('Increment to: $counter'),
             Text('Factorial:$factorial'),
           ],

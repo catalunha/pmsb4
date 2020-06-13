@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AuthButtonUI extends StatelessWidget {
-  final String buttonText;
+class LoginButtonUI extends StatelessWidget {
   final Function onPressedCallBack;
 
-  const AuthButtonUI({Key key, this.buttonText, this.onPressedCallBack})
+  const LoginButtonUI({Key key, this.onPressedCallBack})
       : super(key: key);
 
   @override
@@ -28,7 +27,7 @@ class AuthButtonUI extends StatelessWidget {
               ),
             ),
             Text(
-              buttonText,
+              'Login with email',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16.0,

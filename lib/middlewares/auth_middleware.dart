@@ -6,7 +6,7 @@ import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createAuthMiddleware() {
   final login = _createLoginMiddleware();
-  // final login = _createLoginWithGoogleMiddleware();
+  final loginGoogle = _createLoginWithGoogleMiddleware();
   final logout = _createLogoutMiddleware();
 
   return [

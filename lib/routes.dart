@@ -1,3 +1,5 @@
 class Routes{
-  static final homePage = '/';
+  static final home = '/';
+  static final login = '/login';
+  static final counter = '/counter';
 }
