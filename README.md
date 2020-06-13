@@ -6,7 +6,51 @@ A integração do PMSB3 com esta versão, PMSB4 em Redux, será analisada futura
 
 # Definições neste projeto
 
-* Toda as classes, variaveis e pastas em ingles. 
+## Em ingles
+* Código Dart e Flutter em ingles
+* Coleções e campos novos do Firebase em ingles
+
+## Em portugues
+* coleções velhas em portugues (nao compensa mudar)
+* dados para usuario em portugues (cliente em potencial)
+* git em portugues. para quem nao escreve em ingles.
+* TODOs em portugues. para quem nao escreve em ingles.
+* Issues em portugues. para quem nao escreve em ingles.
+
+# Pastas
+Considerando um projeto basico do counter do flutter
+
++ actions
+	- counter_action.dart
++ containers
+	+ components
+		- counter_value.dart
+	+ counter
+		- counter_page.dart
++ database
+	+ counter
+		- counter_model.dart
+	-firebase_model.dart
++ middlewares
+	- counter_middleware.dart
++ presentation
+	+ components
+		- counter_value_ui.dart
+		- counter_text_comp.dart
+	+ counter
+		- counter_button_comp.dart
+		- counter_page_ui.dart
++ reducers
+	- app_reducer.dart
+	- counter_reducer.dart
++ selectors
+	- counter_selector.dart
++ states
+	- app_state.dart
+	- counter_state.dart
+- main.dart
+- routes.dart
+
 
 # keys
 Ainda falta analisar melhor este material: https://developer.android.com/studio/publish/app-signing
