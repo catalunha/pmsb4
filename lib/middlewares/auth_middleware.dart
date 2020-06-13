@@ -26,12 +26,14 @@ Middleware<AppState> _createLoginMiddleware() {
           email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
       user = authResult.user;
       print('user:');
-      print(user.uid);
       print(user.displayName);
-      // assert(!user.isAnonymous);
-      // assert(await user.getIdToken() != null);
-      // final FirebaseUser currentUser = await _auth.currentUser();
-      // assert(user.uid == currentUser.uid);
+      print(user.email);
+      print(user.phoneNumber);
+      print(user.photoUrl);
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
       next(action);
     } catch (error) {
