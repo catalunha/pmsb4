@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/presentation/login_button_ui.dart';
+import 'package:pmsb4/presentation/login_button.dart';
 
-class LoginPageUI extends StatelessWidget {
+class LoginPageDS extends StatelessWidget {
   final Function login;
 
-  const LoginPageUI({Key key, this.login}) : super(key: key);
+  const LoginPageDS({Key key, this.login}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class LoginPageUI extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            LoginButtonUI(
+            LoginButton(
               onPressedCallBack: login,
             ),
           ],

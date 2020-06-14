@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/containers/components/logout_button.dart';
 
-class CounterPageUI extends StatelessWidget {
+class CounterPageDS extends StatelessWidget {
   final int counter;
   final Function increment;
   final int factorial;
   final String title;
-  const CounterPageUI({
+  const CounterPageDS({
     Key key,
     this.counter,
     this.increment,
@@ -25,7 +24,6 @@ class CounterPageUI extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            LogoutButton(),
             Text('Increment to: $counter'),
             Text('Factorial:$factorial'),
           ],

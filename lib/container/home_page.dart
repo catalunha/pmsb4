@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/containers/login_page.dart';
-import 'package:pmsb4/presentation/home_page_ui.dart';
+import 'package:pmsb4/container/login_page.dart';
+import 'package:pmsb4/presentation/home_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         if (_viewModel.logged) {
-          return HomePageUI();
+          return HomePageDS();
         } else {
           return LoginPage();
         }

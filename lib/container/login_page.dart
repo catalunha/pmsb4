@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/presentation/login_page_ui.dart';
+import 'package:pmsb4/presentation/login_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context,_ViewModel viewModel){
-        return LoginPageUI(login:viewModel.login);
+        return LoginPageDS(login:viewModel.login);
       },
     );
   }

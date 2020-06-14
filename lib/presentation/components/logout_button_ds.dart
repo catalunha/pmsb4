@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LogoutButtonUI extends StatelessWidget {
+class LogoutButtonDS extends StatelessWidget {
   final Function logout;
 
-  const LogoutButtonUI({Key key, this.logout}) : super(key: key);
+  const LogoutButtonDS({Key key, this.logout}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

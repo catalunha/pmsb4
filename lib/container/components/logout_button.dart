@@ -1,35 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/presentation/components/logout_button_ui.dart';
+import 'package:pmsb4/presentation/components/logout_button_ds.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
-class _ViewModel {
+
+class _WidgetData {
   final Function logout;
 
-  _ViewModel({this.logout});
+  _WidgetData({this.logout});
 
-  static _ViewModel fromStore(Store<AppState> store) {
-    return _ViewModel(logout: () {
+  static _WidgetData fromStore(Store<AppState> store) {
+    return _WidgetData(logout: () {
       store.dispatch(UserLogout());
-      Keys.navKey.currentState.pushNamed(Routes.home);
+      Keys.navKey.currentState.pushNamedAndRemoveUntil(
+          Routes.home, (Route<dynamic> route) => false);
     });
   }
 }
+
 class LogoutButton extends StatelessWidget {
   LogoutButton({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, _ViewModel>(
-      converter: _ViewModel.fromStore,
-      builder: (BuildContext context, _ViewModel _viewModel) {
-        return LogoutButtonUI(
+    return StoreConnector<AppState, _WidgetData>(
+      converter: _WidgetData.fromStore,
+      builder: (BuildContext context, _WidgetData _viewModel) {
+        return LogoutButtonDS(
           logout: _viewModel.logout,
         );
       },
     );
   }
 }
-
-

@@ -4,7 +4,7 @@ import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
-List<Middleware<AppState>> createAuthMiddleware() {
+List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
   final login = _createLoginMiddleware();
   final loginGoogle = _createLoginWithGoogleMiddleware();
   final logout = _createLogoutMiddleware();

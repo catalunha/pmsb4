@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PerfilPageUI extends StatelessWidget {
+class PerfilPageDS extends StatelessWidget {
   final String displayName;
   final String email;
   final String phoneNumber;
   final String photoUrl;
-  PerfilPageUI(
+  PerfilPageDS(
       {Key key, this.displayName, this.email, this.phoneNumber, this.photoUrl})
       : super(key: key);
   @override

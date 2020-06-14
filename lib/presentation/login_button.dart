@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginButtonUI extends StatelessWidget {
+class LoginButton extends StatelessWidget {
   final Function onPressedCallBack;
 
-  const LoginButtonUI({Key key, this.onPressedCallBack})
+  const LoginButton({Key key, this.onPressedCallBack})
       : super(key: key);
 
   @override

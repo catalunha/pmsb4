@@ -22,17 +22,17 @@ Considerando um projeto basico do counter do flutter
 
 + actions
 	- counter_action.dart
-+ containers
++ container
 	+ components
 		- counter_value.dart
 	+ counter
 		- counter_page.dart
-+ database
-	+ counter
-		- counter_model.dart
-	-firebase_model.dart
 + middlewares
-	- counter_middleware.dart
+	+ firebase
+		- firebase_model.dart
+		+ counter
+			- counter_model.dart
+			- counter_middleware.dart
 + presentation
 	+ components
 		- counter_value_ui.dart
