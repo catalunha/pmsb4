@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class UserAction {}
-
+// Actions atendidas por UserReducer
 class UserAuthenticationStatusAction extends UserAction {
   final AuthenticationStatus authenticationStatus;
 
@@ -13,33 +13,20 @@ class UserAuthenticationStatusAction extends UserAction {
   }
 }
 
-class UserLoginEmailPassword extends UserAction {
-  final String email;
-  final String password;
-
-  UserLoginEmailPassword({this.email, this.password});
-  @override
-  String toString() {
-    return 'UserLoginEmailPassword{email:$email,password:$password}';
-  }
-}
-
-class UserLoginGoogle extends UserAction {}
-
-class UserLoginSuccessful extends UserAction {
+class UserLoginSuccessfulAction extends UserAction {
   final FirebaseUser firebaseUser;
 
-  UserLoginSuccessful({this.firebaseUser});
+  UserLoginSuccessfulAction({this.firebaseUser});
   @override
   String toString() {
     return 'UserLoginSuccessful{firebaseUser: $firebaseUser}';
   }
 }
 
-class UserLoginFail extends UserAction {
+class UserLoginFailAction extends UserAction {
   final dynamic error;
 
-  UserLoginFail({this.error});
+  UserLoginFailAction({this.error});
 
   @override
   String toString() {
@@ -47,12 +34,37 @@ class UserLoginFail extends UserAction {
   }
 }
 
-class UserLogout extends UserAction {}
-
-class UserLogoutSuccessful extends UserAction {
-  UserLogoutSuccessful();
+class UserLogoutSuccessfulAction extends UserAction {
+  UserLogoutSuccessfulAction();
   @override
   String toString() {
     return 'UserLogoutSuccessful{firebaseUser:null}';
   }
 }
+
+// Actions atendidas por firebaseAuthenticationMiddleware
+
+class UserSendPasswordResetEmailAction extends UserAction{
+  final String email;
+
+  UserSendPasswordResetEmailAction({this.email});
+  @override
+  String toString(){
+    return 'UserResetPasswordAction{email:$email}';
+  }
+}
+
+class UserLoginEmailPasswordAction extends UserAction {
+  final String email;
+  final String password;
+
+  UserLoginEmailPasswordAction({this.email, this.password});
+  @override
+  String toString() {
+    return 'UserLoginEmailPassword{email:$email,password:$password}';
+  }
+}
+
+class UserLoginGoogleAction extends UserAction {}
+
+class UserLogoutAction extends UserAction {}

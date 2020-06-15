@@ -13,7 +13,7 @@ class _WidgetData {
 
   static _WidgetData fromStore(Store<AppState> store) {
     return _WidgetData(logout: () {
-      store.dispatch(UserLogout());
+      store.dispatch(UserLogoutAction());
       Keys.navKey.currentState.pushNamedAndRemoveUntil(
           Routes.home, (Route<dynamic> route) => false);
     });

@@ -5,6 +5,7 @@ import 'package:pmsb4/presentation/login/login_form.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class LoginPageDS extends StatelessWidget {
+  final Function(String) sendPasswordResetEmail;
   final Function(String, String) loginEmailPassword;
   final Function loginGoogle;
   final AuthenticationStatus authenticationStatus;
@@ -13,6 +14,7 @@ class LoginPageDS extends StatelessWidget {
     this.loginEmailPassword,
     this.loginGoogle,
     this.authenticationStatus,
+    this.sendPasswordResetEmail,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class LoginPageDS extends StatelessWidget {
             LoginForm(
               loginEmailPassword: loginEmailPassword,
               authenticationStatus: authenticationStatus,
+              sendPasswordResetEmail: sendPasswordResetEmail,
             ),
             // LoginButton(
             //   loginGoogle: loginGoogle,

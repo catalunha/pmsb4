@@ -5,15 +5,15 @@ import 'package:redux/redux.dart';
 
 final userReducer = combineReducers<UserState>([
   TypedReducer<UserState, UserAuthenticationStatusAction>(_authentication),
-  TypedReducer<UserState, UserLoginSuccessful>(_login),
-  TypedReducer<UserState, UserLoginFail>(_loginFail),
-  TypedReducer<UserState, UserLogoutSuccessful>(_logout),
+  TypedReducer<UserState, UserLoginSuccessfulAction>(_login),
+  TypedReducer<UserState, UserLoginFailAction>(_loginFail),
+  TypedReducer<UserState, UserLogoutSuccessfulAction>(_logout),
 ]);
 UserState _authentication(UserState state, UserAuthenticationStatusAction action) {
   return state.copyWith(authenticationStatus: action.authenticationStatus);
 }
 
-UserState _login(UserState state, UserLoginSuccessful action) {
+UserState _login(UserState state, UserLoginSuccessfulAction action) {
   print(state.authenticationStatus.toString());
   print(state.toString());
 
@@ -22,7 +22,7 @@ UserState _login(UserState state, UserLoginSuccessful action) {
       firebaseUser: action.firebaseUser);
 }
 
-UserState _logout(UserState state, UserLogoutSuccessful action) {
+UserState _logout(UserState state, UserLogoutSuccessfulAction action) {
   // print(state.authenticationStatus.toString());
   print(state.toString());
   return state.copyWith(
@@ -30,7 +30,7 @@ UserState _logout(UserState state, UserLogoutSuccessful action) {
       firebaseUser: null);
 }
 
-UserState _loginFail(UserState state, UserLoginFail action) {
+UserState _loginFail(UserState state, UserLoginFailAction action) {
   print('_loginFail');
   print(state.authenticationStatus.toString());
 

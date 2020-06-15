@@ -6,21 +6,33 @@ import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
-  // final loginEmailPassword = _createLoginMiddleware();
-  // final loginGoogle = _createLoginWithGoogleMiddleware();
-  // final logout = _createLogoutMiddleware();
-
   return [
-    TypedMiddleware<AppState, UserLoginEmailPassword>(_loginEmailPassword()),
-    TypedMiddleware<AppState, UserLoginGoogle>(_loginGoogle()),
-    TypedMiddleware<AppState, UserLogout>(_logout()),
+    TypedMiddleware<AppState, UserSendPasswordResetEmailAction>(_resetPassword()),
+    TypedMiddleware<AppState, UserLoginEmailPasswordAction>(
+        _loginEmailPassword()),
+    TypedMiddleware<AppState, UserLoginGoogleAction>(_loginGoogle()),
+    TypedMiddleware<AppState, UserLogoutAction>(_logout()),
   ];
+}
+
+Middleware<AppState> _resetPassword() {
+  return (Store store, action, NextDispatcher next) {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    try {
+      store.dispatch(UserAuthenticationStatusAction(
+          authenticationStatus: AuthenticationStatus.sendPasswordReset));
+      firebaseAuth.sendPasswordResetEmail(email: action.email);
+    } catch (e) {
+      store.dispatch(UserLoginFailAction());
+    }
+    next(action);
+  };
 }
 
 Middleware<AppState> _loginEmailPassword() {
   return (Store store, action, NextDispatcher next) async {
-    FirebaseUser user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser;
 
     try {
       print('Inciando autenticação...');
@@ -32,29 +44,29 @@ Middleware<AppState> _loginEmailPassword() {
           email: action.email, password: action.password);
       // final AuthResult authResult = await _auth.signInWithEmailAndPassword(
       //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
-      user = authResult.user;
-      print('user:');
-      print(user.displayName);
-      print(user.email);
-      print(user.phoneNumber);
-      print(user.photoUrl);
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+      firebaseUser = authResult.user;
+      print('firebaseUser:');
+      print(firebaseUser.displayName);
+      print(firebaseUser.email);
+      print(firebaseUser.phoneNumber);
+      print(firebaseUser.photoUrl);
+      assert(!firebaseUser.isAnonymous);
+      assert(await firebaseUser.getIdToken() != null);
       final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
-      store.dispatch(UserLoginSuccessful(firebaseUser: user));
+      assert(firebaseUser.uid == currentUser.uid);
+      store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
       print('Login bem sucedido.');
-      next(action);
     } catch (error) {
-      store.dispatch(UserLoginFail(error: error));
+      store.dispatch(UserLoginFailAction(error: error));
       print('Login MAL sucedido.');
     }
+    next(action);
   };
 }
 
 Middleware<AppState> _loginGoogle() {
   return (Store store, action, NextDispatcher next) async {
-    FirebaseUser user;
+    FirebaseUser firebaseUser;
     print('ccc: _loginGoogle');
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -69,14 +81,14 @@ Middleware<AppState> _loginGoogle() {
       );
       final AuthResult authResult =
           await _auth.signInWithCredential(credential);
-      user = authResult.user;
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+      firebaseUser = authResult.user;
+      assert(!firebaseUser.isAnonymous);
+      assert(await firebaseUser.getIdToken() != null);
       final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
-      store.dispatch(UserLoginSuccessful(firebaseUser: user));
+      assert(firebaseUser.uid == currentUser.uid);
+      store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
     } catch (error) {
-      store.dispatch(UserLoginFail(error: error));
+      store.dispatch(UserLoginFailAction(error: error));
     }
     next(action);
   };
@@ -88,10 +100,10 @@ Middleware<AppState> _logout() {
     try {
       await _auth.signOut();
       print('logout.');
-      store.dispatch(UserLogoutSuccessful());
-      next(action);
+      store.dispatch(UserLogoutSuccessfulAction());
     } catch (error) {
       print('_createLogoutMiddleware: $error');
     }
+    next(action);
   };
 }

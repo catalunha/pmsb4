@@ -3,4 +3,5 @@ enum AuthenticationStatus {
   authenticated,
   authenticating,
   unAuthenticated,
+  sendPasswordReset,
 }
