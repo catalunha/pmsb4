@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
-  final Function onPressedCallBack;
+  final Function loginGoogle;
 
-  const LoginButton({Key key, this.onPressedCallBack})
+  const LoginButton({Key key, this.loginGoogle})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: onPressedCallBack,
+      onPressed: loginGoogle,
       color: Colors.white,
       child: Container(
         alignment: Alignment.center,
@@ -27,7 +27,7 @@ class LoginButton extends StatelessWidget {
               ),
             ),
             Text(
-              'Login with email',
+              'Login with Google',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16.0,

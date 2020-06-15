@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
-import 'package:pmsb4/container/home_page.dart';
+import 'package:pmsb4/container/home/home_page.dart';
 import 'package:pmsb4/container/user/perfil_page.dart';
 
 import 'package:pmsb4/middlewares/firebase/authentication/auth_middleware.dart';

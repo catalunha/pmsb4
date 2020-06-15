@@ -5,25 +5,29 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
-  final login = _createLoginMiddleware();
-  final loginGoogle = _createLoginWithGoogleMiddleware();
-  final logout = _createLogoutMiddleware();
+  // final loginEmailPassword = _createLoginMiddleware();
+  // final loginGoogle = _createLoginWithGoogleMiddleware();
+  // final logout = _createLogoutMiddleware();
 
   return [
-    TypedMiddleware<AppState, UserLogin>(login),
-    TypedMiddleware<AppState, UserLogout>(logout),
+    TypedMiddleware<AppState, UserLoginEmailPassword>(_loginEmailPassword()),
+    TypedMiddleware<AppState,UserLoginGoogle>(_loginGoogle()),
+    TypedMiddleware<AppState, UserLogout>(_logout()),
   ];
 }
 
-Middleware<AppState> _createLoginMiddleware() {
+Middleware<AppState> _loginEmailPassword() {
   return (Store store, action, NextDispatcher next) async {
     FirebaseUser user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
     try {
       print('Inciando autenticação...');
-      final AuthResult authResult = await _auth.signInWithEmailAndPassword(
-          email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
+      print(action.email);
+      print(action.password);
+      final AuthResult authResult = await _auth.signInWithEmailAndPassword(email: action.email, password: action.password);
+      // final AuthResult authResult = await _auth.signInWithEmailAndPassword(
+      //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
       user = authResult.user;
       print('user:');
       print(user.displayName);
@@ -42,9 +46,10 @@ Middleware<AppState> _createLoginMiddleware() {
   };
 }
 
-Middleware<AppState> _createLoginWithGoogleMiddleware() {
+Middleware<AppState> _loginGoogle() {
   return (Store store, action, NextDispatcher next) async {
     FirebaseUser user;
+    print('ccc: _loginGoogle');
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
@@ -59,10 +64,10 @@ Middleware<AppState> _createLoginWithGoogleMiddleware() {
       final AuthResult authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
-      // assert(!user.isAnonymous);
-      // assert(await user.getIdToken() != null);
-      // final FirebaseUser currentUser = await _auth.currentUser();
-      // assert(user.uid == currentUser.uid);
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
 
     } catch (error) {
@@ -72,7 +77,7 @@ Middleware<AppState> _createLoginWithGoogleMiddleware() {
   };
 }
 
-Middleware<AppState> _createLogoutMiddleware() {
+Middleware<AppState> _logout() {
   return (Store store, action, NextDispatcher next) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
