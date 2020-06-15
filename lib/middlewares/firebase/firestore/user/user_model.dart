@@ -33,4 +33,8 @@ class UserModel extends FirestoreModel {
     if (nickname != null) data['nome'] = this.nickname;
     return data;
   }
+  @override
+  String toString(){
+    return this.toMap().toString();
+  }
 }

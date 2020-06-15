@@ -1,6 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pmsb4/states/enums.dart';
 
 class UserAction {}
+
+class UserAuthenticationStatusAction extends UserAction {
+  final AuthenticationStatus authenticationStatus;
+
+  UserAuthenticationStatusAction({this.authenticationStatus});
+  @override
+  String toString() {
+    return 'UserAuthenticationStatus{authenticationStatus:$authenticationStatus}';
+  }
+}
 
 class UserLoginEmailPassword extends UserAction {
   final String email;

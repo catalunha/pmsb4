@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
 import 'package:pmsb4/container/home/home_page.dart';
 import 'package:pmsb4/container/user/perfil_page.dart';
@@ -8,6 +9,7 @@ import 'package:pmsb4/middlewares/firebase/authentication/auth_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -29,8 +31,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-    // any initialization
-    // store.dispacth()
+    store.dispatch(UserAuthenticationStatusAction(authenticationStatus: AuthenticationStatus.unInitialized));
   }
 
   @override

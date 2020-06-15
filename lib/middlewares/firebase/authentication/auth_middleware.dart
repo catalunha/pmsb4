@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
@@ -11,7 +12,7 @@ List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
 
   return [
     TypedMiddleware<AppState, UserLoginEmailPassword>(_loginEmailPassword()),
-    TypedMiddleware<AppState,UserLoginGoogle>(_loginGoogle()),
+    TypedMiddleware<AppState, UserLoginGoogle>(_loginGoogle()),
     TypedMiddleware<AppState, UserLogout>(_logout()),
   ];
 }
@@ -23,9 +24,12 @@ Middleware<AppState> _loginEmailPassword() {
 
     try {
       print('Inciando autenticação...');
+      store.dispatch(UserAuthenticationStatusAction(
+          authenticationStatus: AuthenticationStatus.authenticating));
       print(action.email);
       print(action.password);
-      final AuthResult authResult = await _auth.signInWithEmailAndPassword(email: action.email, password: action.password);
+      final AuthResult authResult = await _auth.signInWithEmailAndPassword(
+          email: action.email, password: action.password);
       // final AuthResult authResult = await _auth.signInWithEmailAndPassword(
       //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
       user = authResult.user;
@@ -39,9 +43,11 @@ Middleware<AppState> _loginEmailPassword() {
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
+      print('Login bem sucedido.');
       next(action);
     } catch (error) {
       store.dispatch(UserLoginFail(error: error));
+      print('Login MAL sucedido.');
     }
   };
 }
@@ -69,7 +75,6 @@ Middleware<AppState> _loginGoogle() {
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessful(firebaseUser: user));
-
     } catch (error) {
       store.dispatch(UserLoginFail(error: error));
     }
