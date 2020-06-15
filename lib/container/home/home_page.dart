@@ -5,6 +5,20 @@ import 'package:pmsb4/presentation/home/home_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
+class _ViewModel {
+  final bool logged;
+
+  _ViewModel({
+    this.logged,
+  });
+
+  static _ViewModel fromStore(Store<AppState> store) {
+    return _ViewModel(
+      logged: store.state.userState.firebaseUser == null ? false : true,
+    );
+  }
+}
+
 class HomePage extends StatelessWidget {
   HomePage({Key key}) : super(key: key);
   @override
@@ -22,16 +36,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _ViewModel {
-  final bool logged;
-
-  _ViewModel({
-    this.logged,
-  });
-
-  static _ViewModel fromStore(Store<AppState> store) {
-    return _ViewModel(
-      logged: store.state.userState.firebaseUser == null ? false : true,
-    );
-  }
-}

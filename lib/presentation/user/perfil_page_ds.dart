@@ -20,7 +20,15 @@ class PerfilPageDS extends StatelessWidget {
           ListTile(
             title: Text('FirebaseUser'),
             subtitle: Text('displayName:$displayName\nemail:$email\nphoneNumber:$phoneNumber\nphotoUrl:$photoUrl'),
+          ),
+          Center(
+            child: CircleAvatar(
+minRadius: 30,
+maxRadius: 30,
+backgroundImage:NetworkImage(photoUrl),
+            ),
           )
+          // Image.network('$photoUrl'),
         ],
       ),
     );

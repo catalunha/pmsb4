@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/user_state.dart';
 
 class UserAction {}
+
 // Actions atendidas por UserReducer
 class UserAuthenticationStatusAction extends UserAction {
   final AuthenticationStatus authenticationStatus;
@@ -44,13 +46,27 @@ class UserLogoutSuccessfulAction extends UserAction {
 
 // Actions atendidas por firebaseAuthenticationMiddleware
 
-class UserSendPasswordResetEmailAction extends UserAction{
+class UserOnAuthStateChangedAction extends UserAction {}
+
+// class UserUpdateInfoAction
+class UserSendPasswordResetEmailAction extends UserAction {
   final String email;
 
   UserSendPasswordResetEmailAction({this.email});
   @override
-  String toString(){
+  String toString() {
     return 'UserResetPasswordAction{email:$email}';
+  }
+}
+
+class UserUpdateProfileAction extends UserAction {
+  final String displayName;
+  final String photoUrl;
+
+  UserUpdateProfileAction({this.displayName, this.photoUrl});
+  @override
+  String toString() {
+    return 'UserUpdateProfileAction{displayName:$displayName,photoUrl:$photoUrl}';
   }
 }
 

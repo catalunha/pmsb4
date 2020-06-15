@@ -7,25 +7,57 @@ import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
   return [
-    TypedMiddleware<AppState, UserSendPasswordResetEmailAction>(_resetPassword()),
+    TypedMiddleware<AppState, UserSendPasswordResetEmailAction>(
+        _resetPassword()),
     TypedMiddleware<AppState, UserLoginEmailPasswordAction>(
         _loginEmailPassword()),
     TypedMiddleware<AppState, UserLoginGoogleAction>(_loginGoogle()),
     TypedMiddleware<AppState, UserLogoutAction>(_logout()),
+    TypedMiddleware<AppState, UserOnAuthStateChangedAction>(_logged()),
   ];
 }
 
+Middleware<AppState> _logged() {
+  return (Store store, action, NextDispatcher next) async {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    // final FirebaseAuth firebaseAuth;
+    try {
+      print('_logged1');
+      // firebaseAuth.onAuthStateChanged((firebaseUser) async {
+      //   print('_logged2');
+      //   if (firebaseUser != null) {
+      //     print('_logged3');
+      //     // assert(!firebaseUser.isAnonymous);
+      //     // assert(await firebaseUser.getIdToken() != null);
+      //     // final FirebaseUser currentUser = await firebaseAuth.currentUser();
+      //     // assert(firebaseUser.uid == currentUser.uid);
+      //     store.dispatch(UserAuthenticationStatusAction(
+      //         authenticationStatus: AuthenticationStatus.authenticated));
+      //     store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
+      //   } else {
+      //     store.dispatch(UserLogoutAction());
+      //     store.dispatch(UserAuthenticationStatusAction(
+      //         authenticationStatus: AuthenticationStatus.unAuthenticated));
+      //   }
+      // }));
+      next(action);
+    } catch (error) {
+      // store.dispatch(UserLoginFailAction(error: error));
+    }
+  };
+}
+
 Middleware<AppState> _resetPassword() {
-  return (Store store, action, NextDispatcher next) {
+  return (Store store, action, NextDispatcher next) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       store.dispatch(UserAuthenticationStatusAction(
           authenticationStatus: AuthenticationStatus.sendPasswordReset));
-      firebaseAuth.sendPasswordResetEmail(email: action.email);
+      await firebaseAuth.sendPasswordResetEmail(email: action.email);
+      next(action);
     } catch (e) {
       store.dispatch(UserLoginFailAction());
     }
-    next(action);
   };
 }
 
@@ -46,21 +78,30 @@ Middleware<AppState> _loginEmailPassword() {
       //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
       firebaseUser = authResult.user;
       print('firebaseUser:');
+      print(firebaseUser.uid);
       print(firebaseUser.displayName);
       print(firebaseUser.email);
       print(firebaseUser.phoneNumber);
       print(firebaseUser.photoUrl);
+      UserUpdateInfo info = UserUpdateInfo();
+      info.displayName = 'Prof. Catalunha';
+      info.photoUrl =
+          'https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9';
+      //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/77c6b7b8-087f-483b-8855-46f18d6b3ceb?alt=media&token=d0764f97-5ed0-4bcb-9da7-fcc1e3979945
+      //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9
+      await firebaseUser.updateProfile(info).then((value) => print('sucesso'));
+      // firebaseUser.reload();
       assert(!firebaseUser.isAnonymous);
       assert(await firebaseUser.getIdToken() != null);
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(firebaseUser.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
       print('Login bem sucedido.');
+      next(action);
     } catch (error) {
       store.dispatch(UserLoginFailAction(error: error));
-      print('Login MAL sucedido.');
+      print('Login MAL sucedido. $error');
     }
-    next(action);
   };
 }
 
@@ -101,9 +142,9 @@ Middleware<AppState> _logout() {
       await _auth.signOut();
       print('logout.');
       store.dispatch(UserLogoutSuccessfulAction());
+      next(action);
     } catch (error) {
       print('_createLogoutMiddleware: $error');
     }
-    next(action);
   };
 }

@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
+          // TODO: Resolver esta conferencia se usuario ja esta logado.
+          // store.dispatch(UserOnAuthStateChangedAction());
     store.dispatch(UserAuthenticationStatusAction(authenticationStatus: AuthenticationStatus.unInitialized));
   }
 
