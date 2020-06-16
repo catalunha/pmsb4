@@ -4,6 +4,7 @@ import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
 import 'package:pmsb4/container/home/home_page.dart';
 import 'package:pmsb4/container/user/perfil_page.dart';
+import 'package:pmsb4/container/user/profile_update.dart';
 
 import 'package:pmsb4/middlewares/firebase/authentication/auth_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
@@ -31,9 +32,10 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-          // TODO: Resolver esta conferencia se usuario ja esta logado.
-          // store.dispatch(UserOnAuthStateChangedAction());
-    store.dispatch(UserAuthenticationStatusAction(authenticationStatus: AuthenticationStatus.unInitialized));
+    // TODO: Resolver esta conferencia se usuario ja esta logado.
+    // store.dispatch(UserOnAuthStateChangedAction());
+    store.dispatch(UserAuthenticationStatusAction(
+        authenticationStatus: AuthenticationStatus.unInitialized));
   }
 
   @override
@@ -55,6 +57,9 @@ class MyApp extends StatelessWidget {
           Routes.counter: (context) {
             return CounterPage();
           },
+          Routes.profileUpdate: (context) {
+            return ProfileUpdate();
+          }
         },
       ),
     );

@@ -4,7 +4,7 @@ import 'package:pmsb4/states/user_state.dart';
 
 class UserAction {}
 
-// Actions atendidas por UserReducer
+// +++ Actions atendidas por UserReducer
 class UserAuthenticationStatusAction extends UserAction {
   final AuthenticationStatus authenticationStatus;
 
@@ -23,6 +23,12 @@ class UserLoginSuccessfulAction extends UserAction {
   String toString() {
     return 'UserLoginSuccessful{firebaseUser: $firebaseUser}';
   }
+}
+
+class UserUpdateProfileSuccessfulAction extends UserAction {
+  final FirebaseUser firebaseUser;
+
+  UserUpdateProfileSuccessfulAction({this.firebaseUser});
 }
 
 class UserLoginFailAction extends UserAction {
@@ -44,11 +50,10 @@ class UserLogoutSuccessfulAction extends UserAction {
   }
 }
 
-// Actions atendidas por firebaseAuthenticationMiddleware
+// +++ Actions atendidas por firebaseAuthenticationMiddleware
 
 class UserOnAuthStateChangedAction extends UserAction {}
 
-// class UserUpdateInfoAction
 class UserSendPasswordResetEmailAction extends UserAction {
   final String email;
 

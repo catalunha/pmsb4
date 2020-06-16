@@ -9,6 +9,7 @@ List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
   return [
     TypedMiddleware<AppState, UserSendPasswordResetEmailAction>(
         _resetPassword()),
+    TypedMiddleware<AppState, UserUpdateProfileAction>(_updateprofile()),
     TypedMiddleware<AppState, UserLoginEmailPasswordAction>(
         _loginEmailPassword()),
     TypedMiddleware<AppState, UserLoginGoogleAction>(_loginGoogle()),
@@ -17,8 +18,27 @@ List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
   ];
 }
 
+Middleware<AppState> _updateprofile() {
+  return (Store<AppState> store, action, NextDispatcher next) async {
+    FirebaseUser firebaseUser = store.state.userState.firebaseUser;
+    UserUpdateInfo userUpdateInfo = UserUpdateInfo();
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    userUpdateInfo.displayName = action.displayName;
+    userUpdateInfo.photoUrl = action.photoUrl;
+    print('_updateprofile1');
+    await firebaseUser.updateProfile(userUpdateInfo).then((value) async {
+      print('_updateprofile2');
+      firebaseUser.reload();
+      firebaseUser = await firebaseAuth.currentUser();
+      store.dispatch(
+          UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
+      print('_updateprofile3');
+    }).catchError((onError) => print('_updateprofile onError:' + onError));
+  };
+}
+
 Middleware<AppState> _logged() {
-  return (Store store, action, NextDispatcher next) async {
+  return (Store<AppState> store, action, NextDispatcher next) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     // final FirebaseAuth firebaseAuth;
     try {
@@ -48,7 +68,7 @@ Middleware<AppState> _logged() {
 }
 
 Middleware<AppState> _resetPassword() {
-  return (Store store, action, NextDispatcher next) async {
+  return (Store<AppState> store, action, NextDispatcher next) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       store.dispatch(UserAuthenticationStatusAction(
@@ -62,7 +82,7 @@ Middleware<AppState> _resetPassword() {
 }
 
 Middleware<AppState> _loginEmailPassword() {
-  return (Store store, action, NextDispatcher next) async {
+  return (Store<AppState> store, action, NextDispatcher next) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseUser firebaseUser;
 
@@ -76,20 +96,21 @@ Middleware<AppState> _loginEmailPassword() {
           email: action.email, password: action.password);
       // final AuthResult authResult = await _auth.signInWithEmailAndPassword(
       //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
+      
       firebaseUser = authResult.user;
       print('firebaseUser:');
       print(firebaseUser.uid);
       print(firebaseUser.displayName);
-      print(firebaseUser.email);
-      print(firebaseUser.phoneNumber);
-      print(firebaseUser.photoUrl);
-      UserUpdateInfo info = UserUpdateInfo();
-      info.displayName = 'Prof. Catalunha';
-      info.photoUrl =
-          'https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9';
-      //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/77c6b7b8-087f-483b-8855-46f18d6b3ceb?alt=media&token=d0764f97-5ed0-4bcb-9da7-fcc1e3979945
-      //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9
-      await firebaseUser.updateProfile(info).then((value) => print('sucesso'));
+      // print(firebaseUser.email);
+      // print(firebaseUser.phoneNumber);
+      // print(firebaseUser.photoUrl);
+      // UserUpdateInfo info = UserUpdateInfo();
+      // info.displayName = 'Prof. Catalunha';
+      // info.photoUrl =
+      //     'https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9';
+      // //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/77c6b7b8-087f-483b-8855-46f18d6b3ceb?alt=media&token=d0764f97-5ed0-4bcb-9da7-fcc1e3979945
+      // //https://firebasestorage.googleapis.com/v0/b/pmsb-22-to.appspot.com/o/f99726f9-8988-4771-99bd-86cc6174c254?alt=media&token=3fc83c13-ef83-43e8-94a7-1a7068b403c9
+      // await firebaseUser.updateProfile(info).then((value) => print('sucesso'));
       // firebaseUser.reload();
       assert(!firebaseUser.isAnonymous);
       assert(await firebaseUser.getIdToken() != null);
@@ -106,7 +127,7 @@ Middleware<AppState> _loginEmailPassword() {
 }
 
 Middleware<AppState> _loginGoogle() {
-  return (Store store, action, NextDispatcher next) async {
+  return (Store<AppState> store, action, NextDispatcher next) async {
     FirebaseUser firebaseUser;
     print('ccc: _loginGoogle');
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -136,7 +157,7 @@ Middleware<AppState> _loginGoogle() {
 }
 
 Middleware<AppState> _logout() {
-  return (Store store, action, NextDispatcher next) async {
+  return (Store<AppState> store, action, NextDispatcher next) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       await _auth.signOut();

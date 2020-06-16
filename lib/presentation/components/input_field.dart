@@ -6,7 +6,8 @@ class InputField extends StatefulWidget {
   final TextEditingController controller;
   final String initialValue;
 
-  const InputField({Key key, this.title, this.controller, this.initialValue}) : super(key: key);
+  const InputField({Key key, this.title, this.controller, this.initialValue})
+      : super(key: key);
   @override
   InputFieldState createState() {
     return InputFieldState();
@@ -19,12 +20,12 @@ class InputFieldState extends State<InputField> {
     widget.controller.dispose();
     super.dispose();
   }
-
+@override
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: widget.initialValue,
-      controller: widget.controller,
+      initialValue: widget.initialValue ?? '',
+      controller: widget.controller??null,
       decoration: InputDecoration(
         labelText: widget.title,
       ),

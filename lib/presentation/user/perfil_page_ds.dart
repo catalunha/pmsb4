@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/routes.dart';
 
 class PerfilPageDS extends StatelessWidget {
+  final String uid;
   final String displayName;
   final String email;
   final String phoneNumber;
   final String photoUrl;
   PerfilPageDS(
-      {Key key, this.displayName, this.email, this.phoneNumber, this.photoUrl})
-      : super(key: key);
+      {Key key,
+      this.uid,
+      this.displayName,
+      this.email,
+      this.phoneNumber,
+      this.photoUrl})
+      : super(key: key) {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,17 +25,25 @@ class PerfilPageDS extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('FirebaseUser'),
-            subtitle: Text('displayName:$displayName\nemail:$email\nphoneNumber:$phoneNumber\nphotoUrl:$photoUrl'),
-          ),
-          Center(
-            child: CircleAvatar(
-minRadius: 30,
-maxRadius: 30,
-backgroundImage:NetworkImage(photoUrl),
+            leading: CircleAvatar(
+              minRadius: 30,
+              maxRadius: 30,
+              // backgroundImage: NetworkImage(photoUrl),
+              child: ClipOval(
+                child: Center(
+                  child: Uri.parse(photoUrl).isAbsolute
+                      ? Image.network(photoUrl)
+                      : Icon(Icons.chat),
+                ),
+              ),
             ),
-          )
-          // Image.network('$photoUrl'),
+            title: Text('FirebaseUser'),
+            subtitle: Text(
+                'uid:$uid\ndisplayName:$displayName\nemail:$email\nphoneNumber:$phoneNumber\nphotoUrl:${photoUrl}'),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.profileUpdate);
+            },
+          ),
         ],
       ),
     );

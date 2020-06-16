@@ -17,12 +17,14 @@ class _ViewModel {
   });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-      displayName: store.state.userState.firebaseUser.displayName,
-      photoUrl: store.state.userState.firebaseUser.photoUrl,
-      updateProfile: (String displayName,String photoUrl){
-        store.dispatch(UserUpdateProfileAction(displayName:displayName,photoUrl:photoUrl));
-      }
-    );
+        displayName: store.state.userState.firebaseUser.displayName,
+        photoUrl: store.state.userState.firebaseUser.photoUrl,
+        updateProfile: (String displayName, String photoUrl) {
+          store.dispatch(UserUpdateProfileAction(
+            displayName: displayName,
+            photoUrl: photoUrl,
+          ));
+        });
   }
 }
 
@@ -36,6 +38,7 @@ class ProfileUpdate extends StatelessWidget {
           return ProfileUpdateDS(
             displayName: viewModel.displayName,
             photoUrl: viewModel.photoUrl,
+            updateProfile: viewModel.updateProfile,
           );
         });
   }

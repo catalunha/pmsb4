@@ -5,11 +5,19 @@ import 'package:redux/redux.dart';
 
 final userReducer = combineReducers<UserState>([
   TypedReducer<UserState, UserAuthenticationStatusAction>(_authentication),
+  TypedReducer<UserState, UserUpdateProfileSuccessfulAction>(_updateProfile),
   TypedReducer<UserState, UserLoginSuccessfulAction>(_login),
   TypedReducer<UserState, UserLoginFailAction>(_loginFail),
   TypedReducer<UserState, UserLogoutSuccessfulAction>(_logout),
 ]);
-UserState _authentication(UserState state, UserAuthenticationStatusAction action) {
+
+UserState _updateProfile(
+    UserState state, UserUpdateProfileSuccessfulAction action) {
+  return state.copyWith(firebaseUser: action.firebaseUser);
+}
+
+UserState _authentication(
+    UserState state, UserAuthenticationStatusAction action) {
   return state.copyWith(authenticationStatus: action.authenticationStatus);
 }
 

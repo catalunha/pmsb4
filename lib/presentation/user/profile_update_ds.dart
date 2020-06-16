@@ -10,7 +10,7 @@ class ProfileUpdateDS extends StatefulWidget {
   const ProfileUpdateDS({
     Key key,
     this.displayName,
-    this.photoUrl = 'aa',
+    this.photoUrl,
     this.updateProfile,
   }) : super(key: key);
   @override
@@ -20,43 +20,56 @@ class ProfileUpdateDS extends StatefulWidget {
 }
 
 class ProfileUpdateDSState extends State<ProfileUpdateDS> {
-  final formKey = GlobalKey<FormState>();
-  final displayNameController = TextEditingController();
+  static final formKey = GlobalKey<FormState>();
+  String _displayName;
+  String _photoUrl;
+
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      widget.updateProfile(this.displayNameController.text, '');
-    } else {}
+      widget.updateProfile(_displayName, _photoUrl);
+    } else {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Profile update'),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: form(),
+        ));
+  }
+
+  Widget form() {
     return Form(
       key: formKey,
-      child: Column(
+      child: ListView(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              children: <Widget>[
-                InputField(
-                  title: 'Display Name',
-                  controller: displayNameController,
-                  initialValue: widget.displayName,
-                )
-              ],
+          TextFormField(
+            initialValue: widget.displayName,
+            decoration: InputDecoration(
+              labelText: 'UserName:',
             ),
+            onSaved: (value) => _displayName = value,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-            child: ListTile(
-              title: Center(
-                child: Text('Atualizar'),
-              ),
-              onTap: () {
-                validateData();
-              },
+          TextFormField(
+            initialValue: widget.photoUrl,
+            decoration: InputDecoration(
+              labelText: 'PhotoUrl:',
             ),
+            onSaved: (value) => _photoUrl = value,
+          ),
+          ListTile(
+            title: Center(child: Text('Atualizar')),
+            onTap: () {
+              validateData();
+              Navigator.pop(context);
+            },
           ),
         ],
       ),

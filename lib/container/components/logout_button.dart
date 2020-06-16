@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/presentation/components/logout_button_ds.dart';
-import 'package:pmsb4/routes.dart';
+// import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -14,8 +14,8 @@ class _WidgetData {
   static _WidgetData fromStore(Store<AppState> store) {
     return _WidgetData(logout: () {
       store.dispatch(UserLogoutAction());
-      Keys.navKey.currentState.pushNamedAndRemoveUntil(
-          Routes.home, (Route<dynamic> route) => false);
+      // Keys.navKey.currentState.pushNamedAndRemoveUntil(
+      //     Routes.home, (Route<dynamic> route) => false);
     });
   }
 }
