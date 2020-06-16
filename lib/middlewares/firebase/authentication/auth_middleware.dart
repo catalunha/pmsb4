@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mime/mime.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/enums.dart';
@@ -23,17 +27,47 @@ Middleware<AppState> _updateprofile() {
     FirebaseUser firebaseUser = store.state.userState.firebaseUser;
     UserUpdateInfo userUpdateInfo = UserUpdateInfo();
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    userUpdateInfo.displayName = action.displayName;
-    userUpdateInfo.photoUrl = action.photoUrl;
+    final String _displayName = action.displayName;
+    final String _photoUrl = action.photoUrl;
+    final File _photoUrlFile = File(_photoUrl);
+    final fileContentType =
+        lookupMimeType(_photoUrl, headerBytes: _photoUrlFile.readAsBytesSync());
+    final FirebaseStorage firebaseStorage = FirebaseStorage();
+    final StorageReference storageReference =
+        firebaseStorage.ref().child('photoUrl');
+    final StorageUploadTask storageUploadTask = storageReference.putFile(
+      _photoUrlFile,
+      StorageMetadata(
+        contentType: fileContentType,
+      ),
+    );
     print('_updateprofile1');
-    await firebaseUser.updateProfile(userUpdateInfo).then((value) async {
-      print('_updateprofile2');
-      firebaseUser.reload();
-      firebaseUser = await firebaseAuth.currentUser();
-      store.dispatch(
-          UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
-      print('_updateprofile3');
-    }).catchError((onError) => print('_updateprofile onError:' + onError));
+    // storageUploadTask.events.listen((event) async {
+    //   if (event.type == StorageTaskEventType.success) {
+    //     userUpdateInfo.photoUrl = await event.snapshot.ref.getBucket();
+    //     await firebaseUser.updateProfile(userUpdateInfo).then((value) async {
+    //       print('_updateprofile2');
+    //       firebaseUser.reload();
+    //       firebaseUser = await firebaseAuth.currentUser();
+    //       store.dispatch(
+    //           UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
+    //       print('_updateprofile3');
+    //     }).catchError((onError) => print('_updateprofile onError:' + onError));
+    //   }
+    // });
+    print('_updateprofile4');
+    if (_displayName != store.state.userState.firebaseUser.displayName) {
+      userUpdateInfo.displayName = _displayName;
+      await firebaseUser.updateProfile(userUpdateInfo).then((value) async {
+        print('_updateprofile5');
+        firebaseUser.reload();
+        firebaseUser = await firebaseAuth.currentUser();
+        store.dispatch(
+            UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
+        print('_updateprofile6');
+      }).catchError((onError) => print('_updateprofile onError:' + onError));
+    }
+    next(action);
   };
 }
 
@@ -96,7 +130,7 @@ Middleware<AppState> _loginEmailPassword() {
           email: action.email, password: action.password);
       // final AuthResult authResult = await _auth.signInWithEmailAndPassword(
       //     email: 'catalunha.mj@gmail.com', password: 'pmsbto22@ta');
-      
+
       firebaseUser = authResult.user;
       print('firebaseUser:');
       print(firebaseUser.uid);

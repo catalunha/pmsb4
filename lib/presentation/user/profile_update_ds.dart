@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pmsb4/presentation/components/input_field.dart';
@@ -57,12 +60,37 @@ class ProfileUpdateDSState extends State<ProfileUpdateDS> {
             ),
             onSaved: (value) => _displayName = value,
           ),
-          TextFormField(
-            initialValue: widget.photoUrl,
-            decoration: InputDecoration(
-              labelText: 'PhotoUrl:',
+          // TextFormField(
+          //   initialValue: widget.photoUrl,
+          //   decoration: InputDecoration(
+          //     labelText: 'PhotoUrl:',
+          //   ),
+          //   onSaved: (value) => _photoUrl = value,
+          // ),
+          ListTile(
+            title: Text('Selecione a foto'),
+            trailing: Icon(Icons.file_download),
+            onTap: () async {
+              await _selectFile().then((filePath) {
+                print(filePath);
+                _photoUrl = filePath;
+                setState(() {
+                  
+                });
+              });
+            },
+          ),
+          CircleAvatar(
+            minRadius: 100,
+            maxRadius: 100,
+            // backgroundImage: NetworkImage(photoUrl),
+            child: ClipOval(
+              child: Center(
+                child: _photoUrl != null
+                    ? Image.file(File(_photoUrl))
+                    : Icon(Icons.chat),
+              ),
             ),
-            onSaved: (value) => _photoUrl = value,
           ),
           ListTile(
             title: Center(child: Text('Atualizar')),
@@ -75,4 +103,14 @@ class ProfileUpdateDSState extends State<ProfileUpdateDS> {
       ),
     );
   }
+}
+
+Future<String> _selectFile() async {
+  try {
+    var filePath = await FilePicker.getFilePath(type: FileType.image);
+    if (filePath != null) {
+      return filePath;
+    }
+  } catch (e) {}
+  return null;
 }
