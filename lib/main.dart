@@ -7,6 +7,7 @@ import 'package:pmsb4/container/user/perfil_page.dart';
 import 'package:pmsb4/container/user/profile_update.dart';
 
 import 'package:pmsb4/middlewares/firebase/authentication/auth_middleware.dart';
+import 'package:pmsb4/middlewares/storage/storage_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
@@ -22,7 +23,7 @@ void main() {
 Store<AppState> _store = Store<AppState>(
   appReducer,
   initialState: AppState.initial(),
-  middleware: firebaseAuthenticationMiddleware(),
+  middleware: []..addAll(firebaseAuthenticationMiddleware())..addAll(firebaseStorageMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
 

@@ -20,10 +20,16 @@ class _ViewModel {
         displayName: store.state.userState.firebaseUser.displayName,
         photoUrl: store.state.userState.firebaseUser.photoUrl,
         updateProfile: (String displayName, String photoUrl) {
-          store.dispatch(UserUpdateProfileAction(
-            displayName: displayName,
-            photoUrl: photoUrl,
-          ));
+          if (store.state.userState.firebaseUser.displayName != displayName) {
+            store.dispatch(UserUpdateProfileDisplayNameAction(
+              displayName: displayName,
+            ));
+          }
+          if (photoUrl != null && photoUrl.isNotEmpty) {
+            store.dispatch(UserUpdateProfilePhotoUrlAction(
+              photoLocalPath: photoUrl,
+            ));
+          }
         });
   }
 }

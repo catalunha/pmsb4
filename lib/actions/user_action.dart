@@ -64,15 +64,11 @@ class UserSendPasswordResetEmailAction extends UserAction {
   }
 }
 
-class UserUpdateProfileAction extends UserAction {
+class UserUpdateProfileDisplayNameAction extends UserAction {
   final String displayName;
-  final String photoUrl;
 
-  UserUpdateProfileAction({this.displayName, this.photoUrl});
-  @override
-  String toString() {
-    return 'UserUpdateProfileAction{displayName:$displayName,photoUrl:$photoUrl}';
-  }
+  UserUpdateProfileDisplayNameAction({this.displayName});
+
 }
 
 class UserLoginEmailPasswordAction extends UserAction {
@@ -89,3 +85,10 @@ class UserLoginEmailPasswordAction extends UserAction {
 class UserLoginGoogleAction extends UserAction {}
 
 class UserLogoutAction extends UserAction {}
+
+// +++ Actions atendidas por firebaseStorageMiddleware
+class UserUpdateProfilePhotoUrlAction extends UserAction{
+  final String photoLocalPath;
+
+  UserUpdateProfilePhotoUrlAction({this.photoLocalPath});
+}
