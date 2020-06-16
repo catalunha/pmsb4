@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/colecao_action.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/container/colecao/colecao_page.dart';
+import 'package:pmsb4/container/colecao/colecao_update.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
 import 'package:pmsb4/container/home/home_page.dart';
 import 'package:pmsb4/container/user/profile_page.dart';
@@ -68,8 +69,10 @@ class MyApp extends StatelessWidget {
             return ProfileUpdate();
           },
           Routes.colecao: (context) {
-            store.dispatch(ColecaoStreamDocsAction());
             return ColecaoPage();
+          },
+          Routes.colecaoUpdate: (context) {
+            return ColecaoUpdate();
           },
         },
       ),

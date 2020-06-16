@@ -6,6 +6,7 @@ class Routes{
   static final profile = '/profile';
   static final profileUpdate ='/profile_update';
   static final colecao ='/colecao';
+  static final colecaoUpdate ='/colecao_update';
 }
 class Keys {
   static final navKey = GlobalKey<NavigatorState>();

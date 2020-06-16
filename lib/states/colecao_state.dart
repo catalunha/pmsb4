@@ -21,8 +21,8 @@ class ColecaoState {
     List<ColecaoModel> listColecaoModel,
   }) {
     return ColecaoState(
-      colecaoModel: colecaoModel,
-      listColecaoModel: listColecaoModel,
+      colecaoModel: colecaoModel ?? this.colecaoModel,
+      listColecaoModel: listColecaoModel ?? this.listColecaoModel,
     );
   }
 

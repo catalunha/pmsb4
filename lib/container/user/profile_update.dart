@@ -39,13 +39,14 @@ class ProfileUpdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
-        converter: (store) => _ViewModel.fromStore(store),
-        builder: (BuildContext context, _ViewModel viewModel) {
-          return ProfileUpdateDS(
-            displayName: viewModel.displayName,
-            photoUrl: viewModel.photoUrl,
-            updateProfile: viewModel.updateProfile,
-          );
-        });
+      converter: (store) => _ViewModel.fromStore(store),
+      builder: (BuildContext context, _ViewModel viewModel) {
+        return ProfileUpdateDS(
+          displayName: viewModel.displayName,
+          photoUrl: viewModel.photoUrl,
+          updateProfile: viewModel.updateProfile,
+        );
+      },
+    );
   }
 }

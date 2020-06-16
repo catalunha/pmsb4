@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:pmsb4/middlewares/firebase/firestore/user/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
-
 @immutable
 class UserState {
   final FirebaseUser firebaseUser;
@@ -25,9 +24,9 @@ class UserState {
       FirebaseUser firebaseUser,
       UserModel userModel}) {
     return UserState(
-      authenticationStatus: authenticationStatus,
+      authenticationStatus: authenticationStatus ?? this.authenticationStatus,
       firebaseUser: firebaseUser,
-      userModel: userModel,
+      userModel: userModel ?? this.userModel,
     );
   }
 
@@ -45,8 +44,8 @@ class UserState {
           userModel == other.userModel &&
           authenticationStatus == other.authenticationStatus;
 
-@override
-String toString(){
-  return 'UserState{firebaseUser:$firebaseUser,authenticationStatus:$authenticationStatus,userModel:$userModel}';
-}
+  @override
+  String toString() {
+    return 'UserState{firebaseUser:$firebaseUser,authenticationStatus:$authenticationStatus,userModel:$userModel}';
+  }
 }

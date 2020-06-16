@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/container/colecao/colecao_update.dart';
 import 'package:pmsb4/middlewares/firebase/firestore/colecao/colecao_model.dart';
 
 class ColecaoPageDS extends StatelessWidget {
@@ -22,6 +23,15 @@ class ColecaoPageDS extends StatelessWidget {
             return ListTile(
               title: Text(colecao.letter),
               subtitle: Text(colecao.id),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ColecaoUpdate(
+                      index: index,
+                    ),
+                  ),
+                );
+              },
             );
           }),
     );

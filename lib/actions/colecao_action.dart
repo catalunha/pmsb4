@@ -8,6 +8,11 @@ class ColecaoListDocsAction extends ColecaoAction {
 
   ColecaoListDocsAction({this.listColecaoModel});
 }
+class ColecaoCurrentDocAction extends ColecaoAction{
+  final int index;
+
+  ColecaoCurrentDocAction({this.index});
+}
 
 // +++ Actions atendidas pelo firebaseFirestoreColecaoMiddleware
 class ColecaoStreamDocsAction extends ColecaoAction {}
