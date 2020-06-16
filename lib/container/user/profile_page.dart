@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/presentation/user/perfil_page_ds.dart';
+import 'package:pmsb4/presentation/user/profile_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -22,14 +22,14 @@ class _ViewModel {
   }
 }
 
-class PerfilPage extends StatelessWidget {
-  PerfilPage({Key key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  ProfilePage({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState,_ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel viewModel) {
-        return PerfilPageDS(
+        return ProfilePageDS(
           uid: viewModel.uid,
           displayName: viewModel.displayName ?? '',
           email: viewModel.email ?? '',

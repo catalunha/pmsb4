@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pmsb4/actions/colecao_action.dart';
 import 'package:pmsb4/actions/user_action.dart';
+import 'package:pmsb4/container/colecao/colecao_page.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
 import 'package:pmsb4/container/home/home_page.dart';
-import 'package:pmsb4/container/user/perfil_page.dart';
+import 'package:pmsb4/container/user/profile_page.dart';
 import 'package:pmsb4/container/user/profile_update.dart';
+import 'package:pmsb4/middlewares/firebase/authentication/authentication_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/firestore/colecao/colecao_middleware.dart';
 
-import 'package:pmsb4/middlewares/firebase/authentication/auth_middleware.dart';
 import 'package:pmsb4/middlewares/storage/storage_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
@@ -23,7 +26,10 @@ void main() {
 Store<AppState> _store = Store<AppState>(
   appReducer,
   initialState: AppState.initial(),
-  middleware: []..addAll(firebaseAuthenticationMiddleware())..addAll(firebaseStorageMiddleware()),
+  middleware: []
+    ..addAll(firebaseAuthenticationMiddleware())
+    ..addAll(firebaseStorageMiddleware())
+    ..addAll(firebaseFirestoreColecaoMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
 
@@ -52,15 +58,19 @@ class MyApp extends StatelessWidget {
           Routes.home: (context) {
             return HomePage();
           },
-          Routes.perfil: (context) {
-            return PerfilPage();
-          },
           Routes.counter: (context) {
             return CounterPage();
           },
+          Routes.profile: (context) {
+            return ProfilePage();
+          },
           Routes.profileUpdate: (context) {
             return ProfileUpdate();
-          }
+          },
+          Routes.colecao: (context) {
+            store.dispatch(ColecaoStreamDocsAction());
+            return ColecaoPage();
+          },
         },
       ),
     );

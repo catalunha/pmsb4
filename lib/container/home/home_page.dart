@@ -26,6 +26,7 @@ class HomePage extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
+        
         if (_viewModel.logged) {
           return HomePageDS();
         } else {

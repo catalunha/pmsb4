@@ -2,25 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/routes.dart';
 
-class PerfilPageDS extends StatelessWidget {
+class ProfilePageDS extends StatelessWidget {
   final String uid;
   final String displayName;
   final String email;
   final String phoneNumber;
   final String photoUrl;
-  PerfilPageDS(
+  ProfilePageDS(
       {Key key,
       this.uid,
       this.displayName,
       this.email,
       this.phoneNumber,
       this.photoUrl})
-      : super(key: key) {}
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil do Usuario'),
+        title: Text('Profile do Usuario'),
       ),
       body: ListView(
         children: <Widget>[

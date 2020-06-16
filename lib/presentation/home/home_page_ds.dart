@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/container/components/logout_button.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
-import 'package:pmsb4/container/user/perfil_page.dart';
-
+import 'package:pmsb4/container/user/profile_page.dart';
+import 'package:pmsb4/routes.dart';
 
 class HomePageDS extends StatelessWidget {
   HomePageDS({Key key}) : super(key: key);
@@ -20,17 +20,6 @@ class HomePageDS extends StatelessWidget {
             trailing: LogoutButton(),
           ),
           ListTile(
-            title: Text('Perfil Page'),
-            onTap: () {
-              // Navigator.pushNamed(context, Routes.perfil);
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PerfilPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
             title: Text('Counter Page'),
             onTap: () {
               // Navigator.pushNamed(context, Routes.counter);
@@ -41,6 +30,24 @@ class HomePageDS extends StatelessWidget {
                   ),
                 ),
               );
+            },
+          ),
+          ListTile(
+            title: Text('Profile Page'),
+            onTap: () {
+              // Navigator.pushNamed(context, Routes.perfil);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfilePage(),
+                ),
+              );
+            },
+          ),
+                    ListTile(
+            title: Text('Colecao Page'),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.colecao);
+
             },
           ),
         ],
