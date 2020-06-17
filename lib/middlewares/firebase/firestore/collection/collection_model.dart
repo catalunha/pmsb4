@@ -1,16 +1,16 @@
 import 'package:pmsb4/middlewares/firebase/firestore/firestore_model.dart';
 
-class ColecaoModel extends FirestoreModel {
-  static final String collection = 'colecao';
+class CollectionModel extends FirestoreModel {
+  static final String collection = 'collection';
   String letter;
 
-  ColecaoModel(
+  CollectionModel(
     String id, {
     this.letter,
   }) : super(id);
 
   @override
-  ColecaoModel fromFirestore(Map<String, dynamic> map) {
+  CollectionModel fromFirestore(Map<String, dynamic> map) {
     if (map.containsKey('letra')) letter = map['letra'];
     return this;
   }
@@ -23,7 +23,7 @@ class ColecaoModel extends FirestoreModel {
   }
 
   @override
-  ColecaoModel fromMap(Map<String, dynamic> map) {
+  CollectionModel fromMap(Map<String, dynamic> map) {
     if (map.containsKey('letter')) letter = map['letter'];
     return this;
   }

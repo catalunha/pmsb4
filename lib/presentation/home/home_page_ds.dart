@@ -44,9 +44,9 @@ class HomePageDS extends StatelessWidget {
             },
           ),
                     ListTile(
-            title: Text('Colecao Page'),
+            title: Text('Collection Page'),
             onTap: () {
-              Navigator.pushNamed(context, Routes.colecao);
+              Navigator.pushNamed(context, Routes.collection);
 
             },
           ),

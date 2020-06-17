@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/actions/colecao_action.dart';
+import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/container/colecao/colecao_page.dart';
-import 'package:pmsb4/container/colecao/colecao_update.dart';
+import 'package:pmsb4/container/collection/collection_page.dart';
+import 'package:pmsb4/container/collection/collection_update.dart';
 import 'package:pmsb4/container/counter/counter_page.dart';
 import 'package:pmsb4/container/home/home_page.dart';
 import 'package:pmsb4/container/user/profile_page.dart';
 import 'package:pmsb4/container/user/profile_update.dart';
 import 'package:pmsb4/middlewares/firebase/authentication/authentication_middleware.dart';
-import 'package:pmsb4/middlewares/firebase/firestore/colecao/colecao_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/firestore/collection/collection_middleware.dart';
 
 import 'package:pmsb4/middlewares/storage/storage_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
@@ -30,7 +30,7 @@ Store<AppState> _store = Store<AppState>(
   middleware: []
     ..addAll(firebaseAuthenticationMiddleware())
     ..addAll(firebaseStorageMiddleware())
-    ..addAll(firebaseFirestoreColecaoMiddleware()),
+    ..addAll(firebaseFirestoreCollectionMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
 
@@ -68,11 +68,11 @@ class MyApp extends StatelessWidget {
           Routes.profileUpdate: (context) {
             return ProfileUpdate();
           },
-          Routes.colecao: (context) {
-            return ColecaoPage();
+          Routes.collection: (context) {
+            return CollectionPage();
           },
-          Routes.colecaoUpdate: (context) {
-            return ColecaoUpdate();
+          Routes.collectionUpdate: (context) {
+            return CollectionUpdate();
           },
         },
       ),
