@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:pmsb4/middlewares/firebase/firestore/collection/collection_model.dart';
+import 'package:pmsb4/model/collection/collection_model.dart';
 
 @immutable
 class CollectionState {

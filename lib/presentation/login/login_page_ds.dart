@@ -106,7 +106,7 @@ class LoginPageDSState extends State<LoginPageDS> {
                     : Container(),
                 widget.authenticationStatus ==
                         AuthenticationStatus.unInitialized
-                    ? Text('Bem vindo.')
+                    ? Text('Estamos aguardando vc logar.')
                     : Container(),
                 widget.authenticationStatus ==
                         AuthenticationStatus.authenticated

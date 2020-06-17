@@ -20,8 +20,12 @@ List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
   ];
 }
 
-Middleware<AppState> _userUpdateProfileDisplayNameAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserUpdateProfileDisplayNameAction action,
+  NextDispatcher next,
+) _userUpdateProfileDisplayNameAction() {
+  return (store, action, next) async {
     final String _displayName = action.displayName;
     FirebaseUser firebaseUser = store.state.userState.firebaseUser;
 
@@ -40,8 +44,12 @@ Middleware<AppState> _userUpdateProfileDisplayNameAction() {
   };
 }
 
-Middleware<AppState> _userOnAuthStateChangedAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserOnAuthStateChangedAction action,
+  NextDispatcher next,
+) _userOnAuthStateChangedAction() {
+  return (store, action, next) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     // final FirebaseAuth firebaseAuth;
     try {
@@ -70,8 +78,12 @@ Middleware<AppState> _userOnAuthStateChangedAction() {
   };
 }
 
-Middleware<AppState> _userSendPasswordResetEmailAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserSendPasswordResetEmailAction action,
+  NextDispatcher next,
+) _userSendPasswordResetEmailAction() {
+  return (store, action, next) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       store.dispatch(UserAuthenticationStatusAction(
@@ -84,8 +96,12 @@ Middleware<AppState> _userSendPasswordResetEmailAction() {
   };
 }
 
-Middleware<AppState> _userLoginEmailPasswordAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserLoginEmailPasswordAction action,
+  NextDispatcher next,
+) _userLoginEmailPasswordAction() {
+  return (store, action, next) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseUser firebaseUser;
     try {
@@ -110,8 +126,12 @@ Middleware<AppState> _userLoginEmailPasswordAction() {
   };
 }
 
-Middleware<AppState> _userLoginGoogleAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserLoginGoogleAction action,
+  NextDispatcher next,
+) _userLoginGoogleAction() {
+  return (store, action, next) async {
     FirebaseUser firebaseUser;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -139,8 +159,12 @@ Middleware<AppState> _userLoginGoogleAction() {
   };
 }
 
-Middleware<AppState> _userLogoutAction() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
+void Function(
+  Store<AppState> store,
+  UserLogoutAction action,
+  NextDispatcher next,
+) _userLogoutAction() {
+  return (store, action, next) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       await _auth.signOut();

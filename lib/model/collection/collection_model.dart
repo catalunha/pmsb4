@@ -1,7 +1,7 @@
 import 'package:pmsb4/middlewares/firebase/firestore/firestore_model.dart';
 
 class CollectionModel extends FirestoreModel {
-  static final String collection = 'collection';
+  static final String collection = 'colecao';
   String letter;
 
   CollectionModel(

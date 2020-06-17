@@ -1,4 +1,4 @@
-import 'package:pmsb4/middlewares/firebase/firestore/collection/collection_model.dart';
+import 'package:pmsb4/model/collection/collection_model.dart';
 
 class CollectionAction {}
 
@@ -8,29 +8,29 @@ class CollectionListDocsAction extends CollectionAction {
 
   CollectionListDocsAction({this.listCollectionModel});
 }
-class CollectionCurrentDocAction extends CollectionAction{
+
+class CollectionCurrentDocAction extends CollectionAction {
   final int index;
 
   CollectionCurrentDocAction({this.index});
 }
 
 // +++ Actions atendidas pelo firebaseFirestoreCollectionMiddleware
-class CollectionStreamDocsAction extends CollectionAction {}
-
 class CollectionAddDocAction extends CollectionAction {
   final CollectionModel collectionModel;
 
   CollectionAddDocAction({this.collectionModel});
 }
 
-class CollectionDeleteDocsAction extends CollectionAction {
-  final List<CollectionModel> listCollectionModel;
-
-  CollectionDeleteDocsAction({this.listCollectionModel});
-}
+class CollectionStreamDocsAction extends CollectionAction {}
 
 class CollectionUpdateDocAction extends CollectionAction {
   final CollectionModel collectionModel;
-
   CollectionUpdateDocAction({this.collectionModel});
+}
+
+class CollectionDeleteDocsAction extends CollectionAction {
+  final String id;
+
+  CollectionDeleteDocsAction({this.id});
 }

@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/middlewares/firebase/firestore/collection/collection_model.dart';
 
 class CollectionUpdateDS extends StatefulWidget {
-  final int index;
-  final CollectionModel collectionModel;
-
+  final bool isEditing;
+  final String letter;
+  final Function(String) add;
+  final Function(String) update;
+  final Function delete;
   const CollectionUpdateDS({
     Key key,
-    this.index,
-    this.collectionModel,
+    this.letter,
+    this.update,
+    this.delete,
+    this.isEditing,
+    this.add,
   }) : super(key: key);
   @override
   CollectionUpdateDSState createState() {
@@ -18,14 +22,68 @@ class CollectionUpdateDS extends StatefulWidget {
 }
 
 class CollectionUpdateDSState extends State<CollectionUpdateDS> {
+  static final formKey = GlobalKey<FormState>();
+
+  String letter;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            'Collection update'),
+        title: widget.isEditing ? Text('Collection editar'):Text('Collection criar'),
       ),
-      body: Text('item ${widget.index} ${widget?.collectionModel?.id}'),
+      // body: Text('item ${widget.index} ${widget?.collectionModel?.id}'),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: form(),
+      ),
     );
+  }
+
+  Widget form() {
+    return Form(
+      key: formKey,
+      child: ListView(
+        children: <Widget>[
+          TextFormField(
+            initialValue: widget.letter,
+            decoration: InputDecoration(labelText: 'Letra'),
+            onSaved: (value) => letter = value,
+          ),
+          ListTile(
+            title: Center(
+              child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
+            ),
+            onTap: () {
+              validateData();
+              Navigator.pop(context);
+            },
+          ),
+          widget.isEditing
+              ? ListTile(
+                  title: Center(
+                    child: Text('Delete'),
+                  ),
+                  onTap: () {
+                    widget.delete();
+                    Navigator.pop(context);
+                  },
+                )
+              : Container(),
+        ],
+      ),
+    );
+  }
+
+  void validateData() {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+      if (widget.isEditing) {
+        widget.update(letter);
+      } else {
+        widget.add(letter);
+      }
+    } else {
+      setState(() {});
+    }
   }
 }
