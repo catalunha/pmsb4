@@ -14,7 +14,7 @@ class CollectionPageDS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Collection'),
+        title: Text('Collection...'),
       ),
       body: ListView.builder(
         itemCount: listCollectionModel.length,
