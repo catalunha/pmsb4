@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/container/collection/collection_page.dart';
 import 'package:pmsb4/container/collection/collection_update.dart';
@@ -19,6 +18,7 @@ import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MyApp(),
   );
@@ -40,10 +40,9 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-    // TODO: Resolver esta conferencia se usuario ja esta logado.
-    // store.dispatch(UserOnAuthStateChangedAction());
     store.dispatch(UserAuthenticationStatusAction(
         authenticationStatus: AuthenticationStatus.unInitialized));
+    store.dispatch(UserOnAuthStateChangedAction());
   }
 
   @override
@@ -52,7 +51,7 @@ class MyApp extends StatelessWidget {
       // store: appStore,
       store: store,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'PMSB4',
         navigatorKey: Keys.navKey,
         initialRoute: Routes.home,
         routes: {

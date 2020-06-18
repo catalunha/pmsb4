@@ -50,27 +50,25 @@ void Function(
   NextDispatcher next,
 ) _userOnAuthStateChangedAction() {
   return (store, action, next) async {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    // final FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
-      print('_logged1');
-      // firebaseAuth.onAuthStateChanged((firebaseUser) async {
-      //   print('_logged2');
-      //   if (firebaseUser != null) {
-      //     print('_logged3');
-      //     // assert(!firebaseUser.isAnonymous);
-      //     // assert(await firebaseUser.getIdToken() != null);
-      //     // final FirebaseUser currentUser = await firebaseAuth.currentUser();
-      //     // assert(firebaseUser.uid == currentUser.uid);
+      print('_userOnAuthStateChangedAction');
+      firebaseAuth.currentUser().then((firebaseUser) {
+        print('Auth de ultimo login...');
+        store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
+      });
+      // stream.listen((firebaseUser) {
+      //   print('ouvindo');
+      //   if (firebaseUser.isEmailVerified) {
       //     store.dispatch(UserAuthenticationStatusAction(
       //         authenticationStatus: AuthenticationStatus.authenticated));
       //     store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
-      //   } else {
-      //     store.dispatch(UserLogoutAction());
-      //     store.dispatch(UserAuthenticationStatusAction(
-      //         authenticationStatus: AuthenticationStatus.unAuthenticated));
       //   }
-      // }));
+      //  else {
+      //   store.dispatch(UserAuthenticationStatusAction(
+      //       authenticationStatus: AuthenticationStatus.unAuthenticated));
+      // }
+      // });
       next(action);
     } catch (error) {
       // store.dispatch(UserLoginFailAction(error: error));
