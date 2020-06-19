@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/counter_action.dart';
-import 'package:pmsb4/presentation/counter/counter_page_ds.dart';
-import 'package:pmsb4/selectors/counter/selector.dart';
+import 'package:pmsb4/presentations/counter/counter_page_ds.dart';
+import 'package:pmsb4/selectors/selector.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -29,9 +29,7 @@ class _ViewModel {
 
 class CounterPage extends StatelessWidget {
   final String title;
-
   const CounterPage({Key key, this.title='teste'}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
@@ -47,4 +45,3 @@ class CounterPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pmsb4/actions/collection_action.dart';
-import 'package:pmsb4/model/collection/collection_model.dart';
+import 'package:pmsb4/models/collection_model.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 

@@ -1,5 +1,5 @@
 
-import 'package:pmsb4/middlewares/firebase/firestore/firestore_model.dart';
+import 'package:pmsb4/models/firestore_model.dart';
 
 class UserModel extends FirestoreModel {
   static final String collection = 'Usuario';

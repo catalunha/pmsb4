@@ -1,4 +1,5 @@
-import 'package:pmsb4/model/collection/collection_model.dart';
+
+import 'package:pmsb4/models/collection_model.dart';
 
 class CollectionAction {}
 

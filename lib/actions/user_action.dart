@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pmsb4/states/enums.dart';
-import 'package:pmsb4/states/user_state.dart';
 
 class UserAction {}
 

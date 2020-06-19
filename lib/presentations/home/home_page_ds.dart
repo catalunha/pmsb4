@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/container/components/logout_button.dart';
-import 'package:pmsb4/container/counter/counter_page.dart';
-import 'package:pmsb4/container/user/profile_page.dart';
+import 'package:pmsb4/containers/components/logout_button.dart';
+import 'package:pmsb4/containers/counter/counter_page.dart';
+import 'package:pmsb4/containers/user/profile_page.dart';
 import 'package:pmsb4/routes.dart';
 
 class HomePageDS extends StatelessWidget {

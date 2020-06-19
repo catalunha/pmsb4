@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/container/collection/collection_update.dart';
-import 'package:pmsb4/model/collection/collection_model.dart';
+import 'package:pmsb4/containers/collection/collection_update.dart';
+import 'package:pmsb4/models/collection_model.dart';
 
 class CollectionPageDS extends StatelessWidget {
   final List<CollectionModel> listCollectionModel;

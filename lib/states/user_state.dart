@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:pmsb4/middlewares/firebase/firestore/user/user_model.dart';
+import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 @immutable

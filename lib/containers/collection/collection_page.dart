@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/collection_action.dart';
-import 'package:pmsb4/model/collection/collection_model.dart';
-import 'package:pmsb4/presentation/collection/collection_page_ds.dart';
+import 'package:pmsb4/models/collection_model.dart';
+import 'package:pmsb4/presentations/collection/collection_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/container/collection/collection_page.dart';
-import 'package:pmsb4/container/collection/collection_update.dart';
-import 'package:pmsb4/container/counter/counter_page.dart';
-import 'package:pmsb4/container/home/home_page.dart';
-import 'package:pmsb4/container/user/profile_page.dart';
-import 'package:pmsb4/container/user/profile_update.dart';
-import 'package:pmsb4/middlewares/firebase/authentication/authentication_middleware.dart';
-import 'package:pmsb4/middlewares/firebase/firestore/collection/collection_middleware.dart';
+import 'package:pmsb4/containers/collection/collection_page.dart';
+import 'package:pmsb4/containers/collection/collection_update.dart';
+import 'package:pmsb4/containers/counter/counter_page.dart';
+import 'package:pmsb4/containers/home/home_page.dart';
+import 'package:pmsb4/containers/user/profile_page.dart';
+import 'package:pmsb4/containers/user/profile_update.dart';
+import 'package:pmsb4/middlewares/firebase/authentication_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/collection_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/storage_middleware.dart';
 
-import 'package:pmsb4/middlewares/storage/storage_middleware.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

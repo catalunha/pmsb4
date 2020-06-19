@@ -39,7 +39,7 @@ class ProfilePageDS extends StatelessWidget {
             ),
             title: Text('FirebaseUser'),
             subtitle: Text(
-                'uid:$uid\ndisplayName:$displayName\nemail:$email\nphoneNumber:$phoneNumber\nphotoUrl:${photoUrl}'),
+                'uid:$uid\ndisplayName:$displayName\nemail:$email\nphoneNumber:$phoneNumber\nphotoUrl:$photoUrl'),
             onTap: () {
               Navigator.pushNamed(context, Routes.profileUpdate);
             },

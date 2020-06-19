@@ -1,4 +1,4 @@
-import 'package:pmsb4/selectors/counter/selector.dart';
+import 'package:pmsb4/selectors/selector.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
