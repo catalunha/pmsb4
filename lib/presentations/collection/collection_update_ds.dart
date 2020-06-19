@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/presentations/components/input_text.dart';
 
 class CollectionUpdateDS extends StatefulWidget {
   final bool isEditing;
@@ -44,11 +45,12 @@ class CollectionUpdateDSState extends State<CollectionUpdateDS> {
       key: formKey,
       child: ListView(
         children: <Widget>[
-          TextFormField(
-            initialValue: widget.letter,
-            decoration: InputDecoration(labelText: 'Letra'),
-            onSaved: (value) => letter = value,
-          ),
+          // TextFormField(
+          //   initialValue: widget.letter,
+          //   decoration: InputDecoration(labelText: 'Letra'),
+          //   onSaved: (value) => letter = value,
+          // ),
+          InputText(title: 'Letra',initialValue: widget.letter,onSaved2: (value) => letter = value,),
           ListTile(
             title: Center(
               child: widget.isEditing ? Text('Atualizar') : Text('Criar'),

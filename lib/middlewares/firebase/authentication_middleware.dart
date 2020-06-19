@@ -54,8 +54,10 @@ void Function(
     try {
       print('_userOnAuthStateChangedAction');
       firebaseAuth.currentUser().then((firebaseUser) {
-        print('Auth de ultimo login...');
-        store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
+        if (firebaseUser?.uid != null) {
+          print('Auth de ultimo login uid: ${firebaseUser.uid}');
+          store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
+        }
       });
       // stream.listen((firebaseUser) {
       //   print('ouvindo');
