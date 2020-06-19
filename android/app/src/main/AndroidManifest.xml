@@ -5,10 +5,22 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+        <!-- Estes itens foram adicionados pelo Prof Catalunha com base neste stackoverflow 
+              android:usesCleartextTraffic="true"
+              android:networkSecurityConfig="@xml/network_security_config"
+              <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+             E este arquivo tb
+             ./pmsb4/android/app/src/main/res/xml/network_security_config.xml
+         https://stackoverflow.com/questions/39933345/no-network-security-config-specified-using-platform-default-android-log 
+         https://developer.android.com/training/articles/security-config
+         -->
     <application
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:name="io.flutter.app.FlutterApplication"
         android:label="pmsb4"
         android:icon="@mipmap/ic_launcher">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
