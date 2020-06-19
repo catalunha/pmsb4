@@ -36,6 +36,7 @@ void Function(
         firebaseUser.reload();
         FirebaseAuth firebaseAuth = FirebaseAuth.instance;
         firebaseUser = await firebaseAuth.currentUser();
+        // print('_userUpdateProfileDisplayNameAction novo ${firebaseUser.displayName}');
         store.dispatch(
             UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
       }).catchError((onError) => print('_updateprofile onError:' + onError));

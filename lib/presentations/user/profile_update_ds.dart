@@ -1,8 +1,9 @@
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
+import 'package:pmsb4/plataform/incompatible/incompatible.dart'
+    show FilePicker, FileType;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pmsb4/plataform/resources.dart';
 
 class ProfileUpdateDS extends StatefulWidget {
   final String displayName;
@@ -39,7 +40,7 @@ class ProfileUpdateDSState extends State<ProfileUpdateDS> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Profile update'),
+          title: Text('Profile update ${Recursos.instance.plataforma}'),
         ),
         body: Padding(
           padding: EdgeInsets.all(16.0),
@@ -66,31 +67,33 @@ class ProfileUpdateDSState extends State<ProfileUpdateDS> {
           //   ),
           //   onSaved: (value) => _photoUrl = value,
           // ),
-          ListTile(
-            title: Text('Selecione a foto'),
-            trailing: Icon(Icons.file_download),
-            onTap: () async {
-              await _selectFile().then((filePath) {
-                print(filePath);
-                _photoUrl = filePath;
-                setState(() {
-                  
-                });
-              });
-            },
-          ),
-          CircleAvatar(
-            minRadius: 100,
-            maxRadius: 100,
-            // backgroundImage: NetworkImage(photoUrl),
-            child: ClipOval(
-              child: Center(
-                child: _photoUrl != null
-                    ? Image.file(File(_photoUrl))
-                    : Icon(Icons.chat),
-              ),
-            ),
-          ),
+          Recursos.instance.plataforma == 'android'
+              ? ListTile(
+                  title: Text('Selecione a foto'),
+                  trailing: Icon(Icons.file_download),
+                  onTap: () async {
+                    await _selectFile().then((filePath) {
+                      print(filePath);
+                      _photoUrl = filePath;
+                      setState(() {});
+                    });
+                  },
+                )
+              : Container(),
+          Recursos.instance.plataforma == 'android'
+              ? CircleAvatar(
+                  minRadius: 100,
+                  maxRadius: 100,
+                  // backgroundImage: NetworkImage(photoUrl),
+                  child: ClipOval(
+                    child: Center(
+                      child: _photoUrl != null
+                          ? Image.file(File(_photoUrl))
+                          : Icon(Icons.chat),
+                    ),
+                  ),
+                )
+              : Container(),
           ListTile(
             title: Center(child: Text('Atualizar')),
             onTap: () {

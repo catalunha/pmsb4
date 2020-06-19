@@ -19,7 +19,7 @@ class InputTextState extends State<InputText> {
   Widget build(BuildContext context) {
     return TextFormField(
         decoration: InputDecoration(
-          labelText: widget.title + ' 2 ',
+          labelText: widget.title,
         ),
         initialValue: widget.initialValue ?? '',
         onSaved: widget.onSaved2);

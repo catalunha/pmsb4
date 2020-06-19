@@ -10,13 +10,13 @@ import 'package:pmsb4/containers/user/profile_update.dart';
 import 'package:pmsb4/middlewares/firebase/authentication_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/collection_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/storage_middleware.dart';
+import 'package:pmsb4/plataform/resources.dart';
 
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +48,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Recursos.initialize(Theme.of(context).platform);
+
     return StoreProvider<AppState>(
       // store: appStore,
       store: store,
