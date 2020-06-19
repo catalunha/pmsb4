@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/models/collection_model.dart';
 import 'package:pmsb4/presentations/collection/collection_update_ds.dart';
+import 'package:pmsb4/selectors/collection_selector.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -21,17 +22,18 @@ class _ViewModel {
     this.delete,
   });
   static _ViewModel fromStore(Store<AppState> store, int index) {
+    CollectionModel _collectionModel = index != null
+        ? collectionCurrentSelectedSelector(store.state.collectionState, index)
+        : null;
     return _ViewModel(
         isEditing: index != null ? true : false,
-        letter: index != null
-            ? store.state.collectionState.collectionModel.letter
-            : '',
+        letter: index != null ? _collectionModel.letter : '',
         update: (String letter) {
-          CollectionModel collectionModel =
-              CollectionModel(store.state.collectionState.collectionModel.id);
-          collectionModel.letter = letter;
+          // CollectionModel collectionModel =
+          //     CollectionModel(_collectionModel.id);
+          _collectionModel.letter = letter;
           store.dispatch(
-              CollectionUpdateDocAction(collectionModel: collectionModel));
+              CollectionUpdateDocAction(collectionModel: _collectionModel));
         },
         add: (String letter) {
           CollectionModel collectionModel = CollectionModel(null);
@@ -40,8 +42,7 @@ class _ViewModel {
               CollectionAddDocAction(collectionModel: collectionModel));
         },
         delete: () {
-          store.dispatch(CollectionDeleteDocsAction(
-              id: store.state.collectionState.collectionModel.id));
+          store.dispatch(CollectionDeleteDocsAction(id: _collectionModel.id));
         });
   }
 }
@@ -63,11 +64,11 @@ class CollectionUpdate extends StatelessWidget {
           delete: _viewModel.delete,
         );
       },
-      onInit: (Store<AppState> store) {
-        print('CollectionUpdate onInit : $index');
-        if (index != null)
-          store.dispatch(CollectionCurrentDocAction(index: index));
-      },
+      // onInit: (Store<AppState> store) {
+      //   print('CollectionUpdate onInit : $index');
+      //   if (index != null)
+      //     store.dispatch(CollectionCurrentDocAction(index: index));
+      // },
     );
   }
 }
