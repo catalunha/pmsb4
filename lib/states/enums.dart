@@ -5,3 +5,10 @@ enum AuthenticationStatus {
   unAuthenticated,
   sendPasswordReset,
 }
+
+enum CollectionFilter {
+  all,
+  checkTrue,
+  checkFalse,
+  checkNull
+}

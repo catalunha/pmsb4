@@ -1,44 +1,62 @@
 import 'package:meta/meta.dart';
 import 'package:pmsb4/models/collection_model.dart';
+import 'package:pmsb4/states/enums.dart';
 
 @immutable
 class CollectionState {
-  final CollectionModel collectionModel;
-  final List<CollectionModel> listCollectionModel;
+  final CollectionModel currentCollectionModel;
+  final List<CollectionModel> allCollectionModel;
+  final List<CollectionModel> filteredCollectionModel;
+  final CollectionFilter collectionFilter;
   CollectionState({
-    this.listCollectionModel,
-    this.collectionModel,
+    this.allCollectionModel,
+    this.currentCollectionModel,
+    this.collectionFilter,
+    this.filteredCollectionModel,
   });
 
   factory CollectionState.initial() {
     return CollectionState(
-      collectionModel: null,
-      listCollectionModel: [],
+      currentCollectionModel: null,
+      allCollectionModel: [],
+      filteredCollectionModel: [],
+      collectionFilter: CollectionFilter.all,
     );
   }
   CollectionState copyWith({
     CollectionModel collectionModel,
-    List<CollectionModel> listCollectionModel,
+    List<CollectionModel> allCollectionModel,
+    List<CollectionModel> filteredCollectionModel,
+    CollectionFilter collectionFilter,
   }) {
     return CollectionState(
-      collectionModel: collectionModel ?? this.collectionModel,
-      listCollectionModel: listCollectionModel ?? this.listCollectionModel,
+      currentCollectionModel: collectionModel ?? this.currentCollectionModel,
+      allCollectionModel: allCollectionModel ?? this.allCollectionModel,
+      collectionFilter: collectionFilter ?? this.collectionFilter,
+      filteredCollectionModel:
+          filteredCollectionModel ?? this.filteredCollectionModel,
     );
   }
 
   @override
-  int get hashCode => collectionModel.hashCode ^ listCollectionModel.hashCode;
+  int get hashCode =>
+      currentCollectionModel.hashCode ^
+      allCollectionModel.hashCode ^
+      collectionFilter.hashCode ^
+      filteredCollectionModel.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CollectionState &&
           runtimeType == other.runtimeType &&
-          collectionModel == other.collectionModel &&
-          listCollectionModel == other.listCollectionModel;
+          currentCollectionModel == other.currentCollectionModel &&
+          allCollectionModel == other.allCollectionModel &&
+          collectionFilter == other.collectionFilter &&
+          filteredCollectionModel == other.filteredCollectionModel;
 
   @override
   String toString() {
-    return 'CollectionState{collectionModel:$collectionModel,listCollectionModel:$listCollectionModel}';
+    return 'CollectionState{collectionModel:$currentCollectionModel,allCollectionModel:$allCollectionModel,collectionFilter:$collectionFilter,filteredCollectionModel:$filteredCollectionModel}';
   }
 }

@@ -6,20 +6,20 @@ import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseFirestoreCollectionMiddleware() {
   return [
-    TypedMiddleware<AppState, CollectionStreamDocsAction>(
+    TypedMiddleware<AppState, StreamCollectionAction>(
         _collectionStreamDocsAction()),
-    TypedMiddleware<AppState, CollectionUpdateDocAction>(
+    TypedMiddleware<AppState, UpdateCollectionAction>(
         _collectionUpdateDocAction()),
-    TypedMiddleware<AppState, CollectionDeleteDocsAction>(
+    TypedMiddleware<AppState, DeleteCollectionAction>(
         _collectionDeleteDocsAction()),
-    TypedMiddleware<AppState, CollectionAddDocAction>(
+    TypedMiddleware<AppState, AddCollectionAction>(
         _collectionAddDocAction()),
   ];
 }
 
 void Function(
   Store<AppState> store,
-  CollectionStreamDocsAction action,
+  StreamCollectionAction action,
   NextDispatcher next,
 ) _collectionStreamDocsAction() {
   return (store, action, next) async {
@@ -30,10 +30,13 @@ void Function(
     final listDocs = streamDocs.map((snapDocs) => snapDocs.documents
         .map((doc) => CollectionModel(doc.documentID).fromFirestore(doc.data))
         .toList());
-    listDocs.listen((List<CollectionModel> listCollectionModel) {
-      print('listCollectionModel: ${listCollectionModel.length}');
+    listDocs.listen((List<CollectionModel> allCollectionModel) {
+      print('allCollectionModel: ${allCollectionModel.length}');
       store.dispatch(
-          CollectionListDocsAction(listCollectionModel: listCollectionModel));
+          AllCollectionModelAction(allCollectionModel: allCollectionModel));
+      store.dispatch(
+          FilteredCollectionModelAction());
+          
     });
     next(action);
   };
@@ -41,7 +44,7 @@ void Function(
 
 void Function(
   Store<AppState> store,
-  CollectionUpdateDocAction action,
+  UpdateCollectionAction action,
   NextDispatcher next,
 ) _collectionUpdateDocAction() {
   return (store, action, next) {
@@ -57,7 +60,7 @@ void Function(
 
 void Function(
   Store<AppState> store,
-  CollectionDeleteDocsAction action,
+  DeleteCollectionAction action,
   NextDispatcher next,
 ) _collectionDeleteDocsAction() {
   return (store, action, next) {
@@ -72,7 +75,7 @@ void Function(
 }
 void Function(
   Store<AppState> store,
-  CollectionAddDocAction action,
+  AddCollectionAction action,
   NextDispatcher next,
 ) _collectionAddDocAction(){
   return (store, action, next) {

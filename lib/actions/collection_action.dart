@@ -1,37 +1,45 @@
-
 import 'package:pmsb4/models/collection_model.dart';
+import 'package:pmsb4/states/enums.dart';
 
 class CollectionAction {}
 
 // +++ Actions atendidas pelo CollectionReducer
-class CollectionListDocsAction extends CollectionAction {
-  final List<CollectionModel> listCollectionModel;
+class AllCollectionModelAction extends CollectionAction {
+  final List<CollectionModel> allCollectionModel;
 
-  CollectionListDocsAction({this.listCollectionModel});
+  AllCollectionModelAction({this.allCollectionModel});
 }
 
-class CollectionCurrentDocAction extends CollectionAction {
+class CurrentCollectionModelAction extends CollectionAction {
   final int index;
+  CurrentCollectionModelAction({this.index});
+}
 
-  CollectionCurrentDocAction({this.index});
+class UpdateCollectionFilterAction extends CollectionAction {
+  final CollectionFilter collectionFilter;
+
+  UpdateCollectionFilterAction({this.collectionFilter});
+}
+class FilteredCollectionModelAction extends CollectionAction{
+
 }
 
 // +++ Actions atendidas pelo firebaseFirestoreCollectionMiddleware
-class CollectionAddDocAction extends CollectionAction {
+class AddCollectionAction extends CollectionAction {
   final CollectionModel collectionModel;
 
-  CollectionAddDocAction({this.collectionModel});
+  AddCollectionAction({this.collectionModel});
 }
 
-class CollectionStreamDocsAction extends CollectionAction {}
+class StreamCollectionAction extends CollectionAction {}
 
-class CollectionUpdateDocAction extends CollectionAction {
+class UpdateCollectionAction extends CollectionAction {
   final CollectionModel collectionModel;
-  CollectionUpdateDocAction({this.collectionModel});
+  UpdateCollectionAction({this.collectionModel});
 }
 
-class CollectionDeleteDocsAction extends CollectionAction {
+class DeleteCollectionAction extends CollectionAction {
   final String id;
 
-  CollectionDeleteDocsAction({this.id});
+  DeleteCollectionAction({this.id});
 }

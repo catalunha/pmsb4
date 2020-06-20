@@ -3,4 +3,4 @@ import 'package:pmsb4/states/collection_state.dart';
 
 CollectionModel collectionCurrentSelectedSelector(
         CollectionState state, int index) =>
-    state.listCollectionModel[index];
+    state.allCollectionModel[index];

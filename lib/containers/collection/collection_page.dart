@@ -4,16 +4,29 @@ import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/models/collection_model.dart';
 import 'package:pmsb4/presentations/collection/collection_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final List<CollectionModel> listCollectionModel;
-
-  _ViewModel({this.listCollectionModel});
+  final List<CollectionModel> filteredCollectionModel;
+  final Function(bool) filter;
+// final Function(bool) selectList;
+  _ViewModel({this.filter, this.filteredCollectionModel});
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-      listCollectionModel: store.state.collectionState.listCollectionModel,
-    );
+        filteredCollectionModel:
+            store.state.collectionState.filteredCollectionModel,
+        filter: (bool filter) {
+          if (filter) {
+            store.dispatch(UpdateCollectionFilterAction(
+                collectionFilter: CollectionFilter.checkTrue));
+            // store.dispatch(FilteredCollectionModelAction());
+          } else {
+            store.dispatch(UpdateCollectionFilterAction(
+                collectionFilter: CollectionFilter.checkFalse));
+            // store.dispatch(FilteredCollectionModelAction());
+          }
+        });
   }
 }
 
@@ -26,11 +39,14 @@ class CollectionPage extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return CollectionPageDS(
-          listCollectionModel: _viewModel.listCollectionModel,
+          filteredCollectionModel: _viewModel.filteredCollectionModel,
+          filter: _viewModel.filter,
         );
       },
       onInit: (Store<AppState> store) {
-        store.dispatch(CollectionStreamDocsAction());
+        store.dispatch(UpdateCollectionFilterAction(
+            collectionFilter: CollectionFilter.all));
+        store.dispatch(StreamCollectionAction());
       },
     );
   }
