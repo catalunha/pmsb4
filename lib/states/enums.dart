@@ -12,3 +12,9 @@ enum CollectionFilter {
   checkFalse,
   checkNull
 }
+
+enum KanbanBoardFilter{
+  active,
+  inactive,
+  publics,
+}

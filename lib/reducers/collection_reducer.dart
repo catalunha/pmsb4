@@ -17,7 +17,7 @@ final collectionReducer = combineReducers<CollectionState>([
 
 CollectionState _allCollectionModelAction(
     CollectionState state, AllCollectionModelAction action) {
-  CollectionState _state;
+  // CollectionState _state;
 
   return state.copyWith(allCollectionModel: action.allCollectionModel);
 }
