@@ -7,7 +7,6 @@ class KanbanBoardModel extends FirestoreModel {
   String title;
   String description;
   bool public;
-  bool editing;
   UserKabanRef author;
   Map<String, UserKabanRef> team = Map<String, UserKabanRef>();
   dynamic created;
@@ -28,7 +27,7 @@ class KanbanBoardModel extends FirestoreModel {
 
   @override
   @override
-  FirestoreModel fromMap(Map<String, dynamic> map) {
+  KanbanBoardModel fromMap(Map<String, dynamic> map) {
     if (map.containsKey('title')) title = map['title'];
     if (map.containsKey('description')) description = map['description'];
     if (map.containsKey('public')) public = map['public'];
@@ -58,7 +57,8 @@ class KanbanBoardModel extends FirestoreModel {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (title != null) data['title'] = this.title;
-    if (description != null) data['description'] = this.description;
+    if (description != null && description.isNotEmpty)
+      data['description'] = this.description;
     if (public != null) data['public'] = this.public;
     if (this.author != null) {
       data['author'] = this.author.toMap();
@@ -82,6 +82,7 @@ class KanbanBoardModel extends FirestoreModel {
 
   @override
   Map<String, dynamic> toFirestore() {
+    this.modified = DateTime.now();
     return this.toMap();
   }
 }

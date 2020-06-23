@@ -6,12 +6,14 @@ import 'package:pmsb4/containers/collection/collection_update.dart';
 import 'package:pmsb4/containers/counter/counter_page.dart';
 import 'package:pmsb4/containers/home/home_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
+import 'package:pmsb4/containers/kanban/users_team.dart';
 import 'package:pmsb4/containers/user/profile_page.dart';
 import 'package:pmsb4/containers/user/profile_update.dart';
 import 'package:pmsb4/middlewares/firebase/authentication_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/collection_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/kanban_board_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/storage_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/users_middleware.dart';
 import 'package:pmsb4/plataform/resources.dart';
 
 import 'package:pmsb4/reducers/app_reducer.dart';
@@ -34,7 +36,8 @@ Store<AppState> _store = Store<AppState>(
     ..addAll(firebaseAuthenticationMiddleware())
     ..addAll(firebaseStorageMiddleware())
     ..addAll(firebaseFirestoreCollectionMiddleware())
-    ..addAll(firebaseFirestoreKanbanBoardMiddleware()),
+    ..addAll(firebaseFirestoreKanbanBoardMiddleware())
+    ..addAll(firebaseFirestoreUsersMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
 
@@ -81,6 +84,9 @@ class MyApp extends StatelessWidget {
           },
           Routes.kanbanBoard: (context) {
             return KanbanBoardPage();
+          },
+          Routes.usersTeam: (context) {
+            return UsersTeam();
           },
         },
       ),

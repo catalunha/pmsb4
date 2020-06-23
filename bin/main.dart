@@ -1,3 +1,16 @@
+
+
+void main() {
+// testeLista();
+  List<CollectionModel> allCollectionModel = [];
+  allCollectionModel.add(CollectionModel(valor: 1, check: true));
+  allCollectionModel.add(CollectionModel(valor: 2, check: false));
+  allCollectionModel.add(CollectionModel(valor: 3, check: true));
+CollectionModel a= allCollectionModel.firstWhere((element) => element.valor==3);
+print(a);
+}
+
+
 class CollectionModel {
   final int valor;
   final bool check;
@@ -5,9 +18,12 @@ class CollectionModel {
     this.valor,
     this.check,
   });
+  @override
+  String toString() {
+    return 'CollectionModel{valor:$valor,check:$check}';
+  }
 }
-
-void main() {
+void testeLista(){
   List<CollectionModel> allCollectionModel = [];
   allCollectionModel.add(CollectionModel(valor: 1, check: true));
   allCollectionModel.add(CollectionModel(valor: 2, check: false));

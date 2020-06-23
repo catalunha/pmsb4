@@ -11,7 +11,7 @@ class _ViewModel {
   final bool isEditing;
   final String letter;
   final bool check;
-  final Function(String, bool) add;
+  final Function(String, bool) create;
   final Function(String, bool) update;
   final Function delete;
 /*
@@ -24,7 +24,7 @@ Delete
     this.isEditing,
     this.letter,
     this.check,
-    this.add,
+    this.create,
     this.update,
     this.delete,
   });
@@ -33,27 +33,27 @@ Delete
         ? collectionCurrentSelectedSelector(store.state.collectionState, index)
         : null;
     return _ViewModel(
-        isEditing: index != null ? true : false,
-        letter: index != null ? _collectionModel.letter : '',
-        check: index != null ? _collectionModel.check : false,
-        update: (String letter, bool check) {
-          // CollectionModel collectionModel =
-          //     CollectionModel(_collectionModel.id);
-          _collectionModel.letter = letter;
-          _collectionModel.check = check;
-          store.dispatch(
-              UpdateCollectionAction(collectionModel: _collectionModel));
-        },
-        add: (String letter, bool check) {
-          CollectionModel collectionModel = CollectionModel(null);
-          collectionModel.letter = letter;
-          collectionModel.check = check;
-          store.dispatch(
-              AddCollectionAction(collectionModel: collectionModel));
-        },
-        delete: () {
-          store.dispatch(DeleteCollectionAction(id: _collectionModel.id));
-        });
+      isEditing: index != null ? true : false,
+      letter: index != null ? _collectionModel.letter : '',
+      check: index != null ? _collectionModel.check : false,
+      update: (String letter, bool check) {
+        // CollectionModel collectionModel =
+        //     CollectionModel(_collectionModel.id);
+        _collectionModel.letter = letter;
+        _collectionModel.check = check;
+        store.dispatch(
+            UpdateCollectionAction(collectionModel: _collectionModel));
+      },
+      create: (String letter, bool check) {
+        CollectionModel collectionModel = CollectionModel(null);
+        collectionModel.letter = letter;
+        collectionModel.check = check;
+        store.dispatch(AddCollectionAction(collectionModel: collectionModel));
+      },
+      delete: () {
+        store.dispatch(DeleteCollectionAction(id: _collectionModel.id));
+      },
+    );
   }
 }
 
@@ -70,7 +70,7 @@ class CollectionUpdate extends StatelessWidget {
           isEditing: _viewModel.isEditing,
           letter: _viewModel.letter,
           check: _viewModel.check,
-          add: _viewModel.add,
+          create: _viewModel.create,
           update: _viewModel.update,
           delete: _viewModel.delete,
         );

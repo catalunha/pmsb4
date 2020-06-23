@@ -1,33 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/users_team.dart';
+import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
 class KanbanBoardCRUDDS extends StatefulWidget {
   final bool isEditing;
   final String title;
+  final String description;
   final bool public;
+  final bool active;
+   final List<UserKabanRef> team;
 
-  final Function(String, bool) add;
+  final Function(String, String, bool, bool) create;
+  final Function(String, String, bool, bool) update;
 
   const KanbanBoardCRUDDS({
     Key key,
     this.isEditing,
     this.title,
+    this.description,
     this.public,
-    this.add,
+    this.active,
+    this.team,
+    this.create,
+    this.update,
   }) : super(key: key);
   @override
   KanbanBoardCRUDDSState createState() {
-    return KanbanBoardCRUDDSState(public);
+    return KanbanBoardCRUDDSState(public, active);
   }
 }
 
 class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
+  String _description;
   bool _public;
+  bool _active;
 
-  KanbanBoardCRUDDSState(this._public);
+  KanbanBoardCRUDDSState(this._public, this._active);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,18 +59,24 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     return Form(
       key: formKey,
       child: ListView(
+        shrinkWrap: true,
         children: [
           InputText(
             title: 'Titulo do quadro',
             initialValue: widget.title,
             onSaved2: (value) => _title = value,
           ),
-           ListTile(
-            title: Text('Marcado'),
+          InputText(
+            title: 'Descrição do quadro',
+            initialValue: widget.description,
+            onSaved2: (value) => _description = value,
+          ),
+          ListTile(
+            title: Text('Public'),
             trailing: Checkbox(
                 // +++
                 // 1) Ou usa assim true||false never null
-                value: _public ?? false,
+                value: _public,
                 // 2) Ou assim true|false|null
                 // value: _public,
                 // tristate: true,
@@ -69,6 +87,70 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                     _public = value;
                   });
                 }),
+          ),
+          ListTile(
+            title: Text('Active'),
+            trailing: Checkbox(
+                // +++
+                // 1) Ou usa assim true||false never null
+                value: _active ?? false,
+                // 2) Ou assim true|false|null
+                // value: _public,
+                // tristate: true,
+                // ---
+                activeColor: Colors.green,
+                onChanged: (value) {
+                  setState(() {
+                    _active = value;
+                  });
+                }),
+          ),
+          ListTile(
+            title: Text('Incluir time ${widget.team.length}'),
+            onTap: () {
+              // Navigator.pushNamed(context, Routes.usersTeam);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => UsersTeam(),
+                ),
+              );
+            },
+          ),
+          
+          Expanded(
+            // padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              
+              shrinkWrap: true,
+              itemCount: widget.team.length,
+              itemBuilder: (BuildContext context, int index){
+                UserKabanRef userTeam = widget.team[index];
+                print(widget.team.length);
+                print(userTeam.displayName);
+                // return Container();
+                return 
+                    
+                         Wrap(
+                          //  direction: Axis.vertical,
+                          children: [
+                            CircleAvatar(
+                              minRadius: 20,
+                              maxRadius: 20,
+                              // backgroundImage: NetworkImage(photoUrl),
+                              child: ClipOval(
+                                child: Center(
+                                  child: userTeam?.photoUrl != null
+                                      ? Image.network(userTeam.photoUrl)
+                                      : Icon(Icons.chat),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      
+                  
+              },
+            ),
           ),
           ListTile(
             title: Center(
@@ -88,9 +170,9 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       if (widget.isEditing) {
-        // widget.update(letter, _check);
+        widget.update(_title, _description, _public, _active);
       } else {
-        widget.add(_title,_public);
+        widget.create(_title, _description, _public, _active);
       }
     } else {
       setState(() {});

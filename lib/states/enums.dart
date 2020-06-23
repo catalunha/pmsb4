@@ -18,3 +18,7 @@ enum KanbanBoardFilter{
   inactive,
   publics,
 }
+
+enum UsersFilter{
+  all,
+}

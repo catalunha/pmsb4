@@ -6,7 +6,7 @@ class CollectionUpdateDS extends StatefulWidget {
   final bool isEditing;
   final String letter;
   final bool check;
-  final Function(String, bool) add;
+  final Function(String, bool) create;
   final Function(String, bool) update;
   final Function delete;
   const CollectionUpdateDS({
@@ -16,7 +16,7 @@ class CollectionUpdateDS extends StatefulWidget {
     this.update,
     this.delete,
     this.isEditing,
-    this.add,
+    this.create,
   }) : super(key: key);
   @override
   CollectionUpdateDSState createState() {
@@ -111,7 +111,7 @@ class CollectionUpdateDSState extends State<CollectionUpdateDS> {
       if (widget.isEditing) {
         widget.update(letter, _check);
       } else {
-        widget.add(letter, _check);
+        widget.create(letter, _check);
       }
     } else {
       setState(() {});

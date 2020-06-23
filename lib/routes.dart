@@ -8,6 +8,7 @@ class Routes{
   static final collection ='/collection';
   static final collectionUpdate ='/collection_update';
   static final kanbanBoard ='/kanban_board';
+  static final usersTeam ='/users_team';
 }
 class Keys {
   static final navKey = GlobalKey<NavigatorState>();

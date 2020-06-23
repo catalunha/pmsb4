@@ -1,4 +1,5 @@
 import 'package:pmsb4/models/kaban_board_model.dart';
+import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanBoardAction{}
@@ -11,14 +12,21 @@ class AllKanbanBoardModelAction extends KanbanBoardAction{
 
 }
 class CurrentKanbanBoardModelAction extends KanbanBoardAction {
-  final int index;
-  CurrentKanbanBoardModelAction({this.index});
+  final KanbanBoardModel kanbanBoardModel;
+  CurrentKanbanBoardModelAction({this.kanbanBoardModel});
 }
 class UpdateKanbanBoardFilterAction extends KanbanBoardAction {
   final KanbanBoardFilter kanbanBoardFilter;
 
   UpdateKanbanBoardFilterAction({this.kanbanBoardFilter});
 }
+
+class AddUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
+  final UserModel userModel;
+  AddUserToTeamKanbanBoardModelAction({this.userModel});
+}
+
+
 // +++ Actions atendidas pelo firebaseFirestoreKanbanBoardMiddleware
 
 class StreamKanbanBoardAction extends KanbanBoardAction {}
@@ -39,3 +47,4 @@ class DeleteKanbanBoardAction extends KanbanBoardAction {
 
   DeleteKanbanBoardAction({this.id});
 }
+
