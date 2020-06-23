@@ -27,22 +27,22 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
         KanbanBoardFilter.active) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          .where('active', isEqualTo: true)
-          .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          // .where('active', isEqualTo: true)
+          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
           .snapshots();
     } else if (store.state.kanbanBoardState.kanbanBoardFilter ==
         KanbanBoardFilter.inactive) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          .where('active', isEqualTo: false)
-          .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          // .where('active', isEqualTo: false)
+          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
           .snapshots();
     } else if (store.state.kanbanBoardState.kanbanBoardFilter ==
         KanbanBoardFilter.publics) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          .where('active', isEqualTo: false)
-          .where('public', isEqualTo: false)
+          // .where('active', isEqualTo: false)
+          // .where('public', isEqualTo: false)
           .snapshots();
     }
     final listDocs = streamDocs.map((snapDocs) => snapDocs.documents

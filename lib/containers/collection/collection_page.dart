@@ -10,7 +10,6 @@ import 'package:redux/redux.dart';
 class _ViewModel {
   final List<CollectionModel> filteredCollectionModel;
   final Function(bool) filter;
-// final Function(bool) selectList;
   _ViewModel({this.filter, this.filteredCollectionModel});
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
@@ -20,11 +19,9 @@ class _ViewModel {
           if (filter) {
             store.dispatch(UpdateCollectionFilterAction(
                 collectionFilter: CollectionFilter.checkTrue));
-            // store.dispatch(FilteredCollectionModelAction());
           } else {
             store.dispatch(UpdateCollectionFilterAction(
                 collectionFilter: CollectionFilter.checkFalse));
-            // store.dispatch(FilteredCollectionModelAction());
           }
         });
   }

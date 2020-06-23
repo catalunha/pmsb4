@@ -43,11 +43,16 @@ class HomePageDS extends StatelessWidget {
               );
             },
           ),
-                    ListTile(
+          ListTile(
             title: Text('Collection Page'),
             onTap: () {
               Navigator.pushNamed(context, Routes.collection);
-
+            },
+          ),
+                    ListTile(
+            title: Text('KanbanBoard Page'),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.kanbanBoard);
             },
           ),
         ],

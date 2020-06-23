@@ -2,7 +2,7 @@ import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/states/kanban_board_state.dart';
 import 'package:redux/redux.dart';
 
-final collectionReducer = combineReducers<KanbanBoardState>([
+final kanbanBoardReducer = combineReducers<KanbanBoardState>([
   TypedReducer<KanbanBoardState, AllKanbanBoardModelAction>(
       _allKanbanBoardModelAction),
   TypedReducer<KanbanBoardState, CurrentKanbanBoardModelAction>(
