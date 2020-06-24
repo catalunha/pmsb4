@@ -27,26 +27,31 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
     print('_streamDocsKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     Stream<QuerySnapshot> streamDocs;
-    if (store.state.kanbanBoardState.kanbanBoardFilter ==
-        KanbanBoardFilter.active) {
+    KanbanBoardFilter currentFilter =
+        store.state.kanbanBoardState.kanbanBoardFilter;
+    if (currentFilter == KanbanBoardFilter.all) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           // .where('active', isEqualTo: true)
           // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
           .snapshots();
-    } else if (store.state.kanbanBoardState.kanbanBoardFilter ==
-        KanbanBoardFilter.inactive) {
+    } else if (currentFilter == KanbanBoardFilter.active) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          // .where('active', isEqualTo: false)
+          .where('active', isEqualTo: true)
           // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
           .snapshots();
-    } else if (store.state.kanbanBoardState.kanbanBoardFilter ==
-        KanbanBoardFilter.publics) {
+    } else if (currentFilter == KanbanBoardFilter.inactive) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          // .where('active', isEqualTo: false)
-          // .where('public', isEqualTo: false)
+          .where('active', isEqualTo: false)
+          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          .snapshots();
+    } else if (currentFilter == KanbanBoardFilter.publics) {
+      streamDocs = firestore
+          .collection(KanbanBoardModel.collection)
+          .where('active', isEqualTo: false)
+          .where('public', isEqualTo: false)
           .snapshots();
     }
     final listDocs = streamDocs.map((snapDocs) => snapDocs.documents
@@ -56,7 +61,7 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
       print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
-          store.dispatch(UpdateKanbanBoardFilterAction());
+      store.dispatch(UpdateKanbanBoardFilterAction());
     });
     next(action);
   };

@@ -1,7 +1,6 @@
 import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/references_models.dart';
-import 'package:pmsb4/states/enums.dart';
 
 import 'package:pmsb4/states/kanban_board_state.dart';
 import 'package:redux/redux.dart';
@@ -15,6 +14,8 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
       _updateKanbanBoardFilterAction),
   TypedReducer<KanbanBoardState, AddUserToTeamKanbanBoardModelAction>(
       _addUserToTeamKanbanBoardModelAction),
+        TypedReducer<KanbanBoardState, RemoveUserToTeamKanbanBoardModelAction>(
+      _removeUserToTeamKanbanBoardModelAction),
 ]);
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
@@ -57,5 +58,14 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
     }
     currentKanbanBoardModel.team[action.userModel.id] = userKabanRef;
   }
+  return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);
+}
+
+
+KanbanBoardState _removeUserToTeamKanbanBoardModelAction(
+    KanbanBoardState state, RemoveUserToTeamKanbanBoardModelAction action) {
+  print('_removeUserToTeamKanbanBoardModelAction...');
+  KanbanBoardModel currentKanbanBoardModel = state.currentKanbanBoardModel;
+  currentKanbanBoardModel.team.remove(action.id);
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);
 }

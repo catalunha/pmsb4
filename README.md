@@ -53,6 +53,20 @@ Considerando um projeto basico do counter do flutter
 - main.dart
 - routes.dart
 
-# Designer das apresentações
+# Designer for UI
 
 https://whimsical.com/MWMyhejqiEmC4LgAFC7eUe
+
+# Send to Hosting
+/pmsb4$ flutter channel
+Flutter channels:
+  master
+  dev
+* beta
+  stable
+
+/pmsb4$ flutter run -d chrome
+
+/pmsb4$ flutter build web
+
+/pmsb4$ firebase deploy --only hosting:pmsbto

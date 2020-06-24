@@ -14,6 +14,7 @@ enum CollectionFilter {
 }
 
 enum KanbanBoardFilter{
+  all,
   active,
   inactive,
   publics,

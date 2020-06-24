@@ -11,21 +11,23 @@ class KanbanBoardCRUDDS extends StatefulWidget {
   final bool public;
   final bool active;
   final List<UserKabanRef> team;
+  final Function(String) removeUserTeam;
 
   final Function(String, String, bool, bool) create;
   final Function(String, String, bool, bool) update;
 
-  const KanbanBoardCRUDDS({
-    Key key,
-    this.isEditing,
-    this.title,
-    this.description,
-    this.public,
-    this.active,
-    this.team,
-    this.create,
-    this.update,
-  }) : super(key: key);
+  const KanbanBoardCRUDDS(
+      {Key key,
+      this.isEditing,
+      this.title,
+      this.description,
+      this.public,
+      this.active,
+      this.team,
+      this.create,
+      this.update,
+      this.removeUserTeam})
+      : super(key: key);
   @override
   KanbanBoardCRUDDSState createState() {
     return KanbanBoardCRUDDSState(public, active);
@@ -55,22 +57,33 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     );
   }
 
-  List<Widget> avatars() {
+  List<Widget> avatarsTeam() {
     List<Widget> listaWidget = List<Widget>();
     for (var item in widget.team) {
-      listaWidget.add(CircleAvatar(
-        minRadius: 20,
-        maxRadius: 20,
-        child: ClipOval(
-          child: Center(
-            child: item?.photoUrl != null
-                ? Image.network(item.photoUrl)
-                : Icon(Icons.chat),
+      listaWidget.add(
+        InkWell(
+          onTap: () {
+            print('removendo user${item.id}');
+            widget.removeUserTeam(item.id);
+          },
+          child: Tooltip(
+            message: item.displayName,
+            child: CircleAvatar(
+              minRadius: 20,
+              maxRadius: 20,
+              child: ClipOval(
+                child: Center(
+                  child: item?.photoUrl != null
+                      ? Image.network(item.photoUrl)
+                      : Icon(Icons.person_add),
+                ),
+              ),
+            ),
           ),
         ),
-      ));
+      );
     }
-return listaWidget;
+    return listaWidget;
   }
 
   Widget form() {
@@ -124,7 +137,7 @@ return listaWidget;
                 }),
           ),
           ListTile(
-            title: Text('Incluir time ${widget.team.length}'),
+            title: Text('Time atual com ${widget.team.length} membros.'),
             onTap: () {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
@@ -135,7 +148,7 @@ return listaWidget;
             },
           ),
           Wrap(
-            children: avatars(),
+            children: avatarsTeam(),
           ),
           ListTile(
             title: Center(
@@ -152,7 +165,7 @@ return listaWidget;
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {  
+    if (formKey.currentState.validate()) {
       formKey.currentState.save();
       if (widget.isEditing) {
         widget.update(_title, _description, _public, _active);

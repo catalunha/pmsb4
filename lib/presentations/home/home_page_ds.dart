@@ -19,37 +19,37 @@ class HomePageDS extends StatelessWidget {
             title: Text('Logout'),
             trailing: LogoutButton(),
           ),
+          // ListTile(
+          //   title: Text('Counter Page'),
+          //   onTap: () {
+          //     // Navigator.pushNamed(context, Routes.counter);
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (_) => CounterPage(
+          //           title: 'Valor',
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // ListTile(
+          //   title: Text('Profile Page'),
+          //   onTap: () {
+          //     // Navigator.pushNamed(context, Routes.perfil);
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (context) => ProfilePage(),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // ListTile(
+          //   title: Text('Collection Page'),
+          //   onTap: () {
+          //     Navigator.pushNamed(context, Routes.collection);
+          //   },
+          // ),
           ListTile(
-            title: Text('Counter Page'),
-            onTap: () {
-              // Navigator.pushNamed(context, Routes.counter);
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => CounterPage(
-                    title: 'Valor',
-                  ),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('Profile Page'),
-            onTap: () {
-              // Navigator.pushNamed(context, Routes.perfil);
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProfilePage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('Collection Page'),
-            onTap: () {
-              Navigator.pushNamed(context, Routes.collection);
-            },
-          ),
-                    ListTile(
             title: Text('KanbanBoard Page'),
             onTap: () {
               Navigator.pushNamed(context, Routes.kanbanBoard);

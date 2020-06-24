@@ -25,6 +25,10 @@ class AddUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
   final UserModel userModel;
   AddUserToTeamKanbanBoardModelAction({this.userModel});
 }
+class RemoveUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
+  final String id;
+  RemoveUserToTeamKanbanBoardModelAction({this.id});
+}
 
 
 // +++ Actions atendidas pelo firebaseFirestoreKanbanBoardMiddleware

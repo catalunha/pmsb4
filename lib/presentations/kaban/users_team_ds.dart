@@ -53,15 +53,7 @@ class _UsersTeamDSState extends State<UsersTeamDS> {
                   widget.addUserTeam(userModel.id);
                   setState(() {});
                 }),
-            // trailing: Checkbox(
-            //     value: widget.selectedUserModel
-            //             .indexWhere((element) => element.id == userModel.id) >=
-            //         0,
-            //     activeColor: Colors.green,
-            //     onChanged: (value) {
-            //       widget.addUserTeam(userModel.id);
-            //       setState(() {});
-            //     }),
+
           );
         },
       ),
