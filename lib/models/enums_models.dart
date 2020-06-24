@@ -1,15 +1,6 @@
-///
-/// enum StageCard{
-///   need,
-///   pendent,
-///   doing,
-///   check,
-///   done,
-/// }
-/// 
+
 enum StageCard{
-  need,
-  pendent,
+  todo,
   doing,
   check,
   done,
