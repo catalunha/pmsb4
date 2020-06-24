@@ -53,7 +53,8 @@ class KanbanBoardPageDS extends StatelessWidget {
                                 : Icon(Icons.chat),
                           ),
                         ),
-                      )
+                      ),
+                      
                     ],
                   ),
                 )
@@ -79,3 +80,4 @@ class KanbanBoardPageDS extends StatelessWidget {
     );
   }
 }
+

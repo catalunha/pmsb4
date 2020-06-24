@@ -10,7 +10,7 @@ class KanbanBoardCRUDDS extends StatefulWidget {
   final String description;
   final bool public;
   final bool active;
-   final List<UserKabanRef> team;
+  final List<UserKabanRef> team;
 
   final Function(String, String, bool, bool) create;
   final Function(String, String, bool, bool) update;
@@ -116,41 +116,33 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
               );
             },
           ),
-          
-          Expanded(
-            // padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              
-              shrinkWrap: true,
-              itemCount: widget.team.length,
-              itemBuilder: (BuildContext context, int index){
-                UserKabanRef userTeam = widget.team[index];
-                print(widget.team.length);
-                print(userTeam.displayName);
-                // return Container();
-                return 
-                    
-                         Wrap(
-                          //  direction: Axis.vertical,
-                          children: [
-                            CircleAvatar(
-                              minRadius: 20,
-                              maxRadius: 20,
-                              // backgroundImage: NetworkImage(photoUrl),
-                              child: ClipOval(
-                                child: Center(
-                                  child: userTeam?.photoUrl != null
-                                      ? Image.network(userTeam.photoUrl)
-                                      : Icon(Icons.chat),
-                                ),
-                              ),
-                            )
-                          ],
-                        );
-                      
-                  
-              },
-            ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.team.length,
+            itemBuilder: (BuildContext context, int index) {
+              UserKabanRef userTeam = widget.team[index];
+              return Wrap(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      print('oi');
+                    },
+                      child: CircleAvatar(
+                    minRadius: 20,
+                    maxRadius: 20,
+                    child: ClipOval(
+                      child: Center(
+                        child: userTeam?.photoUrl != null
+                            ? Image.network(userTeam.photoUrl)
+                            : Icon(Icons.chat),
+                      ),
+                    ),
+                  )),
+                  Text('${userTeam.displayName.substring(0, 10)} | '),
+                  Text('${userTeam.id.substring(0, 10)}'),
+                ],
+              );
+            },
           ),
           ListTile(
             title: Center(

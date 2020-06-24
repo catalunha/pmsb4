@@ -32,22 +32,15 @@ class _ViewModel {
     this.delete,
   });
   static _ViewModel fromStore(Store<AppState> store, int index) {
-    // print('kanbanBoardCRUD1: $index');
     KanbanBoardModel _kanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
-    //     ? store.state.kanbanBoardState.allKanbanBoardModel[index]
-    //     : KanbanBoardModel(null);
-    //     // :null;
-    // print('kanbanBoardCRUD2: $index');
-    //     store.dispatch(CurrentKanbanBoardModelAction(kanbanBoardModel:_kanbanBoardModel));
-    print('_kanbanBoardModel.team.length ${_kanbanBoardModel.team.length}');
     return _ViewModel(
       isEditing: index != null ? true : false,
       title: _kanbanBoardModel?.title ?? '',
       description: _kanbanBoardModel?.description ?? '',
       public: _kanbanBoardModel?.public ?? false,
       active: _kanbanBoardModel?.active ?? false,
-      team: _kanbanBoardModel.team.entries.map((e) => e.value).toList(),
+      team: _kanbanBoardModel.team != null ? _kanbanBoardModel.team.entries.map((e) => e.value).toList():[],
       create: (String title, String description, bool public, bool active) {
         _kanbanBoardModel = KanbanBoardModel(null);
         _kanbanBoardModel.author = UserKabanRef(
@@ -107,17 +100,13 @@ class KanbanBoardCRUD extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
-        print('kanbanBoardCRUD1: $index');
         KanbanBoardModel _kanbanBoardModel = index != null
             ? store.state.kanbanBoardState.allKanbanBoardModel[index]
             : KanbanBoardModel(null);
-        // :null;
-        print('kanbanBoardCRUD2: $index');
         store.dispatch(
             CurrentKanbanBoardModelAction(kanbanBoardModel: _kanbanBoardModel));
         if (_kanbanBoardModel?.team != null) {
           _kanbanBoardModel.team.forEach((key, value) {
-            print('usersTeam: $key');
             final userModel = UserModel(
               value.id,
               displayName: value.displayName,

@@ -18,19 +18,14 @@ List<Middleware<AppState>> firebaseFirestoreUsersMiddleware() {
     //     _UsersAddDocAction()),
   ];
 }
-Future<String> fetchUserOrder() =>
-    // Imagine that this function is more complex and slow.
-    Future.delayed(
-      Duration(seconds: 2),
-      () => 'Large Latte',
-    );
+
 void Function(
   Store<AppState> store,
   StreamUsersAction action,
   NextDispatcher next,
 ) _streamDocsUsersAction() {
   return (store, action, next) async {
-    print('_streamDocsUsersAction');
+    print('_streamDocsUsersAction...');
     Firestore firestore = Firestore.instance;
     //Pode aplicar filtro na stream
     final streamDocs = firestore.collection(UserModel.collection).snapshots();
@@ -39,7 +34,6 @@ void Function(
         .toList());
         // await fetchUserOrder();
     listDocs.listen((List<UserModel> allUserModel) {
-      print('allUserModel: ${allUserModel.length}');
       store.dispatch(AllUsersModelAction(allUserModel: allUserModel));
       //Ou pode aplicar filtro após all
       store.dispatch(UpdateUsersFilterAction(usersFilter: UsersFilter.all));

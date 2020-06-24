@@ -17,16 +17,19 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
 ]);
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
+  print('_allKanbanBoardModelAction...');
   return state.copyWith(allKanbanBoardModel: action.allKanbanBoardModel);
 }
 
 KanbanBoardState _currentKanbanBoardModelAction(
     KanbanBoardState state, CurrentKanbanBoardModelAction action) {
+  print('_currentKanbanBoardModelAction...');
   return state.copyWith(currentKanbanBoardModel: action.kanbanBoardModel);
 }
 
 KanbanBoardState _updateKanbanBoardFilterAction(
     KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
+  print('_updateKanbanBoardFilterAction...');
   KanbanBoardState _state =
       state.copyWith(kanbanBoardFilter: action.kanbanBoardFilter);
 
@@ -35,6 +38,7 @@ KanbanBoardState _updateKanbanBoardFilterAction(
 
 KanbanBoardState _addUserToTeamKanbanBoardModelAction(
     KanbanBoardState state, AddUserToTeamKanbanBoardModelAction action) {
+  print('_addUserToTeamKanbanBoardModelAction...');
   KanbanBoardModel currentKanbanBoardModel = state.currentKanbanBoardModel;
   if (currentKanbanBoardModel?.team == null ||
       !currentKanbanBoardModel.team.containsKey(action.userModel.id)) {
@@ -43,7 +47,6 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
       displayName: action.userModel.displayName,
       photoUrl: action.userModel.photoUrl,
     );
-    print('currentKanbanBoardModel:${currentKanbanBoardModel.id}');
     currentKanbanBoardModel.team[action.userModel.id] = userKabanRef;
   }
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);

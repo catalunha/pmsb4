@@ -15,8 +15,8 @@ class _ViewModel {
     return _ViewModel(
         listKanbanBoardModel: store.state.kanbanBoardState.allKanbanBoardModel,
         kanbanBoardFilter: (KanbanBoardFilter kanbanBoardFilter) {
-          store.dispatch(
-              UpdateKanbanBoardFilterAction(kanbanBoardFilter: kanbanBoardFilter));
+          store.dispatch(UpdateKanbanBoardFilterAction(
+              kanbanBoardFilter: kanbanBoardFilter));
         });
   }
 }
@@ -34,7 +34,6 @@ class KanbanBoardPage extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
-
         store.dispatch(StreamKanbanBoardAction());
       },
     );

@@ -28,15 +28,12 @@ class _UsersTeamDSState extends State<UsersTeamDS> {
         itemCount: widget.filteredUserModel.length,
         itemBuilder: (BuildContext context, int index) {
           final userModel = widget.filteredUserModel[index];
-print('${widget.selectedUserModel.length}');
           return ListTile(
             title: Text(userModel.displayName +
                 '${widget.selectedUserModel.indexWhere((element) => element.id == userModel.id)}'),
-            // subtitle: Text('${userModel?.photoUrl}'),
             leading: CircleAvatar(
               minRadius: 20,
               maxRadius: 20,
-              // backgroundImage: NetworkImage(photoUrl),
               child: ClipOval(
                 child: Center(
                   child: userModel?.photoUrl != null
@@ -49,13 +46,11 @@ print('${widget.selectedUserModel.length}');
                 value: widget.selectedUserModel
                         .indexWhere((element) => element.id == userModel.id) >=
                     0,
-                // value: widget.check(userModel),/
                 activeColor: Colors.green,
                 onChanged: (value) {
                   widget.addUserTeam(userModel.id);
                   setState(() {});
                 }),
-            // onTap: addUserTeam(index),
           );
         },
       ),

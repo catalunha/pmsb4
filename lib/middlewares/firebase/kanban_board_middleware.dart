@@ -24,7 +24,7 @@ List<Middleware<AppState>> firebaseFirestoreKanbanBoardMiddleware() {
 void Function(Store<AppState> store, StreamKanbanBoardAction action,
     NextDispatcher next) _streamDocsKanbanBoardAction() {
   return (store, action, next) {
-    print('_streamDocsKanbanBoardAction');
+    print('_streamDocsKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     Stream<QuerySnapshot> streamDocs;
     if (store.state.kanbanBoardState.kanbanBoardFilter ==
@@ -64,7 +64,7 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
 void Function(Store<AppState> store, UpdateKanbanBoardAction action,
     NextDispatcher next) _updateDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_updateDocKanbanBoardAction');
+    print('_updateDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)
@@ -77,7 +77,7 @@ void Function(Store<AppState> store, UpdateKanbanBoardAction action,
 void Function(Store<AppState> store, DeleteKanbanBoardAction action,
     NextDispatcher next) _deleteDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_deleteDocKanbanBoardAction');
+    print('_deleteDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)
@@ -91,7 +91,7 @@ void Function(
         Store<AppState> store, AddKanbanBoardAction action, NextDispatcher next)
     _addDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_addDocKanbanBoardAction');
+    print('_addDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)

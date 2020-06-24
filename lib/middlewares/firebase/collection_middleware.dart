@@ -23,7 +23,7 @@ void Function(
   NextDispatcher next,
 ) _collectionStreamDocsAction() {
   return (store, action, next) async {
-    print('_collectionStreamDocsAction');
+    print('_collectionStreamDocsAction...');
     Firestore firestore = Firestore.instance;
     final streamDocs =
         firestore.collection(CollectionModel.collection).snapshots();
@@ -31,7 +31,6 @@ void Function(
         .map((doc) => CollectionModel(doc.documentID).fromFirestore(doc.data))
         .toList());
     listDocs.listen((List<CollectionModel> allCollectionModel) {
-      print('allCollectionModel: ${allCollectionModel.length}');
       store.dispatch(
           AllCollectionModelAction(allCollectionModel: allCollectionModel));
       store.dispatch(

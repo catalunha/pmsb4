@@ -17,19 +17,19 @@ final userReducer = combineReducers<UserState>([
 
 UserState _userUpdateProfileSuccessfulAction(
     UserState state, UserUpdateProfileSuccessfulAction action) {
+  print('_userUpdateProfileSuccessfulAction...');
   return state.copyWith(firebaseUser: action.firebaseUser);
 }
 
 UserState _userAuthenticationStatusAction(
     UserState state, UserAuthenticationStatusAction action) {
+  print('_userAuthenticationStatusAction...');
   return state.copyWith(authenticationStatus: action.authenticationStatus);
 }
 
 UserState _userLoginSuccessfulAction(
     UserState state, UserLoginSuccessfulAction action) {
-  print(state.authenticationStatus.toString());
-  print(state.toString());
-
+  print('_userLoginSuccessfulAction...');
   return state.copyWith(
       authenticationStatus: AuthenticationStatus.authenticated,
       firebaseUser: action.firebaseUser);
@@ -37,17 +37,14 @@ UserState _userLoginSuccessfulAction(
 
 UserState _userLogoutSuccessfulAction(
     UserState state, UserLogoutSuccessfulAction action) {
-  // print(state.authenticationStatus.toString());
-  print(state.toString());
+  print('_userLogoutSuccessfulAction...');
   return state.copyWith(
       authenticationStatus: AuthenticationStatus.unInitialized,
       firebaseUser: null);
 }
 
 UserState _userLoginFailAction(UserState state, UserLoginFailAction action) {
-  print('_loginFail');
-  print(state.authenticationStatus.toString());
-
+  print('_userLoginFailAction...');
   return state.copyWith(
     authenticationStatus: AuthenticationStatus.unAuthenticated,
     firebaseUser: null,

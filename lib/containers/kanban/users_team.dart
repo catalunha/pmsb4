@@ -18,36 +18,23 @@ class _ViewModel {
     this.selectedUserModel,
   });
   static _ViewModel fromStore(Store<AppState> store) {
-    print('UsersTeam');
-
-    //Ler os users do team do quadro e colocar em selectedUserModel
-print('selectionados: ${store.state.usersState.selectedUserModel.length}');
     return _ViewModel(
       filteredUserModel: store.state.usersState.filteredUserModel,
       selectedUserModel: store.state.usersState.selectedUserModel ,
       addUserTeam: (String id) {
         KanbanBoardModel currentKanbanBoardModel =
             store.state.kanbanBoardState.currentKanbanBoardModel;
-        print('Selecionado: $id');
         if (currentKanbanBoardModel?.team == null ||
             !currentKanbanBoardModel.team.containsKey(id)) {
+        print('UsersTeam: Selecionado: $id');
           UserModel userModel = store.state.usersState.allUserModel
               .firstWhere((element) => element.id == id);
           store.dispatch(
               AddUserToTeamKanbanBoardModelAction(userModel: userModel));
           store.dispatch(AddSelectedUserModelAction(userModel: userModel));
         } else {
-          print('ja esta no team');
+          print('UsersTeam: Ja esta no team.');
         }
-        // UserModel userModel = store.state.usersState.filteredUserModel[index];
-        // UserKabanRef userKabanRef = UserKabanRef(
-        //   id: userModel.id,
-        //   displayName: userModel.displayName,
-        //   photoUrl: userModel.photoUrl,
-        // );
-        // kanbanBoardModel.team.addAll({userModel.id: userKabanRef});
-        // store.dispatch(
-        //     UpdateKanbanBoardAction(kanbanBoardModel: kanbanBoardModel));
       },
     );
   }
@@ -57,12 +44,7 @@ class UsersTeam extends StatelessWidget {
   const UsersTeam({
     Key key,
   }) : super(key: key);
-  Future<String> fetchUserOrder() =>
-      // Imagine that this function is more complex and slow.
-      Future.delayed(
-        Duration(seconds: 2),
-        () => 'Large Latte',
-      );
+ 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
@@ -76,17 +58,7 @@ class UsersTeam extends StatelessWidget {
       },
       onInit: (Store<AppState> store) async {
         await store.dispatch(StreamUsersAction());
-        // await fetchUserOrder();
-
-        // if (store.state.kanbanBoardState.currentKanbanBoardModel?.team !=
-        //     null) {
-        //   store.state.kanbanBoardState.currentKanbanBoardModel.team
-        //       .forEach((key, value) {
-        //     print('usersTeam: $key');
-        //     store.dispatch(AddSelectedUserModelAction(id: key));
-        //   });
-        // }
-      },
+       },
     );
   }
 }

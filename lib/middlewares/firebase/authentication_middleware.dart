@@ -26,6 +26,7 @@ void Function(
   NextDispatcher next,
 ) _userUpdateProfileDisplayNameAction() {
   return (store, action, next) async {
+    print('_userUpdateProfileDisplayNameAction...');
     final String _displayName = action.displayName;
     FirebaseUser firebaseUser = store.state.userState.firebaseUser;
 
@@ -36,7 +37,6 @@ void Function(
         firebaseUser.reload();
         FirebaseAuth firebaseAuth = FirebaseAuth.instance;
         firebaseUser = await firebaseAuth.currentUser();
-        // print('_userUpdateProfileDisplayNameAction novo ${firebaseUser.displayName}');
         store.dispatch(
             UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
       }).catchError((onError) => print('_updateprofile onError:' + onError));
@@ -51,9 +51,9 @@ void Function(
   NextDispatcher next,
 ) _userOnAuthStateChangedAction() {
   return (store, action, next) async {
+    print('_userOnAuthStateChangedAction...');
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
-      print('_userOnAuthStateChangedAction');
       firebaseAuth.currentUser().then((firebaseUser) {
         if (firebaseUser?.uid != null) {
           print('Auth de ultimo login uid: ${firebaseUser.uid}');
@@ -85,6 +85,7 @@ void Function(
   NextDispatcher next,
 ) _userSendPasswordResetEmailAction() {
   return (store, action, next) async {
+    print('_userSendPasswordResetEmailAction...');
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       store.dispatch(UserAuthenticationStatusAction(
@@ -103,6 +104,7 @@ void Function(
   NextDispatcher next,
 ) _userLoginEmailPasswordAction() {
   return (store, action, next) async {
+    print('_userLoginEmailPasswordAction...');
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseUser firebaseUser;
     try {
@@ -118,11 +120,11 @@ void Function(
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(firebaseUser.uid == currentUser.uid);
       store.dispatch(UserLoginSuccessfulAction(firebaseUser: firebaseUser));
-      print('Login bem sucedido.');
+      print('_userLoginEmailPasswordAction: Login bem sucedido.');
       next(action);
     } catch (error) {
       store.dispatch(UserLoginFailAction(error: error));
-      print('Login MAL sucedido. $error');
+      print('_userLoginEmailPasswordAction: Login MAL sucedido. $error');
     }
   };
 }
@@ -133,6 +135,7 @@ void Function(
   NextDispatcher next,
 ) _userLoginGoogleAction() {
   return (store, action, next) async {
+    print('_userLoginGoogleAction...');
     FirebaseUser firebaseUser;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -166,14 +169,15 @@ void Function(
   NextDispatcher next,
 ) _userLogoutAction() {
   return (store, action, next) async {
+    print('_userLogoutAction...');
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       await _auth.signOut();
-      print('logout.');
       store.dispatch(UserLogoutSuccessfulAction());
+      print('_userLogoutAction: Logout finalizado.');
       next(action);
     } catch (error) {
-      print('_userLogoutAction error: $error');
+      print('_userLogoutAction: error: $error');
     }
   };
 }

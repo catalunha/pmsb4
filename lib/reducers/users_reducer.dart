@@ -74,9 +74,8 @@ UsersState _updateUsersFilterAction(
 
 UsersState _addSelectedUserModelAction(
     UsersState state, AddSelectedUserModelAction action) {
+  print('_addSelectedUserModelAction...');
   List<UserModel> selectedUserModelNew = state.selectedUserModel;
-
   selectedUserModelNew.add(action.userModel);
-print('_addSelectedUserModelAction: ${action.userModel.id}');
   return state.copyWith(selectedUserModel: selectedUserModelNew);
 }

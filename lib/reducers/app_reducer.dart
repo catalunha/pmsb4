@@ -25,6 +25,7 @@ AppState _counterAction(AppState state, CounterAction action) {
 }
 
 AppState _userAction(AppState state, UserAction action) {
+  print('_userAction...');
   return state.copyWith(userState: userReducer(state.userState, action));
 }
 
@@ -34,10 +35,12 @@ AppState _collectionAction(AppState state, CollectionAction action) {
 }
 
 AppState _kanbanBoardAction(AppState state, KanbanBoardAction action) {
+  print('_kanbanBoardAction...');
   return state.copyWith(
       kanbanBoardState: kanbanBoardReducer(state.kanbanBoardState, action));
 }
 
 AppState _usersAction(AppState state, UsersAction action) {
+  print('_usersAction...');
   return state.copyWith(usersState: usersReducer(state.usersState, action));
 }

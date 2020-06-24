@@ -16,6 +16,7 @@ List<Middleware<AppState>> firebaseStorageMiddleware() {
 
 Middleware<AppState> _userUpdateProfilePhotoUrlAction() {
   return (Store<AppState> store, action, NextDispatcher next) {
+    print('_userUpdateProfilePhotoUrlAction...');
     final String _photoLocalPath = action.photoLocalPath;
     if (_photoLocalPath != null && _photoLocalPath.isNotEmpty) {
       FirebaseUser firebaseUser = store.state.userState.firebaseUser;
