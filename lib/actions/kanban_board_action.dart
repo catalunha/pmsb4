@@ -12,8 +12,8 @@ class AllKanbanBoardModelAction extends KanbanBoardAction{
 
 }
 class CurrentKanbanBoardModelAction extends KanbanBoardAction {
-  final KanbanBoardModel kanbanBoardModel;
-  CurrentKanbanBoardModelAction({this.kanbanBoardModel});
+  final String id;
+  CurrentKanbanBoardModelAction({this.id});
 }
 class UpdateKanbanBoardFilterAction extends KanbanBoardAction {
   final KanbanBoardFilter kanbanBoardFilter;

@@ -9,8 +9,8 @@ final usersReducer = combineReducers<UsersState>([
   // TypedReducer<UsersState, CurrentUsersModelAction>(
   //     _currentUsersModelAction),
   TypedReducer<UsersState, UpdateUsersFilterAction>(_updateUsersFilterAction),
-  TypedReducer<UsersState, AddSelectedUserModelAction>(
-      _addSelectedUserModelAction),
+  // TypedReducer<UsersState, AddSelectedUserModelAction>(
+  //     _addSelectedUserModelAction),
   // TypedReducer<UsersState, FilteredUsersModelAction>(
   //     _filteredUsersModelAction),
 ]);
@@ -72,10 +72,10 @@ UsersState _updateUsersFilterAction(
 //   return state.copyWith(selectedUserModel: selectedUserModelNew);
 // }
 
-UsersState _addSelectedUserModelAction(
-    UsersState state, AddSelectedUserModelAction action) {
-  print('_addSelectedUserModelAction...');
-  List<UserModel> selectedUserModelNew = state.selectedUserModel;
-  selectedUserModelNew.add(action.userModel);
-  return state.copyWith(selectedUserModel: selectedUserModelNew);
-}
+// UsersState _addSelectedUserModelAction(
+//     UsersState state, AddSelectedUserModelAction action) {
+//   print('_addSelectedUserModelAction...');
+//   List<UserModel> selectedUserModelNew = state.selectedUserModel;
+//   selectedUserModelNew.add(action.userModel);
+//   return state.copyWith(selectedUserModel: selectedUserModelNew);
+// }

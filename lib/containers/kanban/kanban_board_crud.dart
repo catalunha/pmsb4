@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
-import 'package:pmsb4/actions/users_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/references_models.dart';
-import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/presentations/kaban/kanban_board_crud_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
@@ -19,6 +17,7 @@ class _ViewModel {
   final Function(String, String, bool, bool) create;
   final Function(String, String, bool, bool) update;
   final Function() delete;
+  final Function(String) deleteUserTeam;
 
   _ViewModel({
     this.isEditing,
@@ -30,17 +29,20 @@ class _ViewModel {
     this.create,
     this.update,
     this.delete,
+    this.deleteUserTeam,
   });
-  static _ViewModel fromStore(Store<AppState> store, int index) {
+  static _ViewModel fromStore(Store<AppState> store, String id) {
     KanbanBoardModel _kanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
     return _ViewModel(
-      isEditing: index != null ? true : false,
+      isEditing: id != null ? true : false,
       title: _kanbanBoardModel?.title ?? '',
       description: _kanbanBoardModel?.description ?? '',
       public: _kanbanBoardModel?.public ?? false,
       active: _kanbanBoardModel?.active ?? false,
-      team: _kanbanBoardModel.team != null ? _kanbanBoardModel.team.entries.map((e) => e.value).toList():[],
+      team: _kanbanBoardModel.team != null
+          ? _kanbanBoardModel.team.entries.map((e) => e.value).toList()
+          : [],
       create: (String title, String description, bool public, bool active) {
         _kanbanBoardModel = KanbanBoardModel(null);
         _kanbanBoardModel.author = UserKabanRef(
@@ -79,14 +81,14 @@ class _ViewModel {
 }
 
 class KanbanBoardCRUD extends StatelessWidget {
-  final int index;
+  final String id;
 
-  const KanbanBoardCRUD({Key key, this.index}) : super(key: key);
+  const KanbanBoardCRUD({Key key, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
-      converter: (store) => _ViewModel.fromStore(store, index),
+      converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanBoardCRUDDS(
           isEditing: _viewModel.isEditing,
@@ -100,21 +102,8 @@ class KanbanBoardCRUD extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
-        KanbanBoardModel _kanbanBoardModel = index != null
-            ? store.state.kanbanBoardState.allKanbanBoardModel[index]
-            : KanbanBoardModel(null);
         store.dispatch(
-            CurrentKanbanBoardModelAction(kanbanBoardModel: _kanbanBoardModel));
-        if (_kanbanBoardModel?.team != null) {
-          _kanbanBoardModel.team.forEach((key, value) {
-            final userModel = UserModel(
-              value.id,
-              displayName: value.displayName,
-              photoUrl: value.photoUrl,
-            );
-            store.dispatch(AddSelectedUserModelAction(userModel: userModel));
-          });
-        }
+            CurrentKanbanBoardModelAction(id:id));
       },
     );
   }

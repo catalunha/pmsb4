@@ -55,6 +55,24 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     );
   }
 
+  List<Widget> avatars() {
+    List<Widget> listaWidget = List<Widget>();
+    for (var item in widget.team) {
+      listaWidget.add(CircleAvatar(
+        minRadius: 20,
+        maxRadius: 20,
+        child: ClipOval(
+          child: Center(
+            child: item?.photoUrl != null
+                ? Image.network(item.photoUrl)
+                : Icon(Icons.chat),
+          ),
+        ),
+      ));
+    }
+return listaWidget;
+  }
+
   Widget form() {
     return Form(
       key: formKey,
@@ -116,33 +134,8 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
               );
             },
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.team.length,
-            itemBuilder: (BuildContext context, int index) {
-              UserKabanRef userTeam = widget.team[index];
-              return Wrap(
-                children: [
-                  InkWell(
-                    onTap: (){
-                      print('oi');
-                    },
-                      child: CircleAvatar(
-                    minRadius: 20,
-                    maxRadius: 20,
-                    child: ClipOval(
-                      child: Center(
-                        child: userTeam?.photoUrl != null
-                            ? Image.network(userTeam.photoUrl)
-                            : Icon(Icons.chat),
-                      ),
-                    ),
-                  )),
-                  Text('${userTeam.displayName.substring(0, 10)} | '),
-                  Text('${userTeam.id.substring(0, 10)}'),
-                ],
-              );
-            },
+          Wrap(
+            children: avatars(),
           ),
           ListTile(
             title: Center(
@@ -159,7 +152,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
+    if (formKey.currentState.validate()) {  
       formKey.currentState.save();
       if (widget.isEditing) {
         widget.update(_title, _description, _public, _active);

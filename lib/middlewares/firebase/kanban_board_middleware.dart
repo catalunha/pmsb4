@@ -56,6 +56,7 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
       print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
+          store.dispatch(UpdateKanbanBoardFilterAction());
     });
     next(action);
   };

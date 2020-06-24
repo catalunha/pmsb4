@@ -9,7 +9,6 @@ import 'package:redux/redux.dart';
 List<Middleware<AppState>> firebaseFirestoreUsersMiddleware() {
   return [
     TypedMiddleware<AppState, StreamUsersAction>(_streamDocsUsersAction()),
-
     // TypedMiddleware<AppState, UpdateUsersAction>(
     //     _UsersUpdateDocAction()),
     // TypedMiddleware<AppState, DeleteUsersAction>(

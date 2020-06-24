@@ -5,23 +5,23 @@ import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {
-  final List<KanbanBoardModel> listKanbanBoardModel;
+  final List<KanbanBoardModel> filteredKanbanBoardModel;
   final Function(KanbanBoardFilter) kanbanBoardFilter;
   const KanbanBoardPageDS({
     Key key,
-    this.listKanbanBoardModel,
+    this.filteredKanbanBoardModel,
     this.kanbanBoardFilter,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kanban Board List'),
+        title: Text('Kanban Board Page'),
       ),
       body: ListView.builder(
-        itemCount: listKanbanBoardModel.length,
+        itemCount: filteredKanbanBoardModel.length,
         itemBuilder: (BuildContext context, int index) {
-          final kanbanBoard = listKanbanBoardModel[index];
+          final kanbanBoard = filteredKanbanBoardModel[index];
           return Card(
             child: Column(
               children: [
@@ -33,7 +33,7 @@ class KanbanBoardPageDS extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => KanbanBoardCRUD(
-                          index: index,
+                          id: kanbanBoard.id,
                         ),
                       ),
                     );
@@ -71,7 +71,7 @@ class KanbanBoardPageDS extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => KanbanBoardCRUD(
-                index: null,
+                id: null,
               ),
             ),
           );

@@ -8,15 +8,18 @@ import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final List<KanbanBoardModel> listKanbanBoardModel;
+  final List<KanbanBoardModel> filteredKanbanBoardModel;
   final Function(KanbanBoardFilter) kanbanBoardFilter;
-  _ViewModel({this.listKanbanBoardModel, this.kanbanBoardFilter});
+  _ViewModel({this.filteredKanbanBoardModel, this.kanbanBoardFilter});
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-        listKanbanBoardModel: store.state.kanbanBoardState.allKanbanBoardModel,
+        filteredKanbanBoardModel:
+            store.state.kanbanBoardState.filteredKanbanBoardModel,
         kanbanBoardFilter: (KanbanBoardFilter kanbanBoardFilter) {
-          store.dispatch(UpdateKanbanBoardFilterAction(
-              kanbanBoardFilter: kanbanBoardFilter));
+          // store.dispatch(UpdateKanbanBoardFilterAction(
+          //     kanbanBoardFilter: kanbanBoardFilter));
+          // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
+          store.dispatch(StreamKanbanBoardAction());
         });
   }
 }
@@ -29,7 +32,7 @@ class KanbanBoardPage extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanBoardPageDS(
-          listKanbanBoardModel: _viewModel.listKanbanBoardModel,
+          filteredKanbanBoardModel: _viewModel.filteredKanbanBoardModel,
           kanbanBoardFilter: _viewModel.kanbanBoardFilter,
         );
       },

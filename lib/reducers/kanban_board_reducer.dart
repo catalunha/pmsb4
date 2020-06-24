@@ -1,6 +1,7 @@
 import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/states/enums.dart';
 
 import 'package:pmsb4/states/kanban_board_state.dart';
 import 'package:redux/redux.dart';
@@ -24,16 +25,20 @@ KanbanBoardState _allKanbanBoardModelAction(
 KanbanBoardState _currentKanbanBoardModelAction(
     KanbanBoardState state, CurrentKanbanBoardModelAction action) {
   print('_currentKanbanBoardModelAction...');
-  return state.copyWith(currentKanbanBoardModel: action.kanbanBoardModel);
+  KanbanBoardModel _kanbanBoardModel = action.id != null
+      ? state.allKanbanBoardModel
+          .firstWhere((element) => element.id == action.id)
+      : KanbanBoardModel(null);
+  return state.copyWith(currentKanbanBoardModel: _kanbanBoardModel);
 }
 
 KanbanBoardState _updateKanbanBoardFilterAction(
     KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
   print('_updateKanbanBoardFilterAction...');
-  KanbanBoardState _state =
-      state.copyWith(kanbanBoardFilter: action.kanbanBoardFilter);
-
-  return _state;
+  // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
+  return state.copyWith(
+      kanbanBoardFilter: action.kanbanBoardFilter,
+      filteredKanbanBoardModel: state.allKanbanBoardModel);
 }
 
 KanbanBoardState _addUserToTeamKanbanBoardModelAction(
@@ -47,6 +52,9 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
       displayName: action.userModel.displayName,
       photoUrl: action.userModel.photoUrl,
     );
+    if (currentKanbanBoardModel?.team == null) {
+      currentKanbanBoardModel.team = Map<String, UserKabanRef>();
+    }
     currentKanbanBoardModel.team[action.userModel.id] = userKabanRef;
   }
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);

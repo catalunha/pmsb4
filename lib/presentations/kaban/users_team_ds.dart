@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 
 class UsersTeamDS extends StatefulWidget {
   final List<UserModel> filteredUserModel;
-  final List<UserModel> selectedUserModel;
+  // final List<UserModel> selectedUserModel;
+  final List<UserKabanRef> team;
   final Function(String) addUserTeam;
   UsersTeamDS({
     Key key,
     this.filteredUserModel,
-    this.selectedUserModel,
+    // this.selectedUserModel,
+    this.team,
     this.addUserTeam,
   }) : super(key: key);
 
@@ -29,8 +32,7 @@ class _UsersTeamDSState extends State<UsersTeamDS> {
         itemBuilder: (BuildContext context, int index) {
           final userModel = widget.filteredUserModel[index];
           return ListTile(
-            title: Text(userModel.displayName +
-                '${widget.selectedUserModel.indexWhere((element) => element.id == userModel.id)}'),
+            title: Text(userModel.displayName),
             leading: CircleAvatar(
               minRadius: 20,
               maxRadius: 20,
@@ -43,7 +45,7 @@ class _UsersTeamDSState extends State<UsersTeamDS> {
               ),
             ),
             trailing: Checkbox(
-                value: widget.selectedUserModel
+                value: widget.team
                         .indexWhere((element) => element.id == userModel.id) >=
                     0,
                 activeColor: Colors.green,
@@ -51,6 +53,15 @@ class _UsersTeamDSState extends State<UsersTeamDS> {
                   widget.addUserTeam(userModel.id);
                   setState(() {});
                 }),
+            // trailing: Checkbox(
+            //     value: widget.selectedUserModel
+            //             .indexWhere((element) => element.id == userModel.id) >=
+            //         0,
+            //     activeColor: Colors.green,
+            //     onChanged: (value) {
+            //       widget.addUserTeam(userModel.id);
+            //       setState(() {});
+            //     }),
           );
         },
       ),
