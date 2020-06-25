@@ -16,6 +16,10 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
       _addUserToTeamKanbanCardModelAction),
   TypedReducer<KanbanCardState, RemoveUserToTeamKanbanCardModelAction>(
       _removeUserToTeamKanbanCardModelAction),
+  TypedReducer<KanbanCardState, UpdateTodoKanbanCardModelAction>(
+      _updateTodoKanbanCardModelAction),
+  TypedReducer<KanbanCardState, RemoveTodoKanbanCardModelAction>(
+      _removeTodoKanbanCardModelAction),
 ]);
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
@@ -76,6 +80,50 @@ KanbanCardState _removeUserToTeamKanbanCardModelAction(
     KanbanCardState state, RemoveUserToTeamKanbanCardModelAction action) {
   print('_removeUserToTeamKanbanCardModelAction...');
   KanbanCardModel currentKanbanCardModel = state.currentKanbanCardModel;
+          print('removendo2 ${action.id}');
+
   currentKanbanCardModel.team.remove(action.id);
   return state.copyWith(currentKanbanCardModel: currentKanbanCardModel);
+}
+
+KanbanCardState _updateTodoKanbanCardModelAction(
+    KanbanCardState state, UpdateTodoKanbanCardModelAction action) {
+  print('_removeUserToTeamKanbanCardModelAction...');
+  KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
+  Todo _newTodo = action.todo;
+  Map<String, Todo> _oldTodos =
+      _currentKanbanCardModel?.todo ?? Map<String, Todo>();
+
+  if (_newTodo.id != null && _oldTodos.containsKey(_newTodo.id)) {
+    if (_newTodo.complete != null)
+      _currentKanbanCardModel.todo[_newTodo.id].complete = _newTodo.complete;
+    if (_newTodo.title != null) _currentKanbanCardModel.todo[_newTodo.id].title = _newTodo.title;
+  } else {
+    String _id = (_currentKanbanCardModel?.todoOrder ?? 0 + 1).toString();
+    _currentKanbanCardModel.todo[_id]= Todo(id: _id,title: _newTodo.title,complete: false);
+    _currentKanbanCardModel.todoOrder=int.parse(_id)+1;
+  }
+
+  if (_oldTodos != null && _oldTodos.isNotEmpty) {
+    _currentKanbanCardModel.todoTotal = _oldTodos.length;
+    _currentKanbanCardModel.todoCompleted = _oldTodos.entries
+        .where((element) => element.value.complete == true)
+        .length;
+  }
+  return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
+}
+
+KanbanCardState _removeTodoKanbanCardModelAction(
+    KanbanCardState state, RemoveTodoKanbanCardModelAction action) {
+  print('_removeUserToTeamKanbanCardModelAction...');
+  KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
+  _currentKanbanCardModel.todo.remove(action.id);
+
+  if (_currentKanbanCardModel.todo != null && _currentKanbanCardModel.todo.isNotEmpty) {
+    _currentKanbanCardModel.todoTotal = _currentKanbanCardModel.todo.length;
+    _currentKanbanCardModel.todoCompleted = _currentKanbanCardModel.todo.entries
+        .where((element) => element.value.complete == true)
+        .length;
+  }
+  return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
 }

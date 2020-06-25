@@ -8,19 +8,21 @@ import 'package:redux/redux.dart';
 List<Middleware<AppState>> firebaseFirestoreKanbanCardMiddleware() {
   return [
     TypedMiddleware<AppState, StreamKanbanCardAction>(
-        _streamDocsKanbanCardAction()),
+        _streamKanbanCardAction()),
     TypedMiddleware<AppState, UpdateKanbanCardAction>(
-        _updateDocKanbanCardAction()),
+        _updateKanbanCardAction()),
     TypedMiddleware<AppState, DeleteKanbanCardAction>(
-        _deleteDocKanbanCardAction()),
-    TypedMiddleware<AppState, AddKanbanCardAction>(_addDocKanbanCardAction()),
+        _deleteKanbanCardAction()),
+    TypedMiddleware<AppState, AddKanbanCardAction>(_addKanbanCardAction()),
+    // TypedMiddleware<AppState, UpdateFieldKanbanCardAction>(
+    //     _updateFieldKanbanCardAction()),
   ];
 }
 
 void Function(Store<AppState> store, StreamKanbanCardAction action,
-    NextDispatcher next) _streamDocsKanbanCardAction() {
+    NextDispatcher next) _streamKanbanCardAction() {
   return (store, action, next) {
-    print('_streamDocsKanbanCardAction...');
+    print('_streamKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     Stream<QuerySnapshot> streamDocs;
     KanbanCardFilter currentFilter =
@@ -61,22 +63,46 @@ void Function(Store<AppState> store, StreamKanbanCardAction action,
 }
 
 void Function(Store<AppState> store, UpdateKanbanCardAction action,
-    NextDispatcher next) _updateDocKanbanCardAction() {
-  return (store, action, next) {
-    print('_updateDocKanbanCardAction...');
+    NextDispatcher next) _updateKanbanCardAction() {
+  return (store, action, next) async {
+    print('_updateKanbanCardAction...');
+    // print(action.kanbanCardModel.toFirestore());
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanCardModel.collection)
         .document(action.kanbanCardModel.id)
-        .updateData(action.kanbanCardModel.toFirestore());
+    .updateData(action.kanbanCardModel.toFirestore());
+        // .setData(action.kanbanCardModel.toFirestore(), merge: true);
+    //       await Future.delayed(
+    //   Duration(seconds: 5),
+    //   () => 'Large Latte',
+    // );
+    // print('só um');
+    //         firestore
+    //     .collection(KanbanCardModel.collection)
+    //     .document(action.kanbanCardModel.id)
+    //     .setData({'todo':{'1':{'complete':true}}}, merge: true);
     next(action);
   };
 }
 
+// void Function(Store<AppState> store, UpdateFieldKanbanCardAction action,
+//     NextDispatcher next) _updateFieldKanbanCardAction() {
+//   return (store, action, next) {
+//     print('_updateKanbanCardAction...');
+//     Firestore firestore = Firestore.instance;
+//     firestore
+//         .collection(KanbanCardModel.collection)
+//         .document(store.state.kanbanCardState.currentKanbanCardModel.id)
+//         .setData(action.map, merge: true);
+//     next(action);
+//   };
+// }
+
 void Function(Store<AppState> store, DeleteKanbanCardAction action,
-    NextDispatcher next) _deleteDocKanbanCardAction() {
+    NextDispatcher next) _deleteKanbanCardAction() {
   return (store, action, next) {
-    print('_deleteDocKanbanCardAction...');
+    print('_deleteKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanCardModel.collection)
@@ -88,9 +114,9 @@ void Function(Store<AppState> store, DeleteKanbanCardAction action,
 
 void Function(
         Store<AppState> store, AddKanbanCardAction action, NextDispatcher next)
-    _addDocKanbanCardAction() {
+    _addKanbanCardAction() {
   return (store, action, next) {
-    print('_addDocKanbanCardAction...');
+    print('_addKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanCardModel.collection)

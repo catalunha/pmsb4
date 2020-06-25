@@ -3,10 +3,10 @@ import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanCardState {
-  final KanbanCardModel currentKanbanCardModel;
+  final KanbanCardFilter kanbanCardFilter;
   final List<KanbanCardModel> allKanbanCardModel;
   final List<KanbanCardModel> filteredKanbanCardModel;
-  final KanbanCardFilter kanbanCardFilter;
+  final KanbanCardModel currentKanbanCardModel;
 
   KanbanCardState({
     this.allKanbanCardModel,

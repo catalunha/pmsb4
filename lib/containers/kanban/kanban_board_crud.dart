@@ -33,32 +33,32 @@ class _ViewModel {
     this.removeUserTeam,
   });
   static _ViewModel fromStore(Store<AppState> store) {
-    KanbanBoardModel _kanbanBoardModel =
+    KanbanBoardModel _currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
     return _ViewModel(
-        isEditing: _kanbanBoardModel.id != null ? true : false,
-        title: _kanbanBoardModel?.title ?? '',
-        description: _kanbanBoardModel?.description ?? '',
-        public: _kanbanBoardModel?.public ?? false,
-        active: _kanbanBoardModel?.active ?? false,
-        team: _kanbanBoardModel.team != null
-            ? _kanbanBoardModel.team.entries.map((e) => e.value).toList()
+        isEditing: _currentKanbanBoardModel.id != null ? true : false,
+        title: _currentKanbanBoardModel?.title ?? '',
+        description: _currentKanbanBoardModel?.description ?? '',
+        public: _currentKanbanBoardModel?.public ?? false,
+        active: _currentKanbanBoardModel?.active ?? false,
+        team: _currentKanbanBoardModel.team != null
+            ? _currentKanbanBoardModel.team.entries.map((e) => e.value).toList()
             : [],
         create: (String title, String description, bool public, bool active) {
           final firebaseUser = store.state.userState.firebaseUser;
-          // _kanbanBoardModel = KanbanBoardModel(null);
-          _kanbanBoardModel.author = UserKabanRef(
+          // _currentKanbanBoardModel = KanbanBoardModel(null);
+          _currentKanbanBoardModel.author = UserKabanRef(
             id: firebaseUser.uid,
             displayName: firebaseUser.displayName,
             photoUrl: firebaseUser.photoUrl,
           );
-          _kanbanBoardModel.title = title;
-          _kanbanBoardModel.description = description;
-          _kanbanBoardModel.public = public;
-          _kanbanBoardModel.active = active;
-          _kanbanBoardModel.created = DateTime.now();
-          if (_kanbanBoardModel?.team == null ||
-              !_kanbanBoardModel.team.containsKey(firebaseUser.uid)) {
+          _currentKanbanBoardModel.title = title;
+          _currentKanbanBoardModel.description = description;
+          _currentKanbanBoardModel.public = public;
+          _currentKanbanBoardModel.active = active;
+          _currentKanbanBoardModel.created = DateTime.now();
+          if (_currentKanbanBoardModel?.team == null ||
+              !_currentKanbanBoardModel.team.containsKey(firebaseUser.uid)) {
             print('KanbanBoardCRUD: Adicionando team: ${firebaseUser.uid}');
             UserKabanRef userKabanRef = UserKabanRef(
               id: firebaseUser.uid,
@@ -72,25 +72,25 @@ class _ViewModel {
           }
 
           store.dispatch(
-              AddKanbanBoardAction(kanbanBoardModel: _kanbanBoardModel));
+              AddKanbanBoardAction(kanbanBoardModel: _currentKanbanBoardModel));
         },
         update: (String title, String description, bool public, bool active) {
-          _kanbanBoardModel.title = title;
-          _kanbanBoardModel.description = description;
-          _kanbanBoardModel.public = public;
-          _kanbanBoardModel.active = active;
-          if (_kanbanBoardModel.author == null) {
-            _kanbanBoardModel.author = UserKabanRef(
+          _currentKanbanBoardModel.title = title;
+          _currentKanbanBoardModel.description = description;
+          _currentKanbanBoardModel.public = public;
+          _currentKanbanBoardModel.active = active;
+          if (_currentKanbanBoardModel.author == null) {
+            _currentKanbanBoardModel.author = UserKabanRef(
               id: store.state.userState.firebaseUser.uid,
               displayName: store.state.userState.firebaseUser.displayName,
               photoUrl: store.state.userState.firebaseUser.photoUrl,
             );
           }
           store.dispatch(
-              UpdateKanbanBoardAction(kanbanBoardModel: _kanbanBoardModel));
+              UpdateKanbanBoardAction(kanbanBoardModel: _currentKanbanBoardModel));
         },
         delete: () {
-          store.dispatch(DeleteKanbanBoardAction(id: _kanbanBoardModel.id));
+          store.dispatch(DeleteKanbanBoardAction(id: _currentKanbanBoardModel.id));
         },
         removeUserTeam: (String id) {
           store.dispatch(RemoveUserToTeamKanbanBoardModelAction(id: id));

@@ -14,7 +14,10 @@ class _ViewModel {
   final String description;
   final bool priority;
   final bool active;
+  final int todoCompleted;
+  final int todoTotal;
   final List<UserKabanRef> team;
+  final Function(String) onRemoveUserTeam;
 
   final Function(String, String, bool, bool) onCreate;
   final Function(String, String, bool, bool) onUpdate;
@@ -26,6 +29,9 @@ class _ViewModel {
     this.priority,
     this.active,
     this.team,
+    this.onRemoveUserTeam,
+    this.todoCompleted,
+    this.todoTotal,
     this.onCreate,
     this.onUpdate,
   });
@@ -38,6 +44,8 @@ class _ViewModel {
       description: _kanbanCardModel?.description ?? '',
       priority: _kanbanCardModel?.priority ?? false,
       active: _kanbanCardModel?.active ?? false,
+      todoCompleted: _kanbanCardModel?.todoCompleted ?? 0,
+      todoTotal: _kanbanCardModel?.todoTotal ?? 0,
       team: _kanbanCardModel.team != null
           ? _kanbanCardModel.team.entries.map((e) => e.value).toList()
           : [],
@@ -66,6 +74,13 @@ class _ViewModel {
         store.dispatch(
             UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
       },
+      onRemoveUserTeam: (String id) async {
+        print('removendo1 $id');
+        store.dispatch(RemoveUserToTeamKanbanCardModelAction(id: id));
+
+        store.dispatch(
+            UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+      },
     );
   }
 }
@@ -83,7 +98,10 @@ class KanbanCardCRUD extends StatelessWidget {
           description: _viewModel.description,
           priority: _viewModel.priority,
           active: _viewModel.active,
+          todoCompleted: _viewModel.todoCompleted,
+          todoTotal: _viewModel.todoTotal,
           team: _viewModel.team,
+          onRemoveUserTeam: _viewModel.onRemoveUserTeam,
           onCreate: _viewModel.onCreate,
           onUpdate: _viewModel.onUpdate,
         );

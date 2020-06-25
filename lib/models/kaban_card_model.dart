@@ -18,7 +18,6 @@ class KanbanCardModel extends FirestoreModel {
   dynamic created;
   dynamic modified;
   bool active;
-  //update in intance.
   int todoCompleted;
   int todoTotal;
   KanbanCardModel(
@@ -34,6 +33,8 @@ class KanbanCardModel extends FirestoreModel {
     this.created,
     this.modified,
     this.active,
+    this.todoCompleted,
+    this.todoTotal,
   }) : super(id);
 
   @override
@@ -74,6 +75,8 @@ class KanbanCardModel extends FirestoreModel {
         : null;
     if (map.containsKey('active')) active = map['active'];
     if (map.containsKey('todoOrder')) todoOrder = map['todoOrder'];
+    if (map.containsKey('todoCompleted')) todoCompleted = map['todoCompleted'];
+    if (map.containsKey('todoTotal')) todoTotal = map['todoTotal'];
 
     return this;
   }
@@ -111,6 +114,8 @@ class KanbanCardModel extends FirestoreModel {
     if (modified != null) data['modified'] = this.modified;
     if (active != null) data['active'] = this.active;
     if (todoOrder != null) data['todoOrder'] = this.todoOrder;
+    if (todoCompleted != null) data['todoCompleted'] = this.todoCompleted;
+    if (todoTotal != null) data['todoTotal'] = this.todoTotal;
 
     return data;
   }
@@ -125,27 +130,27 @@ class KanbanCardModel extends FirestoreModel {
     return this.toMap();
   }
 
-  void updateTodo(Todo _todo) {
-    if (todo != null) {
-      todo = Map<String, Todo>();
-    }
-    if (todo.containsKey(_todo.id)) {
-      if (_todo.complete != null) todo[_todo.id].complete = _todo.complete;
-      if (_todo.title != null) todo[_todo.id].title = _todo.title;
-    } else {
-      String _id = (todoOrder ?? 0 + 1).toString();
-      todo[_id].title = _todo.title;
-      todo[_id].complete = false;
-      todo[_id].id = _id;
-    }
+//   void updateTodo(Todo _todo) {
+//     if (todo != null) {
+//       todo = Map<String, Todo>();
+//     }
+//     if (todo.containsKey(_todo.id)) {
+//       if (_todo.complete != null) todo[_todo.id].complete = _todo.complete;
+//       if (_todo.title != null) todo[_todo.id].title = _todo.title;
+//     } else {
+//       String _id = (todoOrder ?? 0 + 1).toString();
+//       todo[_id].title = _todo.title;
+//       todo[_id].complete = false;
+//       todo[_id].id = _id;
+//     }
 
-    if (todo != null && todo.isNotEmpty) {
-      todoTotal = todo.length;
-      todoCompleted = todo.entries
-          .where((element) => element.value.complete == true)
-          .length;
-    }
-  }
+//     if (todo != null && todo.isNotEmpty) {
+//       todoTotal = todo.length;
+//       todoCompleted = todo.entries
+//           .where((element) => element.value.complete == true)
+//           .length;
+//     }
+//   }
 }
 
 class Todo {

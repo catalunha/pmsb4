@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/team_card.dart';
+import 'package:pmsb4/containers/kanban/todo_card_page.dart';
 import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
+import 'package:pmsb4/routes.dart';
 
 class KanbanCardCRUDDS extends StatefulWidget {
   final bool isEditing;
@@ -9,7 +11,10 @@ class KanbanCardCRUDDS extends StatefulWidget {
   final String description;
   final bool priority;
   final bool active;
+  final int todoCompleted;
+  final int todoTotal;
   final List<UserKabanRef> team;
+  final Function(String) onRemoveUserTeam;
 
   final Function(String, String, bool, bool) onCreate;
   final Function(String, String, bool, bool) onUpdate;
@@ -22,8 +27,11 @@ class KanbanCardCRUDDS extends StatefulWidget {
     this.priority,
     this.active,
     this.team,
+    this.onRemoveUserTeam,
     this.onCreate,
     this.onUpdate,
+    this.todoCompleted,
+    this.todoTotal,
   }) : super(key: key);
   @override
   _KanbanCardCRUDDSState createState() =>
@@ -44,8 +52,8 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditing
-            ? Text('Kanban Card CRUD Editar')
-            : Text('Kanban Card CRUD Criar'),
+            ? Text('KanbanCardCRUD Editar')
+            : Text('KanbanCardCRUD Criar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -61,10 +69,10 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
         InkWell(
           onTap: () {
             // print('removendo user${item.id}');
-            // widget.removeUserTeam(item.id);
+            widget.onRemoveUserTeam(item.id);
           },
           child: Tooltip(
-            message: item.displayName,
+            message: '${item.displayName} ${item.id.substring(0,5)}',
             child: CircleAvatar(
               minRadius: 20,
               maxRadius: 20,
@@ -148,14 +156,15 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
             children: avatarsTeam(),
           ),
           ListTile(
-            title: Text(' ?/? ToDos resolvidos.'),
+            title: Text(
+                ' ${widget.todoCompleted}/${widget.todoTotal} ToDos resolvidos.'),
             onTap: () {
               // Navigator.pushNamed(context, Routes.usersTeam);
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => TeamCard(),
-              //   ),
-              // );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => TodoCardPage(),
+                ),
+              );
             },
           ),
           ListTile(

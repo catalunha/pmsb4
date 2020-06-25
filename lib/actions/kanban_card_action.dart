@@ -1,6 +1,5 @@
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/references_models.dart';
-import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanCardAction {}
@@ -37,7 +36,10 @@ class UpdateTodoKanbanCardModelAction extends KanbanCardAction {
   final Todo todo;
   UpdateTodoKanbanCardModelAction({this.todo});
 }
-
+class RemoveTodoKanbanCardModelAction extends KanbanCardAction {
+  final String id;
+  RemoveTodoKanbanCardModelAction({this.id});
+}
 // +++ Actions atendidas pelo firebaseFirestoreKanbanCardMiddleware
 
 class StreamKanbanCardAction extends KanbanCardAction {}
@@ -51,6 +53,10 @@ class UpdateKanbanCardAction extends KanbanCardAction {
   final KanbanCardModel kanbanCardModel;
   UpdateKanbanCardAction({this.kanbanCardModel});
 }
+// class UpdateFieldKanbanCardAction extends KanbanCardAction {
+//   final Map<String,dynamic> map;
+//   UpdateFieldKanbanCardAction({this.map});
+// }
 
 class DeleteKanbanCardAction extends KanbanCardAction {
   final String id;
