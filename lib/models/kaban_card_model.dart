@@ -183,11 +183,13 @@ class Feed {
   String description;
   String link;
   dynamic created;
+  String id;
 
   Feed({
     this.description,
     this.author,
     this.link,
+    this.id
   });
   Feed.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('description')) description = map['description'];
@@ -199,6 +201,7 @@ class Feed {
         ? UserKabanRef.fromMap(map['author'])
         : null;
     if (map.containsKey('link')) link = map['link'];
+    if (map.containsKey('id')) id = map['id'];
   }
 
   Map<String, dynamic> toMap() {
@@ -206,6 +209,7 @@ class Feed {
     if (description != null) data['description'] = this.description;
     data['created'] = this.created ?? DateTime.now();
     if (link != null) data['link'] = this.link;
+    if (id != null) data['id'] = this.id;
     if (this.author != null) {
       data['author'] = this.author.toMap();
     }

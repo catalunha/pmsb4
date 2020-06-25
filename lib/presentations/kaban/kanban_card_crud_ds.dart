@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/feed_card_page.dart';
 import 'package:pmsb4/containers/kanban/team_card.dart';
 import 'package:pmsb4/containers/kanban/todo_card_page.dart';
 import 'package:pmsb4/models/references_models.dart';
@@ -168,14 +169,14 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
             },
           ),
           ListTile(
-            title: Text(' ? Feeds atualmente.'),
+            title: Text('Feed de notícias.'),
             onTap: () {
               // Navigator.pushNamed(context, Routes.usersTeam);
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => TeamCard(),
-              //   ),
-              // );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FeedCardPage(),
+                ),
+              );
             },
           ),
           ListTile(

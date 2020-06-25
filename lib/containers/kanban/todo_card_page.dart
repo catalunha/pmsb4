@@ -18,7 +18,7 @@ class _ViewModel {
   });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-      listTodo: store.state.kanbanCardState.currentKanbanCardModel.todo != null
+      listTodo: store.state.kanbanCardState.currentKanbanCardModel?.todo != null
           ? store.state.kanbanCardState.currentKanbanCardModel.todo.entries
               .map((e) => e.value)
               .toList()

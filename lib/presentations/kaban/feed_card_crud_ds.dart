@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
-class TodoCardCRUDDS extends StatefulWidget {
+class FeedCardCRUDDS extends StatefulWidget {
   final bool isEditing;
-  final String title;
-  final Function(String) onCreateOrUpdate;
+  final String description;
+  final String link;
+  final Function(String, String) onCreateOrUpdate;
 
-  const TodoCardCRUDDS(
-      {Key key, this.isEditing, this.title, this.onCreateOrUpdate})
+  const FeedCardCRUDDS(
+      {Key key,
+      this.isEditing,
+      this.description,
+      this.link,
+      this.onCreateOrUpdate})
       : super(key: key);
-
   @override
-  _TodoCardCRUDDSState createState() => _TodoCardCRUDDSState();
+  _FeedCardCRUDDSState createState() => _FeedCardCRUDDSState();
 }
 
-class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
+class _FeedCardCRUDDSState extends State<FeedCardCRUDDS> {
   static final formKey = GlobalKey<FormState>();
-  String _title;
+  String _description;
+  String _link;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditing
-            ? Text('TodoCardCRUD Editar')
-            : Text('TodoCardCRUD Criar'),
+            ? Text('FeedCardCRUD Editar')
+            : Text('FeedCardCRUD Criar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -39,9 +44,14 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
         shrinkWrap: true,
         children: [
           InputText(
-            title: 'Titulo do todo',
-            initialValue: widget.title,
-            onSaved2: (value) => _title = value,
+            title: 'description',
+            initialValue: widget.description,
+            onSaved2: (value) => _description = value,
+          ),
+          InputText(
+            title: 'link',
+            initialValue: widget.link,
+            onSaved2: (value) => _link = value,
           ),
           ListTile(
             title: Center(
@@ -60,7 +70,7 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      widget.onCreateOrUpdate(_title);
+      widget.onCreateOrUpdate(_description, _link);
     } else {
       setState(() {});
     }

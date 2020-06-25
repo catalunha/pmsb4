@@ -40,6 +40,22 @@ class RemoveTodoKanbanCardModelAction extends KanbanCardAction {
   final String id;
   RemoveTodoKanbanCardModelAction({this.id});
 }
+class UpdateFeedKanbanCardModelAction extends KanbanCardAction {
+  final Feed feed;
+  UpdateFeedKanbanCardModelAction({this.feed});
+}
+class RemoveFeedKanbanCardModelAction extends KanbanCardAction {
+  final String userId;
+  final String id;
+  RemoveFeedKanbanCardModelAction({this.userId,this.id});
+}
+
+class UserViewOrUpdateKanbanCardModelAction extends KanbanCardAction {
+  final bool viewer;
+  final String id;
+  UserViewOrUpdateKanbanCardModelAction({this.viewer,this.id});
+}
+
 // +++ Actions atendidas pelo firebaseFirestoreKanbanCardMiddleware
 
 class StreamKanbanCardAction extends KanbanCardAction {}
