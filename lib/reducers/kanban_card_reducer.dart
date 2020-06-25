@@ -38,17 +38,17 @@ KanbanCardState _updateKanbanCardFilterAction(
   print('_updateKanbanCardFilterAction...');
   List<KanbanCardModel> _filteredKanbanCardModel = [];
 
-  if (state.kanbanCardFilter == KanbanCardFilter.all) {
+  if (action.kanbanCardFilter == KanbanCardFilter.all) {
     _filteredKanbanCardModel = state.allKanbanCardModel;
-  } else if (state.kanbanCardFilter == KanbanCardFilter.active) {
+  } else if (action.kanbanCardFilter == KanbanCardFilter.active) {
     _filteredKanbanCardModel = state.allKanbanCardModel;
-  } else if (state.kanbanCardFilter == KanbanCardFilter.inactive) {
+  } else if (action.kanbanCardFilter == KanbanCardFilter.inactive) {
     _filteredKanbanCardModel = state.allKanbanCardModel;
-  } else if (state.kanbanCardFilter == KanbanCardFilter.normal) {
+  } else if (action.kanbanCardFilter == KanbanCardFilter.normal) {
     _filteredKanbanCardModel = state.allKanbanCardModel
         .where((element) => element.priority == false)
         .toList();
-  } else if (state.kanbanCardFilter == KanbanCardFilter.priority) {
+  } else if (action.kanbanCardFilter == KanbanCardFilter.priority) {
     _filteredKanbanCardModel = state.allKanbanCardModel
         .where((element) => element.priority == true)
         .toList();
@@ -63,16 +63,11 @@ KanbanCardState _addUserToTeamKanbanCardModelAction(
   print('_addUserToTeamKanbanCardModelAction...');
   KanbanCardModel currentKanbanCardModel = state.currentKanbanCardModel;
   if (currentKanbanCardModel?.team == null ||
-      !currentKanbanCardModel.team.containsKey(action.userModel.id)) {
-    UserKabanRef userKabanRef = UserKabanRef(
-      id: action.userModel.id,
-      displayName: action.userModel.displayName,
-      photoUrl: action.userModel.photoUrl,
-    );
+      !currentKanbanCardModel.team.containsKey(action.userKabanRef)) {
     if (currentKanbanCardModel?.team == null) {
       currentKanbanCardModel.team = Map<String, UserKabanRef>();
     }
-    currentKanbanCardModel.team[action.userModel.id] = userKabanRef;
+    currentKanbanCardModel.team[action.userKabanRef.id] = action.userKabanRef;
   }
   return state.copyWith(currentKanbanCardModel: currentKanbanCardModel);
 }

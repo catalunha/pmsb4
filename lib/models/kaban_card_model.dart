@@ -9,7 +9,7 @@ class KanbanCardModel extends FirestoreModel {
   String description;
   bool priority;
   UserKabanRef author;
-  StageCard stageCard;
+  String stageCard;
   Map<String, UserKabanRef> team = Map<String, UserKabanRef>();
   Map<String, Todo> todo = Map<String, Todo>();
   Map<String, Feed> feed = Map<String, Feed>();
@@ -29,12 +29,13 @@ class KanbanCardModel extends FirestoreModel {
     this.priority,
     this.author,
     this.team,
+    this.todo,
+    this.feed,
     this.created,
     this.modified,
     this.active,
   }) : super(id);
 
-  @override
   @override
   KanbanCardModel fromMap(Map<String, dynamic> map) {
     if (map.containsKey('kanbanBoard')) kanbanBoard = map['kanbanBoard'];
@@ -55,6 +56,12 @@ class KanbanCardModel extends FirestoreModel {
       todo = Map<String, Todo>();
       for (var item in map["todo"].entries) {
         todo[item.key] = Todo.fromMap(item.value);
+      }
+    }
+    if (map["feed"] is Map) {
+      feed = Map<String, Feed>();
+      for (var item in map["feed"].entries) {
+        feed[item.key] = Feed.fromMap(item.value);
       }
     }
     created = map.containsKey('created') && map['created'] != null
@@ -92,6 +99,12 @@ class KanbanCardModel extends FirestoreModel {
       data["todo"] = Map<String, dynamic>();
       for (var item in todo.entries) {
         data["todo"][item.key] = item.value.toMap();
+      }
+    }
+    if (feed != null && feed is Map) {
+      data["feed"] = Map<String, dynamic>();
+      for (var item in feed.entries) {
+        data["feed"][item.key] = item.value.toMap();
       }
     }
     if (created != null) data['created'] = this.created;

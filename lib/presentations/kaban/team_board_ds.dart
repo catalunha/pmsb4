@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 
-class UsersTeamDS extends StatefulWidget {
+class TeamBoardDS extends StatefulWidget {
   final List<UserModel> filteredUserModel;
   // final List<UserModel> selectedUserModel;
   final List<UserKabanRef> team;
   final Function(String) addUserTeam;
-  UsersTeamDS({
+  TeamBoardDS({
     Key key,
     this.filteredUserModel,
     // this.selectedUserModel,
@@ -17,10 +17,10 @@ class UsersTeamDS extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _UsersTeamDSState createState() => _UsersTeamDSState();
+  _TeamBoardDSState createState() => _TeamBoardDSState();
 }
 
-class _UsersTeamDSState extends State<UsersTeamDS> {
+class _TeamBoardDSState extends State<TeamBoardDS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

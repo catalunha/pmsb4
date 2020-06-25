@@ -5,7 +5,7 @@ import 'package:pmsb4/actions/users_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/presentations/kaban/users_team_ds.dart';
+import 'package:pmsb4/presentations/kaban/team_board_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -36,8 +36,13 @@ class _ViewModel {
           print('UsersTeam: Selecionado: $id');
           UserModel userModel = store.state.usersState.allUserModel
               .firstWhere((element) => element.id == id);
+              UserKabanRef userKabanRef = UserKabanRef(
+      id: userModel.id,
+      displayName: userModel.displayName,
+      photoUrl: userModel.photoUrl,
+    );
           store.dispatch(
-              AddUserToTeamKanbanBoardModelAction(userModel: userModel));
+              AddUserToTeamKanbanBoardModelAction(userKabanRef: userKabanRef));
         } else {
           print('UsersTeam: Já esta no team.');
         }
@@ -46,8 +51,8 @@ class _ViewModel {
   }
 }
 
-class UsersTeam extends StatelessWidget {
-  const UsersTeam({
+class TeamBoard extends StatelessWidget {
+  const TeamBoard({
     Key key,
   }) : super(key: key);
 
@@ -56,7 +61,7 @@ class UsersTeam extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        return UsersTeamDS(
+        return TeamBoardDS(
           filteredUserModel: _viewModel.filteredUserModel,
           // selectedUserModel: _viewModel.selectedUserModel,
           team: _viewModel.team,

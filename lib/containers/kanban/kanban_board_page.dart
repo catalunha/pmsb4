@@ -4,23 +4,20 @@ import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/kaban/kanban_board_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
-import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
   final List<KanbanBoardModel> filteredKanbanBoardModel;
-  final Function(KanbanBoardFilter) kanbanBoardFilter;
-  _ViewModel({this.filteredKanbanBoardModel, this.kanbanBoardFilter});
+  final Function(String) onCurrentKanbanBoardModel;
+  _ViewModel({this.filteredKanbanBoardModel, this.onCurrentKanbanBoardModel});
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-        filteredKanbanBoardModel:
-            store.state.kanbanBoardState.filteredKanbanBoardModel,
-        kanbanBoardFilter: (KanbanBoardFilter kanbanBoardFilter) {
-          // store.dispatch(UpdateKanbanBoardFilterAction(
-          //     kanbanBoardFilter: kanbanBoardFilter));
-          // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
-          store.dispatch(StreamKanbanBoardAction());
-        });
+      filteredKanbanBoardModel:
+          store.state.kanbanBoardState.filteredKanbanBoardModel,
+      onCurrentKanbanBoardModel: (String id) {
+        store.dispatch(CurrentKanbanBoardModelAction(id: id));
+      },
+    );
   }
 }
 
@@ -33,7 +30,7 @@ class KanbanBoardPage extends StatelessWidget {
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanBoardPageDS(
           filteredKanbanBoardModel: _viewModel.filteredKanbanBoardModel,
-          kanbanBoardFilter: _viewModel.kanbanBoardFilter,
+          onCurrentKanbanBoardModel: _viewModel.onCurrentKanbanBoardModel,
         );
       },
       onInit: (Store<AppState> store) {

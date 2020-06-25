@@ -1,11 +1,13 @@
 import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/actions/counter_action.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
+import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/actions/users_action.dart';
 import 'package:pmsb4/reducers/collection_reducer.dart';
 import 'package:pmsb4/reducers/counter_reducer.dart';
 import 'package:pmsb4/reducers/kanban_board_reducer.dart';
+import 'package:pmsb4/reducers/kanban_card_reducer.dart';
 import 'package:pmsb4/reducers/user_reducer.dart';
 import 'package:pmsb4/reducers/users_reducer.dart';
 import 'package:pmsb4/states/app_state.dart';
@@ -16,6 +18,7 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, UserAction>(_userAction),
   TypedReducer<AppState, CollectionAction>(_collectionAction),
   TypedReducer<AppState, KanbanBoardAction>(_kanbanBoardAction),
+  TypedReducer<AppState, KanbanCardAction>(_kanbanCardAction),
   TypedReducer<AppState, UsersAction>(_usersAction),
 ]);
 
@@ -39,7 +42,11 @@ AppState _kanbanBoardAction(AppState state, KanbanBoardAction action) {
   return state.copyWith(
       kanbanBoardState: kanbanBoardReducer(state.kanbanBoardState, action));
 }
-
+AppState _kanbanCardAction(AppState state, KanbanCardAction action) {
+  print('_kanbanCardAction...');
+  return state.copyWith(
+      kanbanCardState: kanbanCardReducer(state.kanbanCardState, action));
+}
 AppState _usersAction(AppState state, UsersAction action) {
   print('_usersAction...');
   return state.copyWith(usersState: usersReducer(state.usersState, action));

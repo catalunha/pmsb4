@@ -1,4 +1,5 @@
 import 'package:pmsb4/models/kaban_card_model.dart';
+import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
@@ -23,8 +24,8 @@ class UpdateKanbanCardFilterAction extends KanbanCardAction {
 }
 
 class AddUserToTeamKanbanCardModelAction extends KanbanCardAction {
-  final UserModel userModel;
-  AddUserToTeamKanbanCardModelAction({this.userModel});
+  final UserKabanRef userKabanRef;
+  AddUserToTeamKanbanCardModelAction({this.userKabanRef});
 }
 
 class RemoveUserToTeamKanbanCardModelAction extends KanbanCardAction {

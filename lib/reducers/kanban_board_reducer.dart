@@ -47,16 +47,18 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
   print('_addUserToTeamKanbanBoardModelAction...');
   KanbanBoardModel currentKanbanBoardModel = state.currentKanbanBoardModel;
   if (currentKanbanBoardModel?.team == null ||
-      !currentKanbanBoardModel.team.containsKey(action.userModel.id)) {
-    UserKabanRef userKabanRef = UserKabanRef(
-      id: action.userModel.id,
-      displayName: action.userModel.displayName,
-      photoUrl: action.userModel.photoUrl,
-    );
+      !currentKanbanBoardModel.team.containsKey(action.userKabanRef.id)) {
+    // TODO: Mudar action de userModel para userKanban
+    // Tirar esto daqui e colocar no dispache que o chama alterando o tipo de envio da action de
+    // UserKabanRef userKabanRef = UserKabanRef(
+    //   id: action.userModel.id,
+    //   displayName: action.userModel.displayName,
+    //   photoUrl: action.userModel.photoUrl,
+    // );
     if (currentKanbanBoardModel?.team == null) {
       currentKanbanBoardModel.team = Map<String, UserKabanRef>();
     }
-    currentKanbanBoardModel.team[action.userModel.id] = userKabanRef;
+    currentKanbanBoardModel.team[action.userKabanRef.id] = action.userKabanRef;
   }
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);
 }

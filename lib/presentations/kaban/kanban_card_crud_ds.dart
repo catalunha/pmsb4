@@ -1,53 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/containers/kanban/team_board.dart';
+import 'package:pmsb4/containers/kanban/team_card.dart';
 import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
-class KanbanBoardCRUDDS extends StatefulWidget {
+class KanbanCardCRUDDS extends StatefulWidget {
   final bool isEditing;
   final String title;
   final String description;
-  final bool public;
+  final bool priority;
   final bool active;
-  final List<UserKabanRef> team;
-  final Function(String) removeUserTeam;
+    final List<UserKabanRef> team;
 
-  final Function(String, String, bool, bool) create;
-  final Function(String, String, bool, bool) update;
+  final Function(String, String,bool,bool) onCreate;
+  final Function(String, String,bool,bool) onUpdate;
 
-  const KanbanBoardCRUDDS(
-      {Key key,
-      this.isEditing,
-      this.title,
-      this.description,
-      this.public,
-      this.active,
-      this.team,
-      this.create,
-      this.update,
-      this.removeUserTeam})
-      : super(key: key);
+
+  const KanbanCardCRUDDS({
+    Key key,
+    this.isEditing,
+    this.title,
+    this.description,
+    this.priority,
+    this.active,
+    this.team,
+    this.onCreate,
+    this.onUpdate,
+  }) : super(key: key);
   @override
-  KanbanBoardCRUDDSState createState() {
-    return KanbanBoardCRUDDSState(public, active);
-  }
+  _KanbanCardCRUDDSState createState() => _KanbanCardCRUDDSState(priority,active);
 }
 
-class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
+class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
   String _description;
-  bool _public;
-  bool _active;
+   bool _priority;
+   bool _active;
 
-  KanbanBoardCRUDDSState(this._public, this._active);
+  _KanbanCardCRUDDSState(this._priority, this._active);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditing
-            ? Text('Kanban Board Editar')
-            : Text('Kanban Board Criar'),
+            ? Text('Kanban Card Editar')
+            : Text('Kanban Card Criar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -56,14 +54,15 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     );
   }
 
+
   List<Widget> avatarsTeam() {
     List<Widget> listaWidget = List<Widget>();
     for (var item in widget.team) {
       listaWidget.add(
         InkWell(
           onTap: () {
-            print('removendo user${item.id}');
-            widget.removeUserTeam(item.id);
+            // print('removendo user${item.id}');
+            // widget.removeUserTeam(item.id);
           },
           child: Tooltip(
             message: item.displayName,
@@ -92,29 +91,29 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
         shrinkWrap: true,
         children: [
           InputText(
-            title: 'Titulo do quadro',
+            title: 'Titulo do card',
             initialValue: widget.title,
             onSaved2: (value) => _title = value,
           ),
           InputText(
-            title: 'Descrição do quadro',
+            title: 'Descrição do card',
             initialValue: widget.description,
             onSaved2: (value) => _description = value,
           ),
           ListTile(
-            title: Text('Public'),
+            title: Text('Prioridade'),
             trailing: Checkbox(
                 // +++
                 // 1) Ou usa assim true||false never null
-                value: _public,
+                value: _priority,
                 // 2) Ou assim true|false|null
-                // value: _public,
+                // value: _priority,
                 // tristate: true,
                 // ---
                 activeColor: Colors.green,
                 onChanged: (value) {
                   setState(() {
-                    _public = value;
+                    _priority = value;
                   });
                 }),
           ),
@@ -141,7 +140,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => TeamBoard(),
+                  builder: (context) => TeamCard(),
                 ),
               );
             },
@@ -167,9 +166,9 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       if (widget.isEditing) {
-        widget.update(_title, _description, _public, _active);
+        widget.onUpdate(_title,_description,_priority,_active);
       } else {
-        widget.create(_title, _description, _public, _active);
+        widget.onCreate(_title,_description,_priority,_active);
       }
     } else {
       setState(() {});
