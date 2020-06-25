@@ -35,6 +35,7 @@ class KanbanBoardPage extends StatelessWidget {
       },
       onInit: (Store<AppState> store) {
         store.dispatch(StreamKanbanBoardAction());
+        // TODO: Limpar currentBoard
       },
     );
   }

@@ -29,7 +29,7 @@ class _ViewModel {
     this.onCreate,
     this.onUpdate,
   });
-  static _ViewModel fromStore(Store<AppState> store, String id) {
+  static _ViewModel fromStore(Store<AppState> store) {
     KanbanCardModel _kanbanCardModel =
         store.state.kanbanCardState.currentKanbanCardModel;
     return _ViewModel(
@@ -43,7 +43,8 @@ class _ViewModel {
           : [],
       onCreate: (String title, String description, bool priority, bool active) {
         // _kanbanCardModel = KanbanCardModel(null);
-        _kanbanCardModel.kanbanBoard = store.state.kanbanBoardState.currentKanbanBoardModel.id;
+        _kanbanCardModel.kanbanBoard =
+            store.state.kanbanBoardState.currentKanbanBoardModel.id;
         _kanbanCardModel.title = title;
         _kanbanCardModel.description = description;
         _kanbanCardModel.stageCard = StageCard.todo.toString();
@@ -70,13 +71,11 @@ class _ViewModel {
 }
 
 class KanbanCardCRUD extends StatelessWidget {
-  final String id;
-
-  const KanbanCardCRUD({Key key, this.id}) : super(key: key);
+  const KanbanCardCRUD({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
-      converter: (store) => _ViewModel.fromStore(store, id),
+      converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanCardCRUDDS(
           isEditing: _viewModel.isEditing,
@@ -88,9 +87,6 @@ class KanbanCardCRUD extends StatelessWidget {
           onCreate: _viewModel.onCreate,
           onUpdate: _viewModel.onUpdate,
         );
-      },
-      onInit: (Store<AppState> store) {
-        store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
     );
   }

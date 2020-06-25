@@ -9,11 +9,10 @@ class KanbanCardCRUDDS extends StatefulWidget {
   final String description;
   final bool priority;
   final bool active;
-    final List<UserKabanRef> team;
+  final List<UserKabanRef> team;
 
-  final Function(String, String,bool,bool) onCreate;
-  final Function(String, String,bool,bool) onUpdate;
-
+  final Function(String, String, bool, bool) onCreate;
+  final Function(String, String, bool, bool) onUpdate;
 
   const KanbanCardCRUDDS({
     Key key,
@@ -27,15 +26,16 @@ class KanbanCardCRUDDS extends StatefulWidget {
     this.onUpdate,
   }) : super(key: key);
   @override
-  _KanbanCardCRUDDSState createState() => _KanbanCardCRUDDSState(priority,active);
+  _KanbanCardCRUDDSState createState() =>
+      _KanbanCardCRUDDSState(priority, active);
 }
 
 class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
   String _description;
-   bool _priority;
-   bool _active;
+  bool _priority;
+  bool _active;
 
   _KanbanCardCRUDDSState(this._priority, this._active);
 
@@ -44,8 +44,8 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditing
-            ? Text('Kanban Card Editar')
-            : Text('Kanban Card Criar'),
+            ? Text('Kanban Card CRUD Editar')
+            : Text('Kanban Card CRUD Criar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -53,7 +53,6 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
       ),
     );
   }
-
 
   List<Widget> avatarsTeam() {
     List<Widget> listaWidget = List<Widget>();
@@ -149,6 +148,28 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
             children: avatarsTeam(),
           ),
           ListTile(
+            title: Text(' ?/? ToDos resolvidos.'),
+            onTap: () {
+              // Navigator.pushNamed(context, Routes.usersTeam);
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => TeamCard(),
+              //   ),
+              // );
+            },
+          ),
+          ListTile(
+            title: Text(' ? Feeds atualmente.'),
+            onTap: () {
+              // Navigator.pushNamed(context, Routes.usersTeam);
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => TeamCard(),
+              //   ),
+              // );
+            },
+          ),
+          ListTile(
             title: Center(
               child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
             ),
@@ -166,9 +187,9 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       if (widget.isEditing) {
-        widget.onUpdate(_title,_description,_priority,_active);
+        widget.onUpdate(_title, _description, _priority, _active);
       } else {
-        widget.onCreate(_title,_description,_priority,_active);
+        widget.onCreate(_title, _description, _priority, _active);
       }
     } else {
       setState(() {});
