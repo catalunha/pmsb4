@@ -20,6 +20,7 @@ class _ViewModel {
     Todo todo = id != null
         ? store.state.kanbanCardState.currentKanbanCardModel.todo[id]
         : null;
+
     return _ViewModel(
       isEditing: id != null ? true : false,
       title: todo?.title ?? '',
@@ -29,6 +30,9 @@ class _ViewModel {
           id: id,
           title: title,
         )));
+                store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+            user: store.state.userState.firebaseUser.uid, viewer: false));
+
         store.dispatch(UpdateKanbanCardAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
@@ -52,6 +56,7 @@ class TodoCardCRUD extends StatelessWidget {
           onCreateOrUpdate: _viewModel.onCreateOrUpdate,
         );
       },
+
     );
   }
 }

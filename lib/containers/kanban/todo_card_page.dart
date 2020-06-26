@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
+import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/presentations/kaban/todo_card_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
@@ -30,16 +31,40 @@ class _ViewModel {
           complete: !store
               .state.kanbanCardState.currentKanbanCardModel.todo[id].complete,
         )));
+        store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+            user: store.state.userState.firebaseUser.uid, viewer: false));
+        //+++ bot msg
+        Feed feed = Feed();
+        final firebaseUser = store.state.userState.firebaseUser;
+        UserKabanRef userKabanRef = UserKabanRef(
+          id: firebaseUser.uid,
+          displayName: firebaseUser.displayName,
+          photoUrl: firebaseUser.photoUrl,
+        );
+        feed.author = userKabanRef;
+        String _msg =
+            'Etapa: ${store.state.kanbanCardState.currentKanbanCardModel.todo[id].title}.';
+        if (store
+            .state.kanbanCardState.currentKanbanCardModel.todo[id].complete) {
+          _msg = _msg + ' . Cumprida.';
+        } else {
+          _msg = _msg + ' . Pendente.';
+        }
+        feed.description = _msg;
+        feed.bot = true;
+        store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
+        //---
         store.dispatch(UpdateKanbanCardAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },
       onDelete: (String id) {
         store.dispatch(RemoveTodoKanbanCardModelAction(id: id));
-                store.dispatch(UpdateKanbanCardAction(
+        store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+            user: store.state.userState.firebaseUser.uid, viewer: false));
+        store.dispatch(UpdateKanbanCardAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
-                
       },
     );
   }

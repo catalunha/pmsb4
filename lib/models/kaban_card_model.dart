@@ -114,10 +114,20 @@ class KanbanCardModel extends FirestoreModel {
     if (modified != null) data['modified'] = this.modified;
     if (active != null) data['active'] = this.active;
     if (todoOrder != null) data['todoOrder'] = this.todoOrder;
+    updateCompletedTodos();
     if (todoCompleted != null) data['todoCompleted'] = this.todoCompleted;
     if (todoTotal != null) data['todoTotal'] = this.todoTotal;
 
     return data;
+  }
+
+  void updateCompletedTodos() {
+    if (todo != null && todo.isNotEmpty) {
+      todoTotal = todo.length;
+      todoCompleted = todo.entries
+          .where((element) => element.value.complete == true)
+          .length;
+    }
   }
 
   KanbanCardModel fromFirestore(Map<String, dynamic> map) {
@@ -129,28 +139,6 @@ class KanbanCardModel extends FirestoreModel {
     this.modified = DateTime.now();
     return this.toMap();
   }
-
-//   void updateTodo(Todo _todo) {
-//     if (todo != null) {
-//       todo = Map<String, Todo>();
-//     }
-//     if (todo.containsKey(_todo.id)) {
-//       if (_todo.complete != null) todo[_todo.id].complete = _todo.complete;
-//       if (_todo.title != null) todo[_todo.id].title = _todo.title;
-//     } else {
-//       String _id = (todoOrder ?? 0 + 1).toString();
-//       todo[_id].title = _todo.title;
-//       todo[_id].complete = false;
-//       todo[_id].id = _id;
-//     }
-
-//     if (todo != null && todo.isNotEmpty) {
-//       todoTotal = todo.length;
-//       todoCompleted = todo.entries
-//           .where((element) => element.value.complete == true)
-//           .length;
-//     }
-//   }
 }
 
 class Todo {
@@ -184,16 +172,18 @@ class Feed {
   String link;
   dynamic created;
   String id;
+  bool bot;
 
   Feed({
     this.description,
     this.author,
     this.link,
-    this.id
+    this.id,
+    this.bot,
   });
   Feed.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('description')) description = map['description'];
-    created = map.containsKey('created') && map['created'] != null
+    created = (map.containsKey('created') && map['created'] != null)
         ? DateTime.fromMillisecondsSinceEpoch(
             map['created'].millisecondsSinceEpoch)
         : null;
@@ -202,14 +192,16 @@ class Feed {
         : null;
     if (map.containsKey('link')) link = map['link'];
     if (map.containsKey('id')) id = map['id'];
+    if (map.containsKey('bot')) bot = map['bot'];
   }
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (description != null) data['description'] = this.description;
-    data['created'] = this.created ?? DateTime.now();
+    if (created != null) data['created'] = this.created;
     if (link != null) data['link'] = this.link;
     if (id != null) data['id'] = this.id;
+    if (bot != null) data['bot'] = this.bot;
     if (this.author != null) {
       data['author'] = this.author.toMap();
     }

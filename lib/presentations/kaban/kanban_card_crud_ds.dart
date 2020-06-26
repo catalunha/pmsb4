@@ -73,17 +73,25 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
             widget.onRemoveUserTeam(item.id);
           },
           child: Tooltip(
-            message: '${item.displayName} ${item.id.substring(0,5)}',
-            child: CircleAvatar(
-              minRadius: 20,
-              maxRadius: 20,
-              child: ClipOval(
-                child: Center(
-                  child: item?.photoUrl != null
-                      ? Image.network(item.photoUrl)
-                      : Icon(Icons.person_add),
+            message: '${item.displayName} ${item.id.substring(0, 5)}',
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  minRadius: 20,
+                  maxRadius: 20,
+                  child: ClipOval(
+                    child: Center(
+                      child: item?.photoUrl != null
+                          ? Image.network(item.photoUrl)
+                          : Icon(Icons.person_add),
+                    ),
+                  ),
                 ),
-              ),
+                Icon(
+                  Icons.remove_red_eye,
+                  color: item.readedCard ? Colors.transparent : Colors.red,
+                ),
+              ],
             ),
           ),
         ),

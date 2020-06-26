@@ -38,6 +38,14 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     KanbanCardModel _kanbanCardModel =
         store.state.kanbanCardState.currentKanbanCardModel;
+    String userId = store.state.userState.firebaseUser.uid;
+    if (_kanbanCardModel.team.containsKey(userId) &&
+        !_kanbanCardModel.team[userId].readedCard) {
+      store.dispatch(
+          UserViewOrUpdateKanbanCardModelAction(user: userId, viewer: true));
+      store.dispatch(UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+    }
+
     return _ViewModel(
       isEditing: _kanbanCardModel?.id != null ? true : false,
       title: _kanbanCardModel?.title ?? '',

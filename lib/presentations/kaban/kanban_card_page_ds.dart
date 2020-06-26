@@ -6,13 +6,11 @@ import 'package:pmsb4/models/references_models.dart';
 
 class KanbanCardPageDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
-      final Function(String) onCurrentKanbanCardModel;
+  final Function(String) onCurrentKanbanCardModel;
 
-  const KanbanCardPageDS({
-    Key key,
-    this.filteredKanbanCardModel,
-    this.onCurrentKanbanCardModel
-  }) : super(key: key);
+  const KanbanCardPageDS(
+      {Key key, this.filteredKanbanCardModel, this.onCurrentKanbanCardModel})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,15 +27,14 @@ class KanbanCardPageDS extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(kanbanCard.title),
-                      //  
+                  //
                   subtitle: Text(
                       'id:${kanbanCard.id.substring(0, 5)} | kanbanBoard:${kanbanCard.kanbanBoard?.substring(0, 5)} | description:${kanbanCard.description} | priority:${kanbanCard.priority} | active:${kanbanCard.active} | created:${kanbanCard.created} |  modified:${kanbanCard.modified} | team:${kanbanCard.team?.length} | '),
                   onTap: () {
                     onCurrentKanbanCardModel(kanbanCard.id);
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => KanbanCardCRUD(
-                        ),
+                        builder: (context) => KanbanCardCRUD(),
                       ),
                     );
                   },
@@ -60,8 +57,7 @@ class KanbanCardPageDS extends StatelessWidget {
           onCurrentKanbanCardModel(null);
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => KanbanCardCRUD(
-              ),
+              builder: (context) => KanbanCardCRUD(),
             ),
           );
         },
@@ -102,16 +98,24 @@ class KanbanCardPageDS extends StatelessWidget {
           },
           child: Tooltip(
             message: item.displayName,
-            child: CircleAvatar(
-              minRadius: 20,
-              maxRadius: 20,
-              child: ClipOval(
-                child: Center(
-                  child: item?.photoUrl != null
-                      ? Image.network(item.photoUrl)
-                      : Icon(Icons.person_add),
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  minRadius: 20,
+                  maxRadius: 20,
+                  child: ClipOval(
+                    child: Center(
+                      child: item?.photoUrl != null
+                          ? Image.network(item.photoUrl)
+                          : Icon(Icons.person_add),
+                    ),
+                  ),
                 ),
-              ),
+                Icon(
+                  Icons.remove_red_eye,
+                  color: item.readedCard ? Colors.transparent : Colors.red,
+                ),
+              ],
             ),
           ),
         ),

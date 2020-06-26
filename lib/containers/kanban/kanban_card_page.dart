@@ -8,14 +8,14 @@ import 'package:redux/redux.dart';
 
 class _ViewModel {
   final List<KanbanCardModel> filteredKanbanCardModel;
-    final Function(String) onCurrentKanbanCardModel;
+  final Function(String) onCurrentKanbanCardModel;
 
-  _ViewModel({this.filteredKanbanCardModel,this.onCurrentKanbanCardModel});
+  _ViewModel({this.filteredKanbanCardModel, this.onCurrentKanbanCardModel});
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
       filteredKanbanCardModel:
           store.state.kanbanCardState.filteredKanbanCardModel,
-          onCurrentKanbanCardModel: (String id) {
+      onCurrentKanbanCardModel: (String id) {
         store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
     );
@@ -38,6 +38,7 @@ class KanbanCardPage extends StatelessWidget {
         store.dispatch(StreamKanbanCardAction());
         // TODO: Limpar currentCard
       },
+
     );
   }
 }

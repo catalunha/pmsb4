@@ -36,7 +36,6 @@ class _ViewModel {
           feed.author = userKabanRef;
           feed.description = description;
           feed.link = link;
-          feed.created = DateTime.now();
         } else {
           //update
           feed.id = id;

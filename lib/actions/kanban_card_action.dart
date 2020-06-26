@@ -44,6 +44,7 @@ class UpdateFeedKanbanCardModelAction extends KanbanCardAction {
   final Feed feed;
   UpdateFeedKanbanCardModelAction({this.feed});
 }
+
 class RemoveFeedKanbanCardModelAction extends KanbanCardAction {
   final String userId;
   final String id;
@@ -52,8 +53,8 @@ class RemoveFeedKanbanCardModelAction extends KanbanCardAction {
 
 class UserViewOrUpdateKanbanCardModelAction extends KanbanCardAction {
   final bool viewer;
-  final String id;
-  UserViewOrUpdateKanbanCardModelAction({this.viewer,this.id});
+  final String user;
+  UserViewOrUpdateKanbanCardModelAction({this.viewer,this.user});
 }
 
 // +++ Actions atendidas pelo firebaseFirestoreKanbanCardMiddleware

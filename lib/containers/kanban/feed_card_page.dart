@@ -12,17 +12,31 @@ class _ViewModel {
 
   _ViewModel({this.listFeed, this.onDelete});
   static _ViewModel fromStore(Store<AppState> store) {
+    List<Feed> _listFeed;
+    if (store.state.kanbanCardState.currentKanbanCardModel?.feed != null) {
+      _listFeed = store
+          .state.kanbanCardState.currentKanbanCardModel.feed.entries
+          .map((e) => e.value)
+          .toList();
+      _listFeed.sort((b, a) => (a.created).compareTo(b.created));
+    } else {
+      _listFeed = [];
+    }
+
     return _ViewModel(
-      listFeed: store.state.kanbanCardState.currentKanbanCardModel?.feed != null
-          ? store.state.kanbanCardState.currentKanbanCardModel.feed.entries
-              .map((e) => e.value)
-              .toList()
-          : [],
+      listFeed: _listFeed,
       onDelete: (String id) {
-        store.dispatch(RemoveFeedKanbanCardModelAction(userId: store.state.userState.firebaseUser.uid, id: id));
-        store.dispatch(UpdateKanbanCardAction(
-            kanbanCardModel:
-                store.state.kanbanCardState.currentKanbanCardModel));
+        KanbanCardModel currentKanbanCardModel =
+            store.state.kanbanCardState.currentKanbanCardModel;
+        if (currentKanbanCardModel.feed[id].author.id ==
+                store.state.userState.firebaseUser.uid &&
+            !currentKanbanCardModel.feed[id].bot) {
+          store.dispatch(RemoveFeedKanbanCardModelAction(
+              userId: store.state.userState.firebaseUser.uid, id: id));
+          store.dispatch(UpdateKanbanCardAction(
+              kanbanCardModel:
+                  store.state.kanbanCardState.currentKanbanCardModel));
+        }
       },
     );
   }

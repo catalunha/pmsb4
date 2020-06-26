@@ -57,6 +57,8 @@ void Function(Store<AppState> store, StreamKanbanCardAction action,
           AllKanbanCardModelAction(allKanbanCardModel: allKanbanCardModel));
       store.dispatch(
           UpdateKanbanCardFilterAction(kanbanCardFilter: KanbanCardFilter.all));
+      store.dispatch(CurrentKanbanCardModelAction(
+          id: store.state.kanbanCardState.currentKanbanCardModel?.id));
     });
     next(action);
   };
@@ -71,8 +73,8 @@ void Function(Store<AppState> store, UpdateKanbanCardAction action,
     firestore
         .collection(KanbanCardModel.collection)
         .document(action.kanbanCardModel.id)
-    .updateData(action.kanbanCardModel.toFirestore());
-        // .setData(action.kanbanCardModel.toFirestore(), merge: true);
+        .updateData(action.kanbanCardModel.toFirestore());
+    // .setData(action.kanbanCardModel.toFirestore(), merge: true);
     //       await Future.delayed(
     //   Duration(seconds: 5),
     //   () => 'Large Latte',
