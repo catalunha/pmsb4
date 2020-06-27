@@ -85,13 +85,13 @@ class MyApp extends StatelessWidget {
           Routes.collectionUpdate: (context) {
             return CollectionUpdate();
           },
-          Routes.usersTeam: (context) {
+          Routes.teamBoard: (context) {
             return TeamBoard();
           },
-          Routes.kanbanBoard: (context) {
+          Routes.kanbanBoardPage: (context) {
             return KanbanBoardPage();
           },
-          Routes.kanbanCard: (context) {
+          Routes.kanbanCardPage: (context) {
             return KanbanCardPage();
           },
         },

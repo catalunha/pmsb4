@@ -13,13 +13,13 @@ class KanbanCardModel extends FirestoreModel {
   Map<String, UserKabanRef> team = Map<String, UserKabanRef>();
   Map<String, Todo> todo = Map<String, Todo>();
   Map<String, Feed> feed = Map<String, Feed>();
-  //controle da collection
-  int todoOrder = 0;
+  int todoOrder;
   dynamic created;
   dynamic modified;
   bool active;
   int todoCompleted;
   int todoTotal;
+
   KanbanCardModel(
     String id, {
     this.kanbanBoard,

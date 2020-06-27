@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/components/logout_button.dart';
-import 'package:pmsb4/containers/counter/counter_page.dart';
-import 'package:pmsb4/containers/user/profile_page.dart';
 import 'package:pmsb4/routes.dart';
 
 class HomePageDS extends StatelessWidget {
@@ -52,7 +50,7 @@ class HomePageDS extends StatelessWidget {
           ListTile(
             title: Text('KanbanBoard Page'),
             onTap: () {
-              Navigator.pushNamed(context, Routes.kanbanBoard);
+              Navigator.pushNamed(context, Routes.kanbanBoardPage);
             },
           ),
         ],

@@ -14,23 +14,31 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
       _updateKanbanBoardFilterAction),
   TypedReducer<KanbanBoardState, AddUserToTeamKanbanBoardModelAction>(
       _addUserToTeamKanbanBoardModelAction),
-        TypedReducer<KanbanBoardState, RemoveUserToTeamKanbanBoardModelAction>(
+  TypedReducer<KanbanBoardState, RemoveUserToTeamKanbanBoardModelAction>(
       _removeUserToTeamKanbanBoardModelAction),
 ]);
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
   print('_allKanbanBoardModelAction...');
-  return state.copyWith(allKanbanBoardModel: action.allKanbanBoardModel);
+  KanbanBoardState _stateNew =
+      state.copyWith(allKanbanBoardModel: action.allKanbanBoardModel);
+  _stateNew = _updateKanbanBoardFilterAction(
+      _stateNew,
+      UpdateKanbanBoardFilterAction(
+          kanbanBoardFilter: _stateNew.kanbanBoardFilter));
+  _stateNew=_currentKanbanBoardModelAction(_stateNew,
+      CurrentKanbanBoardModelAction(id: _stateNew.currentKanbanBoardModel?.id));
+  return _stateNew;
 }
 
 KanbanBoardState _currentKanbanBoardModelAction(
     KanbanBoardState state, CurrentKanbanBoardModelAction action) {
   print('_currentKanbanBoardModelAction...');
-  KanbanBoardModel _kanbanBoardModel = action.id != null
+  KanbanBoardModel _currentKanbanBoardModel = action.id != null
       ? state.allKanbanBoardModel
           .firstWhere((element) => element.id == action.id)
       : KanbanBoardModel(null);
-  return state.copyWith(currentKanbanBoardModel: _kanbanBoardModel);
+  return state.copyWith(currentKanbanBoardModel: _currentKanbanBoardModel);
 }
 
 KanbanBoardState _updateKanbanBoardFilterAction(
@@ -48,7 +56,6 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
   KanbanBoardModel currentKanbanBoardModel = state.currentKanbanBoardModel;
   if (currentKanbanBoardModel?.team == null ||
       !currentKanbanBoardModel.team.containsKey(action.userKabanRef.id)) {
-
     if (currentKanbanBoardModel?.team == null) {
       currentKanbanBoardModel.team = Map<String, UserKabanRef>();
     }
@@ -56,7 +63,6 @@ KanbanBoardState _addUserToTeamKanbanBoardModelAction(
   }
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);
 }
-
 
 KanbanBoardState _removeUserToTeamKanbanBoardModelAction(
     KanbanBoardState state, RemoveUserToTeamKanbanBoardModelAction action) {

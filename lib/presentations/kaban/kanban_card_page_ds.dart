@@ -113,7 +113,7 @@ class KanbanCardPageDS extends StatelessWidget {
                 ),
                 Icon(
                   Icons.remove_red_eye,
-                  color: item.readedCard ? Colors.transparent : Colors.red,
+                  color: item?.readedCard ?? true ? Colors.transparent : Colors.red,
                 ),
               ],
             ),

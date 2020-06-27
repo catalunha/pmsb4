@@ -60,7 +60,7 @@ class FeedCardPageDS extends StatelessWidget {
                   ),
                   title: Text('description: ${feed.description}'),
                   subtitle: Text(
-                      'link: ${feed.link}| author: ${feed.author.displayName} | author.id: ${feed.author.id.substring(0, 5)} | idFeed: ${feed.id.substring(0, 5)} | created: ${feed.created}'),
+                      'bot: ${feed.bot} | link: ${feed.link} | author: ${feed.author.displayName} | author.id: ${feed.author.id.substring(0, 5)} | idFeed: ${feed.id.substring(0, 5)} | created: ${feed.created}'),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {

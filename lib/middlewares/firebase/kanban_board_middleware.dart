@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
+import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/enums.dart';
@@ -59,7 +60,9 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
       print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
-      store.dispatch(UpdateKanbanBoardFilterAction());
+      // store.dispatch(UpdateKanbanBoardFilterAction());
+      //       store.dispatch(CurrentKanbanCardModelAction(
+      //     id: store.state.kanbanCardState.currentKanbanCardModel?.id));
     });
     next(action);
   };
