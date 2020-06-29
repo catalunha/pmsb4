@@ -38,9 +38,7 @@ class KanbanBoardPageDS extends StatelessWidget {
                     onCurrentKanbanBoardModel(kanbanBoard.id);
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => KanbanBoardCRUD(
-                            // id: kanbanBoard.id,
-                            ),
+                        builder: (context) => KanbanBoardCRUD(),
                       ),
                     );
                   },
@@ -48,7 +46,7 @@ class KanbanBoardPageDS extends StatelessWidget {
                     icon: Icon(Icons.credit_card),
                     onPressed: () {
                       onCurrentKanbanBoardModel(kanbanBoard.id);
-                      Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
+                      Navigator.pushNamed(context, Routes.kanbanCardPage);
                     },
                   ),
                 ),

@@ -1,3 +1,15 @@
+// enumerations types
+
+enum StageCard {
+  story,
+  todo,
+  doing,
+  check,
+  done,
+}
+
+//class types
+
 class Team {
   String id;
   String displayName;

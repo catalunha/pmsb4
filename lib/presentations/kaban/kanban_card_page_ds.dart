@@ -16,7 +16,7 @@ class KanbanCardPageDS extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Kanban Card Page ${filteredKanbanCardModel.length}'),
-        // actions: [KanbanFilter()],
+        // actions: [KanbanCardFilter()],
       ),
       body: ListView.builder(
         itemCount: filteredKanbanCardModel.length,

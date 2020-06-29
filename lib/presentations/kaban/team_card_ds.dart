@@ -22,7 +22,7 @@ class _TeamCardDSState extends State<TeamCardDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Time para este card'),
+        title: Text('TeamCardDS'),
       ),
       body: ListView.builder(
         itemCount: widget.teamBoard.length,

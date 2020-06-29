@@ -61,21 +61,25 @@ class FeedCardPageDS extends StatelessWidget {
                   title: Text('description: ${feed.description}'),
                   subtitle: Text(
                       'bot: ${feed.bot} | link: ${feed.link} | author: ${feed.author.displayName} | author.id: ${feed.author.id.substring(0, 5)} | idFeed: ${feed.id.substring(0, 5)} | created: ${feed.created}'),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      onDelete(feed.id);
-                    },
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => FeedCardCRUD(
-                          id: feed.id,
+                  trailing: feed.bot
+                      ? Icon(Icons.block)
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            onDelete(feed.id);
+                          },
                         ),
-                      ),
-                    );
-                  },
+                  onTap: feed.bot
+                      ? () {}
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => FeedCardCRUD(
+                                id: feed.id,
+                              ),
+                            ),
+                          );
+                        },
                 ),
               ],
             ),

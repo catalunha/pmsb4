@@ -4,10 +4,9 @@ import 'package:pmsb4/containers/kanban/team_card.dart';
 import 'package:pmsb4/containers/kanban/todo_card_page.dart';
 import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
-import 'package:pmsb4/routes.dart';
 
 class KanbanCardCRUDDS extends StatefulWidget {
-  final bool isEditing;
+  final bool isCreate;
   final String title;
   final String description;
   final bool priority;
@@ -15,22 +14,19 @@ class KanbanCardCRUDDS extends StatefulWidget {
   final int todoCompleted;
   final int todoTotal;
   final List<Team> team;
+  final Function(String, String, bool, bool) onCreateOrUpdate;
   final Function(String) onRemoveUserTeam;
-
-  final Function(String, String, bool, bool) onCreate;
-  final Function(String, String, bool, bool) onUpdate;
 
   const KanbanCardCRUDDS({
     Key key,
-    this.isEditing,
+    this.isCreate,
     this.title,
     this.description,
     this.priority,
     this.active,
     this.team,
     this.onRemoveUserTeam,
-    this.onCreate,
-    this.onUpdate,
+    this.onCreateOrUpdate,
     this.todoCompleted,
     this.todoTotal,
   }) : super(key: key);
@@ -52,9 +48,9 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: widget.isEditing
-            ? Text('KanbanCardCRUD Editar')
-            : Text('KanbanCardCRUD Criar'),
+        title: widget.isCreate
+            ? Text('KanbanCardCRUD Criar')
+            : Text('KanbanCardCRUD Editar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -191,7 +187,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
           ),
           ListTile(
             title: Center(
-              child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
+              child: widget.isCreate ? Text('Criar') : Text('Atualizar'),
             ),
             onTap: () {
               validateData();
@@ -206,11 +202,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      if (widget.isEditing) {
-        widget.onUpdate(_title, _description, _priority, _active);
-      } else {
-        widget.onCreate(_title, _description, _priority, _active);
-      }
+      widget.onCreateOrUpdate(_title, _description, _priority, _active);
     } else {
       setState(() {});
     }

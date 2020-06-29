@@ -36,9 +36,7 @@ class KanbanCardPage extends StatelessWidget {
       },
       onInit: (Store<AppState> store) {
         store.dispatch(StreamKanbanCardDataAction());
-        // TODO: Limpar currentCard
       },
-
     );
   }
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
 class TodoCardCRUDDS extends StatefulWidget {
-  final bool isEditing;
+  final bool isCreate;
   final String title;
   final Function(String) onCreateOrUpdate;
 
   const TodoCardCRUDDS(
-      {Key key, this.isEditing, this.title, this.onCreateOrUpdate})
+      {Key key, this.isCreate, this.title, this.onCreateOrUpdate})
       : super(key: key);
 
   @override
@@ -21,9 +21,9 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: widget.isEditing
-            ? Text('TodoCardCRUD Editar')
-            : Text('TodoCardCRUD Criar'),
+        title: widget.isCreate
+            ? Text('TodoCardCRUD Criar')
+            : Text('TodoCardCRUD Editar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -45,7 +45,7 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
           ),
           ListTile(
             title: Center(
-              child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
+              child: widget.isCreate ? Text('Criar') : Text('Editar'),
             ),
             onTap: () {
               validateData();

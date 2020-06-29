@@ -8,23 +8,27 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final bool isEditing;
+  final bool isCreate;
   final String description;
   final String link;
   final Function(String, String) onCreateOrUpdate;
 
   _ViewModel(
-      {this.isEditing, this.description, this.link, this.onCreateOrUpdate});
+      {this.isCreate, this.description, this.link, this.onCreateOrUpdate});
   static _ViewModel fromStore(Store<AppState> store, String id) {
     Feed feed = id != null
         ? store.state.kanbanCardState.currentKanbanCardModel.feed[id]
         : null;
     return _ViewModel(
-      isEditing: id != null ? true : false,
+      isCreate: id == null ? true : false,
       description: feed?.description ?? '',
       link: feed?.link ?? null,
       onCreateOrUpdate: (String description, String link) {
         Feed feed = Feed();
+        feed.id = id;
+        feed.description = description;
+        feed.link = link.isEmpty || link == '' ? null : link;
+        feed.bot = false;
         if (id == null) {
           //create
           final firebaseUser = store.state.loggedState.firebaseUserLogged;
@@ -34,13 +38,6 @@ class _ViewModel {
             photoUrl: firebaseUser.photoUrl,
           );
           feed.author = team;
-          feed.description = description;
-          feed.link = link;
-        } else {
-          //update
-          feed.id = id;
-          feed.description = description;
-          feed.link = link;
         }
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
 
@@ -62,7 +59,7 @@ class FeedCardCRUD extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return FeedCardCRUDDS(
-          isEditing: _viewModel.isEditing,
+          isCreate: _viewModel.isCreate,
           description: _viewModel.description,
           link: _viewModel.link,
           onCreateOrUpdate: _viewModel.onCreateOrUpdate,

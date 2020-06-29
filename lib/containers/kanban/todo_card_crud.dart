@@ -7,12 +7,12 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final bool isEditing;
+  final bool isCreate;
   final String title;
   final Function(String) onCreateOrUpdate;
 
   _ViewModel({
-    this.isEditing,
+    this.isCreate,
     this.title,
     this.onCreateOrUpdate,
   });
@@ -22,7 +22,7 @@ class _ViewModel {
         : null;
 
     return _ViewModel(
-      isEditing: id != null ? true : false,
+      isCreate: id != null ? true : false,
       title: todo?.title ?? '',
       onCreateOrUpdate: (String title) {
         store.dispatch(UpdateTodoKanbanCardModelAction(
@@ -52,7 +52,7 @@ class TodoCardCRUD extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return TodoCardCRUDDS(
-          isEditing: _viewModel.isEditing,
+          isCreate: _viewModel.isCreate,
           title: _viewModel.title,
           onCreateOrUpdate: _viewModel.onCreateOrUpdate,
         );

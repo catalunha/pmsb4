@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
 class FeedCardCRUDDS extends StatefulWidget {
-  final bool isEditing;
+  final bool isCreate;
   final String description;
   final String link;
   final Function(String, String) onCreateOrUpdate;
 
   const FeedCardCRUDDS(
       {Key key,
-      this.isEditing,
+      this.isCreate,
       this.description,
       this.link,
       this.onCreateOrUpdate})
@@ -26,9 +26,9 @@ class _FeedCardCRUDDSState extends State<FeedCardCRUDDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: widget.isEditing
-            ? Text('FeedCardCRUD Editar')
-            : Text('FeedCardCRUD Criar'),
+        title: widget.isCreate
+            ? Text('FeedCardCRUD Criar')
+            : Text('FeedCardCRUD Atualizar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -55,7 +55,7 @@ class _FeedCardCRUDDSState extends State<FeedCardCRUDDS> {
           ),
           ListTile(
             title: Center(
-              child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
+              child: widget.isCreate ? Text('Criar') : Text('Atualizar'),
             ),
             onTap: () {
               validateData();

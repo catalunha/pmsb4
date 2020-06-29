@@ -7,8 +7,8 @@ import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final Function(KanbanBoardFilter) onSelectFilter;
   final KanbanBoardFilter activeFilter;
+  final Function(KanbanBoardFilter) onSelectFilter;
 
   _ViewModel({this.onSelectFilter, this.activeFilter});
   static _ViewModel fromStore(Store<AppState> store) {

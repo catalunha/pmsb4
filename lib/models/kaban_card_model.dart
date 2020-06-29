@@ -1,4 +1,3 @@
-import 'package:pmsb4/models/enums_models.dart';
 import 'package:pmsb4/models/firestore_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 
@@ -122,11 +121,12 @@ class KanbanCardModel extends FirestoreModel {
   }
 
   void updateCompletedTodos() {
-    if (todo != null && todo.isNotEmpty) {
-      todoTotal = todo.length;
+    if (this.todo != null) {
+      todoTotal = todo.length ?? 0;
       todoCompleted = todo.entries
-          .where((element) => element.value.complete == true)
-          .length;
+              .where((element) => element.value.complete == true)
+              .length ??
+          0;
     }
   }
 
