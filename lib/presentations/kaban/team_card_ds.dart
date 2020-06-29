@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 
 class TeamCardDS extends StatefulWidget {
   final List<Team> teamBoard;
@@ -50,7 +50,6 @@ class _TeamCardDSState extends State<TeamCardDS> {
                   widget.addUserTeam(_teamBoard.id);
                   setState(() {});
                 }),
-
           );
         },
       ),

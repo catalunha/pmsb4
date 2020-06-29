@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 
 class KanbanCardPageDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
@@ -65,8 +65,7 @@ class KanbanCardPageDS extends StatelessWidget {
     );
   }
 
-  List<Widget> avatarsTeam(
-      Team author, Map<String, Team> teamMap) {
+  List<Widget> avatarsTeam(Team author, Map<String, Team> teamMap) {
     List<Widget> listaWidget = List<Widget>();
     listaWidget.add(
       Tooltip(
@@ -113,7 +112,9 @@ class KanbanCardPageDS extends StatelessWidget {
                 ),
                 Icon(
                   Icons.remove_red_eye,
-                  color: item?.readedCard ?? true ? Colors.transparent : Colors.red,
+                  color: item?.readedCard ?? true
+                      ? Colors.transparent
+                      : Colors.red,
                 ),
               ],
             ),

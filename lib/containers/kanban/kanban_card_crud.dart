@@ -2,7 +2,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/enums_models.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/kaban/kanban_card_crud_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
@@ -43,7 +43,8 @@ class _ViewModel {
         !_kanbanCardModel.team[userId].readedCard) {
       store.dispatch(
           UserViewOrUpdateKanbanCardModelAction(user: userId, viewer: true));
-      store.dispatch(UpdateKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
+      store.dispatch(
+          UpdateKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
     }
 
     return _ViewModel(
@@ -72,7 +73,8 @@ class _ViewModel {
           displayName: store.state.userState.firebaseUser.displayName,
           photoUrl: store.state.userState.firebaseUser.photoUrl,
         );
-        store.dispatch(AddKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
+        store.dispatch(
+            AddKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
       },
       onUpdate: (String title, String description, bool priority, bool active) {
         _kanbanCardModel.title = title;

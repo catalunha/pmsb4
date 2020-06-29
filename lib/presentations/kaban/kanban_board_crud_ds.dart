@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
 class KanbanBoardCRUDDS extends StatefulWidget {
-  final bool isEditing;
+  final bool isCreate;
   final String title;
   final String description;
   final bool public;
   final bool active;
   final List<Team> team;
-  final Function(String) removeUserTeam;
-
-  final Function(String, String, bool, bool) create;
-  final Function(String, String, bool, bool) update;
+  final Function(String) onRemoveUserTeam;
+  final Function(String, String, bool, bool) onCreateOrUpdate;
 
   const KanbanBoardCRUDDS(
       {Key key,
-      this.isEditing,
+      this.isCreate,
       this.title,
       this.description,
       this.public,
       this.active,
       this.team,
-      this.create,
-      this.update,
-      this.removeUserTeam})
+      this.onCreateOrUpdate,
+      this.onRemoveUserTeam})
       : super(key: key);
   @override
   KanbanBoardCRUDDSState createState() {
-    return KanbanBoardCRUDDSState(public, active);
+    return KanbanBoardCRUDDSState();
+    // return KanbanBoardCRUDDSState(public, active);
   }
 }
 
@@ -40,14 +38,24 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   bool _public;
   bool _active;
 
-  KanbanBoardCRUDDSState(this._public, this._active);
+  // KanbanBoardCRUDDSState() {
+  //   // KanbanBoardCRUDDSState(this._public, this._active) {
+  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _public = widget.public;
+    _active = widget.active;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: widget.isEditing
-            ? Text('Kanban Board Editar')
-            : Text('Kanban Board Criar'),
+        title: widget.isCreate
+            ? Text('Kanban Board Criar')
+            : Text('Kanban Board Editar'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -63,7 +71,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
         InkWell(
           onTap: () {
             print('removendo user${item.id}');
-            widget.removeUserTeam(item.id);
+            widget.onRemoveUserTeam(item.id);
           },
           child: Tooltip(
             message: item.displayName,
@@ -130,9 +138,8 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                 // ---
                 activeColor: Colors.green,
                 onChanged: (value) {
-                  setState(() {
-                    _active = value;
-                  });
+                  _active = value;
+                  setState(() {});
                 }),
           ),
           ListTile(
@@ -151,7 +158,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
           ),
           ListTile(
             title: Center(
-              child: widget.isEditing ? Text('Atualizar') : Text('Criar'),
+              child: widget.isCreate ? Text('Criar') : Text('Atualizar'),
             ),
             onTap: () {
               validateData();
@@ -166,11 +173,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      if (widget.isEditing) {
-        widget.update(_title, _description, _public, _active);
-      } else {
-        widget.create(_title, _description, _public, _active);
-      }
+      widget.onCreateOrUpdate(_title, _description, _public, _active);
     } else {
       setState(() {});
     }

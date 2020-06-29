@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/actions/users_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/presentations/kaban/team_board_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
@@ -11,7 +11,6 @@ import 'package:redux/redux.dart';
 
 class _ViewModel {
   final List<UserModel> filteredUserModel;
-  // final List<UserModel> selectedUserModel;
   final List<Team> team;
 
   final Function(String) addUserTeam;
@@ -36,13 +35,12 @@ class _ViewModel {
           print('UsersTeam: Selecionado: $id');
           UserModel userModel = store.state.usersState.allUserModel
               .firstWhere((element) => element.id == id);
-              Team team = Team(
-      id: userModel.id,
-      displayName: userModel.displayName,
-      photoUrl: userModel.photoUrl,
-    );
-          store.dispatch(
-              AddUserToTeamKanbanBoardModelAction(team: team));
+          Team team = Team(
+            id: userModel.id,
+            displayName: userModel.displayName,
+            photoUrl: userModel.photoUrl,
+          );
+          store.dispatch(AddUserToTeamKanbanBoardModelAction(team: team));
         } else {
           print('UsersTeam: Já esta no team.');
         }

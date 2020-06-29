@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/firestore_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 
 class KanbanBoardModel extends FirestoreModel {
   static final String collection = 'kanbanBoard';

@@ -30,7 +30,7 @@ class _ViewModel {
           id: id,
           title: title,
         )));
-                store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+        store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.userState.firebaseUser.uid, viewer: false));
 
         store.dispatch(UpdateKanbanCardDataAction(
@@ -56,7 +56,6 @@ class TodoCardCRUD extends StatelessWidget {
           onCreateOrUpdate: _viewModel.onCreateOrUpdate,
         );
       },
-
     );
   }
 }

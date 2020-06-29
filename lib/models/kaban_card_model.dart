@@ -1,6 +1,6 @@
 import 'package:pmsb4/models/enums_models.dart';
 import 'package:pmsb4/models/firestore_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 
 class KanbanCardModel extends FirestoreModel {
   static final String collection = 'kanbanCard';

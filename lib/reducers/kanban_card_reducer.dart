@@ -1,6 +1,6 @@
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/states/enums.dart';
 import 'package:pmsb4/states/kanban_card_state.dart';
 import 'package:redux/redux.dart';

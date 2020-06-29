@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_page.dart';
 import 'package:pmsb4/containers/kanban/team_card.dart';
 import 'package:pmsb4/containers/kanban/todo_card_page.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 import 'package:pmsb4/routes.dart';
 

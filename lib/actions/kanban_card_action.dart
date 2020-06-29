@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanCardAction {}

@@ -1,4 +1,4 @@
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
@@ -21,6 +21,7 @@ class UpdateUsersFilterAction extends UsersAction {
 
   UpdateUsersFilterAction({this.usersFilter});
 }
+
 class AddSelectedUserModelAction extends UsersAction {
   final UserModel userModel;
   AddSelectedUserModelAction({this.userModel});

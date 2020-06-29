@@ -4,7 +4,8 @@ import 'package:pmsb4/containers/kanban/kanban_board_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_filter.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/routes.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {
   final List<KanbanBoardModel> filteredKanbanBoardModel;
@@ -47,11 +48,7 @@ class KanbanBoardPageDS extends StatelessWidget {
                     icon: Icon(Icons.credit_card),
                     onPressed: () {
                       onCurrentKanbanBoardModel(kanbanBoard.id);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => KanbanCardPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
                     },
                   ),
                 ),
@@ -71,13 +68,10 @@ class KanbanBoardPageDS extends StatelessWidget {
         ),
         onPressed: () {
           onCurrentKanbanBoardModel(null);
-              // Navigator.pushNamed(context, Routes.profile);
-
+          // Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => KanbanBoardCRUD(
-                  // id: null,
-                  ),
+              builder: (context) => KanbanBoardCRUD(),
             ),
           );
         },
@@ -85,8 +79,7 @@ class KanbanBoardPageDS extends StatelessWidget {
     );
   }
 
-  List<Widget> avatarsTeam(
-      Team author, Map<String, Team> teamMap) {
+  List<Widget> avatarsTeam(Team author, Map<String, Team> teamMap) {
     List<Widget> listaWidget = List<Widget>();
     listaWidget.add(
       Tooltip(

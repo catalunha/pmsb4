@@ -1,105 +1,86 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/kaban/kanban_board_crud_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final bool isEditing;
+  final bool isCreate;
   final String title;
   final String description;
   final bool public;
   final bool active;
   final List<Team> team;
-  final Function(String, String, bool, bool) create;
-  final Function(String, String, bool, bool) update;
-  final Function() delete;
-  final Function(String) removeUserTeam;
+  final Function(String, String, bool, bool) onCreateOrUpdate;
+  final Function() onDelete;
+  final Function(String) onRemoveUserTeam;
 
   _ViewModel({
-    this.isEditing,
+    this.isCreate,
     this.title,
     this.description,
     this.public,
     this.active,
     this.team,
-    this.create,
-    this.update,
-    this.delete,
-    this.removeUserTeam,
+    this.onCreateOrUpdate,
+    this.onDelete,
+    this.onRemoveUserTeam,
   });
   static _ViewModel fromStore(Store<AppState> store) {
     KanbanBoardModel _currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
+    bool _isCreate = _currentKanbanBoardModel.id == null ? true : false;
     return _ViewModel(
-        isEditing: _currentKanbanBoardModel.id != null ? true : false,
+        isCreate: _isCreate,
         title: _currentKanbanBoardModel?.title ?? '',
         description: _currentKanbanBoardModel?.description ?? '',
         public: _currentKanbanBoardModel?.public ?? false,
-        active: _currentKanbanBoardModel?.active ?? false,
+        active: _currentKanbanBoardModel?.active ?? true,
         team: _currentKanbanBoardModel.team != null
             ? _currentKanbanBoardModel.team.entries.map((e) => e.value).toList()
             : [],
-        create: (String title, String description, bool public, bool active) {
-          final firebaseUser = store.state.userState.firebaseUser;
-          // _currentKanbanBoardModel = KanbanBoardModel(null);
-          _currentKanbanBoardModel.author = Team(
-            id: firebaseUser.uid,
-            displayName: firebaseUser.displayName,
-            photoUrl: firebaseUser.photoUrl,
-          );
+        onCreateOrUpdate:
+            (String title, String description, bool public, bool active) {
           _currentKanbanBoardModel.title = title;
           _currentKanbanBoardModel.description = description;
           _currentKanbanBoardModel.public = public;
           _currentKanbanBoardModel.active = active;
-          _currentKanbanBoardModel.created = DateTime.now();
-          if (_currentKanbanBoardModel?.team == null ||
-              !_currentKanbanBoardModel.team.containsKey(firebaseUser.uid)) {
-            print('KanbanBoardCRUD: Adicionando team: ${firebaseUser.uid}');
+          if (_isCreate) {
+            FirebaseUser firebaseUser = store.state.userState.firebaseUser;
+            _currentKanbanBoardModel.author = Team(
+              id: firebaseUser.uid,
+              displayName: firebaseUser.displayName,
+              photoUrl: firebaseUser.photoUrl,
+            );
+            _currentKanbanBoardModel.created = DateTime.now();
             Team team = Team(
               id: firebaseUser.uid,
               displayName: firebaseUser.displayName,
               photoUrl: firebaseUser.photoUrl,
             );
-            store.dispatch(AddUserToTeamKanbanBoardModelAction(
-                team: team));
+            store.dispatch(AddUserToTeamKanbanBoardModelAction(team: team));
+            store.dispatch(AddKanbanBoardDataAction(
+                kanbanBoardModel: _currentKanbanBoardModel));
           } else {
-            print('KanbanBoardCRUD: Já esta com vc no team.');
+            store.dispatch(UpdateKanbanBoardDataAction(
+                kanbanBoardModel: _currentKanbanBoardModel));
           }
-
+        },
+        onDelete: () {
           store.dispatch(
-              AddKanbanBoardDataAction(kanbanBoardModel: _currentKanbanBoardModel));
+              DeleteKanbanBoardDataAction(id: _currentKanbanBoardModel.id));
         },
-        update: (String title, String description, bool public, bool active) {
-          _currentKanbanBoardModel.title = title;
-          _currentKanbanBoardModel.description = description;
-          _currentKanbanBoardModel.public = public;
-          _currentKanbanBoardModel.active = active;
-          if (_currentKanbanBoardModel.author == null) {
-            _currentKanbanBoardModel.author = Team(
-              id: store.state.userState.firebaseUser.uid,
-              displayName: store.state.userState.firebaseUser.displayName,
-              photoUrl: store.state.userState.firebaseUser.photoUrl,
-            );
-          }
-          store.dispatch(
-              UpdateKanbanBoardDataAction(kanbanBoardModel: _currentKanbanBoardModel));
-        },
-        delete: () {
-          store.dispatch(DeleteKanbanBoardDataAction(id: _currentKanbanBoardModel.id));
-        },
-        removeUserTeam: (String id) {
+        onRemoveUserTeam: (String id) {
           store.dispatch(RemoveUserToTeamKanbanBoardModelAction(id: id));
         });
   }
 }
 
 class KanbanBoardCRUD extends StatelessWidget {
-  // final String id;
-
   const KanbanBoardCRUD({Key key}) : super(key: key);
 
   @override
@@ -108,20 +89,16 @@ class KanbanBoardCRUD extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanBoardCRUDDS(
-          isEditing: _viewModel.isEditing,
+          isCreate: _viewModel.isCreate,
           title: _viewModel.title,
           description: _viewModel.description,
           public: _viewModel.public,
           active: _viewModel.active,
           team: _viewModel.team,
-          create: _viewModel.create,
-          update: _viewModel.update,
-          removeUserTeam: _viewModel.removeUserTeam,
+          onCreateOrUpdate: _viewModel.onCreateOrUpdate,
+          onRemoveUserTeam: _viewModel.onRemoveUserTeam,
         );
       },
-      // onInit: (Store<AppState> store) {
-      //   store.dispatch(CurrentKanbanBoardModelAction(id: id));
-      // },
     );
   }
 }

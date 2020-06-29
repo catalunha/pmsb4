@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/references_models.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/presentations/kaban/team_card_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
@@ -21,7 +21,7 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     KanbanBoardModel currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
-            KanbanCardModel currentKanbanCardModel =
+    KanbanCardModel currentKanbanCardModel =
         store.state.kanbanCardState.currentKanbanCardModel;
     return _ViewModel(
       teamBoard: currentKanbanBoardModel?.team != null
@@ -34,9 +34,8 @@ class _ViewModel {
         if (currentKanbanCardModel?.team == null ||
             !currentKanbanCardModel.team.containsKey(id)) {
           print('addUserTeamCard: Selecionado: $id');
-          Team team= currentKanbanBoardModel.team[id];
-          store.dispatch(
-              AddUserToTeamKanbanCardModelAction(team: team));
+          Team team = currentKanbanBoardModel.team[id];
+          store.dispatch(AddUserToTeamKanbanCardModelAction(team: team));
         } else {
           print('addUserTeamCard: Já esta no team.');
         }
@@ -62,7 +61,6 @@ class TeamCard extends StatelessWidget {
           addUserTeam: _viewModel.addUserTeam,
         );
       },
-
     );
   }
 }
