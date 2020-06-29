@@ -38,7 +38,7 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     KanbanCardModel _kanbanCardModel =
         store.state.kanbanCardState.currentKanbanCardModel;
-    String userId = store.state.userState.firebaseUser.uid;
+    String userId = store.state.loggedState.firebaseUserLogged.uid;
     if (_kanbanCardModel.team.containsKey(userId) &&
         !_kanbanCardModel.team[userId].readedCard) {
       store.dispatch(
@@ -69,9 +69,9 @@ class _ViewModel {
         _kanbanCardModel.active = true;
         _kanbanCardModel.created = DateTime.now();
         _kanbanCardModel.author = Team(
-          id: store.state.userState.firebaseUser.uid,
-          displayName: store.state.userState.firebaseUser.displayName,
-          photoUrl: store.state.userState.firebaseUser.photoUrl,
+          id: store.state.loggedState.firebaseUserLogged.uid,
+          displayName: store.state.loggedState.firebaseUserLogged.displayName,
+          photoUrl: store.state.loggedState.firebaseUserLogged.photoUrl,
         );
         store.dispatch(
             AddKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));

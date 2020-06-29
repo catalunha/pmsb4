@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/containers/login/login_page.dart';
+import 'package:pmsb4/containers/logged/login_page.dart';
 import 'package:pmsb4/presentations/home/home_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
@@ -14,7 +14,7 @@ class _ViewModel {
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-      logged: store.state.userState.firebaseUser == null ? false : true,
+      logged: store.state.loggedState.firebaseUserLogged == null ? false : true,
     );
   }
 }
@@ -35,4 +35,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

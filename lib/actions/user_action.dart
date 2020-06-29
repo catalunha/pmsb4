@@ -1,93 +1,53 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class UserAction {}
 
-// +++ Actions atendidas por UserReducer
-class UserAuthenticationStatusAction extends UserAction {
-  final AuthenticationStatus authenticationStatus;
+// +++ Actions atendidas pelo UsersReducer
+class AllUserModelAction extends UserAction {
+  final List<UserModel> allUserModel;
 
-  UserAuthenticationStatusAction({this.authenticationStatus});
-  @override
-  String toString() {
-    return 'UserAuthenticationStatus{authenticationStatus:$authenticationStatus}';
-  }
+  AllUserModelAction({this.allUserModel});
 }
 
-class UserLoginSuccessfulAction extends UserAction {
-  final FirebaseUser firebaseUser;
+// class CurrentUserModelAction extends UsersAction {
+//   final int index;
+//   CurrentUserModelAction({this.index});
+// }
 
-  UserLoginSuccessfulAction({this.firebaseUser});
-  @override
-  String toString() {
-    return 'UserLoginSuccessful{firebaseUser: $firebaseUser}';
-  }
+class UpdateUserFilterAction extends UserAction {
+  final UsersFilter usersFilter;
+
+  UpdateUserFilterAction({this.usersFilter});
 }
 
-class UserUpdateProfileSuccessfulAction extends UserAction {
-  final FirebaseUser firebaseUser;
-
-  UserUpdateProfileSuccessfulAction({this.firebaseUser});
+class AddSelectedUserModelAction extends UserAction {
+  final UserModel userModel;
+  AddSelectedUserModelAction({this.userModel});
 }
 
-class UserLoginFailAction extends UserAction {
-  final dynamic error;
+// class FilteredUsersModelAction extends UsersAction{
 
-  UserLoginFailAction({this.error});
+// }
 
-  @override
-  String toString() {
-    return 'UserLoginFail{error: $error}';
-  }
-}
+// +++ Actions atendidas pelo firebaseFirestoreUsersMiddleware
 
-class UserLogoutSuccessfulAction extends UserAction {
-  UserLogoutSuccessfulAction();
-  @override
-  String toString() {
-    return 'UserLogoutSuccessful{firebaseUser:null}';
-  }
-}
+// class AddUsersAction extends UsersAction {
+//   final UserModel userModel;
 
-// +++ Actions atendidas por firebaseAuthenticationMiddleware
+//   AddUsersAction({this.userModel});
+// }
 
-class UserOnAuthStateChangedAction extends UserAction {}
+class StreamUserDataAction extends UserAction {}
 
-class UserSendPasswordResetEmailAction extends UserAction {
-  final String email;
+// class UpdateUsersAction extends UsersAction {
+//   final UserModel UserModel;
+//   UpdateUsersAction({this.UserModel});
+// }
 
-  UserSendPasswordResetEmailAction({this.email});
-  @override
-  String toString() {
-    return 'UserResetPasswordAction{email:$email}';
-  }
-}
+// class DeleteUsersAction extends UsersAction {
+//   final String id;
 
-class UserUpdateProfileDisplayNameAction extends UserAction {
-  final String displayName;
-
-  UserUpdateProfileDisplayNameAction({this.displayName});
-
-}
-
-class UserLoginEmailPasswordAction extends UserAction {
-  final String email;
-  final String password;
-
-  UserLoginEmailPasswordAction({this.email, this.password});
-  @override
-  String toString() {
-    return 'UserLoginEmailPassword{email:$email,password:$password}';
-  }
-}
-
-class UserLoginGoogleAction extends UserAction {}
-
-class UserLogoutAction extends UserAction {}
-
-// +++ Actions atendidas por firebaseStorageMiddleware
-class UserUpdateProfilePhotoUrlAction extends UserAction{
-  final String photoLocalPath;
-
-  UserUpdateProfilePhotoUrlAction({this.photoLocalPath});
-}
+//   DeleteUsersAction({this.id});
+// }

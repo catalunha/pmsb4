@@ -31,7 +31,8 @@ class _ViewModel {
           title: title,
         )));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
-            user: store.state.userState.firebaseUser.uid, viewer: false));
+            user: store.state.loggedState.firebaseUserLogged.uid,
+            viewer: false));
 
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:

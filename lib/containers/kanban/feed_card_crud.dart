@@ -27,7 +27,7 @@ class _ViewModel {
         Feed feed = Feed();
         if (id == null) {
           //create
-          final firebaseUser = store.state.userState.firebaseUser;
+          final firebaseUser = store.state.loggedState.firebaseUserLogged;
           Team team = Team(
             id: firebaseUser.uid,
             displayName: firebaseUser.displayName,

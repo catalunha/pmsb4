@@ -32,10 +32,11 @@ class _ViewModel {
               .state.kanbanCardState.currentKanbanCardModel.todo[id].complete,
         )));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
-            user: store.state.userState.firebaseUser.uid, viewer: false));
+            user: store.state.loggedState.firebaseUserLogged.uid,
+            viewer: false));
         //+++ bot msg
         Feed feed = Feed();
-        final firebaseUser = store.state.userState.firebaseUser;
+        final firebaseUser = store.state.loggedState.firebaseUserLogged;
         Team team = Team(
           id: firebaseUser.uid,
           displayName: firebaseUser.displayName,
@@ -61,7 +62,8 @@ class _ViewModel {
       onDelete: (String id) {
         store.dispatch(RemoveTodoKanbanCardModelAction(id: id));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
-            user: store.state.userState.firebaseUser.uid, viewer: false));
+            user: store.state.loggedState.firebaseUserLogged.uid,
+            viewer: false));
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));

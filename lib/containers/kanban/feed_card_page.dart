@@ -29,10 +29,10 @@ class _ViewModel {
         KanbanCardModel currentKanbanCardModel =
             store.state.kanbanCardState.currentKanbanCardModel;
         if (currentKanbanCardModel.feed[id].author.id ==
-                store.state.userState.firebaseUser.uid &&
+                store.state.loggedState.firebaseUserLogged.uid &&
             !currentKanbanCardModel.feed[id].bot) {
           store.dispatch(RemoveFeedKanbanCardModelAction(
-              userId: store.state.userState.firebaseUser.uid, id: id));
+              userId: store.state.loggedState.firebaseUserLogged.uid, id: id));
           store.dispatch(UpdateKanbanCardDataAction(
               kanbanCardModel:
                   store.state.kanbanCardState.currentKanbanCardModel));

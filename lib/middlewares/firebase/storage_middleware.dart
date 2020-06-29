@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mime/mime.dart';
-import 'package:pmsb4/actions/user_action.dart';
+import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseStorageMiddleware() {
   return [
-    TypedMiddleware<AppState, UserUpdateProfilePhotoUrlAction>(
+    TypedMiddleware<AppState, UpdateProfilePhotoUrlLoggedAction>(
         _userUpdateProfilePhotoUrlAction()),
   ];
 }
@@ -19,7 +19,7 @@ Middleware<AppState> _userUpdateProfilePhotoUrlAction() {
     print('_userUpdateProfilePhotoUrlAction...');
     final String _photoLocalPath = action.photoLocalPath;
     if (_photoLocalPath != null && _photoLocalPath.isNotEmpty) {
-      FirebaseUser firebaseUser = store.state.userState.firebaseUser;
+      FirebaseUser firebaseUser = store.state.loggedState.firebaseUserLogged;
 
       final File _photoLocalPathFile = File(_photoLocalPath);
       final _photoContentType = lookupMimeType(_photoLocalPath,
@@ -44,8 +44,8 @@ Middleware<AppState> _userUpdateProfilePhotoUrlAction() {
             firebaseUser.reload();
             FirebaseAuth firebaseAuth = FirebaseAuth.instance;
             firebaseUser = await firebaseAuth.currentUser();
-            store.dispatch(
-                UserUpdateProfileSuccessfulAction(firebaseUser: firebaseUser));
+            store.dispatch(UpdateProfileSuccessfulLoggedAction(
+                firebaseUser: firebaseUser));
           }).catchError(
               (onError) => print('_updateprofile onError:' + onError));
         }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/actions/user_action.dart';
+import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/containers/collection/collection_page.dart';
 import 'package:pmsb4/containers/collection/collection_update.dart';
 import 'package:pmsb4/containers/counter/counter_page.dart';
@@ -8,14 +8,14 @@ import 'package:pmsb4/containers/home/home_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
-import 'package:pmsb4/containers/user/profile_page.dart';
-import 'package:pmsb4/containers/user/profile_update.dart';
+import 'package:pmsb4/containers/logged/profile_page.dart';
+import 'package:pmsb4/containers/logged/profile_update.dart';
 import 'package:pmsb4/middlewares/firebase/authentication_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/collection_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/kanban_board_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/kanban_card_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/storage_middleware.dart';
-import 'package:pmsb4/middlewares/firebase/users_middleware.dart';
+import 'package:pmsb4/middlewares/firebase/user_middleware.dart';
 import 'package:pmsb4/plataform/resources.dart';
 
 import 'package:pmsb4/reducers/app_reducer.dart';
@@ -38,7 +38,7 @@ Store<AppState> _store = Store<AppState>(
     ..addAll(firebaseAuthenticationMiddleware())
     ..addAll(firebaseStorageMiddleware())
     ..addAll(firebaseFirestoreCollectionMiddleware())
-    ..addAll(firebaseFirestoreUsersMiddleware())
+    ..addAll(firebaseFirestoreUserMiddleware())
     ..addAll(firebaseFirestoreKanbanBoardMiddleware())
     ..addAll(firebaseFirestoreKanbanCardMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
@@ -50,9 +50,9 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-    store.dispatch(UserAuthenticationStatusAction(
-        authenticationStatus: AuthenticationStatus.unInitialized));
-    store.dispatch(UserOnAuthStateChangedAction());
+    store.dispatch(AuthenticationStatusLoggedAction(
+        loggedAuthenticationStatus: LoggedAuthenticationStatus.unInitialized));
+    store.dispatch(OnAuthStateChangedLoggedAction());
   }
 
   @override

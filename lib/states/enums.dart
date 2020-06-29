@@ -1,4 +1,4 @@
-enum AuthenticationStatus {
+enum LoggedAuthenticationStatus {
   unInitialized,
   authenticated,
   authenticating,

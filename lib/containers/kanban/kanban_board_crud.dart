@@ -50,7 +50,8 @@ class _ViewModel {
           _currentKanbanBoardModel.public = public;
           _currentKanbanBoardModel.active = active;
           if (_isCreate) {
-            FirebaseUser firebaseUser = store.state.userState.firebaseUser;
+            FirebaseUser firebaseUser =
+                store.state.loggedState.firebaseUserLogged;
             _currentKanbanBoardModel.author = Team(
               id: firebaseUser.uid,
               displayName: firebaseUser.displayName,

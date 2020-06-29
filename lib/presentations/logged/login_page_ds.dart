@@ -6,7 +6,7 @@ class LoginPageDS extends StatefulWidget {
   final Function(String) sendPasswordResetEmail;
   final Function(String, String) loginEmailPassword;
   final Function loginGoogle;
-  final AuthenticationStatus authenticationStatus;
+  final LoggedAuthenticationStatus authenticationStatus;
   const LoginPageDS({
     Key key,
     this.loginEmailPassword,
@@ -97,23 +97,23 @@ class LoginPageDSState extends State<LoginPageDS> {
                   onTap: () {},
                 ),
                 widget.authenticationStatus ==
-                        AuthenticationStatus.authenticating
+                        LoggedAuthenticationStatus.authenticating
                     ? Center(child: CircularProgressIndicator())
                     : Container(),
                 widget.authenticationStatus ==
-                        AuthenticationStatus.unAuthenticated
+                        LoggedAuthenticationStatus.unAuthenticated
                     ? Text('Verifique Email e a Senha por favor.')
                     : Container(),
                 widget.authenticationStatus ==
-                        AuthenticationStatus.unInitialized
+                        LoggedAuthenticationStatus.unInitialized
                     ? Text('Estamos aguardando vc logar.')
                     : Container(),
                 widget.authenticationStatus ==
-                        AuthenticationStatus.authenticated
+                        LoggedAuthenticationStatus.authenticated
                     ? Text('Acesso liberado.')
                     : Container(),
                 widget.authenticationStatus ==
-                        AuthenticationStatus.sendPasswordReset
+                        LoggedAuthenticationStatus.sendPasswordReset
                     ? Text('Veja seu email para nova senha.')
                     : Container(),
               ],

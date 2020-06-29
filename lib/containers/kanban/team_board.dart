@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
-import 'package:pmsb4/actions/users_action.dart';
+import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/models/user_model.dart';
@@ -67,7 +67,7 @@ class TeamBoard extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
-        store.dispatch(StreamUsersAction());
+        store.dispatch(StreamUserDataAction());
       },
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginButton extends StatelessWidget {
+class LoginGoogleButton extends StatelessWidget {
   final Function loginGoogle;
 
-  const LoginButton({Key key, this.loginGoogle})
-      : super(key: key);
+  const LoginGoogleButton({Key key, this.loginGoogle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

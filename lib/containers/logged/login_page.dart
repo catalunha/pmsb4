@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:pmsb4/actions/user_action.dart';
-import 'package:pmsb4/presentations/login/login_page_ds.dart';
+import 'package:pmsb4/actions/logged_action.dart';
+import 'package:pmsb4/presentations/logged/login_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/enums.dart';
 import 'package:redux/redux.dart';
@@ -10,8 +10,8 @@ class _ViewModel {
   final Function(String) sendPasswordResetEmail;
   final Function(String, String) loginEmailPassword;
   final Function loginGoogle;
-  final AuthenticationStatus authenticationStatus;
-  _ViewModel( {
+  final LoggedAuthenticationStatus authenticationStatus;
+  _ViewModel({
     this.loginEmailPassword,
     this.loginGoogle,
     this.authenticationStatus,
@@ -21,15 +21,15 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
       loginEmailPassword: (String email, String password) {
-        store
-            .dispatch(UserLoginEmailPasswordAction(email: email, password: password));
+        store.dispatch(
+            LoginEmailPasswordLoggedAction(email: email, password: password));
       },
       loginGoogle: () {
-        store.dispatch(UserLoginGoogleAction());
+        store.dispatch(LoginGoogleLoggedAction());
       },
-      authenticationStatus: store.state.userState.authenticationStatus,
-      sendPasswordResetEmail: (String email){
-store.dispatch(UserSendPasswordResetEmailAction(email: email));
+      authenticationStatus: store.state.loggedState.authenticationStatusLogged,
+      sendPasswordResetEmail: (String email) {
+        store.dispatch(SendPasswordResetEmailLoggedAction(email: email));
       },
     );
   }
