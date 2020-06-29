@@ -35,7 +35,7 @@ void Function(
     listDocs.listen((List<UserModel> allUserModel) {
       store.dispatch(AllUserModelAction(allUserModel: allUserModel));
       //Ou pode aplicar filtro após all
-      store.dispatch(UpdateUserFilterAction(usersFilter: UsersFilter.all));
+      store.dispatch(UpdateUserFilterAction(usersFilter: UserFilter.all));
     });
     next(action);
   };

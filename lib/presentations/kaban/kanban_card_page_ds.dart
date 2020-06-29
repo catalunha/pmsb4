@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
+import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 
@@ -16,7 +18,10 @@ class KanbanCardPageDS extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Kanban Card Page ${filteredKanbanCardModel.length}'),
-        // actions: [KanbanCardFilter()],
+        actions: [
+          KanbanCardFiltering(),
+          TeamCardFiltering(),
+        ],
       ),
       body: ListView.builder(
         itemCount: filteredKanbanCardModel.length,

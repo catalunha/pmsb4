@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/states/type_states.dart';
 
-class KanbanFilterCDS extends StatelessWidget {
+class KanbanBoardFilteringDS extends StatelessWidget {
   final Function(KanbanBoardFilter) onSelectFilter;
   final KanbanBoardFilter activeFilter;
 
-  const KanbanFilterCDS({
+  const KanbanBoardFilteringDS({
     Key key,
     this.onSelectFilter,
     this.activeFilter,

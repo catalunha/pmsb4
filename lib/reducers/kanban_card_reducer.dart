@@ -17,6 +17,8 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
       _addUserToTeamKanbanCardModelAction),
   TypedReducer<KanbanCardState, RemoveUserToTeamKanbanCardModelAction>(
       _removeUserToTeamKanbanCardModelAction),
+  TypedReducer<KanbanCardState, UpdateTeamKanbanCardFilterAction>(
+      _updateTeamKanbanCardFilterAction),
   TypedReducer<KanbanCardState, UpdateTodoKanbanCardModelAction>(
       _updateTodoKanbanCardModelAction),
   TypedReducer<KanbanCardState, RemoveTodoKanbanCardModelAction>(
@@ -100,6 +102,31 @@ KanbanCardState _removeUserToTeamKanbanCardModelAction(
   KanbanCardModel currentKanbanCardModel = state.currentKanbanCardModel;
   currentKanbanCardModel.team.remove(action.id);
   return state.copyWith(currentKanbanCardModel: currentKanbanCardModel);
+}
+
+KanbanCardState _updateTeamKanbanCardFilterAction(
+    KanbanCardState state, UpdateTeamKanbanCardFilterAction action) {
+  print('_updateTeamKanbanCardFilterAction...');
+  List<KanbanCardModel> _filteredKanbanCardModel = [];
+  KanbanCardState _newState = _updateKanbanCardFilterAction(
+    state,
+    UpdateKanbanCardFilterAction(kanbanCardFilter: state.kanbanCardFilter),
+  );
+  _filteredKanbanCardModel = _newState.filteredKanbanCardModel;
+  // if (action.currentTeam == null) {
+  //   _newState=state.copyWith(
+  //   filteredKanbanCardModel: state.allKanbanCardModel,
+  // );
+  if (action.currentTeam.id != null) {
+    _filteredKanbanCardModel = _newState.filteredKanbanCardModel
+        .where((element) => element.team.containsKey(action.currentTeam.id))
+        .toList();
+  }
+
+  return state.copyWith(
+    currentTeam: action.currentTeam,
+    filteredKanbanCardModel: _filteredKanbanCardModel,
+  );
 }
 
 KanbanCardState _updateTodoKanbanCardModelAction(

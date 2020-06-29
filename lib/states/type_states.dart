@@ -27,6 +27,6 @@ enum KanbanCardFilter {
   priority, //filter<all>= priority
 }
 
-enum UsersFilter {
+enum UserFilter {
   all,
 }

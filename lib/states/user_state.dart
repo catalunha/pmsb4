@@ -8,7 +8,7 @@ class UserState {
   final List<UserModel> allUserModel;
   final List<UserModel> filteredUserModel;
   final List<UserModel> selectedUserModel;
-  final UsersFilter usersFilter;
+  final UserFilter usersFilter;
   UserState(
       {this.allUserModel,
       this.currentUserModel,
@@ -22,7 +22,7 @@ class UserState {
       allUserModel: [],
       filteredUserModel: [],
       selectedUserModel: [],
-      usersFilter: UsersFilter.all,
+      usersFilter: UserFilter.all,
     );
   }
   UserState copyWith({
@@ -30,7 +30,7 @@ class UserState {
     List<UserModel> allUserModel,
     List<UserModel> filteredUserModel,
     List<UserModel> selectedUserModel,
-    UsersFilter usersFilter,
+    UserFilter usersFilter,
   }) {
     return UserState(
       currentUserModel: currentUserModel ?? this.currentUserModel,
@@ -62,6 +62,6 @@ class UserState {
 
   @override
   String toString() {
-    return 'UsersState{UserModel:$currentUserModel,allUserModel:$allUserModel,UsersFilter:$UsersFilter,filteredUserModel:$filteredUserModel}';
+    return 'UsersState{UserModel:$currentUserModel,allUserModel:$allUserModel,UsersFilter:$UserFilter,filteredUserModel:$filteredUserModel}';
   }
 }

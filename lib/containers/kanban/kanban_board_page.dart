@@ -9,13 +9,27 @@ import 'package:redux/redux.dart';
 class _ViewModel {
   final List<KanbanBoardModel> filteredKanbanBoardModel;
   final Function(String) onCurrentKanbanBoardModel;
-  _ViewModel({this.filteredKanbanBoardModel, this.onCurrentKanbanBoardModel});
+  final Function(String, bool) onActive;
+  _ViewModel({
+    this.filteredKanbanBoardModel,
+    this.onCurrentKanbanBoardModel,
+    this.onActive,
+  });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
       filteredKanbanBoardModel:
           store.state.kanbanBoardState.filteredKanbanBoardModel,
       onCurrentKanbanBoardModel: (String id) {
         store.dispatch(CurrentKanbanBoardModelAction(id: id));
+      },
+      onActive: (String id, bool active) {
+        KanbanBoardModel kanbanBoardModel = store
+            .state.kanbanBoardState.allKanbanBoardModel
+            .firstWhere((element) => element.id == id);
+        kanbanBoardModel.active = active;
+        store.dispatch(
+            UpdateKanbanBoardDataAction(kanbanBoardModel: kanbanBoardModel));
+        store.dispatch(StreamKanbanBoardDataAction());
       },
     );
   }
@@ -31,6 +45,7 @@ class KanbanBoardPage extends StatelessWidget {
         return KanbanBoardPageDS(
           filteredKanbanBoardModel: _viewModel.filteredKanbanBoardModel,
           onCurrentKanbanBoardModel: _viewModel.onCurrentKanbanBoardModel,
+          onActive: _viewModel.onActive,
         );
       },
       onInit: (Store<AppState> store) {

@@ -1,4 +1,5 @@
 import 'package:pmsb4/models/kaban_card_model.dart';
+import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/states/type_states.dart';
 
 class KanbanCardState {
@@ -7,12 +8,14 @@ class KanbanCardState {
   final List<KanbanCardModel> filteredKanbanCardModel;
   // final List<KanbanCardModel> selectedKanbanCardModel;//ainda nao usado neste projeto
   final KanbanCardModel currentKanbanCardModel;
+  final Team currentTeam;
 
   KanbanCardState({
     this.allKanbanCardModel,
     this.filteredKanbanCardModel,
     this.currentKanbanCardModel,
     this.kanbanCardFilter,
+    this.currentTeam,
   });
   factory KanbanCardState.initial() {
     return KanbanCardState(
@@ -20,6 +23,7 @@ class KanbanCardState {
       filteredKanbanCardModel: [],
       currentKanbanCardModel: null,
       kanbanCardFilter: KanbanCardFilter.all,
+      currentTeam: Team(),
     );
   }
 
@@ -28,6 +32,7 @@ class KanbanCardState {
     List<KanbanCardModel> filteredKanbanCardModel,
     KanbanCardModel currentKanbanCardModel,
     KanbanCardFilter kanbanCardFilter,
+    Team currentTeam,
   }) {
     return KanbanCardState(
       allKanbanCardModel: allKanbanCardModel ?? this.allKanbanCardModel,
@@ -36,11 +41,13 @@ class KanbanCardState {
       currentKanbanCardModel:
           currentKanbanCardModel ?? this.currentKanbanCardModel,
       kanbanCardFilter: kanbanCardFilter ?? this.kanbanCardFilter,
+      currentTeam: currentTeam ?? this.currentTeam,
     );
   }
 
   @override
   int get hashCode =>
+      currentTeam.hashCode ^
       allKanbanCardModel.hashCode ^
       filteredKanbanCardModel.hashCode ^
       currentKanbanCardModel.hashCode ^
@@ -49,6 +56,7 @@ class KanbanCardState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is KanbanCardState &&
+          currentTeam == other.currentTeam &&
           allKanbanCardModel == other.allKanbanCardModel &&
           filteredKanbanCardModel == other.filteredKanbanCardModel &&
           currentKanbanCardModel == other.currentKanbanCardModel &&

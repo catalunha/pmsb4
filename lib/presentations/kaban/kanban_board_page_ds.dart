@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_crud.dart';
-import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
-import 'package:pmsb4/containers/kanban/kanban_filter.dart';
+import 'package:pmsb4/containers/kanban/kanban_board_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/routes.dart';
@@ -10,18 +9,20 @@ import 'package:pmsb4/routes.dart';
 class KanbanBoardPageDS extends StatelessWidget {
   final List<KanbanBoardModel> filteredKanbanBoardModel;
   final Function(String) onCurrentKanbanBoardModel;
+  final Function(String, bool) onActive;
 
   const KanbanBoardPageDS({
     Key key,
     this.filteredKanbanBoardModel,
     this.onCurrentKanbanBoardModel,
+    this.onActive,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Kanban Board Page'),
-        actions: [KanbanFilter()],
+        actions: [KanbanFiltering()],
       ),
       body: ListView.builder(
         itemCount: filteredKanbanBoardModel.length,
@@ -36,25 +37,44 @@ class KanbanBoardPageDS extends StatelessWidget {
                       'id:${kanbanBoard.id.substring(0, 5)} | description:${kanbanBoard.description} | public:${kanbanBoard.public} | active:${kanbanBoard.active} | created:${kanbanBoard.created} |  modified:${kanbanBoard.modified} | team:${kanbanBoard.team?.length} | '),
                   onTap: () {
                     onCurrentKanbanBoardModel(kanbanBoard.id);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => KanbanBoardCRUD(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, Routes.kanbanCardPage);
                   },
-                  trailing: IconButton(
-                    icon: Icon(Icons.credit_card),
-                    onPressed: () {
-                      onCurrentKanbanBoardModel(kanbanBoard.id);
-                      Navigator.pushNamed(context, Routes.kanbanCardPage);
-                    },
-                  ),
+                  // trailing: IconButton(
+                  //   icon: Icon(Icons.credit_card),
+                  //   onPressed: () {
+                  //     onCurrentKanbanBoardModel(kanbanBoard.id);
+                  //     Navigator.pushNamed(context, Routes.kanbanCardPage);
+                  //   },
+                  // ),
                 ),
                 Center(
                   child: Wrap(
                     children: avatarsTeam(kanbanBoard.author, kanbanBoard.team),
                   ),
-                )
+                ),
+                Wrap(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        onCurrentKanbanBoardModel(kanbanBoard.id);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => KanbanBoardCRUD(),
+                          ),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: kanbanBoard.active
+                          ? Icon(Icons.archive)
+                          : Icon(Icons.unarchive),
+                      onPressed: () {
+                        onActive(kanbanBoard.id, !kanbanBoard.active);
+                      },
+                    )
+                  ],
+                ),
               ],
             ),
           );

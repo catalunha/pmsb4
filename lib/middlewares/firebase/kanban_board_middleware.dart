@@ -62,8 +62,8 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
       // store.dispatch(UpdateKanbanBoardFilterAction());
-      //       store.dispatch(CurrentKanbanCardModelAction(
-      //     id: store.state.kanbanCardState.currentKanbanCardModel?.id));
+      //   store.dispatch(CurrentKanbanCardModelAction(
+      // id: store.state.kanbanCardState.currentKanbanCardModel?.id));
     });
     next(action);
   };

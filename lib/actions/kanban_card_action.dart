@@ -32,6 +32,11 @@ class RemoveUserToTeamKanbanCardModelAction extends KanbanCardAction {
   RemoveUserToTeamKanbanCardModelAction({this.id});
 }
 
+class UpdateTeamKanbanCardFilterAction extends KanbanCardAction {
+  final Team currentTeam;
+  UpdateTeamKanbanCardFilterAction({this.currentTeam});
+}
+
 class UpdateTodoKanbanCardModelAction extends KanbanCardAction {
   final Todo todo;
   UpdateTodoKanbanCardModelAction({this.todo});

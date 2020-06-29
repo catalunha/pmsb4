@@ -39,7 +39,7 @@ UserState _updateUsersFilterAction(
     UserState state, UpdateUserFilterAction action) {
   List<UserModel> filteredUserModel = [];
   print('_updateUsersFilterAction');
-  if (state.usersFilter == UsersFilter.all) {
+  if (state.usersFilter == UserFilter.all) {
     filteredUserModel = state.allUserModel;
   }
   // else if (state.usersFilter == UsersFilter.checkTrue) {

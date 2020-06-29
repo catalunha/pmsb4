@@ -37,4 +37,20 @@ class Team {
     if (readedCard != null) data['readedCard'] = this.readedCard;
     return data;
   }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      displayName.hashCode ^
+      photoUrl.hashCode ^
+      readedCard.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Team &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          displayName == other.displayName &&
+          photoUrl == other.photoUrl &&
+          readedCard == other.readedCard;
 }

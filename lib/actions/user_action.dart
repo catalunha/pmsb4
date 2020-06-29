@@ -17,7 +17,7 @@ class AllUserModelAction extends UserAction {
 // }
 
 class UpdateUserFilterAction extends UserAction {
-  final UsersFilter usersFilter;
+  final UserFilter usersFilter;
 
   UpdateUserFilterAction({this.usersFilter});
 }

@@ -126,22 +126,22 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   });
                 }),
           ),
-          ListTile(
-            title: Text('Active'),
-            trailing: Checkbox(
-                // +++
-                // 1) Ou usa assim true||false never null
-                value: _active ?? false,
-                // 2) Ou assim true|false|null
-                // value: _public,
-                // tristate: true,
-                // ---
-                activeColor: Colors.green,
-                onChanged: (value) {
-                  _active = value;
-                  setState(() {});
-                }),
-          ),
+          // ListTile(
+          //   title: Text('Active'),
+          //   trailing: Checkbox(
+          //       // +++
+          //       // 1) Ou usa assim true||false never null
+          //       value: _active ?? false,
+          //       // 2) Ou assim true|false|null
+          //       // value: _public,
+          //       // tristate: true,
+          //       // ---
+          //       activeColor: Colors.green,
+          //       onChanged: (value) {
+          //         _active = value;
+          //         setState(() {});
+          //       }),
+          // ),
           ListTile(
             title: Text('Time atual com ${widget.team.length} membros.'),
             onTap: () {

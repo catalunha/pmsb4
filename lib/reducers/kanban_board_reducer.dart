@@ -3,6 +3,7 @@ import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 
 import 'package:pmsb4/states/kanban_board_state.dart';
+import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
 
 final kanbanBoardReducer = combineReducers<KanbanBoardState>([
@@ -38,19 +39,40 @@ KanbanBoardState _allKanbanBoardModelAction(
 KanbanBoardState _updateKanbanBoardFilterAction(
     KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
   print('_updateKanbanBoardFilterAction...');
-  // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
+  List<KanbanBoardModel> _filteredKanbanBoardModel = [];
+  if (action.kanbanBoardFilter == KanbanBoardFilter.all) {
+    _filteredKanbanBoardModel = state.allKanbanBoardModel;
+  } else if (action.kanbanBoardFilter == KanbanBoardFilter.active) {
+    if (state.allKanbanBoardModel.isEmpty) {
+      _filteredKanbanBoardModel = [];
+    } else {
+      _filteredKanbanBoardModel = state.allKanbanBoardModel
+          .where((element) => element.active == true)
+          .toList();
+    }
+  } else if (action.kanbanBoardFilter == KanbanBoardFilter.inactive) {
+    if (state.allKanbanBoardModel.isEmpty) {
+      _filteredKanbanBoardModel = [];
+    } else {
+      _filteredKanbanBoardModel = state.allKanbanBoardModel
+          .where((element) => element.active == false)
+          .toList();
+    }
+  }
+
   return state.copyWith(
       kanbanBoardFilter: action.kanbanBoardFilter,
-      filteredKanbanBoardModel: state.allKanbanBoardModel);
+      filteredKanbanBoardModel: _filteredKanbanBoardModel);
 }
 
 KanbanBoardState _currentKanbanBoardModelAction(
     KanbanBoardState state, CurrentKanbanBoardModelAction action) {
   print('_currentKanbanBoardModelAction...');
-  KanbanBoardModel _currentKanbanBoardModel = action.id != null
-      ? state.allKanbanBoardModel
-          .firstWhere((element) => element.id == action.id)
-      : KanbanBoardModel(null);
+  KanbanBoardModel _currentKanbanBoardModel =
+      action.id != null && state.allKanbanBoardModel != []
+          ? state.allKanbanBoardModel
+              .firstWhere((element) => element.id == action.id)
+          : KanbanBoardModel(null);
   return state.copyWith(currentKanbanBoardModel: _currentKanbanBoardModel);
 }
 

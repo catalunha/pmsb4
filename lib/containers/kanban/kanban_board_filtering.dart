@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
-import 'package:pmsb4/presentations/kaban/kanban_filter_cds.dart';
+import 'package:pmsb4/presentations/kaban/kanban_board_filtering_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
@@ -24,13 +24,13 @@ class _ViewModel {
   }
 }
 
-class KanbanFilter extends StatelessWidget {
+class KanbanFiltering extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        return KanbanFilterCDS(
+        return KanbanBoardFilteringDS(
           onSelectFilter: _viewModel.onSelectFilter,
           activeFilter: _viewModel.activeFilter,
         );
