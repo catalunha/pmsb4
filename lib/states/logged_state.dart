@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 @immutable
 class LoggedState {

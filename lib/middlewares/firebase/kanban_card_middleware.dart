@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/states/app_state.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseFirestoreKanbanCardMiddleware() {
@@ -114,9 +114,8 @@ void Function(Store<AppState> store, DeleteKanbanCardDataAction action,
   };
 }
 
-void Function(
-        Store<AppState> store, AddKanbanCardDataAction action, NextDispatcher next)
-    _addKanbanCardAction() {
+void Function(Store<AppState> store, AddKanbanCardDataAction action,
+    NextDispatcher next) _addKanbanCardAction() {
   return (store, action, next) {
     print('_addKanbanCardAction...');
     Firestore firestore = Firestore.instance;

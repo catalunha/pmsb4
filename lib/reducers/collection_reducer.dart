@@ -1,7 +1,7 @@
 import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/models/collection_model.dart';
 import 'package:pmsb4/states/collection_state.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
 
 final collectionReducer = combineReducers<CollectionState>([
@@ -31,17 +31,18 @@ CollectionState _currentCollectionModelAction(
 
 CollectionState _updateCollectionFilterAction(
     CollectionState state, UpdateCollectionFilterAction action) {
-      print(action.collectionFilter);
+  print(action.collectionFilter);
   CollectionState _state =
       state.copyWith(collectionFilter: action.collectionFilter);
   // collectionReducer(_state, FilteredCollectionModelAction());
-  return collectionReducer(_state, FilteredCollectionModelAction());;
+  return collectionReducer(_state, FilteredCollectionModelAction());
+  ;
 }
 
 CollectionState _filteredCollectionModelAction(
     CollectionState state, FilteredCollectionModelAction action) {
   List<CollectionModel> filteredCollectionModel = [];
-print('_filteredCollectionModelAction');
+  print('_filteredCollectionModelAction');
   if (state.collectionFilter == CollectionFilter.all) {
     filteredCollectionModel = state.allCollectionModel;
   } else if (state.collectionFilter == CollectionFilter.checkTrue) {

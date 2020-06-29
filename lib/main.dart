@@ -21,7 +21,7 @@ import 'package:pmsb4/plataform/resources.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 import 'package:redux/redux.dart';
 
 void main() {

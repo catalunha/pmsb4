@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/collection_model.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 class CollectionAction {}
 
@@ -20,9 +20,8 @@ class UpdateCollectionFilterAction extends CollectionAction {
 
   UpdateCollectionFilterAction({this.collectionFilter});
 }
-class FilteredCollectionModelAction extends CollectionAction{
 
-}
+class FilteredCollectionModelAction extends CollectionAction {}
 
 // +++ Actions atendidas pelo firebaseFirestoreCollectionMiddleware
 class AddCollectionAction extends CollectionAction {

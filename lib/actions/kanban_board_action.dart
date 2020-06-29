@@ -1,7 +1,7 @@
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/type_models.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 class KanbanBoardAction {}
 

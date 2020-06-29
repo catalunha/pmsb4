@@ -1,6 +1,5 @@
-
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 class KanbanCardState {
   final KanbanCardFilter kanbanCardFilter;
@@ -32,8 +31,10 @@ class KanbanCardState {
   }) {
     return KanbanCardState(
       allKanbanCardModel: allKanbanCardModel ?? this.allKanbanCardModel,
-      filteredKanbanCardModel: filteredKanbanCardModel ?? this.filteredKanbanCardModel,
-      currentKanbanCardModel: currentKanbanCardModel ?? this.currentKanbanCardModel,
+      filteredKanbanCardModel:
+          filteredKanbanCardModel ?? this.filteredKanbanCardModel,
+      currentKanbanCardModel:
+          currentKanbanCardModel ?? this.currentKanbanCardModel,
       kanbanCardFilter: kanbanCardFilter ?? this.kanbanCardFilter,
     );
   }
@@ -51,7 +52,7 @@ class KanbanCardState {
           allKanbanCardModel == other.allKanbanCardModel &&
           filteredKanbanCardModel == other.filteredKanbanCardModel &&
           currentKanbanCardModel == other.currentKanbanCardModel &&
-          kanbanCardFilter == other.kanbanCardFilter&&
+          kanbanCardFilter == other.kanbanCardFilter &&
           runtimeType == other.runtimeType;
   @override
   String toString() {

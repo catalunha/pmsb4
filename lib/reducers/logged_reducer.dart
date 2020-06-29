@@ -1,5 +1,5 @@
 import 'package:pmsb4/actions/logged_action.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 import 'package:pmsb4/states/logged_state.dart';
 import 'package:redux/redux.dart';
 

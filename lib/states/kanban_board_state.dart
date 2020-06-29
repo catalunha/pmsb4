@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 class KanbanBoardState {
   final KanbanBoardFilter kanbanBoardFilter;
@@ -31,8 +31,10 @@ class KanbanBoardState {
   }) {
     return KanbanBoardState(
       allKanbanBoardModel: allKanbanBoardModel ?? this.allKanbanBoardModel,
-      filteredKanbanBoardModel: filteredKanbanBoardModel ?? this.filteredKanbanBoardModel,
-      currentKanbanBoardModel: currentKanbanBoardModel ?? this.currentKanbanBoardModel,
+      filteredKanbanBoardModel:
+          filteredKanbanBoardModel ?? this.filteredKanbanBoardModel,
+      currentKanbanBoardModel:
+          currentKanbanBoardModel ?? this.currentKanbanBoardModel,
       kanbanBoardFilter: kanbanBoardFilter ?? this.kanbanBoardFilter,
     );
   }
@@ -50,7 +52,7 @@ class KanbanBoardState {
           allKanbanBoardModel == other.allKanbanBoardModel &&
           filteredKanbanBoardModel == other.filteredKanbanBoardModel &&
           currentKanbanBoardModel == other.currentKanbanBoardModel &&
-          kanbanBoardFilter == other.kanbanBoardFilter&&
+          kanbanBoardFilter == other.kanbanBoardFilter &&
           runtimeType == other.runtimeType;
   @override
   String toString() {

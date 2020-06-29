@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/states/enums.dart';
+import 'package:pmsb4/states/type_states.dart';
 
 class KanbanFilterCDS extends StatelessWidget {
   final Function(KanbanBoardFilter) onSelectFilter;
@@ -13,16 +13,14 @@ class KanbanFilterCDS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return PopupMenuButton<KanbanBoardFilter>(
       icon: Icon(Icons.filter_list),
       onSelected: onSelectFilter,
       itemBuilder: (BuildContext context) => <PopupMenuItem<KanbanBoardFilter>>[
         PopupMenuItem<KanbanBoardFilter>(
           value: KanbanBoardFilter.all,
-          child: activeFilter == KanbanBoardFilter.all
-              ? Text('ALL')
-              : Text('All'),
+          child:
+              activeFilter == KanbanBoardFilter.all ? Text('ALL') : Text('All'),
         ),
         PopupMenuItem<KanbanBoardFilter>(
           value: KanbanBoardFilter.active,
