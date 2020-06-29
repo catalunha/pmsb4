@@ -12,7 +12,7 @@ import 'package:redux/redux.dart';
 class _ViewModel {
   final List<UserModel> filteredUserModel;
   // final List<UserModel> selectedUserModel;
-  final List<UserKabanRef> team;
+  final List<Team> team;
 
   final Function(String) addUserTeam;
   _ViewModel({
@@ -36,13 +36,13 @@ class _ViewModel {
           print('UsersTeam: Selecionado: $id');
           UserModel userModel = store.state.usersState.allUserModel
               .firstWhere((element) => element.id == id);
-              UserKabanRef userKabanRef = UserKabanRef(
+              Team team = Team(
       id: userModel.id,
       displayName: userModel.displayName,
       photoUrl: userModel.photoUrl,
     );
           store.dispatch(
-              AddUserToTeamKanbanBoardModelAction(userKabanRef: userKabanRef));
+              AddUserToTeamKanbanBoardModelAction(team: team));
         } else {
           print('UsersTeam: Já esta no team.');
         }

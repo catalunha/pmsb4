@@ -7,8 +7,8 @@ class KanbanBoardModel extends FirestoreModel {
   String title;
   String description;
   bool public;
-  UserKabanRef author;
-  Map<String, UserKabanRef> team = Map<String, UserKabanRef>();
+  Team author;
+  Map<String, Team> team = Map<String, Team>();
   dynamic created;
   dynamic modified;
   bool active;
@@ -32,12 +32,12 @@ class KanbanBoardModel extends FirestoreModel {
     if (map.containsKey('description')) description = map['description'];
     if (map.containsKey('public')) public = map['public'];
     author = map.containsKey('author') && map['author'] != null
-        ? UserKabanRef.fromMap(map['author'])
+        ? Team.fromMap(map['author'])
         : null;
     if (map["team"] is Map) {
-      team = Map<String, UserKabanRef>();
+      team = Map<String, Team>();
       for (var item in map["team"].entries) {
-        team[item.key] = UserKabanRef.fromMap(item.value);
+        team[item.key] = Team.fromMap(item.value);
       }
     }
     created = map.containsKey('created') && map['created'] != null

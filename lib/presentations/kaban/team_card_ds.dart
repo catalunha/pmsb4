@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/models/references_models.dart';
 
 class TeamCardDS extends StatefulWidget {
-  final List<UserKabanRef> teamBoard;
-  final List<UserKabanRef> teamCard;
+  final List<Team> teamBoard;
+  final List<Team> teamCard;
   final Function(String) addUserTeam;
   TeamCardDS({
     Key key,

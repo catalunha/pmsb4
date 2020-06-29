@@ -6,7 +6,7 @@ import 'package:pmsb4/models/user_model.dart';
 class TeamBoardDS extends StatefulWidget {
   final List<UserModel> filteredUserModel;
   // final List<UserModel> selectedUserModel;
-  final List<UserKabanRef> team;
+  final List<Team> team;
   final Function(String) addUserTeam;
   TeamBoardDS({
     Key key,
@@ -33,6 +33,7 @@ class _TeamBoardDSState extends State<TeamBoardDS> {
           final userModel = widget.filteredUserModel[index];
           return ListTile(
             title: Text(userModel.displayName),
+            subtitle: Text(userModel.id),
             leading: CircleAvatar(
               minRadius: 20,
               maxRadius: 20,

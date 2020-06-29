@@ -9,8 +9,8 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
-  final List<UserKabanRef> teamBoard;
-  final List<UserKabanRef> teamCard;
+  final List<Team> teamBoard;
+  final List<Team> teamCard;
 
   final Function(String) addUserTeam;
   _ViewModel({
@@ -34,9 +34,9 @@ class _ViewModel {
         if (currentKanbanCardModel?.team == null ||
             !currentKanbanCardModel.team.containsKey(id)) {
           print('addUserTeamCard: Selecionado: $id');
-          UserKabanRef userKabanRef= currentKanbanBoardModel.team[id];
+          Team team= currentKanbanBoardModel.team[id];
           store.dispatch(
-              AddUserToTeamKanbanCardModelAction(userKabanRef: userKabanRef));
+              AddUserToTeamKanbanCardModelAction(team: team));
         } else {
           print('addUserTeamCard: Já esta no team.');
         }

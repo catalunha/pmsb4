@@ -31,21 +31,18 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
   print('_allKanbanCardModelAction...');
-  print('currentKanbanCardModel: ${state.currentKanbanCardModel?.id}');
-
-  return state.copyWith(
+  KanbanCardState _newState = state.copyWith(
     allKanbanCardModel: action.allKanbanCardModel,
   );
-}
-
-KanbanCardState _currentKanbanCardModelAction(
-    KanbanCardState state, CurrentKanbanCardModelAction action) {
-  print('_currentKanbanCardModelAction...');
-  KanbanCardModel _currentKanbanCardModel = action.id != null
-      ? state.allKanbanCardModel
-          .firstWhere((element) => element.id == action.id)
-      : KanbanCardModel(null);
-  return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
+  _newState = _updateKanbanCardFilterAction(
+    _newState,
+    UpdateKanbanCardFilterAction(kanbanCardFilter: _newState.kanbanCardFilter),
+  );
+  _newState = _currentKanbanCardModelAction(
+    _newState,
+    CurrentKanbanCardModelAction(id: _newState.currentKanbanCardModel.id),
+  );
+  return _newState;
 }
 
 KanbanCardState _updateKanbanCardFilterAction(
@@ -67,16 +64,21 @@ KanbanCardState _updateKanbanCardFilterAction(
         .where((element) => element.priority == true)
         .toList();
   }
-  // KanbanCardModel _currentKanbanCardModel =
-  //     state.currentKanbanCardModel?.id != null
-  //         ? state.allKanbanCardModel.firstWhere(
-  //             (element) => element.id == state.currentKanbanCardModel.id)
-  //         : KanbanCardModel(null);
+
   return state.copyWith(
     kanbanCardFilter: action.kanbanCardFilter,
     filteredKanbanCardModel: _filteredKanbanCardModel,
-    // currentKanbanCardModel: _currentKanbanCardModel,
   );
+}
+
+KanbanCardState _currentKanbanCardModelAction(
+    KanbanCardState state, CurrentKanbanCardModelAction action) {
+  print('_currentKanbanCardModelAction...');
+  KanbanCardModel _currentKanbanCardModel = action.id != null
+      ? state.allKanbanCardModel
+          .firstWhere((element) => element.id == action.id)
+      : KanbanCardModel(null);
+  return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
 }
 
 KanbanCardState _addUserToTeamKanbanCardModelAction(
@@ -84,11 +86,11 @@ KanbanCardState _addUserToTeamKanbanCardModelAction(
   print('_addUserToTeamKanbanCardModelAction...');
   KanbanCardModel currentKanbanCardModel = state.currentKanbanCardModel;
   if (currentKanbanCardModel?.team == null ||
-      !currentKanbanCardModel.team.containsKey(action.userKabanRef)) {
+      !currentKanbanCardModel.team.containsKey(action.team)) {
     if (currentKanbanCardModel?.team == null) {
-      currentKanbanCardModel.team = Map<String, UserKabanRef>();
+      currentKanbanCardModel.team = Map<String, Team>();
     }
-    currentKanbanCardModel.team[action.userKabanRef.id] = action.userKabanRef;
+    currentKanbanCardModel.team[action.team.id] = action.team;
   }
   return state.copyWith(currentKanbanCardModel: currentKanbanCardModel);
 }
@@ -142,7 +144,8 @@ KanbanCardState _updateFeedKanbanCardModelAction(
       _currentKanbanCardModel?.feed ?? Map<String, Feed>();
   if (_newFeed.description.isEmpty || _newFeed.description == '')
     _newFeed.description = null;
-  if (_newFeed?.link != null && (_newFeed.link.isEmpty || _newFeed.link == '')) _newFeed.link = null;
+  if (_newFeed?.link != null && (_newFeed.link.isEmpty || _newFeed.link == ''))
+    _newFeed.link = null;
 
   if (_newFeed?.id != null &&
       _currentKanbanCardModel.feed.containsKey(_newFeed.id)) {

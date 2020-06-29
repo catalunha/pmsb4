@@ -36,12 +36,12 @@ class _ViewModel {
         //+++ bot msg
         Feed feed = Feed();
         final firebaseUser = store.state.userState.firebaseUser;
-        UserKabanRef userKabanRef = UserKabanRef(
+        Team team = Team(
           id: firebaseUser.uid,
           displayName: firebaseUser.displayName,
           photoUrl: firebaseUser.photoUrl,
         );
-        feed.author = userKabanRef;
+        feed.author = team;
         String _msg =
             'Etapa: ${store.state.kanbanCardState.currentKanbanCardModel.todo[id].title}.';
         if (store
@@ -54,7 +54,7 @@ class _ViewModel {
         feed.bot = true;
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
         //---
-        store.dispatch(UpdateKanbanCardAction(
+        store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },
@@ -62,7 +62,7 @@ class _ViewModel {
         store.dispatch(RemoveTodoKanbanCardModelAction(id: id));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.userState.firebaseUser.uid, viewer: false));
-        store.dispatch(UpdateKanbanCardAction(
+        store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },

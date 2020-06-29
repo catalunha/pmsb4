@@ -1,16 +1,16 @@
-class UserKabanRef {
+class Team {
   String id;
   String displayName;
   String photoUrl;
   bool readedCard;
 
-  UserKabanRef({
+  Team({
     this.id,
     this.displayName,
     this.photoUrl,
     this.readedCard,
   });
-  UserKabanRef.fromMap(Map<String, dynamic> map) {
+  Team.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('id')) id = map['id'];
     if (map.containsKey('displayName')) displayName = map['displayName'];
     if (map.containsKey('photoUrl')) photoUrl = map['photoUrl'];

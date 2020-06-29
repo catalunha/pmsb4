@@ -28,12 +28,12 @@ class _ViewModel {
         if (id == null) {
           //create
           final firebaseUser = store.state.userState.firebaseUser;
-          UserKabanRef userKabanRef = UserKabanRef(
+          Team team = Team(
             id: firebaseUser.uid,
             displayName: firebaseUser.displayName,
             photoUrl: firebaseUser.photoUrl,
           );
-          feed.author = userKabanRef;
+          feed.author = team;
           feed.description = description;
           feed.link = link;
         } else {
@@ -44,7 +44,7 @@ class _ViewModel {
         }
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
 
-        store.dispatch(UpdateKanbanCardAction(
+        store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },

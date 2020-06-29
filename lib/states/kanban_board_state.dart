@@ -2,10 +2,11 @@ import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
 class KanbanBoardState {
-  final KanbanBoardModel currentKanbanBoardModel;
+  final KanbanBoardFilter kanbanBoardFilter;
   final List<KanbanBoardModel> allKanbanBoardModel;
   final List<KanbanBoardModel> filteredKanbanBoardModel;
-  final KanbanBoardFilter kanbanBoardFilter;
+  // final List<KanbanBoardModel> selectedKanbanBoardModel;//ainda nao usado neste projeto
+  final KanbanBoardModel currentKanbanBoardModel;
 
   KanbanBoardState({
     this.allKanbanBoardModel,

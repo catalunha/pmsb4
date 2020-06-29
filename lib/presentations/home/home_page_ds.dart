@@ -30,17 +30,17 @@ class HomePageDS extends StatelessWidget {
           //     );
           //   },
           // ),
-          // ListTile(
-          //   title: Text('Profile Page'),
-          //   onTap: () {
-          //     // Navigator.pushNamed(context, Routes.perfil);
-          //     Navigator.of(context).push(
-          //       MaterialPageRoute(
-          //         builder: (context) => ProfilePage(),
-          //       ),
-          //     );
-          //   },
-          // ),
+          ListTile(
+            title: Text('Profile Page'),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.profile);
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => ProfilePage(),
+              //   ),
+              // );
+            },
+          ),
           // ListTile(
           //   title: Text('Collection Page'),
           //   onTap: () {

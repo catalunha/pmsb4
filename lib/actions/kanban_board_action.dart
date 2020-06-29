@@ -3,53 +3,53 @@ import 'package:pmsb4/models/references_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/enums.dart';
 
-class KanbanBoardAction{}
+class KanbanBoardAction {}
 
 /// +++ Actions atendidas pelo KanbanBoardReducer
-class AllKanbanBoardModelAction extends KanbanBoardAction{
-  final  List<KanbanBoardModel> allKanbanBoardModel;
+class AllKanbanBoardModelAction extends KanbanBoardAction {
+  final List<KanbanBoardModel> allKanbanBoardModel;
 
   AllKanbanBoardModelAction({this.allKanbanBoardModel});
+}
 
-}
-class CurrentKanbanBoardModelAction extends KanbanBoardAction {
-  final String id;
-  CurrentKanbanBoardModelAction({this.id});
-}
 class UpdateKanbanBoardFilterAction extends KanbanBoardAction {
   final KanbanBoardFilter kanbanBoardFilter;
 
   UpdateKanbanBoardFilterAction({this.kanbanBoardFilter});
 }
 
-class AddUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
-  final UserKabanRef userKabanRef;
-  AddUserToTeamKanbanBoardModelAction({this.userKabanRef});
+class CurrentKanbanBoardModelAction extends KanbanBoardAction {
+  final String id;
+  CurrentKanbanBoardModelAction({this.id});
 }
+
+class AddUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
+  final Team team;
+  AddUserToTeamKanbanBoardModelAction({this.team});
+}
+
 class RemoveUserToTeamKanbanBoardModelAction extends KanbanBoardAction {
   final String id;
   RemoveUserToTeamKanbanBoardModelAction({this.id});
 }
 
-
 // +++ Actions atendidas pelo firebaseFirestoreKanbanBoardMiddleware
 
-class StreamKanbanBoardAction extends KanbanBoardAction {}
+class StreamKanbanBoardDataAction extends KanbanBoardAction {}
 
-class AddKanbanBoardAction extends KanbanBoardAction {
+class AddKanbanBoardDataAction extends KanbanBoardAction {
   final KanbanBoardModel kanbanBoardModel;
 
-  AddKanbanBoardAction({this.kanbanBoardModel});
+  AddKanbanBoardDataAction({this.kanbanBoardModel});
 }
 
-class UpdateKanbanBoardAction extends KanbanBoardAction {
+class UpdateKanbanBoardDataAction extends KanbanBoardAction {
   final KanbanBoardModel kanbanBoardModel;
-  UpdateKanbanBoardAction({this.kanbanBoardModel});
+  UpdateKanbanBoardDataAction({this.kanbanBoardModel});
 }
 
-class DeleteKanbanBoardAction extends KanbanBoardAction {
+class DeleteKanbanBoardDataAction extends KanbanBoardAction {
   final String id;
 
-  DeleteKanbanBoardAction({this.id});
+  DeleteKanbanBoardDataAction({this.id});
 }
-

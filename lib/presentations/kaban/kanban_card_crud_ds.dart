@@ -14,7 +14,7 @@ class KanbanCardCRUDDS extends StatefulWidget {
   final bool active;
   final int todoCompleted;
   final int todoTotal;
-  final List<UserKabanRef> team;
+  final List<Team> team;
   final Function(String) onRemoveUserTeam;
 
   final Function(String, String, bool, bool) onCreate;

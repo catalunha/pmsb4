@@ -8,19 +8,19 @@ import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseFirestoreKanbanBoardMiddleware() {
   return [
-    TypedMiddleware<AppState, StreamKanbanBoardAction>(
+    TypedMiddleware<AppState, StreamKanbanBoardDataAction>(
         _streamDocsKanbanBoardAction()),
-    TypedMiddleware<AppState, UpdateKanbanBoardAction>(
+    TypedMiddleware<AppState, UpdateKanbanBoardDataAction>(
         _updateDocKanbanBoardAction()),
-    TypedMiddleware<AppState, DeleteKanbanBoardAction>(
+    TypedMiddleware<AppState, DeleteKanbanBoardDataAction>(
         _deleteDocKanbanBoardAction()),
-    TypedMiddleware<AppState, AddKanbanBoardAction>(_addDocKanbanBoardAction()),
+    TypedMiddleware<AppState, AddKanbanBoardDataAction>(_addDocKanbanBoardAction()),
     // TypedMiddleware<AppState, AddUserToTeamKanbanBoardAction>(
     //     _addUserToTeamKanbanBoardAction()),
   ];
 }
 
-void Function(Store<AppState> store, StreamKanbanBoardAction action,
+void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
     NextDispatcher next) _streamDocsKanbanBoardAction() {
   return (store, action, next) {
     print('_streamDocsKanbanBoardAction...');
@@ -68,7 +68,7 @@ void Function(Store<AppState> store, StreamKanbanBoardAction action,
   };
 }
 
-void Function(Store<AppState> store, UpdateKanbanBoardAction action,
+void Function(Store<AppState> store, UpdateKanbanBoardDataAction action,
     NextDispatcher next) _updateDocKanbanBoardAction() {
   return (store, action, next) {
     print('_updateDocKanbanBoardAction...');
@@ -81,7 +81,7 @@ void Function(Store<AppState> store, UpdateKanbanBoardAction action,
   };
 }
 
-void Function(Store<AppState> store, DeleteKanbanBoardAction action,
+void Function(Store<AppState> store, DeleteKanbanBoardDataAction action,
     NextDispatcher next) _deleteDocKanbanBoardAction() {
   return (store, action, next) {
     print('_deleteDocKanbanBoardAction...');
@@ -95,7 +95,7 @@ void Function(Store<AppState> store, DeleteKanbanBoardAction action,
 }
 
 void Function(
-        Store<AppState> store, AddKanbanBoardAction action, NextDispatcher next)
+        Store<AppState> store, AddKanbanBoardDataAction action, NextDispatcher next)
     _addDocKanbanBoardAction() {
   return (store, action, next) {
     print('_addDocKanbanBoardAction...');
@@ -119,13 +119,13 @@ void Function(
 //         !currentKanbanBoardModel.team.containsKey(action.id)) {
 //       UserModel userModel = store.state.usersState.allUserModel
 //           .firstWhere((element) => element.id == action.id);
-//       UserKabanRef userKabanRef = UserKabanRef(
+//       UserKabanRef team = UserKabanRef(
 //         id: userModel.id,
 //         displayName: userModel.displayName,
 //         photoUrl: userModel.photoUrl,
 //       );
 //       print('currentKanbanBoardModel:${currentKanbanBoardModel.id}');
-//       currentKanbanBoardModel.fromMap({'team':'{${userModel.id}: $userKabanRef}'});
+//       currentKanbanBoardModel.fromMap({'team':'{${userModel.id}: $team}'});
 //       firestore
 //           .collection(KanbanBoardModel.collection)
 //           .document(currentKanbanBoardModel.id)

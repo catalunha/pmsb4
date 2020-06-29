@@ -33,7 +33,7 @@ class _ViewModel {
                 store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.userState.firebaseUser.uid, viewer: false));
 
-        store.dispatch(UpdateKanbanCardAction(
+        store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },

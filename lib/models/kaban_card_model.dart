@@ -8,9 +8,9 @@ class KanbanCardModel extends FirestoreModel {
   String title;
   String description;
   bool priority;
-  UserKabanRef author;
+  Team author;
   String stageCard;
-  Map<String, UserKabanRef> team = Map<String, UserKabanRef>();
+  Map<String, Team> team = Map<String, Team>();
   Map<String, Todo> todo = Map<String, Todo>();
   Map<String, Feed> feed = Map<String, Feed>();
   int todoOrder;
@@ -45,12 +45,12 @@ class KanbanCardModel extends FirestoreModel {
     if (map.containsKey('priority')) priority = map['priority'];
     if (map.containsKey('stageCard')) stageCard = map['stageCard'];
     author = map.containsKey('author') && map['author'] != null
-        ? UserKabanRef.fromMap(map['author'])
+        ? Team.fromMap(map['author'])
         : null;
     if (map["team"] is Map) {
-      team = Map<String, UserKabanRef>();
+      team = Map<String, Team>();
       for (var item in map["team"].entries) {
-        team[item.key] = UserKabanRef.fromMap(item.value);
+        team[item.key] = Team.fromMap(item.value);
       }
     }
     if (map["todo"] is Map) {
@@ -167,7 +167,7 @@ class Todo {
 }
 
 class Feed {
-  UserKabanRef author;
+  Team author;
   String description;
   String link;
   dynamic created;
@@ -188,7 +188,7 @@ class Feed {
             map['created'].millisecondsSinceEpoch)
         : null;
     author = map.containsKey('author') && map['author'] != null
-        ? UserKabanRef.fromMap(map['author'])
+        ? Team.fromMap(map['author'])
         : null;
     if (map.containsKey('link')) link = map['link'];
     if (map.containsKey('id')) id = map['id'];

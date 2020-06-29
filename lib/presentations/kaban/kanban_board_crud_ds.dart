@@ -9,7 +9,7 @@ class KanbanBoardCRUDDS extends StatefulWidget {
   final String description;
   final bool public;
   final bool active;
-  final List<UserKabanRef> team;
+  final List<Team> team;
   final Function(String) removeUserTeam;
 
   final Function(String, String, bool, bool) create;

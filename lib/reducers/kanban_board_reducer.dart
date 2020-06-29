@@ -20,15 +20,28 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
   print('_allKanbanBoardModelAction...');
-  KanbanBoardState _stateNew =
-      state.copyWith(allKanbanBoardModel: action.allKanbanBoardModel);
-  _stateNew = _updateKanbanBoardFilterAction(
-      _stateNew,
-      UpdateKanbanBoardFilterAction(
-          kanbanBoardFilter: _stateNew.kanbanBoardFilter));
-  _stateNew=_currentKanbanBoardModelAction(_stateNew,
-      CurrentKanbanBoardModelAction(id: _stateNew.currentKanbanBoardModel?.id));
-  return _stateNew;
+  KanbanBoardState _newState = state.copyWith(
+    allKanbanBoardModel: action.allKanbanBoardModel,
+  );
+  _newState = _updateKanbanBoardFilterAction(
+    _newState,
+    UpdateKanbanBoardFilterAction(
+        kanbanBoardFilter: _newState.kanbanBoardFilter),
+  );
+  _newState = _currentKanbanBoardModelAction(
+    _newState,
+    CurrentKanbanBoardModelAction(id: _newState.currentKanbanBoardModel?.id),
+  );
+  return _newState;
+}
+
+KanbanBoardState _updateKanbanBoardFilterAction(
+    KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
+  print('_updateKanbanBoardFilterAction...');
+  // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
+  return state.copyWith(
+      kanbanBoardFilter: action.kanbanBoardFilter,
+      filteredKanbanBoardModel: state.allKanbanBoardModel);
 }
 
 KanbanBoardState _currentKanbanBoardModelAction(
@@ -41,26 +54,17 @@ KanbanBoardState _currentKanbanBoardModelAction(
   return state.copyWith(currentKanbanBoardModel: _currentKanbanBoardModel);
 }
 
-KanbanBoardState _updateKanbanBoardFilterAction(
-    KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
-  print('_updateKanbanBoardFilterAction...');
-  // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
-  return state.copyWith(
-      kanbanBoardFilter: action.kanbanBoardFilter,
-      filteredKanbanBoardModel: state.allKanbanBoardModel);
-}
-
 KanbanBoardState _addUserToTeamKanbanBoardModelAction(
     KanbanBoardState state, AddUserToTeamKanbanBoardModelAction action) {
   print('_addUserToTeamKanbanBoardModelAction...');
   KanbanBoardModel currentKanbanBoardModel = state.currentKanbanBoardModel;
-  if (currentKanbanBoardModel?.team == null ||
-      !currentKanbanBoardModel.team.containsKey(action.userKabanRef.id)) {
-    if (currentKanbanBoardModel?.team == null) {
-      currentKanbanBoardModel.team = Map<String, UserKabanRef>();
-    }
-    currentKanbanBoardModel.team[action.userKabanRef.id] = action.userKabanRef;
+  if (currentKanbanBoardModel?.team == null) {
+    currentKanbanBoardModel.team = Map<String, Team>();
   }
+  if (!currentKanbanBoardModel.team.containsKey(action.team.id)) {
+    currentKanbanBoardModel.team[action.team.id] = action.team;
+  }
+
   return state.copyWith(currentKanbanBoardModel: currentKanbanBoardModel);
 }
 

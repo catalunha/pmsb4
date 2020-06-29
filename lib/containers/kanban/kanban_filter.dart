@@ -17,7 +17,7 @@ class _ViewModel {
         // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
         store
             .dispatch(UpdateKanbanBoardFilterAction(kanbanBoardFilter: filter));
-        store.dispatch(StreamKanbanBoardAction());
+        store.dispatch(StreamKanbanBoardDataAction());
       },
       activeFilter: store.state.kanbanBoardState.kanbanBoardFilter,
     );

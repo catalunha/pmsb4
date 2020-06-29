@@ -66,7 +66,7 @@ class KanbanCardPageDS extends StatelessWidget {
   }
 
   List<Widget> avatarsTeam(
-      UserKabanRef author, Map<String, UserKabanRef> teamMap) {
+      Team author, Map<String, Team> teamMap) {
     List<Widget> listaWidget = List<Widget>();
     listaWidget.add(
       Tooltip(
@@ -88,7 +88,7 @@ class KanbanCardPageDS extends StatelessWidget {
       ),
     );
 
-    List<UserKabanRef> _team =
+    List<Team> _team =
         teamMap != null ? teamMap.entries.map((e) => e.value).toList() : [];
     for (var item in _team) {
       listaWidget.add(

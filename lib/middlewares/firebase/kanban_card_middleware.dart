@@ -7,19 +7,19 @@ import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> firebaseFirestoreKanbanCardMiddleware() {
   return [
-    TypedMiddleware<AppState, StreamKanbanCardAction>(
+    TypedMiddleware<AppState, StreamKanbanCardDataAction>(
         _streamKanbanCardAction()),
-    TypedMiddleware<AppState, UpdateKanbanCardAction>(
+    TypedMiddleware<AppState, UpdateKanbanCardDataAction>(
         _updateKanbanCardAction()),
-    TypedMiddleware<AppState, DeleteKanbanCardAction>(
+    TypedMiddleware<AppState, DeleteKanbanCardDataAction>(
         _deleteKanbanCardAction()),
-    TypedMiddleware<AppState, AddKanbanCardAction>(_addKanbanCardAction()),
+    TypedMiddleware<AppState, AddKanbanCardDataAction>(_addKanbanCardAction()),
     // TypedMiddleware<AppState, UpdateFieldKanbanCardAction>(
     //     _updateFieldKanbanCardAction()),
   ];
 }
 
-void Function(Store<AppState> store, StreamKanbanCardAction action,
+void Function(Store<AppState> store, StreamKanbanCardDataAction action,
     NextDispatcher next) _streamKanbanCardAction() {
   return (store, action, next) {
     print('_streamKanbanCardAction...');
@@ -64,7 +64,7 @@ void Function(Store<AppState> store, StreamKanbanCardAction action,
   };
 }
 
-void Function(Store<AppState> store, UpdateKanbanCardAction action,
+void Function(Store<AppState> store, UpdateKanbanCardDataAction action,
     NextDispatcher next) _updateKanbanCardAction() {
   return (store, action, next) async {
     print('_updateKanbanCardAction...');
@@ -101,7 +101,7 @@ void Function(Store<AppState> store, UpdateKanbanCardAction action,
 //   };
 // }
 
-void Function(Store<AppState> store, DeleteKanbanCardAction action,
+void Function(Store<AppState> store, DeleteKanbanCardDataAction action,
     NextDispatcher next) _deleteKanbanCardAction() {
   return (store, action, next) {
     print('_deleteKanbanCardAction...');
@@ -115,7 +115,7 @@ void Function(Store<AppState> store, DeleteKanbanCardAction action,
 }
 
 void Function(
-        Store<AppState> store, AddKanbanCardAction action, NextDispatcher next)
+        Store<AppState> store, AddKanbanCardDataAction action, NextDispatcher next)
     _addKanbanCardAction() {
   return (store, action, next) {
     print('_addKanbanCardAction...');

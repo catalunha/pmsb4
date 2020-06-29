@@ -13,7 +13,7 @@ class _ViewModel {
   final String description;
   final bool public;
   final bool active;
-  final List<UserKabanRef> team;
+  final List<Team> team;
   final Function(String, String, bool, bool) create;
   final Function(String, String, bool, bool) update;
   final Function() delete;
@@ -46,7 +46,7 @@ class _ViewModel {
         create: (String title, String description, bool public, bool active) {
           final firebaseUser = store.state.userState.firebaseUser;
           // _currentKanbanBoardModel = KanbanBoardModel(null);
-          _currentKanbanBoardModel.author = UserKabanRef(
+          _currentKanbanBoardModel.author = Team(
             id: firebaseUser.uid,
             displayName: firebaseUser.displayName,
             photoUrl: firebaseUser.photoUrl,
@@ -59,19 +59,19 @@ class _ViewModel {
           if (_currentKanbanBoardModel?.team == null ||
               !_currentKanbanBoardModel.team.containsKey(firebaseUser.uid)) {
             print('KanbanBoardCRUD: Adicionando team: ${firebaseUser.uid}');
-            UserKabanRef userKabanRef = UserKabanRef(
+            Team team = Team(
               id: firebaseUser.uid,
               displayName: firebaseUser.displayName,
               photoUrl: firebaseUser.photoUrl,
             );
             store.dispatch(AddUserToTeamKanbanBoardModelAction(
-                userKabanRef: userKabanRef));
+                team: team));
           } else {
             print('KanbanBoardCRUD: Já esta com vc no team.');
           }
 
           store.dispatch(
-              AddKanbanBoardAction(kanbanBoardModel: _currentKanbanBoardModel));
+              AddKanbanBoardDataAction(kanbanBoardModel: _currentKanbanBoardModel));
         },
         update: (String title, String description, bool public, bool active) {
           _currentKanbanBoardModel.title = title;
@@ -79,17 +79,17 @@ class _ViewModel {
           _currentKanbanBoardModel.public = public;
           _currentKanbanBoardModel.active = active;
           if (_currentKanbanBoardModel.author == null) {
-            _currentKanbanBoardModel.author = UserKabanRef(
+            _currentKanbanBoardModel.author = Team(
               id: store.state.userState.firebaseUser.uid,
               displayName: store.state.userState.firebaseUser.displayName,
               photoUrl: store.state.userState.firebaseUser.photoUrl,
             );
           }
           store.dispatch(
-              UpdateKanbanBoardAction(kanbanBoardModel: _currentKanbanBoardModel));
+              UpdateKanbanBoardDataAction(kanbanBoardModel: _currentKanbanBoardModel));
         },
         delete: () {
-          store.dispatch(DeleteKanbanBoardAction(id: _currentKanbanBoardModel.id));
+          store.dispatch(DeleteKanbanBoardDataAction(id: _currentKanbanBoardModel.id));
         },
         removeUserTeam: (String id) {
           store.dispatch(RemoveUserToTeamKanbanBoardModelAction(id: id));

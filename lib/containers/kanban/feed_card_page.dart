@@ -33,7 +33,7 @@ class _ViewModel {
             !currentKanbanCardModel.feed[id].bot) {
           store.dispatch(RemoveFeedKanbanCardModelAction(
               userId: store.state.userState.firebaseUser.uid, id: id));
-          store.dispatch(UpdateKanbanCardAction(
+          store.dispatch(UpdateKanbanCardDataAction(
               kanbanCardModel:
                   store.state.kanbanCardState.currentKanbanCardModel));
         }

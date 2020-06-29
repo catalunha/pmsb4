@@ -16,7 +16,7 @@ class _ViewModel {
   final bool active;
   final int todoCompleted;
   final int todoTotal;
-  final List<UserKabanRef> team;
+  final List<Team> team;
   final Function(String) onRemoveUserTeam;
 
   final Function(String, String, bool, bool) onCreate;
@@ -43,7 +43,7 @@ class _ViewModel {
         !_kanbanCardModel.team[userId].readedCard) {
       store.dispatch(
           UserViewOrUpdateKanbanCardModelAction(user: userId, viewer: true));
-      store.dispatch(UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+      store.dispatch(UpdateKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
     }
 
     return _ViewModel(
@@ -67,12 +67,12 @@ class _ViewModel {
         _kanbanCardModel.priority = false;
         _kanbanCardModel.active = true;
         _kanbanCardModel.created = DateTime.now();
-        _kanbanCardModel.author = UserKabanRef(
+        _kanbanCardModel.author = Team(
           id: store.state.userState.firebaseUser.uid,
           displayName: store.state.userState.firebaseUser.displayName,
           photoUrl: store.state.userState.firebaseUser.photoUrl,
         );
-        store.dispatch(AddKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+        store.dispatch(AddKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
       },
       onUpdate: (String title, String description, bool priority, bool active) {
         _kanbanCardModel.title = title;
@@ -80,14 +80,14 @@ class _ViewModel {
         _kanbanCardModel.priority = priority;
         _kanbanCardModel.active = active;
         store.dispatch(
-            UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+            UpdateKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
       },
       onRemoveUserTeam: (String id) async {
         print('removendo1 $id');
         store.dispatch(RemoveUserToTeamKanbanCardModelAction(id: id));
 
         store.dispatch(
-            UpdateKanbanCardAction(kanbanCardModel: _kanbanCardModel));
+            UpdateKanbanCardDataAction(kanbanCardModel: _kanbanCardModel));
       },
     );
   }

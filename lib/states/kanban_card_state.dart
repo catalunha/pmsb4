@@ -6,6 +6,7 @@ class KanbanCardState {
   final KanbanCardFilter kanbanCardFilter;
   final List<KanbanCardModel> allKanbanCardModel;
   final List<KanbanCardModel> filteredKanbanCardModel;
+  // final List<KanbanCardModel> selectedKanbanCardModel;//ainda nao usado neste projeto
   final KanbanCardModel currentKanbanCardModel;
 
   KanbanCardState({
