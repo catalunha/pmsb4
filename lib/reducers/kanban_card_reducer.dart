@@ -165,6 +165,8 @@ KanbanCardState _removeTodoKanbanCardModelAction(
   print('_removeTodoKanbanCardModelAction...');
   KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
   _currentKanbanCardModel.todo.remove(action.id);
+  _currentKanbanCardModel.todoOrder
+      .removeWhere((key, value) => value == action.id);
   _currentKanbanCardModel.updateCompletedTodos();
 
   return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);

@@ -36,27 +36,7 @@ class _ViewModel {
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.loggedState.firebaseUserLogged.uid,
             viewer: false));
-        // //+++ bot msg
-        // Feed feed = Feed();
-        // final firebaseUser = store.state.loggedState.firebaseUserLogged;
-        // Team team = Team(
-        //   id: firebaseUser.uid,
-        //   displayName: firebaseUser.displayName,
-        //   photoUrl: firebaseUser.photoUrl,
-        // );
-        // feed.author = team;
-        // String _msg =
-        //     'Etapa: ${store.state.kanbanCardState.currentKanbanCardModel.todo[id].title}.';
-        // if (store
-        //     .state.kanbanCardState.currentKanbanCardModel.todo[id].complete) {
-        //   _msg = _msg + ' . Cumprida.';
-        // } else {
-        //   _msg = _msg + ' . Pendente.';
-        // }
-        // feed.description = _msg;
-        // feed.bot = true;
-        // store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
-        // //---
+
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
