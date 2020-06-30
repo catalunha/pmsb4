@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/states/type_states.dart';
+import 'package:pmsb4/states/types_states.dart';
 
 @immutable
 class UserState {

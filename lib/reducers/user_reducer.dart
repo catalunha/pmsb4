@@ -1,6 +1,6 @@
 import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/states/type_states.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:pmsb4/states/user_state.dart';
 import 'package:redux/redux.dart';
 

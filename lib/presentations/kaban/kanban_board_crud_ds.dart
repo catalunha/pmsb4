@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
 class KanbanBoardCRUDDS extends StatefulWidget {

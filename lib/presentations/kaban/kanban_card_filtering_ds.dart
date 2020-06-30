@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/states/type_states.dart';
+import 'package:pmsb4/states/types_states.dart';
 
 class KanbanCardFilteringDS extends StatelessWidget {
   final KanbanCardFilter activeFilter;

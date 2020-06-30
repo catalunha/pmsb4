@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_crud.dart';
-import 'package:pmsb4/models/kaban_card_model.dart';
+import 'package:pmsb4/models/types_models.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FeedCardPageDS extends StatelessWidget {

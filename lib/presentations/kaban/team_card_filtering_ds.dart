@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 
 class TeamCardFilteringDS extends StatelessWidget {
   final Team currentTeam;

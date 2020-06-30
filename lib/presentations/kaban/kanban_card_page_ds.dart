@@ -4,7 +4,7 @@ import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 
 class KanbanCardPageDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;

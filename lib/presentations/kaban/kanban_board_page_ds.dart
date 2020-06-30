@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/routes.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {

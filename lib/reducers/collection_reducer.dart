@@ -1,7 +1,7 @@
 import 'package:pmsb4/actions/collection_action.dart';
 import 'package:pmsb4/models/collection_model.dart';
 import 'package:pmsb4/states/collection_state.dart';
-import 'package:pmsb4/states/type_states.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 final collectionReducer = combineReducers<CollectionState>([

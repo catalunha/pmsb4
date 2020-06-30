@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/todo_card_crud.dart';
-import 'package:pmsb4/models/kaban_card_model.dart';
+import 'package:pmsb4/models/types_models.dart';
 
 class TodoCardPageDS extends StatelessWidget {
   final List<Todo> listTodo;
@@ -38,14 +38,14 @@ class TodoCardPageDS extends StatelessWidget {
                       onDelete(todo.id);
                     },
                   ),
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => TodoCardCRUD(
-                id: todo.id,
-              ),
-            ),
-          );
+                      MaterialPageRoute(
+                        builder: (context) => TodoCardCRUD(
+                          id: todo.id,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],

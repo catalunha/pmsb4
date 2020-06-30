@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/firestore_model.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 
 class KanbanCardModel extends FirestoreModel {
   static final String collection = 'kanbanCard';
@@ -139,72 +139,41 @@ class KanbanCardModel extends FirestoreModel {
     this.modified = DateTime.now();
     return this.toMap();
   }
-}
 
-class Todo {
-  String id;
-  String title;
-  bool complete;
-
-  Todo({
-    this.id,
-    this.title,
-    this.complete,
-  });
-  Todo.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('title')) title = map['title'];
-    if (map.containsKey('complete')) complete = map['complete'];
-    if (map.containsKey('id')) id = map['id'];
-  }
-
-  Map<String, dynamic> toMap() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (title != null) data['title'] = this.title;
-    if (complete != null) data['complete'] = this.complete;
-    if (id != null) data['id'] = this.id;
-    return data;
-  }
-}
-
-class Feed {
-  Team author;
-  String description;
-  String link;
-  dynamic created;
-  String id;
-  bool bot;
-
-  Feed({
-    this.description,
-    this.author,
-    this.link,
-    this.id,
-    this.bot,
-  });
-  Feed.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('description')) description = map['description'];
-    created = (map.containsKey('created') && map['created'] != null)
-        ? DateTime.fromMillisecondsSinceEpoch(
-            map['created'].millisecondsSinceEpoch)
-        : null;
-    author = map.containsKey('author') && map['author'] != null
-        ? Team.fromMap(map['author'])
-        : null;
-    if (map.containsKey('link')) link = map['link'];
-    if (map.containsKey('id')) id = map['id'];
-    if (map.containsKey('bot')) bot = map['bot'];
-  }
-
-  Map<String, dynamic> toMap() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (description != null) data['description'] = this.description;
-    if (created != null) data['created'] = this.created;
-    if (link != null) data['link'] = this.link;
-    if (id != null) data['id'] = this.id;
-    if (bot != null) data['bot'] = this.bot;
-    if (this.author != null) {
-      data['author'] = this.author.toMap();
-    }
-    return data;
-  }
+  @override
+  int get hashCode =>
+      kanbanBoard.hashCode ^
+      title.hashCode ^
+      description.hashCode ^
+      priority.hashCode ^
+      author.hashCode ^
+      stageCard.hashCode ^
+      team.hashCode ^
+      todo.hashCode ^
+      feed.hashCode ^
+      todoOrder.hashCode ^
+      created.hashCode ^
+      modified.hashCode ^
+      active.hashCode ^
+      todoCompleted.hashCode ^
+      todoTotal.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is KanbanCardModel &&
+          kanbanBoard == other.kanbanBoard &&
+          title == other.title &&
+          description == other.description &&
+          priority == other.priority &&
+          author == other.author &&
+          stageCard == other.stageCard &&
+          team == other.team &&
+          todo == other.todo &&
+          feed == other.feed &&
+          todoOrder == other.todoOrder &&
+          created == other.created &&
+          modified == other.modified &&
+          active == other.active &&
+          todoCompleted == other.todoCompleted &&
+          todoTotal == other.todoTotal;
 }

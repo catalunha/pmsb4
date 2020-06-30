@@ -1,5 +1,5 @@
 import 'package:pmsb4/models/firestore_model.dart';
-import 'package:pmsb4/models/type_models.dart';
+import 'package:pmsb4/models/types_models.dart';
 
 class KanbanBoardModel extends FirestoreModel {
   static final String collection = 'kanbanBoard';
@@ -85,4 +85,29 @@ class KanbanBoardModel extends FirestoreModel {
     this.modified = DateTime.now();
     return this.toMap();
   }
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      description.hashCode ^
+      public.hashCode ^
+      author.hashCode ^
+      team.hashCode ^
+      created.hashCode ^
+      modified.hashCode ^
+      active.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is KanbanBoardModel &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          description == other.description &&
+          public == other.public &&
+          author == other.author &&
+          team == other.team &&
+          created == other.created &&
+          modified == other.modified &&
+          active == other.active;
 }

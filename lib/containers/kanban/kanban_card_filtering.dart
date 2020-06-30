@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/presentations/kaban/kanban_card_filtering_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
-import 'package:pmsb4/states/type_states.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
