@@ -22,7 +22,7 @@ class _ViewModel {
         : null;
 
     return _ViewModel(
-      isCreate: id != null ? true : false,
+      isCreate: id == null ? true : false,
       title: todo?.title ?? '',
       onCreateOrUpdate: (String title) {
         store.dispatch(UpdateTodoKanbanCardModelAction(

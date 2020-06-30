@@ -11,11 +11,13 @@ class _ViewModel {
   final List<Todo> listTodo;
   final Function(String) onDelete;
   final Function(String) onChangeComplete;
+  final Function(Map<String, String>) onChangeTodoOrder;
 
   _ViewModel({
     this.listTodo,
     this.onDelete,
     this.onChangeComplete,
+    this.onChangeTodoOrder,
   });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
@@ -59,6 +61,13 @@ class _ViewModel {
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
       },
+      onChangeTodoOrder: (Map<String, String> todoOrder) {
+        KanbanCardModel _currentKanbanCardModel =
+            store.state.kanbanCardState.currentKanbanCardModel;
+        _currentKanbanCardModel.todoOrder = todoOrder;
+        store.dispatch(UpdateKanbanCardDataAction(
+            kanbanCardModel: _currentKanbanCardModel));
+      },
       onDelete: (String id) {
         store.dispatch(RemoveTodoKanbanCardModelAction(id: id));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
@@ -81,6 +90,7 @@ class TodoCardPage extends StatelessWidget {
         return TodoCardPageDS(
           listTodo: _viewModel.listTodo,
           onChangeComplete: _viewModel.onChangeComplete,
+          onChangeTodoOrder: _viewModel.onChangeTodoOrder,
           onDelete: _viewModel.onDelete,
         );
       },

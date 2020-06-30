@@ -131,7 +131,7 @@ KanbanCardState _updateTeamKanbanCardFilterAction(
 
 KanbanCardState _updateTodoKanbanCardModelAction(
     KanbanCardState state, UpdateTodoKanbanCardModelAction action) {
-  print('_removeUserToTeamKanbanCardModelAction...');
+  print('_updateTodoKanbanCardModelAction...');
   KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
   Todo _newTodo = action.todo;
   if (_currentKanbanCardModel?.todo == null) {
@@ -145,10 +145,16 @@ KanbanCardState _updateTodoKanbanCardModelAction(
     if (_newTodo.title != null)
       _currentKanbanCardModel.todo[_newTodo.id].title = _newTodo.title;
   } else {
-    String _id = (_currentKanbanCardModel?.todoOrder ?? 0 + 1).toString();
-    _currentKanbanCardModel.todo[_id] =
-        Todo(id: _id, title: _newTodo.title, complete: false);
-    _currentKanbanCardModel.todoOrder = int.parse(_id) + 1;
+    final uuidG = uuid.Uuid();
+    _newTodo.id = uuidG.v4();
+    _currentKanbanCardModel.todo[_newTodo.id] =
+        Todo(id: _newTodo.id, title: _newTodo.title, complete: false);
+    _currentKanbanCardModel.todoOrder =
+        _currentKanbanCardModel?.todoOrder ?? Map<String, String>();
+    int length = _currentKanbanCardModel.todoOrder.length;
+    print('length:$length');
+    _currentKanbanCardModel.todoOrder
+        .addAll({(++length).toString(): _newTodo.id});
   }
   _currentKanbanCardModel.updateCompletedTodos();
   return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);

@@ -1,5 +1,6 @@
 import 'package:pmsb4/models/firestore_model.dart';
 import 'package:pmsb4/models/types_models.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 class KanbanCardModel extends FirestoreModel {
   static final String collection = 'kanbanCard';
@@ -9,10 +10,10 @@ class KanbanCardModel extends FirestoreModel {
   bool priority;
   Team author;
   String stageCard;
+  Map<String, String> todoOrder = Map<String, String>();
   Map<String, Team> team = Map<String, Team>();
   Map<String, Todo> todo = Map<String, Todo>();
   Map<String, Feed> feed = Map<String, Feed>();
-  int todoOrder;
   dynamic created;
   dynamic modified;
   bool active;
@@ -28,6 +29,7 @@ class KanbanCardModel extends FirestoreModel {
     this.author,
     this.team,
     this.todo,
+    this.todoOrder,
     this.feed,
     this.created,
     this.modified,
@@ -52,12 +54,31 @@ class KanbanCardModel extends FirestoreModel {
         team[item.key] = Team.fromMap(item.value);
       }
     }
-    if (map["todo"] is Map) {
-      todo = Map<String, Todo>();
-      for (var item in map["todo"].entries) {
-        todo[item.key] = Todo.fromMap(item.value);
+    if (map["todoOrder"] is Map) {
+      todoOrder = Map<String, String>();
+      for (var item in map["todoOrder"].entries) {
+        todoOrder[item.key] = item.value;
       }
     }
+    if (map["todo"] is Map) {
+      todo = Map<String, Todo>();
+      if (map.containsKey('todoOrder') &&
+          map["todoOrder"] != null &&
+          map["todoOrder"].length == map["todo"].length) {
+        Map<String, String> todoOrderOrdained = new SortedMap(Ordering.byKey());
+        for (var item in map["todoOrder"].entries) {
+          todoOrderOrdained[item.key] = item.value;
+        }
+        for (var item in todoOrderOrdained.entries) {
+          todo[item.value] = Todo.fromMap(map["todo"][item.value]);
+        }
+      } else {
+        for (var item in map["todo"].entries) {
+          todo[item.key] = Todo.fromMap(item.value);
+        }
+      }
+    }
+    updateCompletedTodos();
     if (map["feed"] is Map) {
       feed = Map<String, Feed>();
       for (var item in map["feed"].entries) {
@@ -73,7 +94,6 @@ class KanbanCardModel extends FirestoreModel {
             map['modified'].millisecondsSinceEpoch)
         : null;
     if (map.containsKey('active')) active = map['active'];
-    if (map.containsKey('todoOrder')) todoOrder = map['todoOrder'];
     if (map.containsKey('todoCompleted')) todoCompleted = map['todoCompleted'];
     if (map.containsKey('todoTotal')) todoTotal = map['todoTotal'];
 
@@ -101,6 +121,12 @@ class KanbanCardModel extends FirestoreModel {
       data["todo"] = Map<String, dynamic>();
       for (var item in todo.entries) {
         data["todo"][item.key] = item.value.toMap();
+      }
+    }
+    if (todoOrder != null && todoOrder is Map) {
+      data["todoOrder"] = Map<String, dynamic>();
+      for (var item in todoOrder.entries) {
+        data["todoOrder"][item.key] = item.value;
       }
     }
     if (feed != null && feed is Map) {
@@ -150,8 +176,8 @@ class KanbanCardModel extends FirestoreModel {
       stageCard.hashCode ^
       team.hashCode ^
       todo.hashCode ^
-      feed.hashCode ^
       todoOrder.hashCode ^
+      feed.hashCode ^
       created.hashCode ^
       modified.hashCode ^
       active.hashCode ^
