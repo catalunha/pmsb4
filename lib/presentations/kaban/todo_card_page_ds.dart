@@ -8,13 +8,15 @@ class TodoCardPageDS extends StatefulWidget {
   final Function(String) onChangeComplete;
   final Function(Map<String, String>) onChangeTodoOrder;
 
-  const TodoCardPageDS(
+  TodoCardPageDS(
       {Key key,
       this.listTodo,
       this.onDelete,
       this.onChangeComplete,
       this.onChangeTodoOrder})
-      : super(key: key);
+      : super(key: key) {
+    print('atualizado........................................');
+  }
 
   @override
   _TodoCardPageDSState createState() => _TodoCardPageDSState(listTodo);
@@ -24,6 +26,11 @@ class _TodoCardPageDSState extends State<TodoCardPageDS> {
   List<Todo> _listTodo = [];
 
   _TodoCardPageDSState(this._listTodo);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
