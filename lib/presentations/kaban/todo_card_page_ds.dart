@@ -104,8 +104,8 @@ class _TodoCardPageDSState extends State<TodoCardPageDS> {
       _listTodo.insert(newIndex, todo);
     });
     var index = 1;
-    Map<String, String> orderTodo = Map.fromIterable(_listTodo,
+    Map<String, String> todoOrder = Map.fromIterable(_listTodo,
         key: (e) => (index++).toString(), value: (e) => e.id);
-    widget.onChangeTodoOrder(orderTodo);
+    widget.onChangeTodoOrder(todoOrder);
   }
 }

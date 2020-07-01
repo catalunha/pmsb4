@@ -10,20 +10,27 @@ import 'package:pmsb4/models/types_models.dart';
 class KanbanCardPageDS extends StatefulWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
+  final Function(Map<String, String>) onChangeCardOrder;
+  final Function(String, String) onChangeStageCard;
 
-  const KanbanCardPageDS(
-      {Key key, this.filteredKanbanCardModel, this.onCurrentKanbanCardModel})
-      : super(key: key);
+  KanbanCardPageDS({
+    Key key,
+    this.filteredKanbanCardModel,
+    this.onCurrentKanbanCardModel,
+    this.onChangeCardOrder,
+    this.onChangeStageCard,
+  }) : super(key: key) {
+    print('KanbanCardPageDS -+-+-+-');
+  }
 
   @override
-  _KanbanCardPageDSState createState() =>
-      _KanbanCardPageDSState(filteredKanbanCardModel);
+  _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
 }
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
-  List<KanbanCardModel> _filteredKanbanCardModel;
+  // List<KanbanCardModel> widget.filteredKanbanCardModel = [];
 
-  _KanbanCardPageDSState(this._filteredKanbanCardModel);
+  // _KanbanCardPageDSState(this.widget.filteredKanbanCardModel);
   List<String> stages = [
     StageCard.story.toString(),
     StageCard.todo.toString(),
@@ -32,17 +39,25 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
     StageCard.done.toString(),
   ];
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // widget.filteredKanbanCardModel = widget.filteredKanbanCardModel;
+    print('KanbanCardPageDS //////');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KanbanCardPage ${_filteredKanbanCardModel.length}'),
+        title: Text('KanbanCardPage ${widget.filteredKanbanCardModel.length}'),
         actions: [
           KanbanCardFiltering(),
           TeamCardFiltering(),
         ],
       ),
       // body: ListView(
-      //   children: listCard(widget._filteredKanbanCardModel),
+      //   children: listCard(widget.widget.filteredKanbanCardModel),
       // ),
       body: Container(
         child: ListView.builder(
@@ -87,7 +102,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.7,
                     child: DragAndDropList<KanbanCardModel>(
-                      _filteredKanbanCardModel,
+                      widget.filteredKanbanCardModel,
                       itemBuilder: (BuildContext context,
                           KanbanCardModel kanbanCardModel) {
                         if (kanbanCardModel.stageCard == stages[indexStage]) {
@@ -104,10 +119,17 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                         // }
                         setState(() {
                           KanbanCardModel todo =
-                              _filteredKanbanCardModel[oldIndex];
-                          _filteredKanbanCardModel.removeAt(oldIndex);
-                          _filteredKanbanCardModel.insert(newIndex, todo);
+                              widget.filteredKanbanCardModel[oldIndex];
+                          widget.filteredKanbanCardModel.removeAt(oldIndex);
+                          widget.filteredKanbanCardModel.insert(newIndex, todo);
+                          onChangeCardOrderPush();
                         });
+                        // var index = 1;
+                        // Map<String, String> cardOrder = Map.fromIterable(
+                        //     widget.filteredKanbanCardModel,
+                        //     key: (e) => (index++).toString(),
+                        //     value: (e) => e.id);
+                        // widget.onChangeCardOrder(cardOrder);
                       },
                       canBeDraggedTo: (one, two) => true,
                       dragElevation: 8.0,
@@ -130,16 +152,37 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
               },
               onAccept: (data) {
                 print(
-                    'DragTarget.onAccept ${data["kanbanCardDraggable"].id} from ${data["newStage"]} to ${stages[indexStage]}');
-                if (data['newStage'] == stages[indexStage]) {
+                    'DragTarget.onAccept ${data["kanbanCardDraggable"].id} from ${data["oldStage"]} to ${stages[indexStage]}');
+                if (data['oldStage'] == stages[indexStage]) {
                   return;
                 }
-                int indexK = _filteredKanbanCardModel
+                int indexOf = widget.filteredKanbanCardModel
                     .indexOf(data["kanbanCardDraggable"]);
 
                 setState(() {
-                  _filteredKanbanCardModel[indexK].stageCard =
+                  widget.filteredKanbanCardModel[indexOf].stageCard =
                       stages[indexStage];
+                  widget.onChangeStageCard(
+                      widget.filteredKanbanCardModel[indexOf].id,
+                      stages[indexStage]);
+                  // +++ tire o elemento de onde esta e coloca no topo da list do destino
+                  int indexFirstStage = widget.filteredKanbanCardModel.indexOf(
+                      widget.filteredKanbanCardModel.firstWhere((element) =>
+                          element.stageCard == stages[indexStage]));
+
+                  KanbanCardModel todo =
+                      widget.filteredKanbanCardModel[indexOf];
+                  widget.filteredKanbanCardModel.removeAt(indexOf);
+                  widget.filteredKanbanCardModel.insert(indexFirstStage, todo);
+                  // ---
+                  onChangeCardOrderPush();
+
+                  // var index = 1;
+                  // Map<String, String> cardOrder = Map.fromIterable(
+                  //     widget.filteredKanbanCardModel,
+                  //     key: (e) => (index++).toString(),
+                  //     value: (e) => e.id);
+                  // widget.onChangeCardOrder(cardOrder);
                 });
               },
               builder: (context, accept, reject) {
@@ -153,7 +196,16 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
     );
   }
 
-  Widget kanbanCard(KanbanCardModel kanbanCard, String newStage) {
+  void onChangeCardOrderPush() {
+    var index = 1;
+    Map<String, String> cardOrder = Map.fromIterable(
+        widget.filteredKanbanCardModel,
+        key: (e) => (index++).toString(),
+        value: (e) => e.id);
+    widget.onChangeCardOrder(cardOrder);
+  }
+
+  Widget kanbanCard(KanbanCardModel kanbanCard, String oldStage) {
     return Container(
       key: ValueKey(kanbanCard),
       width: 200.0,
@@ -162,14 +214,14 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
         feedback: Material(
           elevation: 5.0,
           child: Container(
-            width: 284.0,
+            width: 200.0,
             padding: const EdgeInsets.all(16.0),
             color: Colors.blue,
             child: Text('${kanbanCard.title}'),
           ),
         ),
         childWhenDragging: Container(),
-        data: {'kanbanCardDraggable': kanbanCard, 'newStage': newStage},
+        data: {'kanbanCardDraggable': kanbanCard, 'oldStage': oldStage},
         child: Container(
           key: ValueKey(kanbanCard),
           // width: 200.0,
@@ -177,7 +229,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ListTile(
-                title: Text('${kanbanCard.title} ${kanbanCard.stageCard}'),
+                title: Text('${kanbanCard.id} ${kanbanCard.stageCard}'),
                 // subtitle: Text(
                 //     'id:${kanbanCard.id.substring(0, 5)} | kanbanBoard:${kanbanCard.kanbanBoard?.substring(0, 5)} | description:${kanbanCard.description} | priority:${kanbanCard.priority} | active:${kanbanCard.active} | created:${kanbanCard.created} |  modified:${kanbanCard.modified} | team:${kanbanCard.team?.length} | '),
                 onTap: () {

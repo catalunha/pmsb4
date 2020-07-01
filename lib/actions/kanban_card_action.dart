@@ -1,3 +1,4 @@
+import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/states/types_states.dart';
@@ -7,8 +8,10 @@ class KanbanCardAction {}
 /// +++ Actions atendidas pelo KanbanCardReducer
 class AllKanbanCardModelAction extends KanbanCardAction {
   final List<KanbanCardModel> allKanbanCardModel;
+  final KanbanBoardModel currentKanbanBoardModel;
 
-  AllKanbanCardModelAction({this.allKanbanCardModel});
+  AllKanbanCardModelAction(
+      {this.allKanbanCardModel, this.currentKanbanBoardModel});
 }
 
 class UpdateKanbanCardFilterAction extends KanbanCardAction {

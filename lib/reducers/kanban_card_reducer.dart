@@ -1,4 +1,5 @@
 import 'package:pmsb4/actions/kanban_card_action.dart';
+import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/states/types_states.dart';
@@ -33,17 +34,36 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
   print('_allKanbanCardModelAction...');
-  KanbanCardState _newState = state.copyWith(
-    allKanbanCardModel: action.allKanbanCardModel,
-  );
-  _newState = _updateKanbanCardFilterAction(
-    _newState,
-    UpdateKanbanCardFilterAction(kanbanCardFilter: _newState.kanbanCardFilter),
-  );
-  _newState = _currentKanbanCardModelAction(
-    _newState,
-    CurrentKanbanCardModelAction(id: _newState.currentKanbanCardModel?.id),
-  );
+  KanbanCardState _newState = state;
+  List<KanbanCardModel> _allKanbanCardModel = [];
+  if (action.allKanbanCardModel != null &&
+      action.currentKanbanBoardModel != null) {
+    print('_allKanbanCardModelAction +++');
+
+    KanbanBoardModel kanbanBoardModel = action.currentKanbanBoardModel;
+    if (kanbanBoardModel.cardOrder?.entries != null) {
+      for (var item in kanbanBoardModel.cardOrder.entries) {
+        _allKanbanCardModel.add(action.allKanbanCardModel
+            .firstWhere((element) => element.id == item.value));
+      }
+    } else {
+      _allKanbanCardModel.addAll(action.allKanbanCardModel);
+    }
+
+    _newState = state.copyWith(
+      allKanbanCardModel: _allKanbanCardModel,
+    );
+
+    _newState = _updateKanbanCardFilterAction(
+      _newState,
+      UpdateKanbanCardFilterAction(
+          kanbanCardFilter: _newState.kanbanCardFilter),
+    );
+    _newState = _currentKanbanCardModelAction(
+      _newState,
+      CurrentKanbanCardModelAction(id: _newState.currentKanbanCardModel?.id),
+    );
+  }
   return _newState;
 }
 

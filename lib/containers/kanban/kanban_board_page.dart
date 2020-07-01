@@ -52,18 +52,18 @@ class KanbanBoardPage extends StatelessWidget {
         print('KanbanBoardPage.onInit');
         store.dispatch(StreamKanbanBoardDataAction());
       },
-      onDidChange: (viewModel) {
-        print('KanbanBoardPage.onDidChange');
-      },
-      onDispose: (store) {
-        print('KanbanBoardPage.onDispose');
-      },
-      onInitialBuild: (viewModel) {
-        print('KanbanBoardPage.onInitialBuild');
-      },
-      onWillChange: (previousViewModel, newViewModel) {
-        print('KanbanBoardPage.onWillChange');
-      },
+      // onDidChange: (viewModel) {
+      //   print('KanbanBoardPage.onDidChange');
+      // },
+      // onDispose: (store) {
+      //   print('KanbanBoardPage.onDispose');
+      // },
+      // onInitialBuild: (viewModel) {
+      //   print('KanbanBoardPage.onInitialBuild');
+      // },
+      // onWillChange: (previousViewModel, newViewModel) {
+      //   print('KanbanBoardPage.onWillChange');
+      // },
     );
   }
 }

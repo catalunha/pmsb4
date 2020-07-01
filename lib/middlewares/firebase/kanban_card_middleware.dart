@@ -53,12 +53,14 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
         .toList());
     listDocs.listen((List<KanbanCardModel> allKanbanCardModel) {
       print('allKanbanCardModel: ${allKanbanCardModel.length}');
-      store.dispatch(
-          AllKanbanCardModelAction(allKanbanCardModel: allKanbanCardModel));
-      store.dispatch(
-          UpdateKanbanCardFilterAction(kanbanCardFilter: KanbanCardFilter.all));
-      store.dispatch(CurrentKanbanCardModelAction(
-          id: store.state.kanbanCardState.currentKanbanCardModel?.id));
+      store.dispatch(AllKanbanCardModelAction(
+          allKanbanCardModel: allKanbanCardModel,
+          currentKanbanBoardModel:
+              store.state.kanbanBoardState.currentKanbanBoardModel));
+      // store.dispatch(
+      //     UpdateKanbanCardFilterAction(kanbanCardFilter: currentFilter));
+      // store.dispatch(CurrentKanbanCardModelAction(
+      //     id: store.state.kanbanCardState.currentKanbanCardModel?.id));
     });
     next(action);
   };

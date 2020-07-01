@@ -1,5 +1,6 @@
 import 'package:pmsb4/models/firestore_model.dart';
 import 'package:pmsb4/models/types_models.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 class KanbanBoardModel extends FirestoreModel {
   static final String collection = 'kanbanBoard';
@@ -9,6 +10,8 @@ class KanbanBoardModel extends FirestoreModel {
   bool public;
   Team author;
   Map<String, Team> team = Map<String, Team>();
+  Map<String, String> cardOrder = Map<String, String>();
+
   dynamic created;
   dynamic modified;
   bool active;
@@ -20,6 +23,7 @@ class KanbanBoardModel extends FirestoreModel {
     this.public,
     this.author,
     this.team,
+    this.cardOrder,
     this.created,
     this.modified,
     this.active,
@@ -38,6 +42,12 @@ class KanbanBoardModel extends FirestoreModel {
       team = Map<String, Team>();
       for (var item in map["team"].entries) {
         team[item.key] = Team.fromMap(item.value);
+      }
+    }
+    if (map["cardOrder"] is Map) {
+      cardOrder = new SortedMap(Ordering.byKey());
+      for (var item in map["cardOrder"].entries) {
+        cardOrder[item.key] = item.value;
       }
     }
     created = map.containsKey('created') && map['created'] != null
@@ -69,6 +79,12 @@ class KanbanBoardModel extends FirestoreModel {
         data["team"][item.key] = item.value.toMap();
       }
     }
+    if (cardOrder != null && cardOrder is Map) {
+      data["cardOrder"] = Map<String, dynamic>();
+      for (var item in cardOrder.entries) {
+        data["cardOrder"][item.key] = item.value;
+      }
+    }
     if (created != null) data['created'] = this.created;
     if (modified != null) data['modified'] = this.modified;
     if (active != null) data['active'] = this.active;
@@ -93,6 +109,7 @@ class KanbanBoardModel extends FirestoreModel {
       public.hashCode ^
       author.hashCode ^
       team.hashCode ^
+      cardOrder.hashCode ^
       created.hashCode ^
       modified.hashCode ^
       active.hashCode;
@@ -107,6 +124,7 @@ class KanbanBoardModel extends FirestoreModel {
           public == other.public &&
           author == other.author &&
           team == other.team &&
+          cardOrder == other.cardOrder &&
           created == other.created &&
           modified == other.modified &&
           active == other.active;

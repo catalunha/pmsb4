@@ -61,6 +61,11 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
       print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
+      store.dispatch(AllKanbanCardModelAction(
+          allKanbanCardModel: null,
+          currentKanbanBoardModel:
+              store.state.kanbanBoardState.currentKanbanBoardModel));
+
       // store.dispatch(UpdateKanbanBoardFilterAction());
       //   store.dispatch(CurrentKanbanCardModelAction(
       // id: store.state.kanbanCardState.currentKanbanCardModel?.id));
