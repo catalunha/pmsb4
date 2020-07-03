@@ -112,19 +112,20 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
           ListTile(
             title: Text('Public'),
             trailing: Checkbox(
-                // +++
-                // 1) Ou usa assim true||false never null
-                value: _public,
-                // 2) Ou assim true|false|null
-                // value: _public,
-                // tristate: true,
-                // ---
-                activeColor: Colors.green,
-                onChanged: (value) {
-                  setState(() {
-                    _public = value;
-                  });
-                }),
+              // +++
+              // 1) Ou usa assim true||false never null
+              value: _public,
+              // 2) Ou assim true|false|null
+              // value: _public,
+              // tristate: true,
+              // ---
+              activeColor: Colors.green,
+              onChanged: (value) {
+                setState(() {
+                  _public = value;
+                });
+              },
+            ),
           ),
           // ListTile(
           //   title: Text('Active'),
