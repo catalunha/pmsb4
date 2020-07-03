@@ -1,4 +1,8 @@
 
+# localização
+As keys estão na pasta:
+.../pmsb4/keys/
+
 
 # keys
 Ainda falta analisar melhor este material: https://developer.android.com/studio/publish/app-signing
