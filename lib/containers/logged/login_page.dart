@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
+import 'package:pmsb4/presentations/logged/login_page2_ds.dart';
 import 'package:pmsb4/presentations/logged/login_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/types_states.dart';
@@ -43,7 +44,7 @@ class LoginPage extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel viewModel) {
-        return LoginPageDS(
+        return LoginPage2DS(
           loginEmailPassword: viewModel.loginEmailPassword,
           loginGoogle: viewModel.loginGoogle,
           authenticationStatus: viewModel.authenticationStatus,
