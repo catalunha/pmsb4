@@ -1,4 +1,3 @@
-import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/models/user_model.dart';
 import 'package:pmsb4/states/types_states.dart';
 

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
-import 'package:pmsb4/containers/collection/collection_page.dart';
-import 'package:pmsb4/containers/collection/collection_update.dart';
-import 'package:pmsb4/containers/counter/counter_page.dart';
 import 'package:pmsb4/containers/home/home_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
@@ -11,7 +8,6 @@ import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/containers/logged/profile_page.dart';
 import 'package:pmsb4/containers/logged/profile_update.dart';
 import 'package:pmsb4/middlewares/firebase/authentication_middleware.dart';
-import 'package:pmsb4/middlewares/firebase/collection_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/kanban_board_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/kanban_card_middleware.dart';
 import 'package:pmsb4/middlewares/firebase/storage_middleware.dart';
@@ -37,7 +33,6 @@ Store<AppState> _store = Store<AppState>(
   middleware: []
     ..addAll(firebaseAuthenticationMiddleware())
     ..addAll(firebaseStorageMiddleware())
-    ..addAll(firebaseFirestoreCollectionMiddleware())
     ..addAll(firebaseFirestoreUserMiddleware())
     ..addAll(firebaseFirestoreKanbanBoardMiddleware())
     ..addAll(firebaseFirestoreKanbanCardMiddleware()),
@@ -70,20 +65,11 @@ class MyApp extends StatelessWidget {
           Routes.home: (context) {
             return HomePage();
           },
-          Routes.counter: (context) {
-            return CounterPage();
-          },
           Routes.profile: (context) {
             return ProfilePage();
           },
           Routes.profileUpdate: (context) {
             return ProfileUpdate();
-          },
-          Routes.collection: (context) {
-            return CollectionPage();
-          },
-          Routes.collectionUpdate: (context) {
-            return CollectionUpdate();
           },
           Routes.teamBoard: (context) {
             return TeamBoard();
