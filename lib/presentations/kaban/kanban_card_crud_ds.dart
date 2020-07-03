@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/containers/kanban/feed_card_page.dart';
+import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/team_card.dart';
-import 'package:pmsb4/containers/kanban/todo_card_page.dart';
+import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
@@ -169,7 +169,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => TodoCardPage(),
+                  builder: (context) => TodoCardList(),
                 ),
               );
             },
@@ -180,7 +180,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => FeedCardPage(),
+                  builder: (context) => FeedCardList(),
                 ),
               );
             },

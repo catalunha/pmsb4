@@ -4,10 +4,12 @@ import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
+import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 
 class KanbanCardPageDS extends StatefulWidget {
+  final KanbanBoardModel currentKanbanBoardModel;
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
   final Function(Map<String, String>) onChangeCardOrder;
@@ -15,13 +17,12 @@ class KanbanCardPageDS extends StatefulWidget {
 
   KanbanCardPageDS({
     Key key,
+    this.currentKanbanBoardModel,
     this.filteredKanbanCardModel,
     this.onCurrentKanbanCardModel,
     this.onChangeCardOrder,
     this.onChangeStageCard,
-  }) : super(key: key) {
-    print('KanbanCardPageDS -+-+-+-');
-  }
+  }) : super(key: key);
 
   @override
   _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
@@ -50,7 +51,8 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KanbanCardPage ${widget.filteredKanbanCardModel.length}'),
+        title: Text(
+            'KanbanCardPage  ${widget.currentKanbanBoardModel?.title} ${widget.filteredKanbanCardModel.length}'),
         actions: [
           KanbanCardFiltering(),
           TeamCardFiltering(),
@@ -114,9 +116,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                       },
                       onDragFinish: (oldIndex, newIndex) {
                         print('oldIndex:$oldIndex, newIndex:$newIndex');
-                        // if (newIndex > oldIndex) {
-                        //   newIndex -= 1;
-                        // }
+
                         setState(() {
                           KanbanCardModel todo =
                               widget.filteredKanbanCardModel[oldIndex];
@@ -124,12 +124,6 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                           widget.filteredKanbanCardModel.insert(newIndex, todo);
                           onChangeCardOrderPush();
                         });
-                        // var index = 1;
-                        // Map<String, String> cardOrder = Map.fromIterable(
-                        //     widget.filteredKanbanCardModel,
-                        //     key: (e) => (index++).toString(),
-                        //     value: (e) => e.id);
-                        // widget.onChangeCardOrder(cardOrder);
                       },
                       canBeDraggedTo: (one, two) => true,
                       dragElevation: 8.0,

@@ -27,7 +27,8 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
     Stream<QuerySnapshot> streamDocs;
     KanbanCardFilter currentFilter =
         store.state.kanbanCardState.kanbanCardFilter;
-    if (currentFilter == KanbanCardFilter.all) {
+    if (currentFilter == KanbanCardFilter.all &&
+        store.state.kanbanBoardState.currentKanbanBoardModel?.id != null) {
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: true)

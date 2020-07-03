@@ -36,6 +36,8 @@ class _ViewModel {
           print('addUserTeamCard: Selecionado: $id');
           Team team = currentKanbanBoardModel.team[id];
           store.dispatch(AddUserToTeamKanbanCardModelAction(team: team));
+          store.dispatch(UpdateKanbanCardDataAction(
+              kanbanCardModel: currentKanbanCardModel));
         } else {
           print('addUserTeamCard: Já esta no team.');
         }

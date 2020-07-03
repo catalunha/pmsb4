@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/feed_card_page_ds.dart';
+import 'package:pmsb4/presentations/kaban/feed_card_list_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -43,13 +43,13 @@ class _ViewModel {
   }
 }
 
-class FeedCardPage extends StatelessWidget {
+class FeedCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        return FeedCardPageDS(
+        return FeedCardListDS(
           listFeed: _viewModel.listFeed,
           onDelete: _viewModel.onDelete,
         );
