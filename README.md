@@ -12,10 +12,10 @@ Estou construindo este modelo para o redux: [Fluxo Redux PMSB4](https://docs.goo
 Ativa no hosting. Atualizada a cada issue.
 Desta branch podem derivar outras para atender a issue.
 
-## Xissue
+## outras
 Desenvolvimento básico da aplicação para testes e dev/otimização/refactoração do padrão Redux.
 
-Branch básica para desenvolvimento das ui ou presentation
+Branch básica para desenvolvimento das ui ou presentation e para redux criada a partir de issues ou para demandas específicas
 
 
 # Definições neste projeto
@@ -96,6 +96,14 @@ class WidgetChildCDS extends StatelessWidget/StatefulWidget {
   // pegar var e function do parent WidgetParentDS
 ...
 }
+~~~
+
+# Telas
+~~~
++ KanbanBoardPageDS
+	+ KanbanBoardCRUDDS
+		- TeamBoardDS
+	- QuadroCardWidgetCDS
 ~~~
 
 # Models

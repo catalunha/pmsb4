@@ -20,13 +20,6 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    MyApp(),
-  );
-}
-
 Store<AppState> _store = Store<AppState>(
   appReducer,
   initialState: AppState.initial(),
@@ -38,6 +31,13 @@ Store<AppState> _store = Store<AppState>(
     ..addAll(firebaseFirestoreKanbanCardMiddleware()),
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MyApp(),
+  );
+}
 
 class MyApp extends StatelessWidget {
   final Store<AppState> store;
