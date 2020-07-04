@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/equipe_wrap_widget.dart';
+import 'package:pmsb4/presentations/kaban/components/equipe_wrap_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class KanbanCardCRUD2DS extends StatefulWidget {
+class KanbanCardUpdateDS extends StatefulWidget {
   final bool isCreate;
   final String title;
   final String description;
@@ -15,10 +15,11 @@ class KanbanCardCRUD2DS extends StatefulWidget {
   final int todoCompleted;
   final int todoTotal;
   final List<Team> team;
-  final Function(String, String, bool, bool) onCreateOrUpdate;
+  final Function(String, String, bool, bool) onCreate;
+  final Function(String, String, bool, bool) onUpdate;
   final Function(String) onRemoveUserTeam;
 
-  const KanbanCardCRUD2DS({
+  const KanbanCardUpdateDS({
     Key key,
     this.isCreate,
     this.title,
@@ -27,15 +28,16 @@ class KanbanCardCRUD2DS extends StatefulWidget {
     this.active,
     this.team,
     this.onRemoveUserTeam,
-    this.onCreateOrUpdate,
+    this.onCreate,
+    this.onUpdate,
     this.todoCompleted,
     this.todoTotal,
   }) : super(key: key);
   @override
-  _KanbanCardCRUD2DSState createState() => _KanbanCardCRUD2DSState();
+  _KanbanCardUpdateDSState createState() => _KanbanCardUpdateDSState();
 }
 
-class _KanbanCardCRUD2DSState extends State<KanbanCardCRUD2DS> {
+class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
   ScrollController scrowllController = new ScrollController();
 
   @override
@@ -146,7 +148,7 @@ class _KanbanCardCRUD2DSState extends State<KanbanCardCRUD2DS> {
                   // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),
-                    child: EquipeWrapWidget(
+                    child: EquipeWrapCDS(
                         team: widget.team,
                         onRemoveUserTeam: widget.onRemoveUserTeam),
                   ),

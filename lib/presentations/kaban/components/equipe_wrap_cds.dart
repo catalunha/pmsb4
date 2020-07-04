@@ -3,18 +3,18 @@ import 'package:pmsb4/containers/kanban/team_card.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class EquipeWrapWidget extends StatefulWidget {
+class EquipeWrapCDS extends StatefulWidget {
   final List<Team> team;
   final Function(String) onRemoveUserTeam;
 
-  const EquipeWrapWidget({Key key, this.team, this.onRemoveUserTeam})
+  const EquipeWrapCDS({Key key, this.team, this.onRemoveUserTeam})
       : super(key: key);
 
   @override
-  _EquipeWrapWidgetState createState() => _EquipeWrapWidgetState();
+  _EquipeWrapCDSState createState() => _EquipeWrapCDSState();
 }
 
-class _EquipeWrapWidgetState extends State<EquipeWrapWidget> {
+class _EquipeWrapCDSState extends State<EquipeWrapCDS> {
   @override
   Widget build(BuildContext context) {
     return Container(

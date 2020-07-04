@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_crud.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/comentario_feed_widget.dart';
+import 'package:pmsb4/presentations/kaban/components/feed_card_one.dart';
 
 class FeedCardListDS extends StatefulWidget {
   final List<Feed> listFeed;
@@ -41,7 +41,7 @@ class _FeedCardListDSState extends State<FeedCardListDS> {
   List<Widget> getListaComentarios() {
     List<Widget> listaComentarios = List<Widget>();
     for (Feed feed in widget.listFeed) {
-      listaComentarios.add(ComentarioFeedWidget(feed: feed));
+      listaComentarios.add(FeedCardOne(feed: feed));
     }
     return listaComentarios;
   }

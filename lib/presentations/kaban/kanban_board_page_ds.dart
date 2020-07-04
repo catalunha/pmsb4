@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_crud.dart';
-import 'package:pmsb4/containers/kanban/kanban_board_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/types_models.dart';
+import 'package:pmsb4/presentations/kaban/components/quadro_card_widget.dart';
+import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/routes.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {
@@ -21,129 +21,114 @@ class KanbanBoardPageDS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kanban Board Page'),
-        actions: [KanbanFiltering()],
+        title: Text("Quadros"),
       ),
-      body: ListView.builder(
-        itemCount: filteredKanbanBoardModel.length,
-        itemBuilder: (BuildContext context, int index) {
-          final kanbanBoard = filteredKanbanBoardModel[index];
-          return Card(
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text(kanbanBoard.title),
-                  subtitle: Text(
-                      'id:${kanbanBoard.id.substring(0, 5)} | description:${kanbanBoard.description} | public:${kanbanBoard.public} | active:${kanbanBoard.active} | created:${kanbanBoard.created} |  modified:${kanbanBoard.modified} | team:${kanbanBoard.team?.length} | '),
-                  onTap: () {
-                    onCurrentKanbanBoardModel(kanbanBoard.id);
-                    Navigator.pushNamed(context, Routes.kanbanCardPage);
+      backgroundColor: PmsbColors.navbar,
+      // backToRootPage: true,
+      body: body(context),
+    );
+  }
+
+  Widget body(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 2.0),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Container(),
+                Container(),
+                RaisedButton(
+                  child: Text("Criar novo quadro"),
+                  color: PmsbColors.cor_destaque,
+                  onPressed: () {
+                    onCurrentKanbanBoardModel(null);
+                    // Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => KanbanBoardCRUD(),
+                      ),
+                    );
                   },
-                  // trailing: IconButton(
-                  //   icon: Icon(Icons.credit_card),
-                  //   onPressed: () {
-                  //     onCurrentKanbanBoardModel(kanbanBoard.id);
-                  //     Navigator.pushNamed(context, Routes.kanbanCardPage);
-                  //   },
-                  // ),
-                ),
-                Center(
-                  child: Wrap(
-                    children: avatarsTeam(kanbanBoard.author, kanbanBoard.team),
-                  ),
-                ),
-                Wrap(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        onCurrentKanbanBoardModel(kanbanBoard.id);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => KanbanBoardCRUD(),
-                          ),
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: kanbanBoard.active
-                          ? Icon(Icons.archive)
-                          : Icon(Icons.unarchive),
-                      onPressed: () {
-                        onActive(kanbanBoard.id, !kanbanBoard.active);
-                      },
-                    )
-                  ],
-                ),
+                )
               ],
             ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
+          ),
         ),
-        onPressed: () {
-          onCurrentKanbanBoardModel(null);
-          // Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => KanbanBoardCRUD(),
+        Expanded(
+          child: mainQuadro(context),
+        )
+      ],
+    );
+  }
+
+  Widget mainQuadro(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.10,
+        vertical: height * 0.01,
+      ),
+      child: Container(
+        //  color: Colors[],
+        child: ListView(
+          children: <Widget>[
+            // textoQuadro("Meus quadros"),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+              child: Column(children: _listaMeusQuadros(context)),
             ),
-          );
-        },
+            //textoQuadro("Meus gerais"),
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> avatarsTeam(Team author, Map<String, Team> teamMap) {
-    List<Widget> listaWidget = List<Widget>();
-    listaWidget.add(
-      Tooltip(
-        message: author.displayName,
-        child: CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.red,
-          child: CircleAvatar(
-            radius: 19,
-            child: ClipOval(
-              child: Center(
-                child: author?.photoUrl != null
-                    ? Image.network(author.photoUrl)
-                    : Icon(Icons.person_add),
-              ),
-            ),
-          ),
+  Widget textoQuadro(String texto) {
+    return Padding(
+      padding: EdgeInsets.only(top: 7.0, bottom: 7.0, left: 30),
+      child: Text(
+        texto,
+        style: TextStyle(
+          color: PmsbColors.texto_secundario,
+          fontSize: 18,
         ),
       ),
     );
+  }
 
-    List<Team> _team =
-        teamMap != null ? teamMap.entries.map((e) => e.value).toList() : [];
-    for (var item in _team) {
-      listaWidget.add(
-        InkWell(
-          onTap: () {
-            print('${item.id}');
-          },
-          child: Tooltip(
-            message: item.displayName,
-            child: CircleAvatar(
-              minRadius: 20,
-              maxRadius: 20,
-              child: ClipOval(
-                child: Center(
-                  child: item?.photoUrl != null
-                      ? Image.network(item.photoUrl)
-                      : Icon(Icons.person_add),
+  _listaMeusQuadros(BuildContext context) {
+    List<Widget> list = List<Widget>();
+
+    for (var kanbanBoard in filteredKanbanBoardModel) {
+      list.add(
+        Padding(
+          padding: EdgeInsets.all(2.0),
+          child: QuadroCardWidget(
+            onViewKanbanCards: () {
+              onCurrentKanbanBoardModel(kanbanBoard.id);
+              Navigator.pushNamed(context, Routes.kanbanCardPage);
+            },
+            onEditCurrentKanbanBoardModel: () {
+              onCurrentKanbanBoardModel(kanbanBoard.id);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => KanbanBoardCRUD(),
                 ),
-              ),
-            ),
+              );
+            },
+            cor: PmsbColors.card,
+            quadro: kanbanBoard,
+            onActive: onActive,
           ),
         ),
       );
     }
-    return listaWidget;
+    return list;
   }
 }

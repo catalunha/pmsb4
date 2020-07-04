@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
-import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
-import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
+import 'package:pmsb4/presentations/kaban/components/tarefa_card_widget.dart';
+import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardPageDS extends StatefulWidget {
   final KanbanBoardModel currentKanbanBoardModel;
+
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
   final Function(Map<String, String>) onChangeCardOrder;
@@ -23,15 +24,11 @@ class KanbanCardPageDS extends StatefulWidget {
     this.onChangeCardOrder,
     this.onChangeStageCard,
   }) : super(key: key);
-
   @override
   _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
 }
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
-  // List<KanbanCardModel> widget.filteredKanbanCardModel = [];
-
-  // _KanbanCardPageDSState(this.widget.filteredKanbanCardModel);
   List<String> stages = [
     StageCard.story.toString(),
     StageCard.todo.toString(),
@@ -39,111 +36,286 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
     StageCard.check.toString(),
     StageCard.done.toString(),
   ];
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // widget.filteredKanbanCardModel = widget.filteredKanbanCardModel;
-    print('KanbanCardPageDS //////');
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            'KanbanCardPage  ${widget.currentKanbanBoardModel?.title} ${widget.filteredKanbanCardModel.length}'),
-        actions: [
-          KanbanCardFiltering(),
-          TeamCardFiltering(),
+        title: Text("Cartões para o ${widget.currentKanbanBoardModel?.title}"),
+      ),
+      backgroundColor: PmsbColors.navbar,
+      body: body(context),
+    );
+  }
+
+  Widget body(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: width > 1800 ? 15 : 3),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width > 1800 ? (width * 0.10) : (width * 0.01),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  widget.currentKanbanBoardModel?.description,
+                  style: TextStyle(
+                      fontSize: 18, color: PmsbColors.texto_terciario),
+                ),
+                Row(
+                  children: [
+                    InkWell(
+                      child: Tooltip(
+                        message: "Filtrar por equipe",
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage("userAvatarUrl"),
+                          backgroundColor: PmsbColors.navbar,
+                          child: Icon(
+                            Icons.supervised_user_circle,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => null,
+                          // ListaUsuariosModal(
+                          //   selecaoMultipla: false,
+                          // ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        backgroundColor: PmsbColors.navbar,
+                        child: botaoMore(),
+                      ),
+                    ),
+                    InkWell(
+                      child: Tooltip(
+                        message: "Tarefas arquivadas",
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage("userAvatarUrl"),
+                          backgroundColor: PmsbColors.navbar,
+                          child: Icon(
+                            Icons.archive,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => (TarefasArquivadasPage(
+                        //       tarefa: tarefa01,
+                        //     )),
+                        //   ),
+                        // );
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width > 1800 ? (width * 0.5) : (width * 0.01),
+            ),
+            child: Container(
+              color: Colors.white12,
+              height: 2,
+            ),
+          ),
+          SizedBox(height: 15),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: width > 1800 ? (width * 0.05) : (width * 0.01),
+              ),
+              child: _listaColunas(context),
+            ),
+          ),
         ],
       ),
-      // body: ListView(
-      //   children: listCard(widget.widget.filteredKanbanCardModel),
-      // ),
-      body: Container(
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: stages.length,
-          itemBuilder: (context, indexStage) {
-            return buildStages(indexStage);
-          },
-        ),
-      ),
+    );
+  }
 
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
+  Widget botaoMore() {
+    return PopupMenuButton<Function>(
+      color: PmsbColors.navbar,
+      tooltip: "Filtrar por prioridade",
+      icon: Icon(
+        Icons.group_work,
+        color: Colors.white,
+      ),
+      onSelected: (Function result) {
+        result();
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<Function>>[
+        PopupMenuItem<Function>(
+          value: () {
+            // Filtrar mostrando todos
+          },
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text('Listar todos'),
+              SizedBox(width: 5),
+            ],
+          ),
         ),
-        onPressed: () {
-          widget.onCurrentKanbanCardModel(null);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => KanbanCardCRUD(),
-            ),
-          );
+        PopupMenuItem<Function>(
+          value: () {
+            // Listar por prioridade alta
+          },
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.red,
+              ),
+              SizedBox(width: 5),
+              Text('Prioridade alta'),
+              SizedBox(width: 5),
+            ],
+          ),
+        ),
+        PopupMenuItem<Function>(
+          value: () {
+            // Listar por prioridade baixa
+          },
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.green,
+              ),
+              SizedBox(width: 5),
+              Text('Prioridade baixa'),
+              SizedBox(width: 5),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _listaColunas(BuildContext context) {
+    return Container(
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: stages.length,
+        itemBuilder: (context, indexStage) {
+          return _gerarColuna(context, indexStage);
         },
       ),
     );
   }
 
-  Container buildStages(int indexStage) {
-    // print('buildStages: $indexStage');
+  Widget _gerarColuna(BuildContext context, int indexStage) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       child: Stack(
-        children: [
+        children: <Widget>[
           Container(
-            width: 200.0,
+            width: width > 1800 ? 300 : 260,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 8,
+                    offset: Offset(0, 0),
+                    color: Color.fromRGBO(127, 140, 141, 0.5),
+                    spreadRadius: 1)
+              ],
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+            ),
+            margin: EdgeInsets.all(width > 1800 ? 12 : 5),
             height: MediaQuery.of(context).size.height * 0.8,
-            color: Colors.yellow,
-            margin: EdgeInsets.all(6.0),
-            child: Column(
-              children: [
-                Text(stages[indexStage]),
-                SingleChildScrollView(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: DragAndDropList<KanbanCardModel>(
-                      widget.filteredKanbanCardModel,
-                      itemBuilder: (BuildContext context,
-                          KanbanCardModel kanbanCardModel) {
-                        if (kanbanCardModel.stageCard == stages[indexStage]) {
-                          return kanbanCard(
-                              kanbanCardModel, stages[indexStage]);
-                        } else {
-                          return Container();
-                        }
-                      },
-                      onDragFinish: (oldIndex, newIndex) {
-                        print('oldIndex:$oldIndex, newIndex:$newIndex');
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(
+                        stages[indexStage],
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          color: Colors.blueGrey,
+                        ),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: DragAndDropList<KanbanCardModel>(
+                        widget.filteredKanbanCardModel,
+                        itemBuilder: (BuildContext context,
+                            KanbanCardModel kanbanCardModel) {
+                          if (kanbanCardModel.stageCard == stages[indexStage]) {
+                            return kanbanCard(
+                                kanbanCardModel, stages[indexStage]);
+                          } else {
+                            return Container();
+                          }
+                        },
+                        onDragFinish: (oldIndex, newIndex) {
+                          print('oldIndex:$oldIndex, newIndex:$newIndex');
 
-                        setState(() {
-                          KanbanCardModel todo =
-                              widget.filteredKanbanCardModel[oldIndex];
-                          widget.filteredKanbanCardModel.removeAt(oldIndex);
-                          widget.filteredKanbanCardModel.insert(newIndex, todo);
-                          onChangeCardOrderPush();
-                        });
-                      },
-                      canBeDraggedTo: (one, two) => true,
-                      dragElevation: 8.0,
+                          setState(() {
+                            KanbanCardModel todo =
+                                widget.filteredKanbanCardModel[oldIndex];
+                            widget.filteredKanbanCardModel.removeAt(oldIndex);
+                            widget.filteredKanbanCardModel
+                                .insert(newIndex, todo);
+                            onChangeCardOrderPush();
+                          });
+                        },
+                        canBeDraggedTo: (one, two) => true,
+                        dragElevation: 8.0,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Positioned.fill(
             child: DragTarget<dynamic>(
               onWillAccept: (data) {
-                // print('DragTarget.onWillAccept');
-                // print('DragTarget.data ${data.kanbanCardDraggable.id}');
+                // print(data);
                 return true;
               },
-              onLeave: (data) {
-                // print('DragTarget.data ${data}');
-                // print('DragTarget.onLeave');
-              },
+              onLeave: (data) {},
               onAccept: (data) {
                 print(
                     'DragTarget.onAccept ${data["kanbanCardDraggable"].id} from ${data["oldStage"]} to ${stages[indexStage]}');
@@ -180,7 +352,6 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                 });
               },
               builder: (context, accept, reject) {
-                // print('DragTarget.data ?');
                 return Container();
               },
             ),
@@ -202,108 +373,34 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   Widget kanbanCard(KanbanCardModel kanbanCard, String oldStage) {
     return Container(
       key: ValueKey(kanbanCard),
-      width: 200.0,
-      margin: EdgeInsets.all(10.0),
+      width: MediaQuery.of(context).size.width > 1800 ? 300 : 250.0,
+      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Draggable<dynamic>(
         feedback: Material(
           elevation: 5.0,
           child: Container(
-            width: 200.0,
-            padding: const EdgeInsets.all(16.0),
-            color: Colors.blue,
+            width: MediaQuery.of(context).size.width > 1800 ? 295 : 245.0,
+            padding: EdgeInsets.all(16.0),
+            color: PmsbColors.card,
             child: Text('${kanbanCard.title}'),
           ),
         ),
         childWhenDragging: Container(),
-        data: {'kanbanCardDraggable': kanbanCard, 'oldStage': oldStage},
-        child: Container(
-          key: ValueKey(kanbanCard),
-          // width: 200.0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ListTile(
-                title: Text('${kanbanCard.id} ${kanbanCard.stageCard}'),
-                // subtitle: Text(
-                //     'id:${kanbanCard.id.substring(0, 5)} | kanbanBoard:${kanbanCard.kanbanBoard?.substring(0, 5)} | description:${kanbanCard.description} | priority:${kanbanCard.priority} | active:${kanbanCard.active} | created:${kanbanCard.created} |  modified:${kanbanCard.modified} | team:${kanbanCard.team?.length} | '),
-                onTap: () {
-                  widget.onCurrentKanbanCardModel(kanbanCard.id);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => KanbanCardCRUD(),
-                    ),
-                  );
-                },
-              ),
-              // Center(
-              //   child: Wrap(
-              //     children: avatarsTeam(kanbanCard.author, kanbanCard.team),
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> avatarsTeam(Team author, Map<String, Team> teamMap) {
-    List<Widget> listaWidget = List<Widget>();
-    listaWidget.add(
-      Tooltip(
-        message: author.displayName,
-        child: CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.red,
-          child: CircleAvatar(
-            radius: 19,
-            child: ClipOval(
-              child: Center(
-                child: author?.photoUrl != null
-                    ? Image.network(author.photoUrl)
-                    : Icon(Icons.person_add),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    List<Team> _team =
-        teamMap != null ? teamMap.entries.map((e) => e.value).toList() : [];
-    for (var item in _team) {
-      listaWidget.add(
-        InkWell(
+        child: TarefaCardWidget(
+          arquivado: false,
           onTap: () {
-            print('${item.id}');
+            widget.onCurrentKanbanCardModel(kanbanCard.id);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => KanbanCardCRUD(),
+              ),
+            );
           },
-          child: Tooltip(
-            message: item.displayName,
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  minRadius: 20,
-                  maxRadius: 20,
-                  child: ClipOval(
-                    child: Center(
-                      child: item?.photoUrl != null
-                          ? Image.network(item.photoUrl)
-                          : Icon(Icons.person_add),
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.remove_red_eye,
-                  color: item?.readedCard ?? true
-                      ? Colors.transparent
-                      : Colors.red,
-                ),
-              ],
-            ),
-          ),
+          tarefa: kanbanCard,
+          cor: PmsbColors.card,
         ),
-      );
-    }
-    return listaWidget;
+        data: {'kanbanCardDraggable': kanbanCard, 'oldStage': oldStage},
+      ),
+    );
   }
 }

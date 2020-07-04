@@ -5,7 +5,7 @@ import 'package:pmsb4/actions/user_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/models/user_model.dart';
-import 'package:pmsb4/presentations/kaban/team_board_ds.dart';
+import 'package:pmsb4/presentations/kaban/components/team_board_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 

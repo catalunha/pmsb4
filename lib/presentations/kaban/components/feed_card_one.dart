@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
-class ComentarioFeedWidget extends StatefulWidget {
+class FeedCardOne extends StatefulWidget {
   final Feed feed;
 
-  ComentarioFeedWidget({Key key, this.feed}) : super(key: key);
+  FeedCardOne({Key key, this.feed}) : super(key: key);
 
   @override
-  _ComentarioFeedWidgetState createState() => _ComentarioFeedWidgetState();
+  _FeedCardOneState createState() => _FeedCardOneState();
 }
 
-class _ComentarioFeedWidgetState extends State<ComentarioFeedWidget> {
+class _FeedCardOneState extends State<FeedCardOne> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
