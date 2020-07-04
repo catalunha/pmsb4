@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/containers/home/home_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/containers/logged/profile_page.dart';
@@ -79,6 +80,9 @@ class MyApp extends StatelessWidget {
           },
           Routes.kanbanCardPage: (context) {
             return KanbanCardPage();
+          },
+          Routes.kanbanCardCRUD: (context) {
+            return KanbanCardCRUD();
           },
         },
       ),

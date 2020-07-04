@@ -4,7 +4,6 @@ import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/components/feed_card_create_ds.dart';
 import 'package:pmsb4/presentations/kaban/components/feed_card_update_ds.dart';
-import 'package:pmsb4/presentations/kaban/feed_card_crud0_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -28,9 +27,12 @@ class _ViewModel {
       description: feed?.description ?? '',
       link: feed?.link ?? null,
       onCreate: (String description, String link) {
+        print('+++ FeedCardCRUD.onCreate $description $link');
         feed.description = description;
-        feed.link = link.isEmpty || link == '' ? null : link;
+        feed.link = link;
         feed.bot = false;
+        print('+++ FeedCardCRUD 01');
+        print(feed.toMap());
         final firebaseUser = store.state.loggedState.firebaseUserLogged;
         Team team = Team(
           id: firebaseUser.uid,
@@ -38,10 +40,12 @@ class _ViewModel {
           photoUrl: firebaseUser.photoUrl,
         );
         feed.author = team;
+        print(feed.toMap());
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
+        print('+++ FeedCardCRUD.onCreate');
       },
       onUpdate: (String description, String link) {
         feed.description = description;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class QuadroCardWidget extends StatelessWidget {
+class ShortBoardCDS extends StatelessWidget {
   final Color cor;
   final double altura;
   final double largura;
@@ -11,7 +11,7 @@ class QuadroCardWidget extends StatelessWidget {
   final Function onEditCurrentKanbanBoardModel;
   final Function(String, bool) onActive;
 
-  QuadroCardWidget(
+  ShortBoardCDS(
       {Key key,
       @required this.cor,
       this.altura,

@@ -24,7 +24,9 @@ class _FeedCardListDSState extends State<FeedCardListDS> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            child: FeedCardCRUD(),
+            child: FeedCardCRUD(
+              id: null,
+            ),
           ),
           _listaComentario()
         ],
@@ -41,7 +43,10 @@ class _FeedCardListDSState extends State<FeedCardListDS> {
   List<Widget> getListaComentarios() {
     List<Widget> listaComentarios = List<Widget>();
     for (Feed feed in widget.listFeed) {
-      listaComentarios.add(FeedCardOne(feed: feed));
+      listaComentarios.add(FeedCardOne(
+        feed: feed,
+        onDelete: widget.onDelete,
+      ));
     }
     return listaComentarios;
   }

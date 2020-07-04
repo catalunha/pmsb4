@@ -10,13 +10,13 @@ import 'package:redux/redux.dart';
 
 class _ViewModel {
   final String title;
-  final Function(String) onCreate;
-  final Function(String) onUpdate;
+  final Function(String) onCreateOrUpdate;
+  // final Function(String) onUpdate;
 
   _ViewModel({
     this.title,
-    this.onCreate,
-    this.onUpdate,
+    this.onCreateOrUpdate,
+    // this.onUpdate,
   });
   static _ViewModel fromStore(Store<AppState> store, String id) {
     Todo todo = id != null
@@ -31,16 +31,21 @@ class _ViewModel {
 
     return _ViewModel(
       title: todo?.title ?? '',
-      onCreate: (String title) {
+      onCreateOrUpdate: (String title) {
         todo.title = title;
         store.dispatch(UpdateTodoKanbanCardModelAction(todo: todo));
         onViewUpdate();
       },
-      onUpdate: (String title) {
-        todo.title = title;
-        store.dispatch(UpdateTodoKanbanCardModelAction(todo: todo));
-        onViewUpdate();
-      },
+      // onCreate: (String title) {
+      //   todo.title = title;
+      //   store.dispatch(UpdateTodoKanbanCardModelAction(todo: todo));
+      //   onViewUpdate();
+      // },
+      // onUpdate: (String title) {
+      //   todo.title = title;
+      //   store.dispatch(UpdateTodoKanbanCardModelAction(todo: todo));
+      //   onViewUpdate();
+      // },
     );
   }
 }
@@ -54,16 +59,22 @@ class TodoCardCRUD extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        if (id == null) {
-          return TodoCardCreateDS(
-            onCreate: _viewModel.onCreate,
-          );
-        } else {
-          return TodoCardUpdateDS(
-            title: _viewModel.title,
-            onUpdate: _viewModel.onUpdate,
-          );
-        }
+        return TodoCardCRUDDS(
+          isCreate: id == null ? true : false,
+          title: _viewModel.title,
+          onCreateOrUpdate: _viewModel.onCreateOrUpdate,
+        );
+
+        // if (id == null) {
+        //   return TodoCardCreateDS(
+        //     onCreate: _viewModel.onCreate,
+        //   );
+        // } else {
+        //   return TodoCardUpdateDS(
+        //     title: _viewModel.title,
+        //     onUpdate: _viewModel.onUpdate,
+        //   );
+        // }
       },
     );
   }

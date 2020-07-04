@@ -10,47 +10,68 @@ class FeedCardCreateDS extends StatefulWidget {
 }
 
 class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
-  TextEditingController textController;
+  // TextEditingController textController;
   Widget caixaDeEntrada;
   bool entrada;
-
+  static final formKey = GlobalKey<FormState>();
+  String _description;
+  String _link;
   @override
   initState() {
     this.entrada = true;
     this.caixaDeEntrada = caixaTexto();
-    this.textController = new TextEditingController();
+    // this.textController = new TextEditingController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 5),
-            this.caixaDeEntrada,
-            SizedBox(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
+    return Container(
+      child: Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                botaoAdicionarLink(),
-                RaisedButton(
-                    child: Text("Salvar"),
-                    color: PmsbColors.cor_destaque,
-                    onPressed: () {
-                      widget.onCreate('description', 'link');
-                    }),
+                SizedBox(height: 5),
+                this.caixaDeEntrada,
+                SizedBox(height: 5),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    botaoAdicionarLink(),
+                    RaisedButton(
+                        child: Text("Salvar"),
+                        color: PmsbColors.cor_destaque,
+                        onPressed: () {
+                          validateData();
+                          // widget.onCreate('_description', '_link');
+                          // widget.onCreate(_description, _link);
+                        }),
+                  ],
+                ),
+                SizedBox(height: 10),
               ],
             ),
-            SizedBox(height: 10),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  void validateData() {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+      print('validateData feed');
+      widget.onCreate(_description, _link);
+      _description = null;
+      _link = null;
+    } else {
+      setState(() {});
+    }
   }
 
   Widget caixaTextoLink() {
@@ -68,7 +89,7 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
             ),
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: TextField(
+            child: TextFormField(
               style: TextStyle(color: Colors.black),
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
@@ -77,6 +98,8 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
                 fillColor: Colors.black12,
                 border: InputBorder.none,
               ),
+              initialValue: _description,
+              onSaved: (value) => _description = value,
             ),
           ),
           SizedBox(height: 5),
@@ -88,7 +111,7 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
             ),
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: TextField(
+            child: TextFormField(
               style: TextStyle(color: Colors.black),
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
@@ -97,6 +120,8 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
                 fillColor: Colors.blue,
                 border: InputBorder.none,
               ),
+              initialValue: _link,
+              onSaved: (value) => _link = value,
             ),
           ),
           SizedBox(height: 5),
@@ -114,10 +139,10 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
       ),
       padding: EdgeInsets.all(15),
       child: Center(
-        child: TextField(
+        child: TextFormField(
           autofocus: false,
           style: TextStyle(color: Colors.black),
-          controller: textController,
+          // controller: textController,
           keyboardType: TextInputType.multiline,
           maxLines: null,
           decoration: InputDecoration(
@@ -125,6 +150,10 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
             hintStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
             border: InputBorder.none,
           ),
+          initialValue: _description,
+          onSaved: (value) {
+            _description = value;
+          },
         ),
       ),
     );

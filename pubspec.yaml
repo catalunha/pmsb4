@@ -24,6 +24,7 @@ dependencies:
   url_launcher: ^5.4.11
   sortedmap: ^0.4.2+1
   flutter_list_drag_and_drop: ^0.1.6
+  intl: ^0.16.1
 
   #incompatíveis com web
   file_picker: ^1.11.0+3

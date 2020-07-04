@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
+import 'package:intl/intl.dart';
 
-class TarefaCardWidget extends StatelessWidget {
+class ShortCard extends StatelessWidget {
   final Color cor;
   final double altura;
   final double largura;
@@ -11,7 +12,7 @@ class TarefaCardWidget extends StatelessWidget {
   final bool arquivado;
   final Function() onTap;
 
-  TarefaCardWidget(
+  ShortCard(
       {Key key,
       @required this.cor,
       @required this.arquivado,
@@ -26,46 +27,50 @@ class TarefaCardWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: PmsbColors.card,
+        color: tarefa.priority ? PmsbColors.cor_destaque : PmsbColors.card,
         border: Border(),
       ),
       height: this.altura,
       width: this.largura,
       child: Column(
         children: [
-          arquivado
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "PENDENTE",
-                        style: TextStyle(color: Colors.grey[400], fontSize: 12),
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
+          // arquivado
+          //     ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: [
+          //           Padding(
+          //             padding: const EdgeInsets.all(8.0),
+          //             child: Text(
+          //               "PENDENTE",
+          //               style: TextStyle(color: Colors.grey[400], fontSize: 12),
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     : Container(),
           ListTile(
-            title: Text("${this.tarefa.title}"),
+            title: Text("${tarefa.title}"),
             subtitle: Text(
-                "${tarefa.modified} - Ações:${tarefa.todoCompleted}/${tarefa.todoTotal}"),
+                "${DateFormat('dd-MM-yyyy hh:mm').format(tarefa.modified)} - Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}"),
             onTap: onTap,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.start,
-                children: gerarListaUsuarios(),
-              ),
-              Tooltip(
-                message: "Prioridade alta",
-                child: Icon(Icons.brightness_1, color: Colors.redAccent),
-              ),
-            ],
-          )
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: gerarListaUsuarios(),
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     Wrap(
+          //       crossAxisAlignment: WrapCrossAlignment.start,
+          //       children: gerarListaUsuarios(),
+          //     ),
+          //     Tooltip(
+          //       message: "Prioridade alta",
+          //       child: Icon(Icons.brightness_1, color: Colors.redAccent),
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );
@@ -73,7 +78,7 @@ class TarefaCardWidget extends StatelessWidget {
 
   List<Widget> gerarListaUsuarios() {
     List<Widget> listaEtiqueta = List<Widget>();
-    if (tarefa.team?.entries != null && tarefa.team.entries.isNotEmpty) {
+    if (tarefa.team?.entries != null) {
       for (var user in tarefa.team?.entries) {
         listaEtiqueta.add(userCard(user.value));
       }

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/equipe_wrap_cds.dart';
+import 'package:pmsb4/presentations/kaban/components/team_card_add_cds.dart';
+import 'package:pmsb4/presentations/kaban/kanban_card_update_title_description.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardUpdateDS extends StatefulWidget {
@@ -38,7 +39,13 @@ class KanbanCardUpdateDS extends StatefulWidget {
 }
 
 class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
-  ScrollController scrowllController = new ScrollController();
+  bool _priority;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _priority = widget.priority;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +62,23 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
     double width = MediaQuery.of(context).size.width;
     double widthPage = width > 1800 ? (width * 0.8) : (width * 0.95);
 
-    return Scrollbar(
-      controller: scrowllController,
-      isAlwaysShown: true,
-      child: Center(
-        child: Container(
-          width: widthPage,
-          color: Colors.black12,
-          child: ListView(
-            children: <Widget>[
-              _descricao(),
-              _painel(),
-            ],
-          ),
-        ),
+    return
+        // Scrollbar(
+        //   controller: scrowllController,
+        //   isAlwaysShown: true,
+        //   child: Center(
+        //     child:
+        Container(
+      width: widthPage,
+      color: Colors.black12,
+      child: ListView(
+        children: <Widget>[
+          _descricao(),
+          _painel(),
+        ],
       ),
+      //   ),
+      // ),
     );
   }
 
@@ -108,7 +117,16 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                     RaisedButton.icon(
                       color: Colors.transparent,
                       onPressed: () {
-                        print("editar titulo e descricao");
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              KanbanCardCreateOrUpdateTitleDescriptionDS(
+                            isCreate: false,
+                            title: widget.title,
+                            description: widget.description,
+                            onUpdate: widget.onUpdate,
+                          ),
+                        );
                       },
                       icon: Icon(Icons.edit),
                       label: Text("Editar"),
@@ -121,7 +139,8 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                     RaisedButton.icon(
                       color: Colors.transparent,
                       onPressed: () {
-                        print("arquivar card. ainda nao implementado");
+                        widget.onUpdate(null, null, null, false);
+                        Navigator.pop(context);
                       },
                       icon: Icon(Icons.archive),
                       label: Text("Arquivar"),
@@ -148,7 +167,7 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                   // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),
-                    child: EquipeWrapCDS(
+                    child: TeamCardAddCDS(
                         team: widget.team,
                         onRemoveUserTeam: widget.onRemoveUserTeam),
                   ),
@@ -162,9 +181,23 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                   height: 115,
                   // color: Color(0xFF77869c),
                   child: Padding(
-                      padding: EdgeInsets.only(top: 2), child: Container()
-                      // EtiquetaWrapWidget(etiquetas: widget.tarefa.etiquetas),
+                    padding: EdgeInsets.only(top: 2),
+                    child: ListTile(
+                      title: Text('Prioridade'),
+                      leading: Checkbox(
+                        value: _priority,
+                        activeColor: Colors.green,
+                        onChanged: (value) {
+                          widget.onUpdate(null, null, value, null);
+                          setState(
+                            () {
+                              _priority = value;
+                            },
+                          );
+                        },
                       ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(

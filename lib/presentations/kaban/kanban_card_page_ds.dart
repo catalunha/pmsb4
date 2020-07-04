@@ -2,10 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_page_inactive.dart';
+import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/tarefa_card_widget.dart';
+import 'package:pmsb4/presentations/kaban/components/short_card.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardPageDS extends StatefulWidget {
@@ -69,38 +72,47 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                 ),
                 Row(
                   children: [
-                    InkWell(
-                      child: Tooltip(
-                        message: "Filtrar por equipe",
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage("userAvatarUrl"),
-                          backgroundColor: PmsbColors.navbar,
-                          child: Icon(
-                            Icons.supervised_user_circle,
-                            color: Colors.white,
-                          ),
-                        ),
+                    // InkWell(
+                    //   child: Tooltip(
+                    //     message: "Filtrar por equipe",
+                    //     child: CircleAvatar(
+                    //       backgroundImage: NetworkImage("userAvatarUrl"),
+                    //       backgroundColor: PmsbColors.navbar,
+                    //       child: Icon(
+                    //         Icons.supervised_user_circle,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     showDialog(
+                    //       context: context,
+                    //       builder: (BuildContext context) => null,
+                    //       // ListaUsuariosModal(
+                    //       //   selecaoMultipla: false,
+                    //       // ),
+                    //     );
+                    //   },
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        backgroundColor: PmsbColors.navbar,
+                        child: TeamCardFiltering(),
+                        // child: botaoMore(),
                       ),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => null,
-                          // ListaUsuariosModal(
-                          //   selecaoMultipla: false,
-                          // ),
-                        );
-                      },
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: CircleAvatar(
                         backgroundColor: PmsbColors.navbar,
-                        child: botaoMore(),
+                        child: KanbanCardFiltering(),
+                        // child: botaoMore(),
                       ),
                     ),
                     InkWell(
                       child: Tooltip(
-                        message: "Tarefas arquivadas",
+                        message: "Ver cartões arquivados",
                         child: CircleAvatar(
                           backgroundImage: NetworkImage("userAvatarUrl"),
                           backgroundColor: PmsbColors.navbar,
@@ -111,14 +123,12 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                         ),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => (TarefasArquivadasPage(
-                        //       tarefa: tarefa01,
-                        //     )),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KanbanCardPageInactive(),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -150,72 +160,72 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
     );
   }
 
-  Widget botaoMore() {
-    return PopupMenuButton<Function>(
-      color: PmsbColors.navbar,
-      tooltip: "Filtrar por prioridade",
-      icon: Icon(
-        Icons.group_work,
-        color: Colors.white,
-      ),
-      onSelected: (Function result) {
-        result();
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<Function>>[
-        PopupMenuItem<Function>(
-          value: () {
-            // Filtrar mostrando todos
-          },
-          child: Row(
-            children: [
-              SizedBox(width: 2),
-              Icon(
-                Icons.brightness_1,
-                color: Colors.white,
-              ),
-              SizedBox(width: 5),
-              Text('Listar todos'),
-              SizedBox(width: 5),
-            ],
-          ),
-        ),
-        PopupMenuItem<Function>(
-          value: () {
-            // Listar por prioridade alta
-          },
-          child: Row(
-            children: [
-              SizedBox(width: 2),
-              Icon(
-                Icons.brightness_1,
-                color: Colors.red,
-              ),
-              SizedBox(width: 5),
-              Text('Prioridade alta'),
-              SizedBox(width: 5),
-            ],
-          ),
-        ),
-        PopupMenuItem<Function>(
-          value: () {
-            // Listar por prioridade baixa
-          },
-          child: Row(
-            children: [
-              SizedBox(width: 2),
-              Icon(
-                Icons.brightness_1,
-                color: Colors.green,
-              ),
-              SizedBox(width: 5),
-              Text('Prioridade baixa'),
-              SizedBox(width: 5),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget botaoMore() {
+  //   return PopupMenuButton<Function>(
+  //     color: PmsbColors.navbar,
+  //     tooltip: "Filtrar por prioridade",
+  //     icon: Icon(
+  //       Icons.group_work,
+  //       color: Colors.white,
+  //     ),
+  //     onSelected: (Function result) {
+  //       result();
+  //     },
+  //     itemBuilder: (BuildContext context) => <PopupMenuEntry<Function>>[
+  //       PopupMenuItem<Function>(
+  //         value: () {
+  //           // Filtrar mostrando todos
+  //         },
+  //         child: Row(
+  //           children: [
+  //             SizedBox(width: 2),
+  //             Icon(
+  //               Icons.brightness_1,
+  //               color: Colors.white,
+  //             ),
+  //             SizedBox(width: 5),
+  //             Text('Listar todos'),
+  //             SizedBox(width: 5),
+  //           ],
+  //         ),
+  //       ),
+  //       PopupMenuItem<Function>(
+  //         value: () {
+  //           // Listar por prioridade alta
+  //         },
+  //         child: Row(
+  //           children: [
+  //             SizedBox(width: 2),
+  //             Icon(
+  //               Icons.brightness_1,
+  //               color: Colors.red,
+  //             ),
+  //             SizedBox(width: 5),
+  //             Text('Prioridade alta'),
+  //             SizedBox(width: 5),
+  //           ],
+  //         ),
+  //       ),
+  //       PopupMenuItem<Function>(
+  //         value: () {
+  //           // Listar por prioridade baixa
+  //         },
+  //         child: Row(
+  //           children: [
+  //             SizedBox(width: 2),
+  //             Icon(
+  //               Icons.brightness_1,
+  //               color: Colors.green,
+  //             ),
+  //             SizedBox(width: 5),
+  //             Text('Prioridade baixa'),
+  //             SizedBox(width: 5),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _listaColunas(BuildContext context) {
     return Container(
@@ -265,13 +275,29 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.blueGrey,
-                        ),
-                        onPressed: () {},
-                      )
+                      stages[indexStage] == StageCard.story.toString()
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.blueGrey,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      KanbanCardCRUD(
+                                    id: null,
+                                  ),
+                                );
+                              },
+                            )
+                          : IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.transparent,
+                              ),
+                              onPressed: () {},
+                            ),
                     ],
                   ),
                   SingleChildScrollView(
@@ -386,13 +412,15 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
           ),
         ),
         childWhenDragging: Container(),
-        child: TarefaCardWidget(
+        child: ShortCard(
           arquivado: false,
           onTap: () {
             widget.onCurrentKanbanCardModel(kanbanCard.id);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => KanbanCardCRUD(),
+                builder: (context) => KanbanCardCRUD(
+                  id: kanbanCard.id,
+                ),
               ),
             );
           },

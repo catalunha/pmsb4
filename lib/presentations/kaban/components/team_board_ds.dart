@@ -6,13 +6,11 @@ import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class TeamBoardDS extends StatefulWidget {
   final List<UserModel> filteredUserModel;
-  // final List<UserModel> selectedUserModel;
   final List<Team> team;
   final Function(String) addUserTeam;
   TeamBoardDS({
     Key key,
     this.filteredUserModel,
-    // this.selectedUserModel,
     this.team,
     this.addUserTeam,
   }) : super(key: key);

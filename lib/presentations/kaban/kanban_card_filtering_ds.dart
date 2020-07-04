@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/states/types_states.dart';
 
 class KanbanCardFilteringDS extends StatelessWidget {
@@ -14,25 +15,66 @@ class KanbanCardFilteringDS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<KanbanCardFilter>(
-      icon: Icon(Icons.filter_list),
+      color: PmsbColors.navbar,
+      icon: Icon(
+        Icons.group_work,
+        color: Colors.white,
+      ),
+      tooltip: "Filtrar por prioridade",
       onSelected: onSelectFilter,
       itemBuilder: (BuildContext context) => <PopupMenuItem<KanbanCardFilter>>[
         PopupMenuItem<KanbanCardFilter>(
+          value: KanbanCardFilter.priority,
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.red,
+              ),
+              SizedBox(width: 5),
+              Text('Prioridade alta'),
+              SizedBox(width: 5),
+            ],
+          ),
+          // child: activeFilter == KanbanCardFilter.priority
+          //     ? Text('PRIORIDADE')
+          //     : Text('Prioridade'),
+        ),
+        PopupMenuItem<KanbanCardFilter>(
           value: KanbanCardFilter.all,
-          child:
-              activeFilter == KanbanCardFilter.all ? Text('ALL') : Text('All'),
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.yellow,
+              ),
+              SizedBox(width: 5),
+              Text('Listar todos'),
+              SizedBox(width: 5),
+            ],
+          ),
+          // child:
+          //     activeFilter == KanbanCardFilter.all ? Text('ALL') : Text('All'),
         ),
         PopupMenuItem<KanbanCardFilter>(
           value: KanbanCardFilter.normal,
-          child: activeFilter == KanbanCardFilter.normal
-              ? Text('NORMAL')
-              : Text('Normal'),
-        ),
-        PopupMenuItem<KanbanCardFilter>(
-          value: KanbanCardFilter.priority,
-          child: activeFilter == KanbanCardFilter.priority
-              ? Text('PRIORIDADE')
-              : Text('Prioridade'),
+          child: Row(
+            children: [
+              SizedBox(width: 2),
+              Icon(
+                Icons.brightness_1,
+                color: Colors.green,
+              ),
+              SizedBox(width: 5),
+              Text('Prioridade baixa'),
+              SizedBox(width: 5),
+            ],
+          ),
+          // child: activeFilter == KanbanCardFilter.normal
+          //     ? Text('NORMAL')
+          //     : Text('Normal'),
         ),
       ],
     );

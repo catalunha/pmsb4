@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/todo_card_crud.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/todo_card_create_ds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class TodoCardListDS extends StatefulWidget {
@@ -32,15 +31,34 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
           children: [
             textoQuadro("Ações"),
             IconButton(
-                icon: Icon(Icons.add_box),
-                onPressed: () {
-                  TodoCardCRUD(id: null);
-                }),
+              icon: Icon(Icons.add_box),
+              onPressed: () {
+                TodoCardCRUD(id: null);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => TodoCardCRUD(
+                    id: null,
+                  ),
+                );
+              },
+            ),
           ],
         ),
-        Column(
-          children: gerarListaAcoesWidgets(),
+        Container(
+          width: 500,
+          height: 500,
+          //  width : MediaQuery.of(context).size.width;
+          //  height : MediaQuery.of(context).size.height;
+          child: ReorderableListView(
+            scrollDirection: Axis.vertical,
+            children: buildItens(),
+            onReorder: _onReorder,
+          ),
         ),
+        // Column(
+        //   // children: gerarListaAcoesWidgets(),
+        //   children: buildItens(),
+        // ),
       ],
     );
   }
@@ -61,16 +79,17 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
   List<Widget> gerarListaAcoesWidgets() {
     List<Widget> lista = List<Widget>();
     for (Todo acao in widget.listTodo) {
-      lista.add(CheckboxListTile(
-        value: acao.complete,
-        title: Text(acao.title),
-        onChanged: (bool newValue) {
-          setState(() {
-            widget.onChangeComplete(acao.id);
-            setState(() {});
-          });
-        },
-        secondary: IconButton(
+      lista.add(
+        CheckboxListTile(
+          value: acao.complete,
+          title: Text(acao.title),
+          onChanged: (bool newValue) {
+            setState(() {
+              widget.onChangeComplete(acao.id);
+              setState(() {});
+            });
+          },
+          secondary: IconButton(
             icon: Icon(
               Icons.close,
               color: Colors.red,
@@ -78,9 +97,63 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
             onPressed: () {
               widget.onDelete(acao.id);
               setState(() {});
-            }),
-      ));
+            },
+          ),
+        ),
+      );
     }
     return lista;
+  }
+
+  buildItens() {
+    List<Widget> list = [];
+    int i = 1;
+    for (var todo in widget.listTodo) {
+      list.add(ListTile(
+        key: ValueKey(todo),
+        title: Text(todo.title),
+        subtitle: Text('id:${todo.id} | order:${i++}'),
+        leading: Checkbox(
+          value: todo.complete,
+          onChanged: (value) {
+            widget.onChangeComplete(todo.id);
+            setState(() {});
+          },
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            widget.onDelete(todo.id);
+            setState(() {});
+          },
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TodoCardCRUD(
+                id: todo.id,
+              ),
+            ),
+          );
+        },
+      ));
+    }
+    return list;
+  }
+
+  void _onReorder(int oldIndex, int newIndex) {
+    print('oldIndex:$oldIndex | newIndex:$newIndex');
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    setState(() {
+      Todo todo = widget.listTodo[oldIndex];
+      widget.listTodo.removeAt(oldIndex);
+      widget.listTodo.insert(newIndex, todo);
+    });
+    var index = 1;
+    Map<String, String> todoOrder = Map.fromIterable(widget.listTodo,
+        key: (e) => (index++).toString(), value: (e) => e.id);
+    widget.onChangeTodoOrder(todoOrder);
   }
 }

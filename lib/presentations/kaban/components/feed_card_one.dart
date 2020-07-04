@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/feed_card_crud.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,8 +8,9 @@ enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
 class FeedCardOne extends StatefulWidget {
   final Feed feed;
+  final Function(String) onDelete;
 
-  FeedCardOne({Key key, this.feed}) : super(key: key);
+  FeedCardOne({Key key, this.feed, this.onDelete}) : super(key: key);
 
   @override
   _FeedCardOneState createState() => _FeedCardOneState();
@@ -54,7 +56,7 @@ class _FeedCardOneState extends State<FeedCardOne> {
                         ),
                       ),
                     ),
-                    botaoMore()
+                    botaoMore(id: widget.feed.id)
                   ],
                 )
               ],
@@ -71,7 +73,7 @@ class _FeedCardOneState extends State<FeedCardOne> {
     );
   }
 
-  Widget botaoMore() {
+  Widget botaoMore({String id}) {
     return PopupMenuButton<Function>(
       color: PmsbColors.fundo,
       onSelected: (Function result) {
@@ -80,7 +82,12 @@ class _FeedCardOneState extends State<FeedCardOne> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Function>>[
         PopupMenuItem<Function>(
           value: () {
-            print("Abrir tela de edição");
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => FeedCardCRUD(
+                id: id,
+              ),
+            );
           },
           child: Row(
             children: [
@@ -94,7 +101,7 @@ class _FeedCardOneState extends State<FeedCardOne> {
         ),
         PopupMenuItem<Function>(
           value: () {
-            print("Abrir tela de apagar");
+            widget.onDelete(id);
           },
           child: Row(
             children: [
@@ -114,7 +121,7 @@ class _FeedCardOneState extends State<FeedCardOne> {
     Widget widgetSelect;
     if (widget.feed.bot) {
       widgetSelect = _feedTipoHistorico();
-    } else if (widget.feed.link != null && widget.feed.link.isNotEmpty) {
+    } else if (widget.feed?.link != null) {
       widgetSelect = _feedTipoLink();
     } else {
       widgetSelect = _feedTipoTexto();
@@ -130,7 +137,7 @@ class _FeedCardOneState extends State<FeedCardOne> {
         child: InkWell(
           hoverColor: Colors.white12,
           onTap: () async {
-            if (widget.feed?.link != null && widget.feed.link.isNotEmpty) {
+            if (widget.feed?.link != null) {
               if (await canLaunch(widget.feed.link)) {
                 await launch(widget.feed.link);
               } else {

@@ -19,15 +19,17 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
   String _title;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: widget.isCreate
-            ? Text('TodoCardCRUD Criar')
-            : Text('TodoCardCRUD Editar'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: form(),
+    return Dialog(
+      child: Scaffold(
+        appBar: AppBar(
+          title: widget.isCreate
+              ? Text('TodoCardCRUD Criar')
+              : Text('TodoCardCRUD Editar'),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: form(),
+        ),
       ),
     );
   }

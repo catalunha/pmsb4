@@ -98,12 +98,28 @@ class WidgetChildCDS extends StatelessWidget/StatefulWidget {
 }
 ~~~
 
-# Telas
+## Telas
 ~~~
-+ KanbanBoardPageDS
-	+ KanbanBoardCRUDDS
-		- TeamBoardDS
-	- QuadroCardWidgetCDS
++ KanbanBoardPage->KanbanBoardPageDS
+	+ KanbanBoardCRUD->KanbanBoardCRUDDS
+		- TeamBoard->TeamBoardDS
+	- ShortBoardCDS
+		+ KanbanBoardCRUD->KanbanCardCRUDDS
+			- TeamBoard->TeamBoardDS
+		+ KanbanCardPage->KanbanCardPageDS
+			- ShortCard
+				- KanbanCardCRUD->KanbanCardCreateDS
+				+ KanbanCardCRUD->KanbanCardUpdateDS
+					- EquipeWrapCDS
+						- TeamCard->TeamCardDS
+					- FeedCardList->FeedCardListDS
+						- FeedCardCRUD->FeedCardCreateDS
+						- FeedCardOne->
+							- FeedCardCRUD->FeedCardUpdateDS
+					- TodoCardList->TodoCardListDS
+						- TodoCardCRUD->TodoCardCreateDS
+						- TodoCardCRUD->TodoCardUpdateDS
+						
 ~~~
 
 # Models

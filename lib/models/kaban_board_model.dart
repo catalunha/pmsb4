@@ -38,13 +38,13 @@ class KanbanBoardModel extends FirestoreModel {
     author = map.containsKey('author') && map['author'] != null
         ? Team.fromMap(map['author'])
         : null;
-    if (map["team"] is Map) {
+    if (map["team"] is Map && map["team"] != null) {
       team = Map<String, Team>();
       for (var item in map["team"].entries) {
         team[item.key] = Team.fromMap(item.value);
       }
     }
-    if (map["cardOrder"] is Map) {
+    if (map["cardOrder"] is Map && map["cardOrder"] != null) {
       cardOrder = new SortedMap(Ordering.byKey());
       for (var item in map["cardOrder"].entries) {
         cardOrder[item.key] = item.value;
@@ -67,8 +67,7 @@ class KanbanBoardModel extends FirestoreModel {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (title != null) data['title'] = this.title;
-    if (description != null && description.isNotEmpty)
-      data['description'] = this.description;
+    if (description != null) data['description'] = this.description;
     if (public != null) data['public'] = this.public;
     if (this.author != null) {
       data['author'] = this.author.toMap();
