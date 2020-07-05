@@ -70,19 +70,6 @@ class TeamCardFilteringDS extends StatelessWidget {
             ));
           });
           return list;
-          //   PopupMenuItem<KanbanCardFilter>(
-          //     value: KanbanCardFilter.normal,
-          //     child: activeFilter == KanbanCardFilter.normal
-          //         ? Text('NORMAL')
-          //         : Text('Normal'),
-          //   ),
-          //   PopupMenuItem<KanbanCardFilter>(
-          //     value: KanbanCardFilter.priority,
-          //     child: activeFilter == KanbanCardFilter.priority
-          //         ? Text('PRIORIDADE')
-          //         : Text('Prioridade'),
-          //   ),
-          // ],
         });
   }
 }

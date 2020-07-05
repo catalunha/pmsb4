@@ -58,12 +58,12 @@ class _ViewModel {
               photoUrl: firebaseUser.photoUrl,
             );
             _currentKanbanBoardModel.created = DateTime.now();
-            Team team = Team(
-              id: firebaseUser.uid,
-              displayName: firebaseUser.displayName,
-              photoUrl: firebaseUser.photoUrl,
-            );
-            store.dispatch(AddUserToTeamKanbanBoardModelAction(team: team));
+            // Team team = Team(
+            //   id: firebaseUser.uid,
+            //   displayName: firebaseUser.displayName,
+            //   photoUrl: firebaseUser.photoUrl,
+            // );
+            // store.dispatch(AddUserToTeamKanbanBoardModelAction(team: team));
             store.dispatch(AddKanbanBoardDataAction(
                 kanbanBoardModel: _currentKanbanBoardModel));
           } else {

@@ -2,33 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
-class KanbanCardCreateOrUpdateTitleDescriptionDS extends StatefulWidget {
+class TodoCardCreateUpdateDS extends StatefulWidget {
   final bool isCreate;
   final String title;
-  final String description;
-  final Function(String, String) onCreate;
+  final Function(String) onCreateOrUpdate;
 
-  final Function(String, String, bool, bool) onUpdate;
+  const TodoCardCreateUpdateDS(
+      {Key key, this.isCreate, this.title, this.onCreateOrUpdate})
+      : super(key: key);
 
-  const KanbanCardCreateOrUpdateTitleDescriptionDS({
-    Key key,
-    this.isCreate,
-    this.title,
-    this.description,
-    this.onCreate,
-    this.onUpdate,
-  }) : super(key: key);
   @override
-  _KanbanCardCreateOrUpdateTitleDescriptionDSState createState() =>
-      _KanbanCardCreateOrUpdateTitleDescriptionDSState();
+  _TodoCardCreateUpdateDSState createState() => _TodoCardCreateUpdateDSState();
 }
 
-class _KanbanCardCreateOrUpdateTitleDescriptionDSState
-    extends State<KanbanCardCreateOrUpdateTitleDescriptionDS> {
+class _TodoCardCreateUpdateDSState extends State<TodoCardCreateUpdateDS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
-  String _description;
-  _KanbanCardCreateOrUpdateTitleDescriptionDSState();
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +49,7 @@ class _KanbanCardCreateOrUpdateTitleDescriptionDSState
                     ),
                     Container(
                       child: Text(
-                          (widget.isCreate ? "Criar nova" : "Editar") +
-                              " tarefa",
+                          (widget.isCreate ? "Criar nova" : "Editar") + " ação",
                           style: PmsbStyles.textStyleListPerfil01),
                     ),
                     IconButton(
@@ -82,25 +70,12 @@ class _KanbanCardCreateOrUpdateTitleDescriptionDSState
                   width: _width,
                 ),
               ),
-              textoQuadro("Titulo da tarefa"),
+              textoQuadro("Ação"),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
                   initialValue: widget.title,
                   onSaved: (value) => _title = value,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    fillColor: Colors.black12,
-                  ),
-                ),
-              ),
-              textoQuadro("Descrição da tarefa"),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: TextFormField(
-                  initialValue: widget.description,
-                  onSaved: (value) => _description = value,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -160,11 +135,7 @@ class _KanbanCardCreateOrUpdateTitleDescriptionDSState
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      if (widget.isCreate) {
-        widget.onCreate(_title, _description);
-      } else {
-        widget.onUpdate(_title, _description, null, null);
-      }
+      widget.onCreateOrUpdate(_title);
     } else {
       setState(() {});
     }

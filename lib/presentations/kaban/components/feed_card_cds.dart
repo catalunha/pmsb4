@@ -6,17 +6,23 @@ import 'package:url_launcher/url_launcher.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
-class FeedCardOne extends StatefulWidget {
+class FeedCardCDS extends StatefulWidget {
   final Feed feed;
   final Function(String) onDelete;
+  final String loggedId;
 
-  FeedCardOne({Key key, this.feed, this.onDelete}) : super(key: key);
+  FeedCardCDS({
+    Key key,
+    this.feed,
+    this.loggedId,
+    this.onDelete,
+  }) : super(key: key);
 
   @override
-  _FeedCardOneState createState() => _FeedCardOneState();
+  _FeedCardCDSState createState() => _FeedCardCDSState();
 }
 
-class _FeedCardOneState extends State<FeedCardOne> {
+class _FeedCardCDSState extends State<FeedCardCDS> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -56,7 +62,9 @@ class _FeedCardOneState extends State<FeedCardOne> {
                         ),
                       ),
                     ),
-                    botaoMore(id: widget.feed.id)
+                    widget.loggedId == widget.feed.author.id
+                        ? botaoMore(id: widget.feed.id)
+                        : Container(),
                   ],
                 )
               ],

@@ -22,13 +22,7 @@ class _TeamCardDSState extends State<TeamCardDS> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child:
-          // Scaffold(
-          //   appBar: AppBar(
-          //     title: Text('TeamCardDS'),
-          //   ),
-          //   body:
-          Container(
+      child: Container(
         color: PmsbColors.navbar,
         height: 600.0,
         width: 400.0,

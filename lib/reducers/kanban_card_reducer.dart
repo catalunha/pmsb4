@@ -34,9 +34,11 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
   print('_allKanbanCardModelAction...');
-  KanbanCardState _newState = state;
-  List<KanbanCardModel> _allKanbanCardModel = [];
+  print('_allKanbanCardModelAction...1');
+  KanbanCardState _newState = state.copyWith();
   if (action.allKanbanCardModel != null) {
+    List<KanbanCardModel> _allKanbanCardModel = [];
+    print('_allKanbanCardModelAction...2');
     if (state.kanbanCardFilter == KanbanCardFilter.inactive) {
       _allKanbanCardModel.addAll(action.allKanbanCardModel);
       _newState = state.copyWith(
@@ -66,8 +68,13 @@ KanbanCardState _allKanbanCardModelAction(
         // });
         for (var item in kanbanBoardModel.cardOrder.entries) {
           print('_allKanbanCardModelAction...03a ${item.key} ${item.value}');
-          _allKanbanCardModel.add(action.allKanbanCardModel
-              .firstWhere((element) => element.id == item.value));
+          int index = action.allKanbanCardModel.indexWhere((element) {
+            return element.id == item.value;
+          });
+          if (index >= 0) {
+            _allKanbanCardModel.add(action.allKanbanCardModel
+                .firstWhere((element) => element.id == item.value));
+          }
         }
         print('_allKanbanCardModelAction...04');
       } else {
@@ -90,6 +97,8 @@ KanbanCardState _allKanbanCardModelAction(
       );
     }
   }
+  print('_allKanbanCardModelAction...10');
+
   return _newState;
 }
 
@@ -268,7 +277,8 @@ KanbanCardState _userViewOrUpdateKanbanCardModelAction(
     KanbanCardState state, UserViewOrUpdateKanbanCardModelAction action) {
   print('_userViewOrUpdateKanbanCardModelAction...');
   KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
-  if (_currentKanbanCardModel.team.containsKey(action.user)) {
+  if (_currentKanbanCardModel?.team != null &&
+      _currentKanbanCardModel.team.containsKey(action.user)) {
     if (action.viewer) {
       //user atual vendo este card. marca como lido.
       _currentKanbanCardModel.team[action.user].readedCard = true;

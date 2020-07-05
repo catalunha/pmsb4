@@ -2,22 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
-class TodoCardCRUDDS extends StatefulWidget {
+class KanbanCardCreateUpdateTitleDS extends StatefulWidget {
   final bool isCreate;
   final String title;
-  final Function(String) onCreateOrUpdate;
+  final String description;
+  final Function(String, String) onCreate;
 
-  const TodoCardCRUDDS(
-      {Key key, this.isCreate, this.title, this.onCreateOrUpdate})
-      : super(key: key);
+  final Function(String, String, bool, bool) onUpdate;
 
+  const KanbanCardCreateUpdateTitleDS({
+    Key key,
+    this.isCreate,
+    this.title,
+    this.description,
+    this.onCreate,
+    this.onUpdate,
+  }) : super(key: key);
   @override
-  _TodoCardCRUDDSState createState() => _TodoCardCRUDDSState();
+  _KanbanCardCreateUpdateTitleDSState createState() =>
+      _KanbanCardCreateUpdateTitleDSState();
 }
 
-class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
+class _KanbanCardCreateUpdateTitleDSState
+    extends State<KanbanCardCreateUpdateTitleDS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
+  String _description;
+  _KanbanCardCreateUpdateTitleDSState();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +60,8 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
                     ),
                     Container(
                       child: Text(
-                          (widget.isCreate ? "Criar nova" : "Editar") + " ação",
+                          (widget.isCreate ? "Criar nova" : "Editar") +
+                              " tarefa",
                           style: PmsbStyles.textStyleListPerfil01),
                     ),
                     IconButton(
@@ -70,12 +82,25 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
                   width: _width,
                 ),
               ),
-              textoQuadro("Ação"),
+              textoQuadro("Titulo da tarefa"),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
                   initialValue: widget.title,
                   onSaved: (value) => _title = value,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    fillColor: Colors.black12,
+                  ),
+                ),
+              ),
+              textoQuadro("Descrição da tarefa"),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: TextFormField(
+                  initialValue: widget.description,
+                  onSaved: (value) => _description = value,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -135,7 +160,11 @@ class _TodoCardCRUDDSState extends State<TodoCardCRUDDS> {
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      widget.onCreateOrUpdate(_title);
+      if (widget.isCreate) {
+        widget.onCreate(_title, _description);
+      } else {
+        widget.onUpdate(_title, _description, null, null);
+      }
     } else {
       setState(() {});
     }

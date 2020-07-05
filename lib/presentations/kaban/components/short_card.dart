@@ -11,16 +11,18 @@ class ShortCard extends StatelessWidget {
   final KanbanCardModel tarefa;
   final bool arquivado;
   final Function() onTap;
+  final Function(String) onActiveTrueCard;
 
-  ShortCard(
-      {Key key,
-      @required this.cor,
-      @required this.arquivado,
-      this.altura,
-      this.largura,
-      this.tarefa,
-      this.onTap})
-      : super(key: key);
+  ShortCard({
+    Key key,
+    @required this.cor,
+    @required this.arquivado,
+    this.altura,
+    this.largura,
+    this.tarefa,
+    this.onTap,
+    this.onActiveTrueCard,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +50,16 @@ class ShortCard extends StatelessWidget {
           //         ],
           //       )
           //     : Container(),
-          ListTile(
-            title: Text("${tarefa.title}"),
-            subtitle: Text(
-                "${DateFormat('dd-MM-yyyy hh:mm').format(tarefa.modified)} - Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}"),
-            onTap: onTap,
+
+          Tooltip(
+            message:
+                'Data e hora da última atualização e quantidade de ações atendidas. Identificador: ${tarefa.id.substring(0, 4)}. ',
+            child: ListTile(
+              title: Text("${tarefa.title}"),
+              subtitle: Text(
+                  "${DateFormat('dd-MM-yyyy hh:mm').format(tarefa.modified)}. Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}"),
+              onTap: onTap,
+            ),
           ),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,

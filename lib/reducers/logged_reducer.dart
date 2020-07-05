@@ -23,7 +23,7 @@ LoggedState _updateProfileSuccessfulLoggedAction(
 
 LoggedState _authenticationStatusLoggedAction(
     LoggedState state, AuthenticationStatusLoggedAction action) {
-  print('_userAuthenticationStatusAction...');
+  print('_authenticationStatusLoggedAction...');
   return state.copyWith(
       authenticationStatus: action.loggedAuthenticationStatus);
 }
@@ -32,7 +32,7 @@ LoggedState _loginSuccessfulLoggedAction(
     LoggedState state, LoginSuccessfulLoggedAction action) {
   print('_userLoginSuccessfulAction...');
   return state.copyWith(
-      authenticationStatus: LoggedAuthenticationStatus.authenticated,
+      authenticationStatus: AuthenticationStatus.authenticated,
       firebaseUser: action.firebaseUser);
 }
 
@@ -40,7 +40,7 @@ LoggedState _logoutSuccessfulLoggedAction(
     LoggedState state, LogoutSuccessfulLoggedAction action) {
   print('_userLogoutSuccessfulAction...');
   return state.copyWith(
-      authenticationStatus: LoggedAuthenticationStatus.unInitialized,
+      authenticationStatus: AuthenticationStatus.unInitialized,
       firebaseUser: null);
 }
 
@@ -48,7 +48,7 @@ LoggedState _loginFailLoggedAction(
     LoggedState state, LoginFailLoggedAction action) {
   print('_userLoginFailAction...');
   return state.copyWith(
-    authenticationStatus: LoggedAuthenticationStatus.unAuthenticated,
+    authenticationStatus: AuthenticationStatus.unAuthenticated,
     firebaseUser: null,
   );
 }

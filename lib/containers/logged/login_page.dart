@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/presentations/logged/login_page2_ds.dart';
-import 'package:pmsb4/presentations/logged/login_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
@@ -11,7 +10,7 @@ class _ViewModel {
   final Function(String) sendPasswordResetEmail;
   final Function(String, String) loginEmailPassword;
   final Function loginGoogle;
-  final LoggedAuthenticationStatus authenticationStatus;
+  final AuthenticationStatus authenticationStatus;
   _ViewModel({
     this.loginEmailPassword,
     this.loginGoogle,

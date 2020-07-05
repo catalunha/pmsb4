@@ -4,19 +4,23 @@ import 'package:pmsb4/actions/kanban_board_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/kaban/kanban_board_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
   final List<KanbanBoardModel> filteredKanbanBoardModel;
   final Function(String) onCurrentKanbanBoardModel;
   final Function(String, bool) onActive;
+  final KanbanBoardFilter kanbanBoardFilter;
   _ViewModel({
     this.filteredKanbanBoardModel,
     this.onCurrentKanbanBoardModel,
     this.onActive,
+    this.kanbanBoardFilter,
   });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
+      kanbanBoardFilter: store.state.kanbanBoardState.kanbanBoardFilter,
       filteredKanbanBoardModel:
           store.state.kanbanBoardState.filteredKanbanBoardModel,
       onCurrentKanbanBoardModel: (String id) {
@@ -29,7 +33,7 @@ class _ViewModel {
         kanbanBoardModel.active = active;
         store.dispatch(
             UpdateKanbanBoardDataAction(kanbanBoardModel: kanbanBoardModel));
-        store.dispatch(StreamKanbanBoardDataAction());
+        // store.dispatch(StreamKanbanBoardDataAction());
       },
     );
   }
@@ -43,6 +47,7 @@ class KanbanBoardPage extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanBoardPageDS(
+          kanbanBoardFilter: _viewModel.kanbanBoardFilter,
           filteredKanbanBoardModel: _viewModel.filteredKanbanBoardModel,
           onCurrentKanbanBoardModel: _viewModel.onCurrentKanbanBoardModel,
           onActive: _viewModel.onActive,

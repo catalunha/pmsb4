@@ -9,9 +9,10 @@ import 'package:redux/redux.dart';
 
 class _ViewModel {
   final List<Feed> listFeed;
+  final String loggedId;
   final Function(String) onDelete;
 
-  _ViewModel({this.listFeed, this.onDelete});
+  _ViewModel({this.listFeed, this.loggedId, this.onDelete});
   static _ViewModel fromStore(Store<AppState> store) {
     List<Feed> _listFeed;
     if (store.state.kanbanCardState.currentKanbanCardModel?.feed != null) {
@@ -25,6 +26,7 @@ class _ViewModel {
     }
 
     return _ViewModel(
+      loggedId: store.state.loggedState.firebaseUserLogged.uid,
       listFeed: _listFeed,
       onDelete: (String id) {
         KanbanCardModel currentKanbanCardModel =
@@ -51,6 +53,7 @@ class FeedCardList extends StatelessWidget {
       builder: (BuildContext context, _ViewModel _viewModel) {
         return FeedCardListDS(
           listFeed: _viewModel.listFeed,
+          loggedId: _viewModel.loggedId,
           onDelete: _viewModel.onDelete,
         );
       },

@@ -49,23 +49,18 @@ class KanbanCardModel extends FirestoreModel {
         ? Team.fromMap(map['author'])
         : null;
     if (map["team"] is Map && map["team"] != null) {
-      print('KanbanCardModel 01');
       team = Map<String, Team>();
       for (var item in map["team"].entries) {
         team[item.key] = Team.fromMap(item.value);
       }
-      print('KanbanCardModel 02');
     }
     if (map["todoOrder"] is Map && map["todoOrder"] != null) {
-      print('KanbanCardModel 03');
       todoOrder = Map<String, String>();
       for (var item in map["todoOrder"].entries) {
         todoOrder[item.key] = item.value;
       }
-      print('KanbanCardModel 04');
     }
     if (map["todo"] is Map && map["todo"] != null) {
-      print('KanbanCardModel 05');
       todo = Map<String, Todo>();
       if (map.containsKey('todoOrder') &&
           map["todoOrder"] != null &&
@@ -82,16 +77,13 @@ class KanbanCardModel extends FirestoreModel {
           todo[item.key] = Todo.fromMap(item.value);
         }
       }
-      print('KanbanCardModel 06');
     }
     updateCompletedTodos();
     if (map["feed"] is Map && map["feed"] != null) {
-      print('KanbanCardModel 07');
       feed = Map<String, Feed>();
       for (var item in map["feed"].entries) {
         feed[item.key] = Feed.fromMap(item.value);
       }
-      print('KanbanCardModel 08');
     }
     created = map.containsKey('created') && map['created'] != null
         ? DateTime.fromMillisecondsSinceEpoch(

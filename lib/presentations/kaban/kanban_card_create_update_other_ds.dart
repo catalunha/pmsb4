@@ -4,11 +4,12 @@ import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/components/team_card_add_cds.dart';
-import 'package:pmsb4/presentations/kaban/kanban_card_create_or_update_title_description.dart';
+import 'package:pmsb4/presentations/kaban/kanban_card_create_update_title_ds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class KanbanCardUpdateDS extends StatefulWidget {
+class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
   final bool isCreate;
+  final Team author;
   final String title;
   final String description;
   final bool priority;
@@ -20,9 +21,10 @@ class KanbanCardUpdateDS extends StatefulWidget {
   final Function(String, String, bool, bool) onUpdate;
   final Function(String) onRemoveUserTeam;
 
-  const KanbanCardUpdateDS({
+  const KanbanCardCreateUpdateOtherDS({
     Key key,
     this.isCreate,
+    this.author,
     this.title,
     this.description,
     this.priority,
@@ -35,10 +37,12 @@ class KanbanCardUpdateDS extends StatefulWidget {
     this.todoTotal,
   }) : super(key: key);
   @override
-  _KanbanCardUpdateDSState createState() => _KanbanCardUpdateDSState();
+  _KanbanCardCreateUpdateOtherDSState createState() =>
+      _KanbanCardCreateUpdateOtherDSState();
 }
 
-class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
+class _KanbanCardCreateUpdateOtherDSState
+    extends State<KanbanCardCreateUpdateOtherDS> {
   bool _priority;
   @override
   void initState() {
@@ -51,7 +55,7 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.title}"),
+        title: Text("AUTOR: ${widget.author?.displayName} | ${widget.title}"),
       ),
       backgroundColor: PmsbColors.navbar,
       body: body(),
@@ -120,7 +124,7 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) =>
-                              KanbanCardCreateOrUpdateTitleDescriptionDS(
+                              KanbanCardCreateUpdateTitleDS(
                             isCreate: false,
                             title: widget.title,
                             description: widget.description,

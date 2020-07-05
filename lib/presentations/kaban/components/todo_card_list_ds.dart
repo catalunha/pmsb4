@@ -55,10 +55,6 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
             onReorder: _onReorder,
           ),
         ),
-        // Column(
-        //   // children: gerarListaAcoesWidgets(),
-        //   children: buildItens(),
-        // ),
       ],
     );
   }
@@ -112,7 +108,6 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
       list.add(ListTile(
         key: ValueKey(todo),
         title: Text(todo.title),
-        // subtitle: Text('id:${todo.id} | order:${i++}'),
         leading: Checkbox(
           value: todo.complete,
           onChanged: (value) {

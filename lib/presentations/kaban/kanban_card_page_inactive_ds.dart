@@ -7,10 +7,14 @@ import 'package:pmsb4/routes.dart';
 class KanbanCardPageInactiveDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
+  final Function(String) onActiveTrueCard;
 
-  const KanbanCardPageInactiveDS(
-      {Key key, this.filteredKanbanCardModel, this.onCurrentKanbanCardModel})
-      : super(key: key);
+  const KanbanCardPageInactiveDS({
+    Key key,
+    this.filteredKanbanCardModel,
+    this.onCurrentKanbanCardModel,
+    this.onActiveTrueCard,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +56,9 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
                       arquivado: true,
                       cor: Colors.blue,
                       tarefa: kanbanCardModel,
+                      onTap: () {
+                        onActiveTrueCard(kanbanCardModel.id);
+                      },
                     );
                   },
                 ),

@@ -6,7 +6,7 @@ import 'package:pmsb4/states/types_states.dart';
 @immutable
 class LoggedState {
   final FirebaseUser firebaseUserLogged;
-  final LoggedAuthenticationStatus authenticationStatusLogged;
+  final AuthenticationStatus authenticationStatusLogged;
   final UserModel userModelLogged;
   LoggedState({
     this.authenticationStatusLogged,
@@ -15,12 +15,12 @@ class LoggedState {
   });
   factory LoggedState.initial() {
     return LoggedState(
-        authenticationStatusLogged: LoggedAuthenticationStatus.unInitialized,
+        authenticationStatusLogged: AuthenticationStatus.unInitialized,
         firebaseUserLogged: null,
         userModelLogged: null);
   }
   LoggedState copyWith(
-      {LoggedAuthenticationStatus authenticationStatus,
+      {AuthenticationStatus authenticationStatus,
       FirebaseUser firebaseUser,
       UserModel userModelLogged}) {
     return LoggedState(

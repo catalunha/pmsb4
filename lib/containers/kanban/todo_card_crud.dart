@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/todo_card_crud_ds.dart';
+import 'package:pmsb4/presentations/kaban/todo_card_create_update_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -57,7 +57,7 @@ class TodoCardCRUD extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        return TodoCardCRUDDS(
+        return TodoCardCreateUpdateDS(
           isCreate: id == null ? true : false,
           title: _viewModel.title,
           onCreateOrUpdate: _viewModel.onCreateOrUpdate,

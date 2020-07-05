@@ -33,9 +33,9 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: true)
-          .where('kanbanBoard',
-              isEqualTo:
-                  store.state.kanbanBoardState.currentKanbanBoardModel.id)
+          // .where('kanbanBoard',
+          //     isEqualTo:
+          //         store.state.kanbanBoardState.currentKanbanBoardModel.id)
           .snapshots();
       print('_streamKanbanCardAction...02');
     } else if (currentFilter == KanbanCardFilter.active) {
@@ -43,8 +43,11 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: true)
-          .where('author.id',
-              isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
+          .where('kanbanBoard',
+              isEqualTo:
+                  store.state.kanbanBoardState.currentKanbanBoardModel.id)
+          // .where('author.id',
+          //     isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
       print('_streamKanbanCardAction...04');
     } else if (currentFilter == KanbanCardFilter.inactive) {
@@ -52,8 +55,11 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: false)
-          .where('author.id',
-              isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
+          .where('kanbanBoard',
+              isEqualTo:
+                  store.state.kanbanBoardState.currentKanbanBoardModel.id)
+          // .where('author.id',
+          //     isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
       print('_streamKanbanCardAction...06');
     }

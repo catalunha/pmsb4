@@ -26,7 +26,7 @@ class LoginPage2DS extends StatefulWidget {
   final Function(String) sendPasswordResetEmail;
   final Function(String, String) loginEmailPassword;
   final Function loginGoogle;
-  final LoggedAuthenticationStatus authenticationStatus;
+  final AuthenticationStatus authenticationStatus;
   const LoginPage2DS({
     Key key,
     this.loginEmailPassword,
@@ -42,8 +42,8 @@ class LoginPage2DS extends StatefulWidget {
 
 class LoginPage2DSState extends State<LoginPage2DS> {
   static final _formKey = GlobalKey<FormState>();
-  String _userName = 'catalunha.mj@gmail.com';
-  String _password = 'pmsbto22@ta';
+  String _userName;
+  String _password;
   LoginPageSizeMap loginPageSizeMap;
 
   void validateInputsLogin() {
@@ -169,8 +169,7 @@ class LoginPage2DSState extends State<LoginPage2DS> {
                       ),
                       child: TextFormField(
                         // keyboardType: TextInputType.text,
-                        onSaved: (value) =>
-                            _userName = 'catalunha.mj@gmail.com',
+                        onSaved: (value) => _userName = value,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -203,7 +202,7 @@ class LoginPage2DSState extends State<LoginPage2DS> {
                         ],
                       ),
                       child: TextFormField(
-                        onSaved: (value) => _password = 'pmsbto22@ta',
+                        onSaved: (value) => _password = value,
                         obscureText: true,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(

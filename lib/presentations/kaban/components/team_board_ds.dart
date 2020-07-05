@@ -23,13 +23,7 @@ class _TeamBoardDSState extends State<TeamBoardDS> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child:
-          // Scaffold(
-          //   appBar: AppBar(
-          //     title: Text('Time para este quadro'),
-          //   ),
-          //   body:
-          Container(
+      child: Container(
         color: PmsbColors.navbar,
         height: 600.0,
         width: 400.0,

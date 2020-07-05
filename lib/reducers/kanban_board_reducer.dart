@@ -18,6 +18,7 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
   TypedReducer<KanbanBoardState, RemoveUserToTeamKanbanBoardModelAction>(
       _removeUserToTeamKanbanBoardModelAction),
 ]);
+
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
   print('_allKanbanBoardModelAction...');
@@ -42,22 +43,14 @@ KanbanBoardState _updateKanbanBoardFilterAction(
   List<KanbanBoardModel> _filteredKanbanBoardModel = [];
   if (action.kanbanBoardFilter == KanbanBoardFilter.all) {
     _filteredKanbanBoardModel = state.allKanbanBoardModel;
-  } else if (action.kanbanBoardFilter == KanbanBoardFilter.active) {
-    if (state.allKanbanBoardModel.isEmpty) {
-      _filteredKanbanBoardModel = [];
-    } else {
-      _filteredKanbanBoardModel = state.allKanbanBoardModel
-          .where((element) => element.active == true)
-          .toList();
-    }
+  } else if (action.kanbanBoardFilter == KanbanBoardFilter.activeAuthor) {
+    _filteredKanbanBoardModel = state.allKanbanBoardModel;
+  } else if (action.kanbanBoardFilter == KanbanBoardFilter.activeTeam) {
+    _filteredKanbanBoardModel = state.allKanbanBoardModel;
   } else if (action.kanbanBoardFilter == KanbanBoardFilter.inactive) {
-    if (state.allKanbanBoardModel.isEmpty) {
-      _filteredKanbanBoardModel = [];
-    } else {
-      _filteredKanbanBoardModel = state.allKanbanBoardModel
-          .where((element) => element.active == false)
-          .toList();
-    }
+    _filteredKanbanBoardModel = state.allKanbanBoardModel;
+  } else if (action.kanbanBoardFilter == KanbanBoardFilter.publics) {
+    _filteredKanbanBoardModel = state.allKanbanBoardModel;
   }
 
   return state.copyWith(
@@ -68,11 +61,13 @@ KanbanBoardState _updateKanbanBoardFilterAction(
 KanbanBoardState _currentKanbanBoardModelAction(
     KanbanBoardState state, CurrentKanbanBoardModelAction action) {
   print('_currentKanbanBoardModelAction...');
-  KanbanBoardModel _currentKanbanBoardModel =
-      action.id != null && state.allKanbanBoardModel != []
-          ? state.allKanbanBoardModel
-              .firstWhere((element) => element.id == action.id)
-          : KanbanBoardModel(null);
+  int index = state.allKanbanBoardModel
+      .indexWhere((element) => element.id == action.id);
+  KanbanBoardModel _currentKanbanBoardModel = KanbanBoardModel(null);
+  if (index >= 0) {
+    _currentKanbanBoardModel = state.allKanbanBoardModel[index];
+  }
+
   return state.copyWith(currentKanbanBoardModel: _currentKanbanBoardModel);
 }
 
