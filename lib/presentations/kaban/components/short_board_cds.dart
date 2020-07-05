@@ -114,8 +114,8 @@ class ShortBoardCDS extends StatelessWidget {
           message: usuario.value.displayName,
           child: CircleAvatar(
             backgroundColor: Colors.lightBlue[50],
-            child: Text(usuario.value.displayName[0].toUpperCase() +
-                usuario.value.displayName[1].toUpperCase()),
+            // child: Text(usuario.value.displayName[0].toUpperCase() +
+            //     usuario.value.displayName[1].toUpperCase()),
             backgroundImage: usuario.value.photoUrl != null
                 ? NetworkImage(usuario.value.photoUrl)
                 : NetworkImage(''),

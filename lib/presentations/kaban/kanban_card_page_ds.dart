@@ -123,6 +123,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                         ),
                       ),
                       onTap: () {
+                        Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

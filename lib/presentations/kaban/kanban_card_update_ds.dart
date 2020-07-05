@@ -4,7 +4,7 @@ import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/components/team_card_add_cds.dart';
-import 'package:pmsb4/presentations/kaban/kanban_card_update_title_description.dart';
+import 'package:pmsb4/presentations/kaban/kanban_card_create_or_update_title_description.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardUpdateDS extends StatefulWidget {
@@ -182,8 +182,30 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
                   // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),
+                    // child: SwitchListTile(
+                    //   dense: true,
+                    //   isThreeLine: true,
+                    //   subtitle: _priority
+                    //       ? Text('A prioridade desta tarefa é alta')
+                    //       : Text('Atendimento normal. Sem prioridade.'),
+                    //   title: Text('Prioridade'),
+                    //   value: _priority,
+                    //   onChanged: (value) {
+                    //     widget.onUpdate(null, null, value, null);
+                    //     setState(
+                    //       () {
+                    //         _priority = value;
+                    //       },
+                    //     );
+                    //   },
+                    // ),
                     child: ListTile(
-                      title: Text('Prioridade'),
+                      title: textoTitulo('Esta tarefa é prioridade.'),
+                      subtitle: _priority
+                          ? textoSubtitulo(
+                              'A prioridade desta tarefa é alta sobre as demais.')
+                          : textoSubtitulo(
+                              'Atendimento normal. Sem prioridade sobre as demais.'),
                       leading: Checkbox(
                         value: _priority,
                         activeColor: Colors.green,
@@ -207,6 +229,32 @@ class _KanbanCardUpdateDSState extends State<KanbanCardUpdateDS> {
           ),
           //SizedBox(height: 10),
         ],
+      ),
+    );
+  }
+
+  Widget textoTitulo(String texto) {
+    return Padding(
+      padding: EdgeInsets.only(top: 7.0, bottom: 7.0, left: 30),
+      child: Text(
+        texto,
+        style: TextStyle(
+            color: PmsbColors.texto_primario,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget textoSubtitulo(String texto) {
+    return Padding(
+      padding: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 30),
+      child: Text(
+        texto,
+        style: TextStyle(
+          color: PmsbColors.texto_terciario,
+          fontSize: 17,
+        ),
       ),
     );
   }

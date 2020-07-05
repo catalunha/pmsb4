@@ -115,11 +115,13 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   onSaved2: (value) => _description = value,
                 ),
               ),
-              textoQuadro(
-                  "Público ? Qualquer pessoa pode ver este quadro. Apenas sua equipe pode editar."),
-              Padding(
-                padding: EdgeInsets.all(7),
-                child: Checkbox(
+              ListTile(
+                title: textoQuadro('Quadro público ?'),
+                subtitle: _public
+                    ? textoSubtitulo(
+                        'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.')
+                    : textoSubtitulo('Somente sua equipe pode ver e editar.'),
+                leading: Checkbox(
                   value: _public,
                   activeColor: Colors.green,
                   onChanged: (value) {
@@ -131,6 +133,22 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   },
                 ),
               ),
+              // textoQuadro(
+              //     "Público ? Qualquer pessoa pode ver este quadro. Apenas sua equipe pode editar."),
+              // Padding(
+              //   padding: EdgeInsets.all(7),
+              //   child: Checkbox(
+              //     value: _public,
+              //     activeColor: Colors.green,
+              //     onChanged: (value) {
+              //       setState(
+              //         () {
+              //           _public = value;
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

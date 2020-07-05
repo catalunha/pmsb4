@@ -84,8 +84,8 @@ class _TeamCardAddCDSState extends State<TeamCardAddCDS> {
               label: Text(usuario.displayName),
               avatar: CircleAvatar(
                 backgroundColor: Colors.lightBlue[50],
-                child: Text(usuario.displayName[0].toUpperCase() +
-                    usuario.displayName[1].toUpperCase()),
+                // child: Text(usuario.displayName[0].toUpperCase() +
+                //     usuario.displayName[1].toUpperCase()),
                 backgroundImage: usuario.photoUrl != null
                     ? NetworkImage(usuario.photoUrl)
                     : NetworkImage(''),

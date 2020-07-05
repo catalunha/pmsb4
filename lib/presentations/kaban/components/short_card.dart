@@ -98,8 +98,8 @@ class ShortCard extends StatelessWidget {
             width: 30,
             child: CircleAvatar(
               backgroundColor: Colors.grey,
-              child: Text(user.displayName[0].toUpperCase() +
-                  user.displayName[1].toUpperCase()),
+              // child: Text(user.displayName[0].toUpperCase() +
+              //     user.displayName[1].toUpperCase()),
               backgroundImage: user.photoUrl != null
                   ? NetworkImage(user.photoUrl)
                   : NetworkImage(''),

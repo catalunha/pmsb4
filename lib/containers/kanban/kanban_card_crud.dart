@@ -6,7 +6,7 @@ import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/kanban_card_update_ds.dart';
-import 'package:pmsb4/presentations/kaban/kanban_card_update_title_description.dart';
+import 'package:pmsb4/presentations/kaban/kanban_card_create_or_update_title_description.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter/material.dart';

@@ -21,7 +21,7 @@ class KanbanBoardPageDS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quadros"),
+        title: Center(child: Text("Quadros")),
       ),
       backgroundColor: PmsbColors.navbar,
       // backToRootPage: true,
@@ -45,12 +45,12 @@ class KanbanBoardPageDS extends StatelessWidget {
                   color: PmsbColors.cor_destaque,
                   onPressed: () {
                     onCurrentKanbanBoardModel(null);
-                    Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => KanbanBoardCRUD(),
-                    //   ),
-                    // );
+                    // Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => KanbanBoardCRUD(),
+                      ),
+                    );
                   },
                 )
               ],

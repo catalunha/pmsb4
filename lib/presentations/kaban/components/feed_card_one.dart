@@ -36,9 +36,9 @@ class _FeedCardOneState extends State<FeedCardOne> {
                     label: Text(widget.feed.author.displayName),
                     avatar: CircleAvatar(
                       backgroundColor: Colors.lightBlue[50],
-                      child: Text(
-                          widget.feed.author.displayName[0].toUpperCase() +
-                              widget.feed.author.displayName[1].toUpperCase()),
+                      // child: Text(
+                      //     widget.feed.author.displayName[0].toUpperCase() +
+                      //         widget.feed.author.displayName[1].toUpperCase()),
                       backgroundImage: widget.feed.author.photoUrl != null
                           ? NetworkImage(widget.feed.author.photoUrl)
                           : NetworkImage(''),

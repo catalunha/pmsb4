@@ -39,6 +39,19 @@ KanbanCardState _allKanbanCardModelAction(
   if (action.allKanbanCardModel != null) {
     if (state.kanbanCardFilter == KanbanCardFilter.inactive) {
       _allKanbanCardModel.addAll(action.allKanbanCardModel);
+      _newState = state.copyWith(
+        allKanbanCardModel: _allKanbanCardModel,
+      );
+
+      _newState = _updateKanbanCardFilterAction(
+        _newState,
+        UpdateKanbanCardFilterAction(
+            kanbanCardFilter: _newState.kanbanCardFilter),
+      );
+      _newState = _currentKanbanCardModelAction(
+        _newState,
+        CurrentKanbanCardModelAction(id: null),
+      );
     } else {
       print('_allKanbanCardModelAction...01');
 
@@ -62,20 +75,20 @@ KanbanCardState _allKanbanCardModelAction(
         _allKanbanCardModel.addAll(action.allKanbanCardModel);
       }
       print('_allKanbanCardModelAction...06');
-    }
-    _newState = state.copyWith(
-      allKanbanCardModel: _allKanbanCardModel,
-    );
+      _newState = state.copyWith(
+        allKanbanCardModel: _allKanbanCardModel,
+      );
 
-    _newState = _updateKanbanCardFilterAction(
-      _newState,
-      UpdateKanbanCardFilterAction(
-          kanbanCardFilter: _newState.kanbanCardFilter),
-    );
-    _newState = _currentKanbanCardModelAction(
-      _newState,
-      CurrentKanbanCardModelAction(id: _newState.currentKanbanCardModel?.id),
-    );
+      _newState = _updateKanbanCardFilterAction(
+        _newState,
+        UpdateKanbanCardFilterAction(
+            kanbanCardFilter: _newState.kanbanCardFilter),
+      );
+      _newState = _currentKanbanCardModelAction(
+        _newState,
+        CurrentKanbanCardModelAction(id: _newState.currentKanbanCardModel?.id),
+      );
+    }
   }
   return _newState;
 }

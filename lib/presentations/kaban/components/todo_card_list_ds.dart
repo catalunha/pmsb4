@@ -112,7 +112,7 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
       list.add(ListTile(
         key: ValueKey(todo),
         title: Text(todo.title),
-        subtitle: Text('id:${todo.id} | order:${i++}'),
+        // subtitle: Text('id:${todo.id} | order:${i++}'),
         leading: Checkbox(
           value: todo.complete,
           onChanged: (value) {
@@ -128,11 +128,10 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
           },
         ),
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => TodoCardCRUD(
-                id: todo.id,
-              ),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => TodoCardCRUD(
+              id: todo.id,
             ),
           );
         },
