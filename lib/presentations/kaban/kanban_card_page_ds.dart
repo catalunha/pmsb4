@@ -72,28 +72,6 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                 ),
                 Row(
                   children: [
-                    // InkWell(
-                    //   child: Tooltip(
-                    //     message: "Filtrar por equipe",
-                    //     child: CircleAvatar(
-                    //       backgroundImage: NetworkImage("userAvatarUrl"),
-                    //       backgroundColor: PmsbColors.navbar,
-                    //       child: Icon(
-                    //         Icons.supervised_user_circle,
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onTap: () {
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (BuildContext context) => null,
-                    //       // ListaUsuariosModal(
-                    //       //   selecaoMultipla: false,
-                    //       // ),
-                    //     );
-                    //   },
-                    // ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: CircleAvatar(
