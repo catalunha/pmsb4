@@ -21,7 +21,7 @@ git checkout <issue-y>
 // Resolva a <issue-y>
 git add .
 git commit -m 'sua msg para a <issue-y>'
-git push origin
+git push origin <issue-y>
 // Solicite um PullRequest desta issue para master.
 // A aguarde minha resposta caso precise dela, ou 
 // Escolha outra issue e volte para o inicio desta rotina. 
