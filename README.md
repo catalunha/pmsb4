@@ -4,7 +4,6 @@ Versão independente do projeto PMSB para desenvolvimento dos môdulos Gestor de
 
 A integração do PMSB3 com esta versão, PMSB4 em Redux, será analisada futuramente.
 
-#Elenn
 # GitHub
 Uma sequencia importante de comandos do git é
 Local:
