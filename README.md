@@ -12,19 +12,19 @@ Local:
 git fetch --prune
 git branch --all
 // Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
-git branch -d <issueX>
+git branch -d issueX
 ~~~
 ~~~
 //etapa02
 // Escolha uma issue e trabalhe na solução especifica dela. Por exemplo <issueY>
 git checkout master
 git pull origin
-git branch <issueY>
-git checkout <issueY>
-// Resolva a <issueY>
+git branch issueY
+git checkout issueY
+// Resolva a issueY
 git add .
-git commit -m 'sua msg para a <issueY>'
-git push origin <issueY>
+git commit -m 'sua msg para a issueY'
+git push origin issueY
 // Solicite um PullRequest desta issue para master. veja etapa03
 // A aguarde minha resposta caso precise dela, acompanhando a issue.
 // Escolha outra issue e volte para a etapa01 depois etapa02. 
@@ -34,7 +34,7 @@ Remote:
 //etapa03
 // Click Pull Request
 // Escolha a branch a ser enviada para master.
-// base: master <- compare: <issueY>
+// base: master <- compare: issueY
 // Click Create pull request
 // Aguarde Pois irei fazer pull local desta branch entender o que vc fez.
 // Caso concluido irei dar o merge.
