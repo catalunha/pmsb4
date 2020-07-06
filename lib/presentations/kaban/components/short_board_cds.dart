@@ -51,7 +51,8 @@ class ShortBoardCDS extends StatelessWidget {
                   trailing:
                       Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
                   title: Text("${this.quadro.title}"),
-                  subtitle: Text("Descrição: ${this.quadro.description}"),
+                  subtitle: Text(
+                      "Tarefas em andamento: ${quadro.cardOrder?.length ?? 0}\nDescrição: ${this.quadro.description}"),
                 ),
               ),
               kanbanBoardFilter.toString() ==
