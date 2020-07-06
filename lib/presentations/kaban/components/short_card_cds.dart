@@ -4,7 +4,7 @@ import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:intl/intl.dart';
 
-class ShortCard extends StatelessWidget {
+class ShortCardCDS extends StatelessWidget {
   final Color cor;
   final double altura;
   final double largura;
@@ -13,7 +13,7 @@ class ShortCard extends StatelessWidget {
   final Function() onTap;
   final Function(String) onActiveTrueCard;
 
-  ShortCard({
+  ShortCardCDS({
     Key key,
     @required this.cor,
     @required this.arquivado,

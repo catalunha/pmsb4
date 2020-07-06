@@ -8,7 +8,7 @@ import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/short_card.dart';
+import 'package:pmsb4/presentations/kaban/components/short_card_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardPageDS extends StatefulWidget {
@@ -160,73 +160,6 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
       ),
     );
   }
-
-  // Widget botaoMore() {
-  //   return PopupMenuButton<Function>(
-  //     color: PmsbColors.navbar,
-  //     tooltip: "Filtrar por prioridade",
-  //     icon: Icon(
-  //       Icons.group_work,
-  //       color: Colors.white,
-  //     ),
-  //     onSelected: (Function result) {
-  //       result();
-  //     },
-  //     itemBuilder: (BuildContext context) => <PopupMenuEntry<Function>>[
-  //       PopupMenuItem<Function>(
-  //         value: () {
-  //           // Filtrar mostrando todos
-  //         },
-  //         child: Row(
-  //           children: [
-  //             SizedBox(width: 2),
-  //             Icon(
-  //               Icons.brightness_1,
-  //               color: Colors.white,
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text('Listar todos'),
-  //             SizedBox(width: 5),
-  //           ],
-  //         ),
-  //       ),
-  //       PopupMenuItem<Function>(
-  //         value: () {
-  //           // Listar por prioridade alta
-  //         },
-  //         child: Row(
-  //           children: [
-  //             SizedBox(width: 2),
-  //             Icon(
-  //               Icons.brightness_1,
-  //               color: Colors.red,
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text('Prioridade alta'),
-  //             SizedBox(width: 5),
-  //           ],
-  //         ),
-  //       ),
-  //       PopupMenuItem<Function>(
-  //         value: () {
-  //           // Listar por prioridade baixa
-  //         },
-  //         child: Row(
-  //           children: [
-  //             SizedBox(width: 2),
-  //             Icon(
-  //               Icons.brightness_1,
-  //               color: Colors.green,
-  //             ),
-  //             SizedBox(width: 5),
-  //             Text('Prioridade baixa'),
-  //             SizedBox(width: 5),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _listaColunas(BuildContext context) {
     return Container(
@@ -413,7 +346,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
           ),
         ),
         childWhenDragging: Container(),
-        child: ShortCard(
+        child: ShortCardCDS(
           arquivado: false,
           onTap: () {
             widget.onCurrentKanbanCardModel(kanbanCard.id);

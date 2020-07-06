@@ -7,7 +7,6 @@ import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/kaban/components/short_board_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/types_states.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {
@@ -63,7 +62,6 @@ class KanbanBoardPageDS extends StatelessWidget {
                             color: PmsbColors.cor_destaque,
                             onPressed: () {
                               onCurrentKanbanBoardModel(null);
-                              // Navigator.pushNamed(context, Routes.kanbanBoardCRUD);
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => KanbanBoardCRUD(),

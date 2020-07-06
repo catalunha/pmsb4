@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/presentations/kaban/components/short_card.dart';
+import 'package:pmsb4/presentations/kaban/components/short_card_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/routes.dart';
 
@@ -52,7 +52,7 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     KanbanCardModel kanbanCardModel =
                         filteredKanbanCardModel[index];
-                    return ShortCard(
+                    return ShortCardCDS(
                       arquivado: true,
                       cor: Colors.blue,
                       tarefa: kanbanCardModel,
