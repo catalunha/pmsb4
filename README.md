@@ -16,7 +16,7 @@ git branch -d issueX
 ~~~
 ~~~
 //etapa02
-// Escolha uma issue e trabalhe na solução especifica dela. Por exemplo <issueY>
+// Escolha uma issue e trabalhe na solução especifica dela. Por exemplo issueY onde Y é sempre o numero da issue.
 git checkout master
 git pull origin
 git branch issueY
@@ -32,14 +32,14 @@ git push origin issueY
 Remote:
 ~~~
 //etapa03
-// Click Pull Request
+// No gitHub click Pull Request
 // Escolha a branch a ser enviada para master.
 // base: master <- compare: issueY
 // Click Create pull request
-// Aguarde Pois irei fazer pull local desta branch entender o que vc fez.
-// Caso concluido irei dar o merge.
-// Senao vc pode continuar atualizando a branch que o PullRequest continuar recebendo estas atualizações
-// Concluido o merge irei apagar a branch. Por isto é importante a etapa01
+// Aguarde pois irei fazer pull local desta branch entender o que vc fez.
+// Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
+//  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
+// Concluida a issue darei o merge e irei apagar a branch. Por isto é importante a etapa01
 ~~~
 
 # Branchs e Redux
