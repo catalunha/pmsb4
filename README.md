@@ -12,10 +12,10 @@ Estou construindo este modelo para o redux: [Fluxo Redux PMSB4](https://docs.goo
 Ativa no hosting. Atualizada a cada issue.
 Desta branch podem derivar outras para atender a issue.
 
-## Xissue
+## outras
 Desenvolvimento básico da aplicação para testes e dev/otimização/refactoração do padrão Redux.
 
-Branch básica para desenvolvimento das ui ou presentation
+Branch básica para desenvolvimento das ui ou presentation e para redux criada a partir de issues ou para demandas específicas
 
 
 # Definições neste projeto
@@ -38,28 +38,29 @@ Considerando um projeto basico do counter do flutter
 	- counter_action.dart
 + container
 	+ components
-		- counter_value1.dart
+		- counter_value.dart
 	+ counter
 		- counter_page.dart
     + components
-      - counter_value2.dart
+      - counter_factorial.dart
 + middlewares
 	+ firebase
 		+ authentication
 			- authentication_middleware.dart
 		- firebase_model.dart
 		+ counter
-			- counter_model.dart
 			- counter_middleware.dart
++ model
+	- counter_model.dart
 + presentation
 	+ components
-		- counter_value1_ds.dart
+		- counter_value_ds.dart
 		- counter_text1_cds.dart
 	+ counter
-		- counter_button_comp.dart
+		- counter_button.dart
 		- counter_page_ds.dart
     + components
-      - counter_value2_ds.dart
+      - counter_factorial_ds.dart
       - counter_text2_cds.dart
 + reducers
 	- app_reducer.dart
@@ -96,6 +97,30 @@ class WidgetChildCDS extends StatelessWidget/StatefulWidget {
   // pegar var e function do parent WidgetParentDS
 ...
 }
+~~~
+
+## Telas
+~~~
++ KanbanBoardPage->KanbanBoardPageDS
+	+ KanbanBoardCRUD->KanbanBoardCRUDDS
+		- TeamBoard->TeamBoardDS
+	- ShortBoardCDS
+		+ KanbanBoardCRUD->KanbanCardCRUDDS
+			- TeamBoard->TeamBoardDS
+		+ KanbanCardPage->KanbanCardPageDS
+			- ShortCard
+				- KanbanCardCRUD->KanbanCardCreateDS
+				+ KanbanCardCRUD->KanbanCardUpdateDS
+					- EquipeWrapCDS
+						- TeamCard->TeamCardDS
+					- FeedCardList->FeedCardListDS
+						- FeedCardCRUD->FeedCardCreateDS
+						- FeedCardOne->
+							- FeedCardCRUD->FeedCardUpdateDS
+					- TodoCardList->TodoCardListDS
+						- TodoCardCRUD->TodoCardCreateDS
+						- TodoCardCRUD->TodoCardUpdateDS
+						
 ~~~
 
 # Models

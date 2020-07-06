@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pmsb4/containers/kanban/feed_card_page.dart';
+import 'package:pmsb4/containers/kanban/feed_card_list.dart';
 import 'package:pmsb4/containers/kanban/team_card.dart';
-import 'package:pmsb4/containers/kanban/todo_card_page.dart';
+import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 
-class KanbanCardCRUDDS extends StatefulWidget {
+class KanbanCardCRUD0DS extends StatefulWidget {
   final bool isCreate;
   final String title;
   final String description;
@@ -17,7 +17,7 @@ class KanbanCardCRUDDS extends StatefulWidget {
   final Function(String, String, bool, bool) onCreateOrUpdate;
   final Function(String) onRemoveUserTeam;
 
-  const KanbanCardCRUDDS({
+  const KanbanCardCRUD0DS({
     Key key,
     this.isCreate,
     this.title,
@@ -31,18 +31,18 @@ class KanbanCardCRUDDS extends StatefulWidget {
     this.todoTotal,
   }) : super(key: key);
   @override
-  _KanbanCardCRUDDSState createState() =>
-      _KanbanCardCRUDDSState(priority, active);
+  _KanbanCardCRUD0DSState createState() =>
+      _KanbanCardCRUD0DSState(priority, active);
 }
 
-class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
+class _KanbanCardCRUD0DSState extends State<KanbanCardCRUD0DS> {
   static final formKey = GlobalKey<FormState>();
   String _title;
   String _description;
   bool _priority;
   bool _active;
 
-  _KanbanCardCRUDDSState(this._priority, this._active);
+  _KanbanCardCRUD0DSState(this._priority, this._active);
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +169,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => TodoCardPage(),
+                  builder: (context) => TodoCardList(),
                 ),
               );
             },
@@ -180,7 +180,7 @@ class _KanbanCardCRUDDSState extends State<KanbanCardCRUDDS> {
               // Navigator.pushNamed(context, Routes.usersTeam);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => FeedCardPage(),
+                  builder: (context) => FeedCardList(),
                 ),
               );
             },

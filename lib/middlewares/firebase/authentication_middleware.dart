@@ -17,7 +17,7 @@ List<Middleware<AppState>> firebaseAuthenticationMiddleware() {
         _userLoginGoogleAction()),
     TypedMiddleware<AppState, LogoutLoggedAction>(_userLogoutAction()),
     TypedMiddleware<AppState, OnAuthStateChangedLoggedAction>(
-        _userOnAuthStateChangedAction()),
+        _onAuthStateChangedLoggedAction()),
   ];
 }
 
@@ -50,18 +50,36 @@ void Function(
   Store<AppState> store,
   OnAuthStateChangedLoggedAction action,
   NextDispatcher next,
-) _userOnAuthStateChangedAction() {
+) _onAuthStateChangedLoggedAction() {
   return (store, action, next) async {
-    print('_userOnAuthStateChangedAction...');
+    print('_onAuthStateChangedLoggedAction...');
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    print('_onAuthStateChangedLoggedAction...1');
     try {
-      firebaseAuth.currentUser().then((firebaseUser) {
+      print('_onAuthStateChangedLoggedAction...2');
+      firebaseAuth.onAuthStateChanged.listen((firebaseUser) {
+        print('onAuthStateChanged: ${firebaseUser?.uid}');
         if (firebaseUser?.uid != null) {
+          print('_onAuthStateChangedLoggedAction...4');
           print('Auth de ultimo login uid: ${firebaseUser.uid}');
           store.dispatch(
               LoginSuccessfulLoggedAction(firebaseUser: firebaseUser));
+          print('_onAuthStateChangedLoggedAction...5');
         }
       });
+      firebaseAuth.currentUser().then((firebaseUser) {
+        print('_onAuthStateChangedLoggedAction...3');
+        print('currentUser: ${firebaseUser?.uid}');
+        if (firebaseUser?.uid != null) {
+          print('_onAuthStateChangedLoggedAction...4');
+          print('Auth de ultimo login uid: ${firebaseUser.uid}');
+          store.dispatch(
+              LoginSuccessfulLoggedAction(firebaseUser: firebaseUser));
+          print('_onAuthStateChangedLoggedAction...5');
+        }
+        print('_onAuthStateChangedLoggedAction...6');
+      });
+      print('_onAuthStateChangedLoggedAction...7');
       // stream.listen((firebaseUser) {
       //   print('ouvindo');
       //   if (firebaseUser.isEmailVerified) {
@@ -91,8 +109,7 @@ void Function(
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       store.dispatch(AuthenticationStatusLoggedAction(
-          loggedAuthenticationStatus:
-              LoggedAuthenticationStatus.sendPasswordReset));
+          loggedAuthenticationStatus: AuthenticationStatus.sendPasswordReset));
       await firebaseAuth.sendPasswordResetEmail(email: action.email);
       next(action);
     } catch (e) {
@@ -112,8 +129,7 @@ void Function(
     FirebaseUser firebaseUser;
     try {
       store.dispatch(AuthenticationStatusLoggedAction(
-          loggedAuthenticationStatus:
-              LoggedAuthenticationStatus.authenticating));
+          loggedAuthenticationStatus: AuthenticationStatus.authenticating));
       print(action.email);
       print(action.password);
       final AuthResult authResult = await _auth.signInWithEmailAndPassword(

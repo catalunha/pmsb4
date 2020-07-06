@@ -4,7 +4,7 @@ import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/team_card_ds.dart';
+import 'package:pmsb4/presentations/kaban/components/team_card_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -36,6 +36,8 @@ class _ViewModel {
           print('addUserTeamCard: Selecionado: $id');
           Team team = currentKanbanBoardModel.team[id];
           store.dispatch(AddUserToTeamKanbanCardModelAction(team: team));
+          store.dispatch(UpdateKanbanCardDataAction(
+              kanbanCardModel: currentKanbanCardModel));
         } else {
           print('addUserTeamCard: Já esta no team.');
         }

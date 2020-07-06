@@ -6,21 +6,27 @@ import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/presentations/kaban/kanban_card_page_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
+  final KanbanBoardModel currentKanbanBoardModel;
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
   final Function(String, String) onChangeStageCard;
   final Function(Map<String, String>) onChangeCardOrder;
 
-  _ViewModel(
-      {this.filteredKanbanCardModel,
-      this.onCurrentKanbanCardModel,
-      this.onChangeStageCard,
-      this.onChangeCardOrder});
+  _ViewModel({
+    this.currentKanbanBoardModel,
+    this.filteredKanbanCardModel,
+    this.onCurrentKanbanCardModel,
+    this.onChangeStageCard,
+    this.onChangeCardOrder,
+  });
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
+      currentKanbanBoardModel:
+          store.state.kanbanBoardState.currentKanbanBoardModel,
       filteredKanbanCardModel:
           store.state.kanbanCardState.filteredKanbanCardModel,
       onCurrentKanbanCardModel: (String id) {
@@ -53,6 +59,7 @@ class KanbanCardPage extends StatelessWidget {
       converter: (store) => _ViewModel.fromStore(store),
       builder: (BuildContext context, _ViewModel _viewModel) {
         return KanbanCardPageDS(
+          currentKanbanBoardModel: _viewModel.currentKanbanBoardModel,
           filteredKanbanCardModel: _viewModel.filteredKanbanCardModel,
           onCurrentKanbanCardModel: _viewModel.onCurrentKanbanCardModel,
           onChangeCardOrder: _viewModel.onChangeCardOrder,
@@ -60,8 +67,9 @@ class KanbanCardPage extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
+        store.dispatch(UpdateKanbanCardFilterAction(
+            kanbanCardFilter: KanbanCardFilter.active));
         store.dispatch(StreamKanbanCardDataAction());
-        store.dispatch(StreamKanbanBoardDataAction());
       },
     );
   }

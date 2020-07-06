@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/containers/home/home_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_crud.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/containers/logged/profile_page.dart';
@@ -20,13 +21,6 @@ import 'package:pmsb4/states/app_state.dart';
 import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    MyApp(),
-  );
-}
-
 Store<AppState> _store = Store<AppState>(
   appReducer,
   initialState: AppState.initial(),
@@ -39,6 +33,13 @@ Store<AppState> _store = Store<AppState>(
   // middleware: []..addAll(createAuthMiddleware())..addAll(LoggingMiddleware.printer()),
 );
 
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MyApp(),
+  );
+}
+
 class MyApp extends StatelessWidget {
   final Store<AppState> store;
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       : store = _store,
         super(key: key) {
     store.dispatch(AuthenticationStatusLoggedAction(
-        loggedAuthenticationStatus: LoggedAuthenticationStatus.unInitialized));
+        loggedAuthenticationStatus: AuthenticationStatus.unInitialized));
     store.dispatch(OnAuthStateChangedLoggedAction());
   }
 
@@ -79,6 +80,9 @@ class MyApp extends StatelessWidget {
           },
           Routes.kanbanCardPage: (context) {
             return KanbanCardPage();
+          },
+          Routes.kanbanCardCRUD: (context) {
+            return KanbanCardCRUD();
           },
         },
       ),

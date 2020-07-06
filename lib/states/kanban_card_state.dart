@@ -22,7 +22,7 @@ class KanbanCardState {
       allKanbanCardModel: [],
       filteredKanbanCardModel: [],
       currentKanbanCardModel: null,
-      kanbanCardFilter: KanbanCardFilter.all,
+      kanbanCardFilter: KanbanCardFilter.active,
       currentTeam: Team(),
     );
   }

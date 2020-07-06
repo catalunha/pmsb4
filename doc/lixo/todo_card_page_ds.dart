@@ -14,9 +14,7 @@ class TodoCardPageDS extends StatefulWidget {
       this.onDelete,
       this.onChangeComplete,
       this.onChangeTodoOrder})
-      : super(key: key) {
-    print('atualizado........................................');
-  }
+      : super(key: key);
 
   @override
   _TodoCardPageDSState createState() => _TodoCardPageDSState(listTodo);

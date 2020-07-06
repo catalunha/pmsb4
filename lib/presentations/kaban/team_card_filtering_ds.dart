@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/models/types_models.dart';
+import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class TeamCardFilteringDS extends StatelessWidget {
   final Team currentTeam;
@@ -17,13 +18,18 @@ class TeamCardFilteringDS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<Team>(
-        icon: Icon(Icons.people),
+        tooltip: "Filtrar por membro",
+        color: PmsbColors.navbar,
+        icon: Icon(
+          Icons.supervised_user_circle,
+          color: Colors.white,
+        ),
         onSelected: onSelectFilter,
         itemBuilder: (BuildContext context) {
           // var list = List<PopupMenuEntry<Object>>();
           var list = List<PopupMenuItem<Team>>();
           list.add(PopupMenuItem<Team>(
-            value: Team(),
+            value: Team(id: null),
             child: ListTile(
               title: Text('Todos'),
               leading: Icon(
@@ -64,19 +70,6 @@ class TeamCardFilteringDS extends StatelessWidget {
             ));
           });
           return list;
-          //   PopupMenuItem<KanbanCardFilter>(
-          //     value: KanbanCardFilter.normal,
-          //     child: activeFilter == KanbanCardFilter.normal
-          //         ? Text('NORMAL')
-          //         : Text('Normal'),
-          //   ),
-          //   PopupMenuItem<KanbanCardFilter>(
-          //     value: KanbanCardFilter.priority,
-          //     child: activeFilter == KanbanCardFilter.priority
-          //         ? Text('PRIORIDADE')
-          //         : Text('Prioridade'),
-          //   ),
-          // ],
         });
   }
 }

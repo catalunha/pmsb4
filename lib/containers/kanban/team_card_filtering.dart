@@ -26,12 +26,8 @@ class _ViewModel {
               .toList()
           : [],
       onSelectFilter: (Team currentTeam) {
-        // if (currentTeam.id == null) {
-        //   store.dispatch(UpdateTeamKanbanCardFilterAction(currentTeam: null));
-        // } else {
         store.dispatch(
             UpdateTeamKanbanCardFilterAction(currentTeam: currentTeam));
-        // }
       },
     );
   }

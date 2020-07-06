@@ -5,7 +5,7 @@ class LoggedAction {}
 
 // +++ Actions atendidas por UserReducer
 class AuthenticationStatusLoggedAction extends LoggedAction {
-  final LoggedAuthenticationStatus loggedAuthenticationStatus;
+  final AuthenticationStatus loggedAuthenticationStatus;
 
   AuthenticationStatusLoggedAction({this.loggedAuthenticationStatus});
   @override

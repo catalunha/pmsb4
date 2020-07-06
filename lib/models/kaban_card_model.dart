@@ -48,19 +48,19 @@ class KanbanCardModel extends FirestoreModel {
     author = map.containsKey('author') && map['author'] != null
         ? Team.fromMap(map['author'])
         : null;
-    if (map["team"] is Map) {
+    if (map["team"] is Map && map["team"] != null) {
       team = Map<String, Team>();
       for (var item in map["team"].entries) {
         team[item.key] = Team.fromMap(item.value);
       }
     }
-    if (map["todoOrder"] is Map) {
+    if (map["todoOrder"] is Map && map["todoOrder"] != null) {
       todoOrder = Map<String, String>();
       for (var item in map["todoOrder"].entries) {
         todoOrder[item.key] = item.value;
       }
     }
-    if (map["todo"] is Map) {
+    if (map["todo"] is Map && map["todo"] != null) {
       todo = Map<String, Todo>();
       if (map.containsKey('todoOrder') &&
           map["todoOrder"] != null &&
@@ -79,7 +79,7 @@ class KanbanCardModel extends FirestoreModel {
       }
     }
     updateCompletedTodos();
-    if (map["feed"] is Map) {
+    if (map["feed"] is Map && map["feed"] != null) {
       feed = Map<String, Feed>();
       for (var item in map["feed"].entries) {
         feed[item.key] = Feed.fromMap(item.value);
@@ -153,6 +153,9 @@ class KanbanCardModel extends FirestoreModel {
               .where((element) => element.value.complete == true)
               .length ??
           0;
+    } else {
+      todoTotal = 0;
+      todoCompleted = 0;
     }
   }
 

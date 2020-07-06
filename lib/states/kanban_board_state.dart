@@ -19,7 +19,7 @@ class KanbanBoardState {
       allKanbanBoardModel: [],
       filteredKanbanBoardModel: [],
       currentKanbanBoardModel: null,
-      kanbanBoardFilter: KanbanBoardFilter.active,
+      kanbanBoardFilter: KanbanBoardFilter.activeAuthor,
     );
   }
 

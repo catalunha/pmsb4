@@ -33,42 +33,48 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           // .where('active', isEqualTo: true)
-          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          // .where('author.id', isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
-    } else if (currentFilter == KanbanBoardFilter.active) {
+    } else if (currentFilter == KanbanBoardFilter.activeAuthor) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: true)
-          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          .where('author.id',
+              isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
+          .snapshots();
+    } else if (currentFilter == KanbanBoardFilter.activeTeam) {
+      streamDocs = firestore
+          .collection(KanbanBoardModel.collection)
+          .where('active', isEqualTo: true)
+          .where('team.${store.state.loggedState.firebaseUserLogged.uid}.id',
+              isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.inactive) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: false)
-          // .where('author.id', isEqualTo: store.state.userState.firebaseUser.uid)
+          .where('author.id',
+              isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.publics) {
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
-          .where('active', isEqualTo: false)
-          .where('public', isEqualTo: false)
+          .where('active', isEqualTo: true)
+          .where('public', isEqualTo: true)
           .snapshots();
     }
     final listDocs = streamDocs.map((snapDocs) => snapDocs.documents
         .map((doc) => KanbanBoardModel(doc.documentID).fromFirestore(doc.data))
         .toList());
     listDocs.listen((List<KanbanBoardModel> allKanbanBoardModel) {
+      print('currentKanbanBoardFilter: ${currentFilter}');
       print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
-      store.dispatch(AllKanbanCardModelAction(
-          allKanbanCardModel: null,
-          currentKanbanBoardModel:
-              store.state.kanbanBoardState.currentKanbanBoardModel));
-
-      // store.dispatch(UpdateKanbanBoardFilterAction());
-      //   store.dispatch(CurrentKanbanCardModelAction(
-      // id: store.state.kanbanCardState.currentKanbanCardModel?.id));
+      // store.dispatch(AllKanbanCardModelAction(
+      //     allKanbanCardModel: null,
+      //     currentKanbanBoardModel:
+      //         store.state.kanbanBoardState.currentKanbanBoardModel));
     });
     next(action);
   };
