@@ -16,12 +16,15 @@ git branch -d issueX
 ~~~
 ~~~
 //etapa02
-// Escolha uma issue e trabalhe na solução especifica dela. Por exemplo issueY onde Y é sempre o numero da issue.
+// Crie e, ou escolha uma issue pequena
+// Trabalhe apenas na solução especifica dela. 
+// Por exemplo issueY onde Y é sempre o numero da issue.
 git checkout master
 git pull origin
 git branch issueY
 git checkout issueY
 // Resolva a issueY
+// FAÇA TODOS OS TESTES NECESSÁRIOS PRA EVITAR REFATORAÇÃO COM NOVA ISSUE.
 git add .
 git commit -m 'sua msg para a issueY'
 git push origin issueY
