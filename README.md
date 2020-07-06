@@ -27,8 +27,13 @@ git push origin <issue-y>
 // Escolha outra issue e volte para o inicio desta rotina. 
 ~~~
 Remote:
+~~~
+// Click Pull Request
+// Escolha a branch a ser enviada para master.
+// base: master <- compare: <issue-y>
+// Click Create pull request
 
-
+~~~
 
 # Branchs e Redux
 
