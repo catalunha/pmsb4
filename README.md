@@ -4,6 +4,47 @@ Versão independente do projeto PMSB para desenvolvimento dos môdulos Gestor de
 
 A integração do PMSB3 com esta versão, PMSB4 em Redux, será analisada futuramente.
 
+# GitHub
+Uma sequencia importante de comandos do git é
+Local:
+~~~
+//etapa01
+git fetch --prune
+git branch --all
+// Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
+git branch -d issueX
+~~~
+~~~
+//etapa02
+// Crie e, ou escolha uma issue pequena
+// Trabalhe apenas na solução especifica dela. 
+// Por exemplo issueY onde Y é sempre o numero da issue.
+git checkout master
+git pull origin
+git branch issueY
+git checkout issueY
+// Resolva a issueY
+// FAÇA TODOS OS TESTES NECESSÁRIOS PRA EVITAR REFATORAÇÃO COM NOVA ISSUE.
+git add .
+git commit -m 'sua msg para a issueY'
+git push origin issueY
+// Solicite um PullRequest desta issue para master. veja etapa03
+// A aguarde minha resposta caso precise dela, acompanhando a issue.
+// Escolha outra issue e volte para a etapa01 depois etapa02. 
+~~~
+Remote:
+~~~
+//etapa03
+// No gitHub click Pull Request
+// Escolha a branch a ser enviada para master.
+// base: master <- compare: issueY
+// Click Create pull request
+// Aguarde pois irei fazer pull local desta branch entender o que vc fez.
+// Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
+//  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
+// Concluida a issue darei o merge e irei apagar a branch. Por isto é importante a etapa01
+~~~
+
 # Branchs e Redux
 
 Estou construindo este modelo para o redux: [Fluxo Redux PMSB4](https://docs.google.com/drawings/d/177q-Ot3TkkmkMSeiArFg5LUSyGv8G18X30OyE8jtftg/edit?usp=sharing)
