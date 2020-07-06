@@ -9,6 +9,8 @@ Uma sequencia importante de comandos do git é
 Local:
 ~~~
 //etapa01
+git checkout master
+git pull origin master
 git fetch --prune
 git branch --all
 // Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
@@ -16,11 +18,10 @@ git branch -d issueX
 ~~~
 ~~~
 //etapa02
+// Veja q vc precisa ter concluido a etapa01
 // Crie e, ou escolha uma issue pequena
 // Trabalhe apenas na solução especifica dela. 
 // Por exemplo issueY onde Y é sempre o numero da issue.
-git checkout master
-git pull origin
 git branch issueY
 git checkout issueY
 // Resolva a issueY
@@ -38,7 +39,9 @@ Remote:
 // No gitHub click Pull Request
 // Escolha a branch a ser enviada para master.
 // base: master <- compare: issueY
+// Coloque o nome do PullRequest com o mesmo nome da issueY
 // Click Create pull request
+// Volte na issueY e link esta issue ao pull de nome issueY
 // Aguarde pois irei fazer pull local desta branch entender o que vc fez.
 // Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
 //  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
