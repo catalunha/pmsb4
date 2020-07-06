@@ -8,31 +8,38 @@ A integração do PMSB3 com esta versão, PMSB4 em Redux, será analisada futura
 Uma sequencia importante de comandos do git é
 Local:
 ~~~
-//inicio
+//etapa01
 git fetch --prune
 git branch --all
 // Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
-git branch -d <issue-x>
-// Escolha uma issue e trabalhe na solução especifica dela. Por exemplo <issue-y>
+git branch -d <issueX>
+~~~
+~~~
+//etapa02
+// Escolha uma issue e trabalhe na solução especifica dela. Por exemplo <issueY>
 git checkout master
 git pull origin
-git branch <issue-y>
-git checkout <issue-y>
-// Resolva a <issue-y>
+git branch <issueY>
+git checkout <issueY>
+// Resolva a <issueY>
 git add .
-git commit -m 'sua msg para a <issue-y>'
-git push origin <issue-y>
-// Solicite um PullRequest desta issue para master.
-// A aguarde minha resposta caso precise dela, ou 
-// Escolha outra issue e volte para o inicio desta rotina. 
+git commit -m 'sua msg para a <issueY>'
+git push origin <issueY>
+// Solicite um PullRequest desta issue para master. veja etapa03
+// A aguarde minha resposta caso precise dela, acompanhando a issue.
+// Escolha outra issue e volte para a etapa01 depois etapa02. 
 ~~~
 Remote:
 ~~~
+//etapa03
 // Click Pull Request
 // Escolha a branch a ser enviada para master.
-// base: master <- compare: <issue-y>
+// base: master <- compare: <issueY>
 // Click Create pull request
-
+// Aguarde Pois irei fazer pull local desta branch entender o que vc fez.
+// Caso concluido irei dar o merge.
+// Senao vc pode continuar atualizando a branch que o PullRequest continuar recebendo estas atualizações
+// Concluido o merge irei apagar a branch. Por isto é importante a etapa01
 ~~~
 
 # Branchs e Redux
