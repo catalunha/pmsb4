@@ -50,17 +50,14 @@ Remote:
 
 # Branchs e Redux
 
-Estou construindo este modelo para o redux: [Fluxo Redux PMSB4](https://docs.google.com/drawings/d/177q-Ot3TkkmkMSeiArFg5LUSyGv8G18X30OyE8jtftg/edit?usp=sharing)
+Estou construindo esta app baseada no redux: [Fluxo Redux PMSB4](https://docs.google.com/drawings/d/177q-Ot3TkkmkMSeiArFg5LUSyGv8G18X30OyE8jtftg/edit?usp=sharing)
 
 ## Master
 Ativa no hosting. Atualizada a cada issue.
 Desta branch podem derivar outras para atender a issue.
 
-## outras
-Desenvolvimento básico da aplicação para testes e dev/otimização/refactoração do padrão Redux.
-
-Branch básica para desenvolvimento das ui ou presentation e para redux criada a partir de issues ou para demandas específicas
-
+## issueX
+Baseada numa issue que aperfeiçõe ou resolve um problema na aplicação partindo de testes/otimização/refactoração/UI/UX 
 
 # Definições neste projeto
 
@@ -101,9 +98,9 @@ Considerando um projeto basico do counter do flutter
 		- counter_value_ds.dart
 		- counter_text1_cds.dart
 	+ counter
-		- counter_button.dart
 		- counter_page_ds.dart
     + components
+			- counter_button.dart
       - counter_factorial_ds.dart
       - counter_text2_cds.dart
 + reducers
@@ -141,30 +138,6 @@ class WidgetChildCDS extends StatelessWidget/StatefulWidget {
   // pegar var e function do parent WidgetParentDS
 ...
 }
-~~~
-
-## Telas
-~~~
-+ KanbanBoardPage->KanbanBoardPageDS
-	+ KanbanBoardCRUD->KanbanBoardCRUDDS
-		- TeamBoard->TeamBoardDS
-	- ShortBoardCDS
-		+ KanbanBoardCRUD->KanbanCardCRUDDS
-			- TeamBoard->TeamBoardDS
-		+ KanbanCardPage->KanbanCardPageDS
-			- ShortCard
-				- KanbanCardCRUD->KanbanCardCreateDS
-				+ KanbanCardCRUD->KanbanCardUpdateDS
-					- EquipeWrapCDS
-						- TeamCard->TeamCardDS
-					- FeedCardList->FeedCardListDS
-						- FeedCardCRUD->FeedCardCreateDS
-						- FeedCardOne->
-							- FeedCardCRUD->FeedCardUpdateDS
-					- TodoCardList->TodoCardListDS
-						- TodoCardCRUD->TodoCardCreateDS
-						- TodoCardCRUD->TodoCardUpdateDS
-						
 ~~~
 
 # Models
