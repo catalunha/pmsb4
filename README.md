@@ -38,28 +38,29 @@ Considerando um projeto basico do counter do flutter
 	- counter_action.dart
 + container
 	+ components
-		- counter_value1.dart
+		- counter_value.dart
 	+ counter
 		- counter_page.dart
     + components
-      - counter_value2.dart
+      - counter_factorial.dart
 + middlewares
 	+ firebase
 		+ authentication
 			- authentication_middleware.dart
 		- firebase_model.dart
 		+ counter
-			- counter_model.dart
 			- counter_middleware.dart
++ model
+	- counter_model.dart
 + presentation
 	+ components
-		- counter_value1_ds.dart
+		- counter_value_ds.dart
 		- counter_text1_cds.dart
 	+ counter
-		- counter_button_comp.dart
+		- counter_button.dart
 		- counter_page_ds.dart
     + components
-      - counter_value2_ds.dart
+      - counter_factorial_ds.dart
       - counter_text2_cds.dart
 + reducers
 	- app_reducer.dart
