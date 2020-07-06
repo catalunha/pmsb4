@@ -36,28 +36,13 @@ class ShortCardCDS extends StatelessWidget {
       width: this.largura,
       child: Column(
         children: [
-          // arquivado
-          //     ? Row(
-          //         mainAxisAlignment: MainAxisAlignment.end,
-          //         children: [
-          //           Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text(
-          //               "PENDENTE",
-          //               style: TextStyle(color: Colors.grey[400], fontSize: 12),
-          //             ),
-          //           ),
-          //         ],
-          //       )
-          //     : Container(),
-
           Tooltip(
             message:
                 'Data e hora da última atualização e quantidade de ações atendidas. Identificador: ${tarefa.id.substring(0, 4)}. ',
             child: ListTile(
               title: Text("${tarefa.title}"),
               subtitle: Text(
-                  "${DateFormat('dd-MM-yyyy hh:mm').format(tarefa.modified)}. Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}"),
+                  "A: ${DateFormat('dd-MM HH').format(tarefa.modified)}h. D: ${(DateTime.now().difference(tarefa.created)).inDays}d. Ações: ${tarefa.todoCompleted}-${tarefa.todoTotal}"),
               onTap: onTap,
             ),
           ),
@@ -65,19 +50,6 @@ class ShortCardCDS extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.start,
             children: gerarListaUsuarios(),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     Wrap(
-          //       crossAxisAlignment: WrapCrossAlignment.start,
-          //       children: gerarListaUsuarios(),
-          //     ),
-          //     Tooltip(
-          //       message: "Prioridade alta",
-          //       child: Icon(Icons.brightness_1, color: Colors.redAccent),
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );
