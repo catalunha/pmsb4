@@ -38,7 +38,8 @@ class KanbanCardState {
       allKanbanCardModel: allKanbanCardModel ?? this.allKanbanCardModel,
       filteredKanbanCardModel:
           filteredKanbanCardModel ?? this.filteredKanbanCardModel,
-      currentKanbanCardModel: currentKanbanCardModel,
+      currentKanbanCardModel:
+          currentKanbanCardModel ?? this.currentKanbanCardModel,
       kanbanCardFilter: kanbanCardFilter ?? this.kanbanCardFilter,
       currentTeam: currentTeam ?? this.currentTeam,
     );
