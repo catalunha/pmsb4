@@ -8,6 +8,8 @@ import 'package:redux/redux.dart';
 import 'package:uuid/uuid.dart' as uuid;
 
 final kanbanCardReducer = combineReducers<KanbanCardState>([
+  TypedReducer<KanbanCardState, ReinitializeStatesKanbanCardModelAction>(
+      _reinitializeStatesKanbanCardModelAction),
   TypedReducer<KanbanCardState, AllKanbanCardModelAction>(
       _allKanbanCardModelAction),
   TypedReducer<KanbanCardState, CurrentKanbanCardModelAction>(
@@ -31,6 +33,7 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
   TypedReducer<KanbanCardState, UserViewOrUpdateKanbanCardModelAction>(
       _userViewOrUpdateKanbanCardModelAction),
 ]);
+
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
   print('_allKanbanCardModelAction...');
@@ -294,4 +297,15 @@ KanbanCardState _userViewOrUpdateKanbanCardModelAction(
     }
   }
   return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
+}
+
+KanbanCardState _reinitializeStatesKanbanCardModelAction(
+    KanbanCardState state, ReinitializeStatesKanbanCardModelAction action) {
+  return state.copyWith(
+    allKanbanCardModel: [],
+    filteredKanbanCardModel: [],
+    currentKanbanCardModel: null,
+    kanbanCardFilter: KanbanCardFilter.active,
+    currentTeam: Team(),
+  );
 }

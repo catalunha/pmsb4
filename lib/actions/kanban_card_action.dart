@@ -6,6 +6,9 @@ import 'package:pmsb4/states/types_states.dart';
 class KanbanCardAction {}
 
 /// +++ Actions atendidas pelo KanbanCardReducer
+
+class ReinitializeStatesKanbanCardModelAction extends KanbanCardAction {}
+
 class AllKanbanCardModelAction extends KanbanCardAction {
   final List<KanbanCardModel> allKanbanCardModel;
   final KanbanBoardModel currentKanbanBoardModel;
