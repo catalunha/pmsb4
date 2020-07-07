@@ -19,6 +19,7 @@ class KanbanCardModel extends FirestoreModel {
   bool active;
   int todoCompleted;
   int todoTotal;
+  int number;
 
   KanbanCardModel(
     String id, {
@@ -36,6 +37,7 @@ class KanbanCardModel extends FirestoreModel {
     this.active,
     this.todoCompleted,
     this.todoTotal,
+    this.number,
   }) : super(id);
 
   @override
@@ -96,6 +98,7 @@ class KanbanCardModel extends FirestoreModel {
     if (map.containsKey('active')) active = map['active'];
     if (map.containsKey('todoCompleted')) todoCompleted = map['todoCompleted'];
     if (map.containsKey('todoTotal')) todoTotal = map['todoTotal'];
+    if (map.containsKey('number')) number = map['number'];
 
     return this;
   }
@@ -142,6 +145,7 @@ class KanbanCardModel extends FirestoreModel {
     updateCompletedTodos();
     if (todoCompleted != null) data['todoCompleted'] = this.todoCompleted;
     if (todoTotal != null) data['todoTotal'] = this.todoTotal;
+    if (number != null) data['number'] = this.number;
 
     return data;
   }
@@ -171,6 +175,7 @@ class KanbanCardModel extends FirestoreModel {
 
   @override
   int get hashCode =>
+      number.hashCode ^
       kanbanBoard.hashCode ^
       title.hashCode ^
       description.hashCode ^
@@ -190,6 +195,7 @@ class KanbanCardModel extends FirestoreModel {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is KanbanCardModel &&
+          number == other.number &&
           kanbanBoard == other.kanbanBoard &&
           title == other.title &&
           description == other.description &&
