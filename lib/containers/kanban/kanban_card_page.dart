@@ -67,6 +67,7 @@ class KanbanCardPage extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
+        store.dispatch(ReinitializeStatesKanbanCardModelAction());
         store.dispatch(UpdateKanbanCardFilterAction(
             kanbanCardFilter: KanbanCardFilter.active));
         store.dispatch(StreamKanbanCardDataAction());
