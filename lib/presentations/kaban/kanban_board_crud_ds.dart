@@ -241,7 +241,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
           },
           child: Tooltip(
             message:
-                '${item.displayName} ${item.id.substring(0, 5)} . Clique para excluí-lo da equipe deste quadro.',
+                '${item.displayName}. Clique para excluí-lo da equipe deste quadro. Identificador: ${item.id.substring(0, 5)}.',
             child: Stack(
               children: [
                 CircleAvatar(
@@ -255,12 +255,12 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                     ),
                   ),
                 ),
-                Icon(
-                  Icons.remove_red_eye,
-                  color: item?.readedCard ?? true
-                      ? Colors.transparent
-                      : Colors.red,
-                ),
+                // Icon(
+                //   Icons.remove_red_eye,
+                //   color: item?.readedCard ?? true
+                //       ? Colors.transparent
+                //       : Colors.red,
+                // ),
               ],
             ),
           ),
