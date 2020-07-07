@@ -16,6 +16,9 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
   final bool active;
   final int todoCompleted;
   final int todoTotal;
+  final int number;
+  final String created;
+
   final List<Team> team;
   final Function(String, String, bool, bool) onCreate;
   final Function(String, String, bool, bool) onUpdate;
@@ -30,6 +33,8 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
     this.priority,
     this.active,
     this.team,
+    this.number,
+    this.created,
     this.onRemoveUserTeam,
     this.onCreate,
     this.onUpdate,
@@ -105,7 +110,7 @@ class _KanbanCardCreateUpdateOtherDSState
                   child: Container(
                     width: widthPage,
                     child: Text(
-                      "${widget.description}",
+                      "#${widget.number}. Criada em ${widget.created}.\n${widget.description}",
                       style: TextStyle(
                           color: PmsbColors.texto_terciario, fontSize: 14),
                     ),
