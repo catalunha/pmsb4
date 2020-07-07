@@ -1,11 +1,11 @@
 // enumerations types
 
 enum StageCard {
-  story,
-  todo,
-  doing,
-  check,
-  done,
+  story, //Pendências
+  todo, //Para fazer
+  doing, //Fazendo
+  check, //Verificando
+  done, //Concluído
 }
 
 //class types
