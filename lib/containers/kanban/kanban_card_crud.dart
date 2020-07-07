@@ -45,7 +45,7 @@ class _ViewModel {
     String userId = store.state.loggedState.firebaseUserLogged.uid;
     if (_currentKanbanCardModel?.team != null &&
         _currentKanbanCardModel.team.containsKey(userId) &&
-        !_currentKanbanCardModel.team[userId].readedCard) {
+        (_currentKanbanCardModel.team[userId].readedCard != true)) {
       store.dispatch(
           UserViewOrUpdateKanbanCardModelAction(user: userId, viewer: true));
       store.dispatch(
