@@ -15,6 +15,7 @@ class KanbanBoardModel extends FirestoreModel {
   dynamic created;
   dynamic modified;
   bool active;
+  int cardNumber;
 
   KanbanBoardModel(
     String id, {
@@ -27,6 +28,7 @@ class KanbanBoardModel extends FirestoreModel {
     this.created,
     this.modified,
     this.active,
+    this.cardNumber,
   }) : super(id);
 
   @override
@@ -59,6 +61,7 @@ class KanbanBoardModel extends FirestoreModel {
             map['modified'].millisecondsSinceEpoch)
         : null;
     if (map.containsKey('active')) active = map['active'];
+    if (map.containsKey('cardNumber')) cardNumber = map['cardNumber'];
 
     return this;
   }
@@ -87,6 +90,7 @@ class KanbanBoardModel extends FirestoreModel {
     if (created != null) data['created'] = this.created;
     if (modified != null) data['modified'] = this.modified;
     if (active != null) data['active'] = this.active;
+    if (cardNumber != null) data['cardNumber'] = this.cardNumber;
 
     return data;
   }
@@ -103,6 +107,7 @@ class KanbanBoardModel extends FirestoreModel {
 
   @override
   int get hashCode =>
+      cardNumber.hashCode ^
       title.hashCode ^
       description.hashCode ^
       public.hashCode ^
@@ -118,6 +123,7 @@ class KanbanBoardModel extends FirestoreModel {
       identical(this, other) ||
       other is KanbanBoardModel &&
           runtimeType == other.runtimeType &&
+          cardNumber == other.cardNumber &&
           title == other.title &&
           description == other.description &&
           public == other.public &&
