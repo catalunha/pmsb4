@@ -280,13 +280,6 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                   widget.filteredKanbanCardModel.insert(indexFirstStage, todo);
                   // ---
                   onChangeCardOrderPush();
-
-                  // var index = 1;
-                  // Map<String, String> cardOrder = Map.fromIterable(
-                  //     widget.filteredKanbanCardModel,
-                  //     key: (e) => (index++).toString(),
-                  //     value: (e) => e.id);
-                  // widget.onChangeCardOrder(cardOrder);
                 });
               },
               builder: (context, accept, reject) {
