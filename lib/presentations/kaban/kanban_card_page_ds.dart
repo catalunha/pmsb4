@@ -33,6 +33,13 @@ class KanbanCardPageDS extends StatefulWidget {
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   List<String> stages = [
+    StageCard.story.toString(),
+    StageCard.todo.toString(),
+    StageCard.doing.toString(),
+    StageCard.check.toString(),
+    StageCard.done.toString(),
+  ];
+  List<String> stagesLabels = [
     'Pendências', //StageCard.story.toString(),
     'Para fazer', // StageCard.todo.toString(),
     'Fazendo', //StageCard.doing.toString(),
@@ -180,7 +187,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Text(
-                        stages[indexStage],
+                        stagesLabels[indexStage],
                         style: TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 14.0,
