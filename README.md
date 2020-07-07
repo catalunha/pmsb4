@@ -38,10 +38,10 @@ Remote:
 //etapa03
 // No gitHub click Pull Request
 // Escolha a branch a ser enviada para master.
-// base: master <- compare: issueY
+// base: master <- compare: seunome/issueY
 // Coloque o nome do PullRequest com o mesmo nome da issueY
 // Click Create pull request
-// Volte na issueY e link esta issue ao pull de nome issueY
+// Volte na seunome/issueY e link esta issue ao pull de nome seunome/issueY
 // Aguarde pois irei fazer pull local desta branch entender o que vc fez.
 // Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
 //  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
