@@ -33,11 +33,11 @@ class KanbanCardPageDS extends StatefulWidget {
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   List<String> stages = [
-    StageCard.story.toString(),
-    StageCard.todo.toString(),
-    StageCard.doing.toString(),
-    StageCard.check.toString(),
-    StageCard.done.toString(),
+    'Pendências', //StageCard.story.toString(),
+    'Para fazer', // StageCard.todo.toString(),
+    'Fazendo', //StageCard.doing.toString(),
+    'Verificando', //StageCard.check.toString(),
+    'Concluído', //StageCard.done.toString(),
   ];
 
   @override
