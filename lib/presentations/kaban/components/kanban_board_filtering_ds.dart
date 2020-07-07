@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
+import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 import 'package:pmsb4/states/types_states.dart';
 
 class KanbanBoardFilteringDS extends StatelessWidget {
@@ -16,8 +17,8 @@ class KanbanBoardFilteringDS extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<KanbanBoardFilter>(
       tooltip: "Opções para quadros",
-      color: PmsbColors.fundo,
-      icon: Icon(Icons.filter_list),
+      color: PmsbColors.navbar,
+      icon: Icon(Icons.filter_list, color: Colors.white,),
       onSelected: onSelectFilter,
       itemBuilder: (BuildContext context) => <PopupMenuItem<KanbanBoardFilter>>[
         PopupMenuItem<KanbanBoardFilter>(
@@ -25,9 +26,9 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.archive),
+              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
               SizedBox(width: 5),
-              Text('TODOS OS QUADRO (DEV)'),
+              Text('TODOS OS QUADRO (DEV)',style: PmsbStyles.textoPrimario,),
               SizedBox(width: 5),
             ],
           ),
@@ -37,9 +38,9 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.archive),
+              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
               SizedBox(width: 5),
-              Text('Quadros que coordeno'),
+              Text('Quadros que coordeno',style: PmsbStyles.textoPrimario,),
               SizedBox(width: 5),
             ],
           ),
@@ -49,9 +50,9 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.archive),
+              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
               SizedBox(width: 5),
-              Text('Quadros que faço parte'),
+              Text('Meus quadros',style: PmsbStyles.textoPrimario,),
               SizedBox(width: 5),
             ],
           ),
@@ -61,9 +62,9 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.archive),
+              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
               SizedBox(width: 5),
-              Text('Quadros públicos'),
+              Text('Quadros públicos',style: PmsbStyles.textoPrimario,),
               SizedBox(width: 5),
             ],
           ),
@@ -73,9 +74,9 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.archive),
+              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
               SizedBox(width: 5),
-              Text('Meus quadro arquivados'),
+              Text('Quadros arquivados',style: PmsbStyles.textoPrimario,),
               SizedBox(width: 5),
             ],
           ),

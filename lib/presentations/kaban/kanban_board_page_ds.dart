@@ -7,6 +7,7 @@ import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/kaban/components/short_board_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
+import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 import 'package:pmsb4/states/types_states.dart';
 
 class KanbanBoardPageDS extends StatelessWidget {
@@ -27,17 +28,19 @@ class KanbanBoardPageDS extends StatelessWidget {
     List<String> kanbanBoardFilterLabel = [
       'TODOS OS QUADRO (DEV)',
       'Quadros que coordeno',
-      'Quadros que faço parte',
+      'Meus quadros',
       'Quadros públicos',
-      'Meus quadro arquivados',
+      'Quadro arquivados',
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text("${kanbanBoardFilterLabel[kanbanBoardFilter.index]}")),
+        actions: [LogoutButton()],
+        elevation: 0,
+        backgroundColor: PmsbColors.fundo,
+        centerTitle: true,
+        title: Text("${kanbanBoardFilterLabel[kanbanBoardFilter.index]}"),
       ),
-      backgroundColor: PmsbColors.navbar,
-      // backToRootPage: true,
+      backgroundColor: PmsbColors.fundo,
       body: body(context),
     );
   }
@@ -58,7 +61,10 @@ class KanbanBoardPageDS extends StatelessWidget {
                     kanbanBoardFilter.toString() ==
                             KanbanBoardFilter.activeAuthor.toString()
                         ? RaisedButton(
-                            child: Text("Criar novo quadro"),
+                            child: Text(
+                              "Criar novo quadro",
+                              style: PmsbStyles.textoPrimario,
+                            ),
                             color: PmsbColors.cor_destaque,
                             onPressed: () {
                               onCurrentKanbanBoardModel(null);
@@ -70,9 +76,8 @@ class KanbanBoardPageDS extends StatelessWidget {
                             },
                           )
                         : Container(),
-                    // botaoMore()
+                    SizedBox(width: 5),
                     KanbanFiltering(),
-                    LogoutButton(),
                   ],
                 )
               ],
