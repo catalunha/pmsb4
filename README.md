@@ -25,7 +25,7 @@ git branch -d seunome/issueX
 // Por exemplo issueY onde Y é sempre o numero da issue.
 git branch seunome/issueY
 git checkout seunome/issueY
-// StackCmds: git checkout -b seunome/issueY
+// StackCmds: git checkout -b seunome/issue
 // Resolva a seunome/issueY
 // FAÇA TODOS OS TESTES NECESSÁRIOS PRA EVITAR REFATORAÇÃO COM NOVA ISSUE.
 git add .
