@@ -15,7 +15,7 @@ class KanbanBoardModel extends FirestoreModel {
   dynamic created;
   dynamic modified;
   bool active;
-  int cardNumber;
+  dynamic cardNumber;
 
   KanbanBoardModel(
     String id, {

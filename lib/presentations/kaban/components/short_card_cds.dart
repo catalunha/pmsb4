@@ -38,12 +38,14 @@ class ShortCardCDS extends StatelessWidget {
         children: [
           ListTile(
             title: Text("${tarefa.title}"),
-            subtitle: Tooltip(
-              message:
-                  'Descrição: ${tarefa.description}.\nIdentificador: ${tarefa.id.substring(0, 4)}. ',
-              child: Text(
-                  "#12. ${DateFormat('dd-MM HH').format(tarefa.modified)}h. ${(DateTime.now().difference(tarefa.created)).inDays}d. ${tarefa.todoCompleted} de ${tarefa.todoTotal}."),
-            ),
+            subtitle:
+                //  Tooltip(
+                //   message:
+                //       'Descrição: ${tarefa.description}.\nIdentificador: ${tarefa.id.substring(0, 4)}. ',
+                //   child:
+                Text(
+                    "#${tarefa.number}. ${DateFormat('dd-MM HH').format(tarefa.modified)}h. ${(DateTime.now().difference(tarefa.created)).inDays}d. Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}."),
+            // ),
             onTap: onTap,
           ),
           Wrap(
