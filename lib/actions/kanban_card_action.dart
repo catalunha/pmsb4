@@ -65,9 +65,9 @@ class RemoveFeedKanbanCardModelAction extends KanbanCardAction {
 }
 
 class UserViewOrUpdateKanbanCardModelAction extends KanbanCardAction {
-  final bool viewer;
   final String user;
-  UserViewOrUpdateKanbanCardModelAction({this.viewer, this.user});
+  final bool viewer;
+  UserViewOrUpdateKanbanCardModelAction({this.user, this.viewer});
 }
 
 // +++ Actions atendidas pelo firebaseFirestoreKanbanCardMiddleware

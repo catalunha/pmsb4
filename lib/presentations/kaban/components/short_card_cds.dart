@@ -70,7 +70,7 @@ class ShortCardCDS extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Tooltip(
-          message: user.displayName,
+          message: '${user.displayName} ${user?.readedCard}',
           child: Container(
             padding: EdgeInsets.all(1),
             height: 30,
@@ -85,11 +85,14 @@ class ShortCardCDS extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 20,
-          left: 20,
-          child: Icon(Icons.brightness_1, color: Colors.redAccent, size: 10),
-        )
+        user?.readedCard != null && !user.readedCard
+            ? Positioned(
+                top: 20,
+                left: 20,
+                child:
+                    Icon(Icons.brightness_1, color: Colors.redAccent, size: 10),
+              )
+            : Text(''),
       ],
     );
   }

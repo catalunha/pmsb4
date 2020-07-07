@@ -167,4 +167,7 @@ class KanbanCardCRUD extends StatelessWidget {
       },
     );
   }
+
+  @override
+  dispose() {}
 }
