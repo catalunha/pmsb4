@@ -39,14 +39,21 @@ Remote:
 // No gitHub click Pull Request
 // Escolha a branch a ser enviada para master.
 // base: master <- compare: seunome/issueY
-// Coloque o nome do PullRequest com o mesmo nome da issueY
+// Coloque o nome do PullRequest com o mesmo nome da seunome/issueY
+// Associe-me como reviwers deste PullRequest
 // Click Create pull request
-// Volte na seunome/issueY e link esta issue ao pull de nome seunome/issueY
+// Volte na seunome/issueY e link esta issue ao PullRequest criado seunome/issueY
 // Aguarde pois irei fazer pull local desta branch entender o que vc fez.
-// Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
+// Caso incompleta pode continuar atualizando a issue e a branch respectiva.
 //  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
 // Concluida a issue darei o merge e irei apagar a branch. Por isto é importante a etapa01
 ~~~
+
+Caso vc utilize a extensão: github.vscode-pull-request-github
+ todas estas etapas ficam mais automatizadas.
+
+Mas o roteiro é sempre este.
+
 
 # Branchs e Redux
 
