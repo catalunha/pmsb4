@@ -14,7 +14,7 @@ git pull origin master
 git fetch --prune
 git branch --all
 // Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
-git branch -d issueX
+git branch -d seunome/issueX
 ~~~
 ~~~
 //etapa02
@@ -22,13 +22,13 @@ git branch -d issueX
 // Crie e, ou escolha uma issue pequena
 // Trabalhe apenas na solução especifica dela. 
 // Por exemplo issueY onde Y é sempre o numero da issue.
-git branch issueY
-git checkout issueY
-// Resolva a issueY
+git branch seunome/issueY
+git checkout seunome/issueY
+// Resolva a seunome/issueY
 // FAÇA TODOS OS TESTES NECESSÁRIOS PRA EVITAR REFATORAÇÃO COM NOVA ISSUE.
 git add .
-git commit -m 'sua msg para a issueY'
-git push origin issueY
+git commit -m 'sua msg para a seunome/issue'Y
+git push origin seunome/issueY
 // Solicite um PullRequest desta issue para master. veja etapa03
 // A aguarde minha resposta caso precise dela, acompanhando a issue.
 // Escolha outra issue e volte para a etapa01 depois etapa02. 
@@ -38,15 +38,22 @@ Remote:
 //etapa03
 // No gitHub click Pull Request
 // Escolha a branch a ser enviada para master.
-// base: master <- compare: issueY
-// Coloque o nome do PullRequest com o mesmo nome da issueY
+// base: master <- compare: seunome/issueY
+// Coloque o nome do PullRequest com o mesmo nome da seunome/issueY
+// Associe-me como reviwers deste PullRequest
 // Click Create pull request
-// Volte na issueY e link esta issue ao pull de nome issueY
+// Volte na seunome/issueY e link esta issue ao PullRequest criado seunome/issueY
 // Aguarde pois irei fazer pull local desta branch entender o que vc fez.
-// Caso inconpleta pode continuar atualizando a issue e a branch respectiva.
+// Caso incompleta pode continuar atualizando a issue e a branch respectiva.
 //  O PullRequest continua recebendo estes commits ate concluirmos a issue com a branch respectiva
 // Concluida a issue darei o merge e irei apagar a branch. Por isto é importante a etapa01
 ~~~
+
+Caso vc utilize a extensão: github.vscode-pull-request-github
+ todas estas etapas ficam mais automatizadas.
+
+Mas o roteiro é sempre este.
+
 
 # Branchs e Redux
 
