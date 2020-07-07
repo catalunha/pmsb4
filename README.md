@@ -14,7 +14,7 @@ git pull origin master
 git fetch --prune
 git branch --all
 // Verifique as branchs locais e remotas. Apague o que for necessario pra manter sincronizada sua área de trabalho local.
-git branch -d issueX
+git branch -d seunome/issueX
 ~~~
 ~~~
 //etapa02
@@ -22,13 +22,13 @@ git branch -d issueX
 // Crie e, ou escolha uma issue pequena
 // Trabalhe apenas na solução especifica dela. 
 // Por exemplo issueY onde Y é sempre o numero da issue.
-git branch issueY
-git checkout issueY
-// Resolva a issueY
+git branch seunome/issueY
+git checkout seunome/issueY
+// Resolva a seunome/issueY
 // FAÇA TODOS OS TESTES NECESSÁRIOS PRA EVITAR REFATORAÇÃO COM NOVA ISSUE.
 git add .
-git commit -m 'sua msg para a issueY'
-git push origin issueY
+git commit -m 'sua msg para a seunome/issue'Y
+git push origin seunome/issueY
 // Solicite um PullRequest desta issue para master. veja etapa03
 // A aguarde minha resposta caso precise dela, acompanhando a issue.
 // Escolha outra issue e volte para a etapa01 depois etapa02. 
