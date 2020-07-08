@@ -35,18 +35,29 @@ class ShortBoardCDS extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 19,
-                child: ClipOval(
-                  child: Center(
-                    child: quadro.author?.photoUrl != null
-                        ? Image.network(quadro.author.photoUrl)
-                        : Icon(Icons.person_add),
-                  ),
-                ),
-              ),
+              // SizedBox(width: 5),
+              // CircleAvatar(
+              //   radius: 19,
+              //   child: ClipOval(
+              //     child: Center(
+              //       child: quadro.author?.photoUrl != null
+              //           ? Image.network(quadro.author.photoUrl)
+              //           : Icon(Icons.person_add),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 19,
+                    child: ClipOval(
+                      child: Center(
+                        child: quadro.author?.photoUrl != null
+                            ? Image.network(quadro.author.photoUrl)
+                            : Icon(Icons.person_add),
+                      ),
+                    ),
+                  ),
                   onTap: this.onViewKanbanCards,
                   trailing:
                       Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
@@ -130,7 +141,10 @@ class ShortBoardCDS extends StatelessWidget {
     if (this.quadro?.team != null) {
       for (var usuario in this.quadro.team.entries) {
         usuariosWidget.add(Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.only(
+            left: 15,
+            bottom: 5,
+          ),
           child: Tooltip(
             message: usuario.value.displayName,
             child: CircleAvatar(
