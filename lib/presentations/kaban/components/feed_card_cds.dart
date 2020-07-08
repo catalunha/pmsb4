@@ -62,7 +62,8 @@ class _FeedCardCDSState extends State<FeedCardCDS> {
                         ),
                       ),
                     ),
-                    widget.loggedId == widget.feed.author.id
+                    (widget.loggedId == widget.feed.author.id) &&
+                            (!widget.feed.bot)
                         ? botaoMore(id: widget.feed.id)
                         : Container(),
                   ],
