@@ -44,7 +44,7 @@ class ShortCardCDS extends StatelessWidget {
               child:
                   // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
                   Text(
-                      "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays}d atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
+                      "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} dias atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
             ),
             onTap: onTap,
           ),
