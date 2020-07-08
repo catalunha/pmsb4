@@ -17,10 +17,8 @@ extension StageCardExtension on StageCard {
     StageCard.check: 'Verificando',
     StageCard.done: 'Concluído',
   };
-
   String get name => names[this];
 }
-
 //---StageCard
 //class types
 
