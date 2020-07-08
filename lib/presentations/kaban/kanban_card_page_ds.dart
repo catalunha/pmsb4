@@ -17,7 +17,7 @@ class KanbanCardPageDS extends StatefulWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
   final Function(Map<String, String>) onChangeCardOrder;
-  final Function(String, String) onChangeStageCard;
+  final Function(String, StageCard) onChangeStageCard;
 
   KanbanCardPageDS({
     Key key,
@@ -32,27 +32,11 @@ class KanbanCardPageDS extends StatefulWidget {
 }
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
-  // List<String> stages = [
-  //   StageCard.story.toString(),
-  //   StageCard.todo.toString(),
-  //   StageCard.doing.toString(),
-  //   StageCard.check.toString(),
-  //   StageCard.done.toString(),
-  // ];
-  // List<String> stagesLabels = [
-  //   'Pendências', //StageCard.story.toString(),
-  //   'Para fazer', // StageCard.todo.toString(),
-  //   'Fazendo', //StageCard.doing.toString(),
-  //   'Verificando', //StageCard.check.toString(),
-  //   'Concluído', //StageCard.done.toString(),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            "${StageCard.story.name} Cartões para o ${widget.currentKanbanBoardModel?.title}"),
+        title: Text("Cartões para o ${widget.currentKanbanBoardModel?.title}"),
       ),
       backgroundColor: PmsbColors.navbar,
       body: body(context),
@@ -277,8 +261,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                   widget.filteredKanbanCardModel[indexOf].stageCard =
                       indexStage.toString();
                   widget.onChangeStageCard(
-                      widget.filteredKanbanCardModel[indexOf].id,
-                      indexStage.toString());
+                      widget.filteredKanbanCardModel[indexOf].id, indexStage);
                   // +++ tire o elemento de onde esta e coloca no topo da list do destino
                   int indexFirstStage = widget.filteredKanbanCardModel.indexOf(
                       widget.filteredKanbanCardModel.firstWhere((element) =>
