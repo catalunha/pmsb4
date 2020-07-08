@@ -77,7 +77,7 @@ class _ViewModel {
         _currentKanbanCardModel.description = description;
         _currentKanbanCardModel.priority = false;
         _currentKanbanCardModel.active = true;
-        _currentKanbanCardModel.stageCard = StageCard.story.toString();
+        _currentKanbanCardModel.stageCard = StageCard.todo.toString();
         _currentKanbanCardModel.created = DateTime.now();
         _currentKanbanCardModel.modified = DateTime.now();
         FirebaseUser _firebaseUserLogged =
