@@ -152,7 +152,10 @@ class ShortBoardCDS extends StatelessWidget {
     if (this.quadro?.team != null) {
       for (var usuario in this.quadro.team.entries) {
         usuariosWidget.add(Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.only(
+            left: 15,
+            bottom: 5,
+          ),
           child: Tooltip(
             message: usuario.value.displayName,
             child: Padding(

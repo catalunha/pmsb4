@@ -36,48 +36,22 @@ class ShortCardCDS extends StatelessWidget {
       width: this.largura,
       child: Column(
         children: [
-          // arquivado
-          //     ? Row(
-          //         mainAxisAlignment: MainAxisAlignment.end,
-          //         children: [
-          //           Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text(
-          //               "PENDENTE",
-          //               style: TextStyle(color: Colors.grey[400], fontSize: 12),
-          //             ),
-          //           ),
-          //         ],
-          //       )
-          //     : Container(),
-
-          Tooltip(
-            message:
-                'Data e hora da última atualização e quantidade de ações atendidas. Identificador: ${tarefa.id.substring(0, 4)}. ',
-            child: ListTile(
-              title: Text("${tarefa.title}"),
-              subtitle: Text(
-                  "${DateFormat('dd-MM-yyyy hh:mm').format(tarefa.modified)}. Ações: ${tarefa.todoCompleted} de ${tarefa.todoTotal}"),
-              onTap: onTap,
+          ListTile(
+            title: Text("${tarefa.title}"),
+            subtitle: Tooltip(
+              message:
+                  'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}h. ',
+              child:
+                  // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
+                  Text(
+                      "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} dias atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
             ),
+            onTap: onTap,
           ),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
             children: gerarListaUsuarios(),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     Wrap(
-          //       crossAxisAlignment: WrapCrossAlignment.start,
-          //       children: gerarListaUsuarios(),
-          //     ),
-          //     Tooltip(
-          //       message: "Prioridade alta",
-          //       child: Icon(Icons.brightness_1, color: Colors.redAccent),
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );
@@ -98,7 +72,7 @@ class ShortCardCDS extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Tooltip(
-          message: user.displayName,
+          message: '${user.displayName} ${user?.readedCard}',
           child: Container(
             padding: EdgeInsets.all(1),
             height: 30,
@@ -113,11 +87,14 @@ class ShortCardCDS extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 20,
-          left: 20,
-          child: Icon(Icons.brightness_1, color: Colors.redAccent, size: 10),
-        )
+        user?.readedCard != null && !user.readedCard
+            ? Positioned(
+                top: 20,
+                left: 20,
+                child:
+                    Icon(Icons.brightness_1, color: Colors.redAccent, size: 10),
+              )
+            : Text(''),
       ],
     );
   }

@@ -8,6 +8,8 @@ import 'package:redux/redux.dart';
 import 'package:uuid/uuid.dart' as uuid;
 
 final kanbanCardReducer = combineReducers<KanbanCardState>([
+  TypedReducer<KanbanCardState, ReinitializeStatesKanbanCardModelAction>(
+      _reinitializeStatesKanbanCardModelAction),
   TypedReducer<KanbanCardState, AllKanbanCardModelAction>(
       _allKanbanCardModelAction),
   TypedReducer<KanbanCardState, CurrentKanbanCardModelAction>(
@@ -31,6 +33,7 @@ final kanbanCardReducer = combineReducers<KanbanCardState>([
   TypedReducer<KanbanCardState, UserViewOrUpdateKanbanCardModelAction>(
       _userViewOrUpdateKanbanCardModelAction),
 ]);
+
 KanbanCardState _allKanbanCardModelAction(
     KanbanCardState state, AllKanbanCardModelAction action) {
   print('_allKanbanCardModelAction...');
@@ -277,12 +280,13 @@ KanbanCardState _userViewOrUpdateKanbanCardModelAction(
     KanbanCardState state, UserViewOrUpdateKanbanCardModelAction action) {
   print('_userViewOrUpdateKanbanCardModelAction...');
   KanbanCardModel _currentKanbanCardModel = state.currentKanbanCardModel;
-  if (_currentKanbanCardModel?.team != null &&
-      _currentKanbanCardModel.team.containsKey(action.user)) {
-    if (action.viewer) {
+  if (_currentKanbanCardModel?.team != null) {
+    if (action.viewer &&
+        _currentKanbanCardModel.team.containsKey(action.user)) {
       //user atual vendo este card. marca como lido.
       _currentKanbanCardModel.team[action.user].readedCard = true;
-    } else {
+    }
+    if (!action.viewer) {
       //user atual update neste card. os demais tem q ler
       _currentKanbanCardModel.team.forEach((key, value) {
         if (key == action.user) {
@@ -294,4 +298,15 @@ KanbanCardState _userViewOrUpdateKanbanCardModelAction(
     }
   }
   return state.copyWith(currentKanbanCardModel: _currentKanbanCardModel);
+}
+
+KanbanCardState _reinitializeStatesKanbanCardModelAction(
+    KanbanCardState state, ReinitializeStatesKanbanCardModelAction action) {
+  return state.copyWith(
+    allKanbanCardModel: [],
+    filteredKanbanCardModel: [],
+    currentKanbanCardModel: null,
+    kanbanCardFilter: KanbanCardFilter.active,
+    currentTeam: Team(),
+  );
 }

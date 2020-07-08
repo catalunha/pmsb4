@@ -1,9 +1,51 @@
+enum StageCardType {
+  story, //Pendências
+  todo, //Para fazer
+  doing, //Fazendo
+  check, //Verificando
+  done, //Concluído
+}
+
+class StageCard {
+  StageCard._();
+
+  static const StageCardType story = StageCardType.story;
+  // static const String todo = 'todo';
+  // static const String doing = 'doing';
+  // static const String check = 'check';
+  // static const String done = 'done';
+  static String label(StageCardType type) {
+    String label;
+    if (type == StageCard.story) {
+      label = 'Pendências';
+    }
+    // else if (type == StageCard.todo) {
+    //   label = 'Para fazer';
+    // } else if (type == StageCard.doing) {
+    //   label = 'Fazendo';
+    // } else if (type == StageCard.check) {
+    //   label = 'Verificar';
+    // } else if (type == StageCard.done) {
+    //   label = 'Concluído';
+    // }
+    return label;
+  }
+}
+
 void main() {
-  Map<String, String> map = Map<String, String>();
+  print('foi');
+  print(StageCardType.story.index);
+  print(StageCard.label(StageCard.story));
+  var a = StageCard.story;
+  print(a == StageCard.story);
+}
+
+/*
+Map<String, String> map = Map<String, String>();
   // map['1'] = '2';
   // map = {'4': '2', '1': '3', '2': '6', '3': '1'};
   print(map.length);
-}
+  */
 /*
 main() {
 

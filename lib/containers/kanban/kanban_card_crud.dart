@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_board_action.dart';
@@ -20,6 +21,8 @@ class _ViewModel {
   final bool active;
   final int todoCompleted;
   final int todoTotal;
+  final int number;
+  final String created;
   final List<Team> team;
 
   final Function(String, String) onCreate;
@@ -36,6 +39,8 @@ class _ViewModel {
     this.onRemoveUserTeam,
     this.todoCompleted,
     this.todoTotal,
+    this.number,
+    this.created,
     this.onCreate,
     this.onUpdate,
   });
@@ -45,7 +50,7 @@ class _ViewModel {
     String userId = store.state.loggedState.firebaseUserLogged.uid;
     if (_currentKanbanCardModel?.team != null &&
         _currentKanbanCardModel.team.containsKey(userId) &&
-        !_currentKanbanCardModel.team[userId].readedCard) {
+        (_currentKanbanCardModel.team[userId].readedCard != true)) {
       store.dispatch(
           UserViewOrUpdateKanbanCardModelAction(user: userId, viewer: true));
       store.dispatch(
@@ -59,6 +64,8 @@ class _ViewModel {
       active: _currentKanbanCardModel?.active ?? true,
       todoCompleted: _currentKanbanCardModel?.todoCompleted ?? 0,
       todoTotal: _currentKanbanCardModel?.todoTotal ?? 0,
+      number: _currentKanbanCardModel.number,
+      created: _currentKanbanCardModel.created.toString(),
       team: _currentKanbanCardModel.team != null
           ? _currentKanbanCardModel.team.entries.map((e) => e.value).toList()
           : [],
@@ -70,7 +77,7 @@ class _ViewModel {
         _currentKanbanCardModel.description = description;
         _currentKanbanCardModel.priority = false;
         _currentKanbanCardModel.active = true;
-        _currentKanbanCardModel.stageCard = StageCard.story.toString();
+        _currentKanbanCardModel.stageCard = StageCard.todo.toString();
         _currentKanbanCardModel.created = DateTime.now();
         _currentKanbanCardModel.modified = DateTime.now();
         FirebaseUser _firebaseUserLogged =
@@ -83,6 +90,12 @@ class _ViewModel {
         KanbanBoardModel _currentKanbanBoardModel =
             store.state.kanbanBoardState.currentKanbanBoardModel;
         _currentKanbanCardModel.kanbanBoard = _currentKanbanBoardModel.id;
+        _currentKanbanCardModel.number =
+            _currentKanbanBoardModel?.cardNumber ?? 1;
+        _currentKanbanBoardModel.cardNumber =
+            _currentKanbanBoardModel?.cardNumber == null
+                ? 2
+                : FieldValue.increment(1);
 
         if (_currentKanbanBoardModel?.cardOrder != null) {
           Map<String, String> temp = Map<String, String>();
@@ -92,9 +105,9 @@ class _ViewModel {
           });
           _currentKanbanBoardModel.cardOrder.clear();
           _currentKanbanBoardModel.cardOrder.addAll(temp);
-          store.dispatch(UpdateKanbanBoardDataAction(
-              kanbanBoardModel: _currentKanbanBoardModel));
         }
+        store.dispatch(UpdateKanbanBoardDataAction(
+            kanbanBoardModel: _currentKanbanBoardModel));
         store.dispatch(
             AddKanbanCardDataAction(kanbanCardModel: _currentKanbanCardModel));
       },
@@ -152,6 +165,8 @@ class KanbanCardCRUD extends StatelessWidget {
           );
         } else {
           return KanbanCardCreateUpdateOtherDS(
+            created: _viewModel.created,
+            number: _viewModel.number,
             author: _viewModel.author,
             title: _viewModel.title,
             description: _viewModel.description,
@@ -167,4 +182,7 @@ class KanbanCardCRUD extends StatelessWidget {
       },
     );
   }
+
+  @override
+  dispose() {}
 }

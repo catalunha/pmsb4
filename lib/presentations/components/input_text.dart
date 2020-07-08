@@ -18,7 +18,10 @@ class InputTextState extends State<InputText> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        textAlign: TextAlign.start,
         decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          fillColor: Colors.white12,
           labelText: widget.title,
         ),
         initialValue: widget.initialValue ?? '',

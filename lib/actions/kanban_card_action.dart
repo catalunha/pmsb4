@@ -6,6 +6,9 @@ import 'package:pmsb4/states/types_states.dart';
 class KanbanCardAction {}
 
 /// +++ Actions atendidas pelo KanbanCardReducer
+
+class ReinitializeStatesKanbanCardModelAction extends KanbanCardAction {}
+
 class AllKanbanCardModelAction extends KanbanCardAction {
   final List<KanbanCardModel> allKanbanCardModel;
   final KanbanBoardModel currentKanbanBoardModel;
@@ -62,9 +65,9 @@ class RemoveFeedKanbanCardModelAction extends KanbanCardAction {
 }
 
 class UserViewOrUpdateKanbanCardModelAction extends KanbanCardAction {
-  final bool viewer;
   final String user;
-  UserViewOrUpdateKanbanCardModelAction({this.viewer, this.user});
+  final bool viewer;
+  UserViewOrUpdateKanbanCardModelAction({this.user, this.viewer});
 }
 
 // +++ Actions atendidas pelo firebaseFirestoreKanbanCardMiddleware

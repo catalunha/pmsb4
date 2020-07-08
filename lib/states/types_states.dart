@@ -6,21 +6,28 @@ enum AuthenticationStatus {
   sendPasswordReset,
 }
 
-enum CollectionFilter {
-  all,
-  checkTrue,
-  checkFalse,
-  checkNull,
-}
-
+//+++KanbanBoardFilter
 enum KanbanBoardFilter {
-  all, // so para desenvolvimento no mid
-  activeAuthor, //all=filter
-  activeTeam, //all=filter
-  publics, //all=filter
-  inactive, //all=filter
+  all,
+  activeAuthor,
+  activeTeam,
+  publics,
+  inactive,
 }
 
+extension KanbanBoardFilterExtension on KanbanBoardFilter {
+  static const names = {
+    KanbanBoardFilter.all: 'TODOS OS QUADRO (Dev)',
+    KanbanBoardFilter.activeAuthor: 'Quadros que coordeno',
+    KanbanBoardFilter.activeTeam: 'Quadros que estou na equipe',
+    KanbanBoardFilter.publics: 'Quadros públicos',
+    KanbanBoardFilter.inactive: 'Quadros arquivados',
+  };
+  String get name => names[this];
+}
+//---KanbanBoardFilter
+
+//+++KanbanCardFilter
 enum KanbanCardFilter {
   all, // so para desenvolvimento no mid
   active, //all=active+normal+priority
@@ -29,12 +36,17 @@ enum KanbanCardFilter {
   priority, //filter<all>= priority
 }
 
-class KanbanCardFilter2 {
-  static String all = 'all';
-  static String label(String value) {
-    return 'allll';
-  }
+extension KanbanCardFilterExtension on KanbanCardFilter {
+  static const names = {
+    KanbanCardFilter.all: 'Todos os cartões',
+    KanbanCardFilter.active: 'Cartões ativos',
+    KanbanCardFilter.inactive: 'Cartões inativos',
+    KanbanCardFilter.normal: 'Prioridade normal',
+    KanbanCardFilter.priority: 'Prioridade alta',
+  };
+  String get name => names[this];
 }
+//---KanbanCardFilter
 
 enum UserFilter {
   all,
