@@ -18,16 +18,20 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PmsbColors.navbar,
+      backgroundColor: PmsbColors.fundo,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: PmsbColors.fundo,
+        centerTitle: true,
         title: Text('Cartões Arquivados'),
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: true,
         leading: IconButton(
-            icon: Icon(Icons.assignment_return),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, Routes.kanbanCardPage);
-            }),
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.kanbanCardPage);
+          },
+        ),
       ),
       body: Container(
         child: Column(
@@ -35,14 +39,11 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Container(
+            /*Container(
               height: 1,
               width: MediaQuery.of(context).size.width * 0.8,
-              color: Colors.grey,
-            ),
-            SizedBox(
-              height: 30,
-            ),
+              color: PmsbColors.card,
+            ),*/
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(
