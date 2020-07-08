@@ -14,7 +14,7 @@ class _ViewModel {
   final KanbanBoardModel currentKanbanBoardModel;
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
-  final Function(String, String) onChangeStageCard;
+  final Function(String, StageCard) onChangeStageCard;
   final Function(Map<String, String>) onChangeCardOrder;
 
   _ViewModel({
@@ -33,35 +33,15 @@ class _ViewModel {
       onCurrentKanbanCardModel: (String id) {
         store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
-      onChangeStageCard: (String idKanbanCardModel, String newStageCard) {
+      onChangeStageCard: (String idKanbanCardModel, StageCard newStageCard) {
         KanbanCardModel _currentKanbanCardModel = store
             .state.kanbanCardState.allKanbanCardModel
             .firstWhere((element) => element.id == idKanbanCardModel);
-        _currentKanbanCardModel.stageCard = newStageCard;
+        _currentKanbanCardModel.stageCard = newStageCard.toString();
         //+++ atualiza o feed
-        List<String> stagesLabels = [
-          'Pendências', //StageCard.story.toString(),
-          'Para fazer', // StageCard.todo.toString(),
-          'Fazendo', //StageCard.doing.toString(),
-          'Verificando', //StageCard.check.toString(),
-          'Concluído', //StageCard.done.toString(),
-        ];
-        int stageLabelIndex;
-        if (newStageCard == StageCard.story.toString()) {
-          stageLabelIndex = 0;
-        } else if (newStageCard == StageCard.todo.toString()) {
-          stageLabelIndex = 1;
-        } else if (newStageCard == StageCard.doing.toString()) {
-          stageLabelIndex = 2;
-        } else if (newStageCard == StageCard.check.toString()) {
-          stageLabelIndex = 3;
-        } else if (newStageCard == StageCard.done.toString()) {
-          stageLabelIndex = 4;
-        }
-
         Feed feed = Feed(id: null);
         feed.description =
-            'Cartão foi movido para a coluna: ${stagesLabels[stageLabelIndex]}';
+            'Cartão foi movido para a coluna: ${newStageCard.name}';
         feed.link = null;
         feed.bot = true;
         final firebaseUser = store.state.loggedState.firebaseUserLogged;

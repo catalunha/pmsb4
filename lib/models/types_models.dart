@@ -1,13 +1,25 @@
 // enumerations types
 
+// +++ StageCard
 enum StageCard {
-  story, //Pendências
-  todo, //Para fazer
-  doing, //Fazendo
-  check, //Verificando
-  done, //Concluído
+  story,
+  todo,
+  doing,
+  check,
+  done,
 }
 
+extension StageCardExtension on StageCard {
+  static const names = {
+    StageCard.story: 'Pendências',
+    StageCard.todo: 'Para fazer',
+    StageCard.doing: 'Fazendo',
+    StageCard.check: 'Verificando',
+    StageCard.done: 'Concluído',
+  };
+  String get name => names[this];
+}
+//---StageCard
 //class types
 
 class Team {

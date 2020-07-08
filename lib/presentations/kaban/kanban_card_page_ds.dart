@@ -17,7 +17,7 @@ class KanbanCardPageDS extends StatefulWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
   final Function(String) onCurrentKanbanCardModel;
   final Function(Map<String, String>) onChangeCardOrder;
-  final Function(String, String) onChangeStageCard;
+  final Function(String, StageCard) onChangeStageCard;
 
   KanbanCardPageDS({
     Key key,
@@ -32,21 +32,6 @@ class KanbanCardPageDS extends StatefulWidget {
 }
 
 class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
-  List<String> stages = [
-    StageCard.story.toString(),
-    StageCard.todo.toString(),
-    StageCard.doing.toString(),
-    StageCard.check.toString(),
-    StageCard.done.toString(),
-  ];
-  List<String> stagesLabels = [
-    'Pendências', //StageCard.story.toString(),
-    'Para fazer', // StageCard.todo.toString(),
-    'Fazendo', //StageCard.doing.toString(),
-    'Verificando', //StageCard.check.toString(),
-    'Concluído', //StageCard.done.toString(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,15 +135,16 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
     return Container(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: stages.length,
+        itemCount: StageCard.values.length,
         itemBuilder: (context, indexStage) {
-          return _gerarColuna(context, indexStage);
+          List<StageCard> stageCardList = StageCard.values;
+          return _gerarColuna(context, stageCardList[indexStage]);
         },
       ),
     );
   }
 
-  Widget _gerarColuna(BuildContext context, int indexStage) {
+  Widget _gerarColuna(BuildContext context, StageCard indexStage) {
     double width = MediaQuery.of(context).size.width;
 
     return Container(
@@ -187,14 +173,14 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Text(
-                        stagesLabels[indexStage],
+                        indexStage.name,
                         style: TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      stages[indexStage] == StageCard.story.toString()
+                      indexStage.toString() == StageCard.story.toString()
                           ? IconButton(
                               icon: Icon(
                                 Icons.add,
@@ -226,9 +212,10 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                         widget.filteredKanbanCardModel,
                         itemBuilder: (BuildContext context,
                             KanbanCardModel kanbanCardModel) {
-                          if (kanbanCardModel.stageCard == stages[indexStage]) {
+                          if (kanbanCardModel.stageCard ==
+                              indexStage.toString()) {
                             return kanbanCard(
-                                kanbanCardModel, stages[indexStage]);
+                                kanbanCardModel, indexStage.toString());
                           } else {
                             return Container();
                           }
@@ -263,8 +250,8 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
               onLeave: (data) {},
               onAccept: (data) {
                 print(
-                    'DragTarget.onAccept ${data["kanbanCardDraggable"].id} from ${data["oldStage"]} to ${stages[indexStage]}');
-                if (data['oldStage'] == stages[indexStage]) {
+                    'DragTarget.onAccept ${data["kanbanCardDraggable"].id} from ${data["oldStage"]} to ${indexStage.toString()}');
+                if (data['oldStage'] == indexStage.toString()) {
                   return;
                 }
                 int indexOf = widget.filteredKanbanCardModel
@@ -272,14 +259,13 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
 
                 setState(() {
                   widget.filteredKanbanCardModel[indexOf].stageCard =
-                      stages[indexStage];
+                      indexStage.toString();
                   widget.onChangeStageCard(
-                      widget.filteredKanbanCardModel[indexOf].id,
-                      stages[indexStage]);
+                      widget.filteredKanbanCardModel[indexOf].id, indexStage);
                   // +++ tire o elemento de onde esta e coloca no topo da list do destino
                   int indexFirstStage = widget.filteredKanbanCardModel.indexOf(
                       widget.filteredKanbanCardModel.firstWhere((element) =>
-                          element.stageCard == stages[indexStage]));
+                          element.stageCard == indexStage.toString()));
 
                   KanbanCardModel todo =
                       widget.filteredKanbanCardModel[indexOf];
