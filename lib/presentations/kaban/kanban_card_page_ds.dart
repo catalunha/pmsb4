@@ -180,7 +180,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      indexStage.toString() == StageCard.story.toString()
+                      indexStage.toString() == StageCard.todo.toString()
                           ? IconButton(
                               icon: Icon(
                                 Icons.add,

@@ -2,7 +2,7 @@
 
 // +++ StageCard
 enum StageCard {
-  story,
+  // story,
   todo,
   doing,
   check,
@@ -11,10 +11,10 @@ enum StageCard {
 
 extension StageCardExtension on StageCard {
   static const names = {
-    StageCard.story: 'Pendências',
+    // StageCard.story: 'Pendências',
     StageCard.todo: 'Para fazer',
     StageCard.doing: 'Fazendo',
-    StageCard.check: 'Verificando',
+    StageCard.check: 'Verificar',
     StageCard.done: 'Concluído',
   };
   String get name => names[this];
