@@ -36,59 +36,69 @@ class ShortBoardCDS extends StatelessWidget {
         children: [
           ListTile(
             onTap: this.onViewKanbanCards,
-            leading: Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
-            trailing: kanbanBoardFilter.toString() ==
-                        KanbanBoardFilter.activeAuthor.toString() ||
-                    kanbanBoardFilter.toString() ==
-                        KanbanBoardFilter.inactive.toString()
-                ? botaoMore()
-                : Container(),
+            trailing: Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
             title: Text("${this.quadro.title}"),
             subtitle: Text(
                 "Tarefas em andamento: ${quadro.cardOrder?.length ?? 0}\nDescrição: ${this.quadro.description}"),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: 5,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Tooltip(
-                    message: quadro.author?.displayName,
-                    child: CircleAvatar(
-                      backgroundColor: PmsbColors.navbar,
-                      child: quadro.author?.photoUrl == null
-                          ? Text(
-                              quadro.author?.displayName[0].toUpperCase() +
-                                  quadro.author?.displayName[1].toUpperCase(),
-                              style: PmsbStyles.textoSecundario,
-                            )
-                          : Image.network(quadro.author?.photoUrl),
-                      // backgroundImage: quadro.author?.photoUrl != null
-                      //     ? NetworkImage(quadro.author?.photoUrl)
-                      //     : NetworkImage(""),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  //Imagem do criado do quadro com marca
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Tooltip(
+                        message: quadro.author?.displayName,
+                        child: CircleAvatar(
+                          backgroundColor: PmsbColors.navbar,
+                          child: quadro.author?.photoUrl == null
+                              ? Text(
+                                  quadro.author?.displayName[0].toUpperCase() +
+                                      quadro.author?.displayName[1]
+                                          .toUpperCase(),
+                                  style: PmsbStyles.textoSecundario,
+                                )
+                              : Image.network(quadro.author?.photoUrl),
+                          // backgroundImage: quadro.author?.photoUrl != null
+                          //     ? NetworkImage(quadro.author?.photoUrl)
+                          //     : NetworkImage(""),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Container(
+                        color: PmsbColors.cor_destaque,
+                        width: 30,
+                        height: 4,
+                      ),
+                    ],
+                  ),
+                  // Lista de usuarios
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Wrap(
+                      children: gerarListaUsuarios(),
                     ),
                   ),
-                  SizedBox(
-                    height: 1,
-                  ),
-                  Container(
-                    color: PmsbColors.cor_destaque,
-                    width: 25,
-                    height: 4,
-                  )
                 ],
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Wrap(
-                  children: gerarListaUsuarios(),
-                ),
-              ),
+              //Botão de opcoes
+              kanbanBoardFilter.toString() ==
+                          KanbanBoardFilter.activeAuthor.toString() ||
+                      kanbanBoardFilter.toString() ==
+                          KanbanBoardFilter.inactive.toString()
+                  ? botaoMore()
+                  : Container()
             ],
           ),
         ],
