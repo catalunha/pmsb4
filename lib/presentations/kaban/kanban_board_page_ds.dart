@@ -28,9 +28,9 @@ class KanbanBoardPageDS extends StatelessWidget {
     List<String> kanbanBoardFilterLabel = [
       'TODOS OS QUADRO (DEV)',
       'Quadros que coordeno',
-      'Meus quadros',
+      'Quadros que estou na equipe',
       'Quadros públicos',
-      'Quadro arquivados',
+      'Quadros arquivados',
     ];
     return Scaffold(
       appBar: AppBar(

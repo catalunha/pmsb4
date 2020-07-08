@@ -18,7 +18,10 @@ class KanbanBoardFilteringDS extends StatelessWidget {
     return PopupMenuButton<KanbanBoardFilter>(
       tooltip: "Opções para quadros",
       color: PmsbColors.navbar,
-      icon: Icon(Icons.filter_list, color: Colors.white,),
+      icon: Icon(
+        Icons.filter_list,
+        color: Colors.white,
+      ),
       onSelected: onSelectFilter,
       itemBuilder: (BuildContext context) => <PopupMenuItem<KanbanBoardFilter>>[
         PopupMenuItem<KanbanBoardFilter>(
@@ -26,9 +29,15 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
+              Icon(
+                Icons.code,
+                color: PmsbColors.texto_primario,
+              ),
               SizedBox(width: 5),
-              Text('TODOS OS QUADRO (DEV)',style: PmsbStyles.textoPrimario,),
+              Text(
+                'TODOS OS QUADRO (DEV)',
+                style: PmsbStyles.textoPrimario,
+              ),
               SizedBox(width: 5),
             ],
           ),
@@ -38,9 +47,15 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
+              Icon(
+                Icons.person_pin_circle,
+                color: PmsbColors.texto_primario,
+              ),
               SizedBox(width: 5),
-              Text('Quadros que coordeno',style: PmsbStyles.textoPrimario,),
+              Text(
+                'Quadros que coordeno',
+                style: PmsbStyles.textoPrimario,
+              ),
               SizedBox(width: 5),
             ],
           ),
@@ -50,9 +65,15 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
+              Icon(
+                Icons.people,
+                color: PmsbColors.texto_primario,
+              ),
               SizedBox(width: 5),
-              Text('Meus quadros',style: PmsbStyles.textoPrimario,),
+              Text(
+                'Quadros que estou na equipe',
+                style: PmsbStyles.textoPrimario,
+              ),
               SizedBox(width: 5),
             ],
           ),
@@ -62,9 +83,15 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
+              Icon(
+                Icons.public,
+                color: PmsbColors.texto_primario,
+              ),
               SizedBox(width: 5),
-              Text('Quadros públicos',style: PmsbStyles.textoPrimario,),
+              Text(
+                'Quadros públicos',
+                style: PmsbStyles.textoPrimario,
+              ),
               SizedBox(width: 5),
             ],
           ),
@@ -74,9 +101,15 @@ class KanbanBoardFilteringDS extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(width: 2),
-              Icon(Icons.view_column,color: PmsbColors.texto_primario,),
+              Icon(
+                Icons.archive,
+                color: PmsbColors.texto_primario,
+              ),
               SizedBox(width: 5),
-              Text('Quadros arquivados',style: PmsbStyles.textoPrimario,),
+              Text(
+                'Quadros arquivados',
+                style: PmsbStyles.textoPrimario,
+              ),
               SizedBox(width: 5),
             ],
           ),
