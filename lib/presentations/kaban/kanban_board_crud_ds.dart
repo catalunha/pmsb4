@@ -140,7 +140,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                         style: PmsbStyles.textoPrimario,
                       ),
                       subtitle: Text(
-                        "Qualquer pessoa pode ver este quadro. Você escolhe quem pode editar.",
+                        "Qualquer pessoa pode ver este quadro e suas tarefas. Apenas sua equipe pode editar o quadro e as tarefas.",
                         style: PmsbStyles.textoSecundario,
                       ),
                       value: 1,
@@ -156,7 +156,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                         style: PmsbStyles.textoPrimario,
                       ),
                       subtitle: Text(
-                          "Você escolhe quem pode ver e se comprometer com este quadro."),
+                          "Apenas sua equipe pode ver e editar este quadro e suas tarefas."),
                       value: 2,
                       groupValue: _botaoradioSelecionado,
                       activeColor: PmsbColors.cor_destaque,
