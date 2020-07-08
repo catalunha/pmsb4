@@ -59,7 +59,9 @@ class MyApp extends StatelessWidget {
       // store: appStore,
       store: store,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'PMSB4',
+        theme: ThemeData.dark(),
         navigatorKey: Keys.navKey,
         initialRoute: Routes.home,
         routes: {
