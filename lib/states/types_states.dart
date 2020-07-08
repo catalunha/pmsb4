@@ -6,13 +6,7 @@ enum AuthenticationStatus {
   sendPasswordReset,
 }
 
-enum CollectionFilter {
-  all,
-  checkTrue,
-  checkFalse,
-  checkNull,
-}
-
+//+++KanbanBoardFilter
 enum KanbanBoardFilter {
   all,
   activeAuthor,
@@ -31,7 +25,9 @@ extension KanbanBoardFilterExtension on KanbanBoardFilter {
   };
   String get name => names[this];
 }
+//---KanbanBoardFilter
 
+//+++KanbanCardFilter
 enum KanbanCardFilter {
   all, // so para desenvolvimento no mid
   active, //all=active+normal+priority
@@ -39,6 +35,18 @@ enum KanbanCardFilter {
   normal, ////filter<all>= normal
   priority, //filter<all>= priority
 }
+
+extension KanbanCardFilterExtension on KanbanCardFilter {
+  static const names = {
+    KanbanCardFilter.all: 'Todos os cartões',
+    KanbanCardFilter.active: 'Cartões ativos',
+    KanbanCardFilter.inactive: 'Cartões inativos',
+    KanbanCardFilter.normal: 'Prioridade normal',
+    KanbanCardFilter.priority: 'Prioridade alta',
+  };
+  String get name => names[this];
+}
+//---KanbanCardFilter
 
 enum UserFilter {
   all,
