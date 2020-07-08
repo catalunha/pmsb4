@@ -3,11 +3,7 @@ import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-
-import '../styles/pmsb_colors.dart';
-import '../styles/pmsb_colors.dart';
-import '../styles/pmsb_colors.dart';
-import '../styles/pmsb_styles.dart';
+import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
 class KanbanBoardCRUDDS extends StatefulWidget {
   final bool isCreate;
@@ -43,7 +39,6 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   String _description;
   bool _public;
   bool _active;
-  int _botaoradioSelecionado;
 
   // KanbanBoardCRUD2DSState() {
   //   // KanbanBoardCRUD2DSState(this._public, this._active) {
@@ -54,22 +49,16 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     super.initState();
     _public = widget.public;
     _active = widget.active;
-    if (widget.isCreate) {
-      _botaoradioSelecionado = 2;
-    } else {
-      _botaoradioSelecionado = _public ? 1 : 2;
-    }
-    //_botaoradioSelecionado = 0;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: PmsbColors.fundo,
+        elevation: 0,
         centerTitle: true,
-        title: widget.isCreate ? Text('Criar Quadro') : Text('Editar Quadro'),
+        title: widget.isCreate ? Text('Criar quadro') : Text('Editar quadro'),
       ),
       backgroundColor: PmsbColors.fundo,
       // backToRootPage: false,
@@ -92,14 +81,14 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: width * 0.10,
-        //vertical: height * 0.02,
+        vertical: height * 0.01,
       ),
       child: Container(
         child: Form(
           key: formKey,
           child: ListView(
             children: <Widget>[
-              // textoTitulo("Crie um novo Quadro"),
+              textoTitulo("Crie um novo Quadro"),
               textoSubtitulo(
                   "Supervisione, gerencie e atualize seu trabalho em um só local, para que as tarefas continuem dentro do conograma."),
               Padding(
@@ -110,7 +99,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   height: 1,
                 ),
               ),
-              Padding(padding: EdgeInsets.all(15)),
+              Padding(padding: EdgeInsets.all(7)),
               textoQuadro("Nome do Quadro"),
               Padding(
                 padding: EdgeInsets.only(left: 30),
@@ -120,7 +109,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   onSaved2: (value) => _title = value,
                 ),
               ),
-              Padding(padding: EdgeInsets.all(10)),
+              Padding(padding: EdgeInsets.all(7)),
               textoQuadro("Descrição (Opcional)"),
               Padding(
                 padding: const EdgeInsets.only(left: 30),
@@ -130,52 +119,15 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   onSaved2: (value) => _description = value,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: <Widget>[
-                    RadioListTile(
-                      title: Text(
-                        "Público",
-                        style: PmsbStyles.textoPrimario,
-                      ),
-                      subtitle: Text(
-                        "Qualquer pessoa pode ver este quadro e suas tarefas. Apenas sua equipe pode editar o quadro e as tarefas.",
-                        style: PmsbStyles.textoSecundario,
-                      ),
-                      value: 1,
-                      groupValue: _botaoradioSelecionado,
-                      activeColor: PmsbColors.cor_destaque,
-                      onChanged: (val) {
-                        setBotaoRadioSelecionado(val);
-                      },
-                    ),
-                    RadioListTile(
-                      title: Text(
-                        "Privado",
-                        style: PmsbStyles.textoPrimario,
-                      ),
-                      subtitle: Text(
-                          "Apenas sua equipe pode ver e editar este quadro e suas tarefas."),
-                      value: 2,
-                      groupValue: _botaoradioSelecionado,
-                      activeColor: PmsbColors.cor_destaque,
-                      onChanged: (val) {
-                        setBotaoRadioSelecionado(val);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              /* ListTile(
-                title: textoQuadro("Público"),
+              ListTile(
+                title: textoQuadro('Quadro público ?'),
                 subtitle: _public
                     ? textoSubtitulo(
                         'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.')
                     : textoSubtitulo('Somente sua equipe pode ver e editar.'),
                 leading: Checkbox(
                   value: _public,
-                  activeColor: PmsbColors.cor_destaque,
+                  activeColor: Colors.green,
                   onChanged: (value) {
                     setState(
                       () {
@@ -185,8 +137,22 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   },
                 ),
               ),
-              */
-
+              // textoQuadro(
+              //     "Público ? Qualquer pessoa pode ver este quadro. Apenas sua equipe pode editar."),
+              // Padding(
+              //   padding: EdgeInsets.all(7),
+              //   child: Checkbox(
+              //     value: _public,
+              //     activeColor: Colors.green,
+              //     onChanged: (value) {
+              //       setState(
+              //         () {
+              //           _public = value;
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -206,24 +172,24 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   ),
                 ],
               ),
-              Wrap(
-                children: avatarsTeam(),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Wrap(
+                  children: avatarsTeam(),
+                ),
               ),
               Padding(padding: EdgeInsets.all(7)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RaisedButton(
-                    child: widget.isCreate
-                        ? Text('Criar Quadro')
-                        : Text('Atualizar Quadro'),
-                    color: PmsbColors.cor_destaque,
-                    onPressed: () {
-                      validateData();
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.35),
+                child: RaisedButton(
+                  child: widget.isCreate ? Text('Criar') : Text('Atualizar'),
+                  color: PmsbColors.cor_destaque,
+                  onPressed: () {
+                    validateData();
+                    Navigator.pop(context);
+                  },
+                ),
               ),
             ],
           ),
@@ -234,7 +200,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
 
   Widget textoTitulo(String texto) {
     return Padding(
-      padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 30),
+      padding: EdgeInsets.only(top: 7.0, bottom: 7.0, left: 30),
       child: Text(
         texto,
         style: TextStyle(
@@ -260,7 +226,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
 
   Widget textoQuadro(String texto) {
     return Padding(
-      padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 30),
+      padding: EdgeInsets.only(top: 7.0, bottom: 7.0, left: 30),
       child: Text(
         texto,
         style: TextStyle(
@@ -275,51 +241,37 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     List<Widget> listaWidget = List<Widget>();
     for (var item in widget.team) {
       listaWidget.add(
-        InkWell(
-          onTap: () {
-            // print('removendo user${item.id}');
-            widget.onRemoveUserTeam(item.id);
-          },
-          child: Tooltip(
-            message:
-                '${item.displayName}. Clique para excluí-lo da equipe deste quadro. Identificador: ${item.id.substring(0, 5)}.',
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  minRadius: 20,
-                  maxRadius: 20,
-                  child: ClipOval(
-                    child: Center(
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: InkWell(
+            onTap: () {
+              // print('removendo user${item.id}');
+              widget.onRemoveUserTeam(item.id);
+            },
+            child: Tooltip(
+              message:
+                  '${item.displayName} ${item.id.substring(0, 5)} . Clique para excluí-lo da equipe deste quadro.',
+              child: CircleAvatar(
+                backgroundColor: PmsbColors.navbar,
+                minRadius: 20,
+                maxRadius: 20,
+                child: ClipOval(
+                  child: Center(
                       child: item?.photoUrl != null
                           ? Image.network(item.photoUrl)
-                          : Icon(Icons.person_add),
-                    ),
-                  ),
+                          : Text(
+                              item.displayName[0].toUpperCase() +
+                                  item.displayName[1].toUpperCase(),
+                              style: PmsbStyles.textoSecundario,
+                            )),
                 ),
-                // Icon(
-                //   Icons.remove_red_eye,
-                //   color: item?.readedCard ?? true
-                //       ? Colors.transparent
-                //       : Colors.red,
-                // ),
-              ],
+              ),
             ),
           ),
         ),
       );
     }
     return listaWidget;
-  }
-
-  setBotaoRadioSelecionado(int val) {
-    setState(() {
-      _botaoradioSelecionado = val;
-      if (val == 1) {
-        _public = true;
-      } else if (val == 2) {
-        _public = false;
-      }
-    });
   }
 
   void validateData() {
