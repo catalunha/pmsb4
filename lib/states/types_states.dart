@@ -14,11 +14,22 @@ enum CollectionFilter {
 }
 
 enum KanbanBoardFilter {
-  all, // so para desenvolvimento no mid
-  activeAuthor, //all=filter
-  activeTeam, //all=filter
-  publics, //all=filter
-  inactive, //all=filter
+  all,
+  activeAuthor,
+  activeTeam,
+  publics,
+  inactive,
+}
+
+extension KanbanBoardFilterExtension on KanbanBoardFilter {
+  static const names = {
+    KanbanBoardFilter.all: 'TODOS OS QUADRO (Dev)',
+    KanbanBoardFilter.activeAuthor: 'Quadros que coordeno',
+    KanbanBoardFilter.activeTeam: 'Quadros que estou na equipe',
+    KanbanBoardFilter.publics: 'Quadros públicos',
+    KanbanBoardFilter.inactive: 'Quadros arquivados',
+  };
+  String get name => names[this];
 }
 
 enum KanbanCardFilter {
@@ -27,13 +38,6 @@ enum KanbanCardFilter {
   inactive, //all=inactive+normal+priority
   normal, ////filter<all>= normal
   priority, //filter<all>= priority
-}
-
-class KanbanCardFilter2 {
-  static String all = 'all';
-  static String label(String value) {
-    return 'allll';
-  }
 }
 
 enum UserFilter {
