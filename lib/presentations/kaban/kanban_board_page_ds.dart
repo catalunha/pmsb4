@@ -25,20 +25,13 @@ class KanbanBoardPageDS extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    List<String> kanbanBoardFilterLabel = [
-      'TODOS OS QUADRO (DEV)',
-      'Quadros que coordeno',
-      'Quadros que estou na equipe',
-      'Quadros públicos',
-      'Quadros arquivados',
-    ];
     return Scaffold(
       appBar: AppBar(
         actions: [LogoutButton()],
         elevation: 0,
         backgroundColor: PmsbColors.fundo,
         centerTitle: true,
-        title: Text("${kanbanBoardFilterLabel[kanbanBoardFilter.index]}"),
+        title: Text("${kanbanBoardFilter.name}"),
       ),
       backgroundColor: PmsbColors.fundo,
       body: body(context),

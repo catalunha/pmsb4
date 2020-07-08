@@ -35,7 +35,7 @@ class KanbanBoardFilteringDS extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                'TODOS OS QUADRO (DEV)',
+                KanbanBoardFilter.all.name,
                 style: PmsbStyles.textoPrimario,
               ),
               SizedBox(width: 5),
@@ -53,7 +53,7 @@ class KanbanBoardFilteringDS extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                'Quadros que coordeno',
+                KanbanBoardFilter.activeAuthor.name,
                 style: PmsbStyles.textoPrimario,
               ),
               SizedBox(width: 5),
@@ -71,7 +71,7 @@ class KanbanBoardFilteringDS extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                'Quadros que estou na equipe',
+                KanbanBoardFilter.activeTeam.name,
                 style: PmsbStyles.textoPrimario,
               ),
               SizedBox(width: 5),
@@ -89,7 +89,7 @@ class KanbanBoardFilteringDS extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                'Quadros públicos',
+                KanbanBoardFilter.publics.name,
                 style: PmsbStyles.textoPrimario,
               ),
               SizedBox(width: 5),
@@ -107,7 +107,7 @@ class KanbanBoardFilteringDS extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                'Quadros arquivados',
+                KanbanBoardFilter.inactive.name,
                 style: PmsbStyles.textoPrimario,
               ),
               SizedBox(width: 5),
