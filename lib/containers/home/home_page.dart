@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pmsb4/actions/logged_action.dart';
 import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/logged/login_page.dart';
 import 'package:pmsb4/states/app_state.dart';
+import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 class _ViewModel {
@@ -32,6 +34,11 @@ class HomePage extends StatelessWidget {
         } else {
           return LoginPage();
         }
+      },
+      onInit: (store) {
+        store.dispatch(AuthenticationStatusLoggedAction(
+            loggedAuthenticationStatus: AuthenticationStatus.unInitialized));
+        store.dispatch(OnAuthStateChangedLoggedAction());
       },
     );
   }

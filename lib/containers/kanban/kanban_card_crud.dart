@@ -122,8 +122,7 @@ class _ViewModel {
 
           if (active == false) {
             store.dispatch(CurrentKanbanCardModelAction(id: null));
-            store.dispatch(UpdateKanbanCardDataAction(
-                kanbanCardModel: _currentKanbanCardModel));
+
             //print('KanbanCardCRUD.onUpdate finalizado.');
             KanbanBoardModel _currentKanbanBoardModel =
                 store.state.kanbanBoardState.currentKanbanBoardModel;
@@ -135,6 +134,8 @@ class _ViewModel {
             }
           }
         }
+        store.dispatch(UpdateKanbanCardDataAction(
+            kanbanCardModel: _currentKanbanCardModel));
       },
       onRemoveUserTeam: (String id) async {
         //print('removendo1 $id');

@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-    store.dispatch(AuthenticationStatusLoggedAction(
-        loggedAuthenticationStatus: AuthenticationStatus.unInitialized));
-    store.dispatch(OnAuthStateChangedLoggedAction());
+    // store.dispatch(AuthenticationStatusLoggedAction(
+    //     loggedAuthenticationStatus: AuthenticationStatus.unInitialized));
+    // store.dispatch(OnAuthStateChangedLoggedAction());
   }
 
   @override
