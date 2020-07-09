@@ -3,9 +3,6 @@ import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-
-import '../styles/pmsb_colors.dart';
-import '../styles/pmsb_colors.dart';
 import '../styles/pmsb_colors.dart';
 import '../styles/pmsb_styles.dart';
 

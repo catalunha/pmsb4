@@ -48,11 +48,14 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
 
 class _KanbanCardCreateUpdateOtherDSState
     extends State<KanbanCardCreateUpdateOtherDS> {
+
   bool _priority;
+  ScrollController scrowllController; 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrowllController = ScrollController();
     _priority = widget.priority;
   }
 
@@ -60,9 +63,12 @@ class _KanbanCardCreateUpdateOtherDSState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: PmsbColors.fundo,
         title: Text("AUTOR: ${widget.author?.displayName} | ${widget.title}"),
       ),
-      backgroundColor: PmsbColors.navbar,
+      backgroundColor: PmsbColors.fundo,
       body: body(),
     );
   }
@@ -72,11 +78,11 @@ class _KanbanCardCreateUpdateOtherDSState
     double widthPage = width > 1800 ? (width * 0.8) : (width * 0.95);
 
     return
-        // Scrollbar(
-        //   controller: scrowllController,
-        //   isAlwaysShown: true,
-        //   child: Center(
-        //     child:
+        Scrollbar(
+          controller: scrowllController,
+          isAlwaysShown: true,
+          child: Center(
+            child:
         Container(
       width: widthPage,
       color: Colors.black12,
@@ -86,8 +92,8 @@ class _KanbanCardCreateUpdateOtherDSState
           _painel(),
         ],
       ),
-      //   ),
-      // ),
+        ),
+      ),
     );
   }
 
