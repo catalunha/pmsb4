@@ -48,7 +48,7 @@ class KanbanCardFilteringDS extends StatelessWidget {
               SizedBox(width: 2),
               Icon(
                 Icons.brightness_1,
-                color: Colors.yellow,
+                color: Colors.transparent,
               ),
               SizedBox(width: 5),
               Text(KanbanCardFilter.all.name),
