@@ -36,9 +36,12 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: PmsbColors.fundo,
         title: Text("Cartões para o ${widget.currentKanbanBoardModel?.title}"),
       ),
-      backgroundColor: PmsbColors.navbar,
+      backgroundColor: PmsbColors.fundo,
       body: body(context),
     );
   }

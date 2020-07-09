@@ -64,6 +64,9 @@ class _KanbanCardCreateUpdateOtherDSState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: PmsbColors.fundo,
+        elevation: 0,
         title: Text("#${widget.number} - ${widget.title}"),
       ),
       backgroundColor: PmsbColors.fundo,

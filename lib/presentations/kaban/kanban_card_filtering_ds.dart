@@ -15,7 +15,7 @@ class KanbanCardFilteringDS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<KanbanCardFilter>(
-      color: PmsbColors.navbar,
+      color: PmsbColors.fundo,
       icon: Icon(
         Icons.group_work,
         color: Colors.white,
@@ -30,7 +30,7 @@ class KanbanCardFilteringDS extends StatelessWidget {
               SizedBox(width: 2),
               Icon(
                 Icons.brightness_1,
-                color: Colors.red,
+                color: Colors.grey[900],
               ),
               SizedBox(width: 5),
               Text(KanbanCardFilter.priority.name),
@@ -65,7 +65,7 @@ class KanbanCardFilteringDS extends StatelessWidget {
               SizedBox(width: 2),
               Icon(
                 Icons.brightness_1,
-                color: Colors.green,
+                color: PmsbColors.card,
               ),
               SizedBox(width: 5),
               Text(KanbanCardFilter.normal.name),
