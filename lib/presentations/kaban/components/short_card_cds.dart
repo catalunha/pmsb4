@@ -29,7 +29,7 @@ class ShortCardCDS extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: tarefa.priority ? PmsbColors.cor_destaque : PmsbColors.card,
+        color: tarefa.priority ? PmsbColors.navbar : PmsbColors.card,
         border: Border(),
       ),
       height: this.altura,
