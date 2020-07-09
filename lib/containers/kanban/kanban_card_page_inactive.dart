@@ -27,7 +27,7 @@ class _ViewModel {
         store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
       onActiveTrueCard: (String idCard) {
-        print('onActiveTrueCard $idCard');
+        //print('onActiveTrueCard $idCard');
         KanbanCardModel _currentKanbanCardModel = store
             .state.kanbanCardState.filteredKanbanCardModel
             .firstWhere((element) => element.id == idCard);

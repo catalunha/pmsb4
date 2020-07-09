@@ -24,7 +24,7 @@ void Function(
   NextDispatcher next,
 ) _streamDocsUsersAction() {
   return (store, action, next) async {
-    print('_streamDocsUsersAction...');
+    //print('_streamDocsUsersAction...');
     Firestore firestore = Firestore.instance;
     //Pode aplicar filtro na stream
     final streamDocs = firestore.collection(UserModel.collection).snapshots();
@@ -47,7 +47,7 @@ void Function(
 //   NextDispatcher next,
 // ) _UsersUpdateDocAction() {
 //   return (store, action, next) {
-//     print('_UsersUpdateDocAction');
+//     //print('_UsersUpdateDocAction');
 //     Firestore firestore = Firestore.instance;
 //     firestore
 //         .Users(UsersModel.Users)
@@ -63,7 +63,7 @@ void Function(
 //   NextDispatcher next,
 // ) _UsersDeleteDocsAction() {
 //   return (store, action, next) {
-//     print('_UsersDeleteDocsAction');
+//     //print('_UsersDeleteDocsAction');
 //     Firestore firestore = Firestore.instance;
 //     firestore
 //         .Users(UsersModel.Users)
@@ -78,7 +78,7 @@ void Function(
 //   NextDispatcher next,
 // ) _UsersAddDocAction(){
 //   return (store, action, next) {
-//     print('_UsersAddDocAction');
+//     //print('_UsersAddDocAction');
 //     Firestore firestore = Firestore.instance;
 //     firestore
 //         .Users(UsersModel.Users)

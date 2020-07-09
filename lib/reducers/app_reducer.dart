@@ -17,23 +17,23 @@ final appReducer = combineReducers<AppState>([
 ]);
 
 AppState _loggedAction(AppState state, LoggedAction action) {
-  print('_userAction...');
+  //print('_userAction...');
   return state.copyWith(loggedState: loggedReducer(state.loggedState, action));
 }
 
 AppState _kanbanBoardAction(AppState state, KanbanBoardAction action) {
-  print('_kanbanBoardAction...');
+  //print('_kanbanBoardAction...');
   return state.copyWith(
       kanbanBoardState: kanbanBoardReducer(state.kanbanBoardState, action));
 }
 
 AppState _kanbanCardAction(AppState state, KanbanCardAction action) {
-  print('_kanbanCardAction...');
+  //print('_kanbanCardAction...');
   return state.copyWith(
       kanbanCardState: kanbanCardReducer(state.kanbanCardState, action));
 }
 
 AppState _userAction(AppState state, UserAction action) {
-  print('_usersAction...');
+  //print('_usersAction...');
   return state.copyWith(usersState: userReducer(state.usersState, action));
 }

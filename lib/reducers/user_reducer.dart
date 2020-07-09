@@ -21,7 +21,7 @@ UserState _allUsersModelAction(UserState state, AllUserModelAction action) {
 
 // UsersState _currentUsersModelAction(
 //     UsersState state, CurrentUsersModelAction action) {
-//   // print('_currentUsersModelAction:${state.allUsersModel}');
+//   // //print('_currentUsersModelAction:${state.allUsersModel}');
 //   return state.copyWith(
 //       UsersModel: state.allUsersModel[action.index]);
 // }
@@ -38,7 +38,7 @@ UserState _allUsersModelAction(UserState state, AllUserModelAction action) {
 UserState _updateUsersFilterAction(
     UserState state, UpdateUserFilterAction action) {
   List<UserModel> filteredUserModel = [];
-  print('_updateUsersFilterAction');
+  //print('_updateUsersFilterAction');
   if (state.usersFilter == UserFilter.all) {
     filteredUserModel = state.allUserModel;
   }
@@ -74,7 +74,7 @@ UserState _updateUsersFilterAction(
 
 // UsersState _addSelectedUserModelAction(
 //     UsersState state, AddSelectedUserModelAction action) {
-//   print('_addSelectedUserModelAction...');
+//   //print('_addSelectedUserModelAction...');
 //   List<UserModel> selectedUserModelNew = state.selectedUserModel;
 //   selectedUserModelNew.add(action.userModel);
 //   return state.copyWith(selectedUserModel: selectedUserModelNew);
