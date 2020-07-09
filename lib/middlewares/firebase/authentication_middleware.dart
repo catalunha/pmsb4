@@ -54,34 +54,34 @@ void Function(
   NextDispatcher next,
 ) _onAuthStateChangedLoggedAction(FirebaseAuth firebaseAuthInstance) {
   return (store, action, next) async {
-    print('_onAuthStateChangedLoggedAction...');
+    // print('_onAuthStateChangedLoggedAction...');
     // FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    print('_onAuthStateChangedLoggedAction...1');
+    // print('_onAuthStateChangedLoggedAction...1');
     try {
-      print('_onAuthStateChangedLoggedAction...2');
+      // print('_onAuthStateChangedLoggedAction...2');
       firebaseAuthInstance.onAuthStateChanged.listen((firebaseUser) {
-        print('onAuthStateChanged: ${firebaseUser?.uid}');
+        // print('onAuthStateChanged: ${firebaseUser?.uid}');
         if (firebaseUser?.uid != null) {
-          print('_onAuthStateChangedLoggedAction...4');
-          print('Auth de ultimo login uid: ${firebaseUser.uid}');
+          // print('_onAuthStateChangedLoggedAction...4');
+          // print('Auth de ultimo login uid: ${firebaseUser.uid}');
           store.dispatch(
               LoginSuccessfulLoggedAction(firebaseUser: firebaseUser));
-          print('_onAuthStateChangedLoggedAction...5');
+          // print('_onAuthStateChangedLoggedAction...5');
         } else {
-          print('_onAuthStateChangedLoggedAction...Logout');
+          // print('_onAuthStateChangedLoggedAction...Logout');
         }
       });
       firebaseAuthInstance.currentUser().then((firebaseUser) {
-        print('_onAuthStateChangedLoggedAction...3');
-        print('currentUser: ${firebaseUser?.uid}');
+        // print('_onAuthStateChangedLoggedAction...3');
+        // print('currentUser: ${firebaseUser?.uid}');
         if (firebaseUser?.uid != null) {
-          print('_onAuthStateChangedLoggedAction...4');
-          print('Auth de ultimo login uid: ${firebaseUser.uid}');
+          // print('_onAuthStateChangedLoggedAction...4');
+          // print('Auth de ultimo login uid: ${firebaseUser.uid}');
           store.dispatch(
               LoginSuccessfulLoggedAction(firebaseUser: firebaseUser));
-          print('_onAuthStateChangedLoggedAction...5');
+          // print('_onAuthStateChangedLoggedAction...5');
         }
-        print('_onAuthStateChangedLoggedAction...6');
+        // print('_onAuthStateChangedLoggedAction...6');
       });
       //print('_onAuthStateChangedLoggedAction...7');
       // stream.listen((firebaseUser) {
