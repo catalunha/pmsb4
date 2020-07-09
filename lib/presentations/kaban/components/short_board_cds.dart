@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
+import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 import 'package:pmsb4/states/types_states.dart';
 
 class ShortBoardCDS extends StatelessWidget {
@@ -35,29 +36,21 @@ class ShortBoardCDS extends StatelessWidget {
         children: [
           Row(
             children: [
-              // SizedBox(width: 5),
-              // CircleAvatar(
-              //   radius: 19,
-              //   child: ClipOval(
-              //     child: Center(
-              //       child: quadro.author?.photoUrl != null
-              //           ? Image.network(quadro.author.photoUrl)
-              //           : Icon(Icons.person_add),
-              //     ),
-              //   ),
-              // ),
+              SizedBox(
+                width: 15,
+              ),
+              CircleAvatar(
+                radius: 19,
+                child: ClipOval(
+                  child: Center(
+                    child: quadro.author?.photoUrl != null
+                        ? Image.network(quadro.author.photoUrl)
+                        : Icon(Icons.person_add),
+                  ),
+                ),
+              ),
               Expanded(
                 child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 19,
-                    child: ClipOval(
-                      child: Center(
-                        child: quadro.author?.photoUrl != null
-                            ? Image.network(quadro.author.photoUrl)
-                            : Icon(Icons.person_add),
-                      ),
-                    ),
-                  ),
                   onTap: this.onViewKanbanCards,
                   trailing:
                       Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
@@ -147,13 +140,21 @@ class ShortBoardCDS extends StatelessWidget {
           ),
           child: Tooltip(
             message: usuario.value.displayName,
-            child: CircleAvatar(
-              backgroundColor: Colors.lightBlue[50],
-              // child: Text(usuario.value.displayName[0].toUpperCase() +
-              //     usuario.value.displayName[1].toUpperCase()),
-              backgroundImage: usuario.value.photoUrl != null
-                  ? NetworkImage(usuario.value.photoUrl)
-                  : NetworkImage(''),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: CircleAvatar(
+                backgroundColor: PmsbColors.navbar,
+                child: usuario.value.photoUrl == null
+                    ? Text(
+                        usuario.value.displayName[0].toUpperCase() +
+                            usuario.value.displayName[1].toUpperCase(),
+                        style: PmsbStyles.textoSecundario,
+                      )
+                    : Container(),
+                backgroundImage: usuario.value.photoUrl != null
+                    ? NetworkImage(usuario.value.photoUrl)
+                    : NetworkImage(''),
+              ),
             ),
           ),
         ));

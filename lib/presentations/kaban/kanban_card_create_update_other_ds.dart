@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_list.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/components/team_card_add_cds.dart';
@@ -63,10 +64,7 @@ class _KanbanCardCreateUpdateOtherDSState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: PmsbColors.fundo,
-        title: Text("AUTOR: ${widget.author?.displayName} | ${widget.title}"),
+        title: Text("#${widget.number} - ${widget.title}"),
       ),
       backgroundColor: PmsbColors.fundo,
       body: body(),
@@ -116,7 +114,7 @@ class _KanbanCardCreateUpdateOtherDSState
                   child: Container(
                     width: widthPage,
                     child: Text(
-                      "#${widget.number}. Criada em ${widget.created}.\n${widget.description}",
+                      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}.\n${widget.description}.",
                       style: TextStyle(
                           color: PmsbColors.texto_terciario, fontSize: 14),
                     ),
@@ -155,7 +153,12 @@ class _KanbanCardCreateUpdateOtherDSState
                       color: Colors.transparent,
                       onPressed: () {
                         widget.onUpdate(null, null, null, false);
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KanbanCardPage(),
+                          ),
+                        );
                       },
                       icon: Icon(Icons.archive),
                       label: Text("Arquivar"),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/presentations/kaban/components/short_card_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-import 'package:pmsb4/routes.dart';
 
 class KanbanCardPageInactiveDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
@@ -18,15 +18,24 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PmsbColors.navbar,
+      backgroundColor: PmsbColors.fundo,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: PmsbColors.fundo,
+        centerTitle: true,
         title: Text('Cartões Arquivados'),
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: true,
         leading: IconButton(
-            icon: Icon(Icons.assignment_return),
+            icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, Routes.kanbanCardPage);
+              // Navigator.pushNamed(context, Routes.kanbanCardPage);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KanbanCardPage(),
+                ),
+              );
             }),
       ),
       body: Container(
@@ -35,14 +44,11 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Container(
+            /*Container(
               height: 1,
               width: MediaQuery.of(context).size.width * 0.8,
-              color: Colors.grey,
-            ),
-            SizedBox(
-              height: 30,
-            ),
+              color: PmsbColors.card,
+            ),*/
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -52,13 +58,16 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     KanbanCardModel kanbanCardModel =
                         filteredKanbanCardModel[index];
-                    return ShortCardCDS(
-                      arquivado: true,
-                      cor: Colors.blue,
-                      tarefa: kanbanCardModel,
-                      onTap: () {
-                        onActiveTrueCard(kanbanCardModel.id);
-                      },
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: ShortCardCDS(
+                        arquivado: true,
+                        cor: Colors.blue,
+                        tarefa: kanbanCardModel,
+                        onTap: () {
+                          onActiveTrueCard(kanbanCardModel.id);
+                        },
+                      ),
                     );
                   },
                 ),

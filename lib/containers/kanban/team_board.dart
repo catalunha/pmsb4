@@ -32,7 +32,7 @@ class _ViewModel {
       addUserTeam: (String id) {
         if (currentKanbanBoardModel?.team == null ||
             !currentKanbanBoardModel.team.containsKey(id)) {
-          print('UsersTeam: Selecionado: $id');
+          //print('UsersTeam: Selecionado: $id');
           UserModel userModel = store.state.usersState.allUserModel
               .firstWhere((element) => element.id == id);
           Team team = Team(
@@ -42,7 +42,7 @@ class _ViewModel {
           );
           store.dispatch(AddUserToTeamKanbanBoardModelAction(team: team));
         } else {
-          print('UsersTeam: Já esta no team.');
+          //print('UsersTeam: Já esta no team.');
         }
       },
     );

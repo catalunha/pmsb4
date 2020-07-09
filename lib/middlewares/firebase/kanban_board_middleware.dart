@@ -24,7 +24,7 @@ List<Middleware<AppState>> firebaseFirestoreKanbanBoardMiddleware() {
 void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
     NextDispatcher next) _streamDocsKanbanBoardAction() {
   return (store, action, next) {
-    print('_streamDocsKanbanBoardAction...');
+    //print('_streamDocsKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     Stream<QuerySnapshot> streamDocs;
     KanbanBoardFilter currentFilter =
@@ -67,8 +67,8 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
         .map((doc) => KanbanBoardModel(doc.documentID).fromFirestore(doc.data))
         .toList());
     listDocs.listen((List<KanbanBoardModel> allKanbanBoardModel) {
-      print('currentKanbanBoardFilter: ${currentFilter}');
-      print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
+      //print('currentKanbanBoardFilter: ${currentFilter}');
+      //print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
       // store.dispatch(AllKanbanCardModelAction(
@@ -83,7 +83,7 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
 void Function(Store<AppState> store, UpdateKanbanBoardDataAction action,
     NextDispatcher next) _updateDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_updateDocKanbanBoardAction...');
+    //print('_updateDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)
@@ -96,7 +96,7 @@ void Function(Store<AppState> store, UpdateKanbanBoardDataAction action,
 void Function(Store<AppState> store, DeleteKanbanBoardDataAction action,
     NextDispatcher next) _deleteDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_deleteDocKanbanBoardAction...');
+    //print('_deleteDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)
@@ -109,7 +109,7 @@ void Function(Store<AppState> store, DeleteKanbanBoardDataAction action,
 void Function(Store<AppState> store, AddKanbanBoardDataAction action,
     NextDispatcher next) _addDocKanbanBoardAction() {
   return (store, action, next) {
-    print('_addDocKanbanBoardAction...');
+    //print('_addDocKanbanBoardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanBoardModel.collection)
@@ -122,7 +122,7 @@ void Function(Store<AppState> store, AddKanbanBoardDataAction action,
 // void Function(Store<AppState> store, AddUserToTeamKanbanBoardAction action,
 //     NextDispatcher next) _addUserToTeamKanbanBoardAction() {
 //   return (store, action, next) {
-//     print('_addUserToTeamKanbanBoardAction');
+//     //print('_addUserToTeamKanbanBoardAction');
 //     Firestore firestore = Firestore.instance;
 //     KanbanBoardModel currentKanbanBoardModel =
 //         store.state.kanbanBoardState.currentKanbanBoardModel;
@@ -135,7 +135,7 @@ void Function(Store<AppState> store, AddKanbanBoardDataAction action,
 //         displayName: userModel.displayName,
 //         photoUrl: userModel.photoUrl,
 //       );
-//       print('currentKanbanBoardModel:${currentKanbanBoardModel.id}');
+//       //print('currentKanbanBoardModel:${currentKanbanBoardModel.id}');
 //       currentKanbanBoardModel.fromMap({'team':'{${userModel.id}: $team}'});
 //       firestore
 //           .collection(KanbanBoardModel.collection)

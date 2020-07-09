@@ -27,11 +27,11 @@ class _ViewModel {
       description: feed?.description ?? '',
       link: feed?.link ?? null,
       onCreate: (String description, String link) {
-        print('+++ FeedCardCRUD.onCreate $description $link');
+        //print('+++ FeedCardCRUD.onCreate $description $link');
         feed.description = description;
         feed.link = link;
         feed.bot = false;
-        print('+++ FeedCardCRUD 01');
+        //print('+++ FeedCardCRUD 01');
         print(feed.toMap());
         final firebaseUser = store.state.loggedState.firebaseUserLogged;
         Team team = Team(
@@ -45,7 +45,7 @@ class _ViewModel {
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
-        print('+++ FeedCardCRUD.onCreate');
+        //print('+++ FeedCardCRUD.onCreate');
       },
       onUpdate: (String description, String link) {
         feed.description = description;

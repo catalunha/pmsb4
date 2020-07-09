@@ -22,14 +22,14 @@ List<Middleware<AppState>> firebaseFirestoreKanbanCardMiddleware() {
 void Function(Store<AppState> store, StreamKanbanCardDataAction action,
     NextDispatcher next) _streamKanbanCardAction() {
   return (store, action, next) {
-    print('_streamKanbanCardAction...');
+    //print('_streamKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     Stream<QuerySnapshot> streamDocs;
     KanbanCardFilter currentFilter =
         store.state.kanbanCardState.kanbanCardFilter;
     if (currentFilter == KanbanCardFilter.all &&
         store.state.kanbanBoardState.currentKanbanBoardModel?.id != null) {
-      print('_streamKanbanCardAction...01');
+      //print('_streamKanbanCardAction...01');
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: true)
@@ -37,9 +37,9 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
           //     isEqualTo:
           //         store.state.kanbanBoardState.currentKanbanBoardModel.id)
           .snapshots();
-      print('_streamKanbanCardAction...02');
+      //print('_streamKanbanCardAction...02');
     } else if (currentFilter == KanbanCardFilter.active) {
-      print('_streamKanbanCardAction...03');
+      //print('_streamKanbanCardAction...03');
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: true)
@@ -49,9 +49,9 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
           // .where('author.id',
           //     isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
-      print('_streamKanbanCardAction...04');
+      //print('_streamKanbanCardAction...04');
     } else if (currentFilter == KanbanCardFilter.inactive) {
-      print('_streamKanbanCardAction...05');
+      //print('_streamKanbanCardAction...05');
       streamDocs = firestore
           .collection(KanbanCardModel.collection)
           .where('active', isEqualTo: false)
@@ -61,26 +61,26 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
           // .where('author.id',
           //     isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
-      print('_streamKanbanCardAction...06');
+      //print('_streamKanbanCardAction...06');
     }
-    print('_streamKanbanCardAction...07');
+    //print('_streamKanbanCardAction...07');
     final listDocs = streamDocs.map((snapDocs) => snapDocs.documents
         .map((doc) => KanbanCardModel(doc.documentID).fromFirestore(doc.data))
         .toList());
-    print('_streamKanbanCardAction...08');
+    //print('_streamKanbanCardAction...08');
     listDocs.listen((List<KanbanCardModel> allKanbanCardModel) {
-      print('allKanbanCardModel: ${allKanbanCardModel.length}');
+      //print('allKanbanCardModel: ${allKanbanCardModel.length}');
       store.dispatch(AllKanbanCardModelAction(
           allKanbanCardModel: allKanbanCardModel,
           currentKanbanBoardModel:
               store.state.kanbanBoardState.currentKanbanBoardModel));
-      print('_streamKanbanCardAction...09');
+      //print('_streamKanbanCardAction...09');
       // store.dispatch(
       //     UpdateKanbanCardFilterAction(kanbanCardFilter: currentFilter));
       // store.dispatch(CurrentKanbanCardModelAction(
       //     id: store.state.kanbanCardState.currentKanbanCardModel?.id));
     });
-    print('_streamKanbanCardAction...10');
+    //print('_streamKanbanCardAction...10');
     next(action);
   };
 }
@@ -88,7 +88,7 @@ void Function(Store<AppState> store, StreamKanbanCardDataAction action,
 void Function(Store<AppState> store, UpdateKanbanCardDataAction action,
     NextDispatcher next) _updateKanbanCardAction() {
   return (store, action, next) async {
-    print('_updateKanbanCardAction...');
+    //print('_updateKanbanCardAction...');
     // print(action.kanbanCardModel.toFirestore());
     Firestore firestore = Firestore.instance;
     firestore
@@ -100,7 +100,7 @@ void Function(Store<AppState> store, UpdateKanbanCardDataAction action,
     //   Duration(seconds: 5),
     //   () => 'Large Latte',
     // );
-    // print('só um');
+    // //print('só um');
     //         firestore
     //     .collection(KanbanCardModel.collection)
     //     .document(action.kanbanCardModel.id)
@@ -112,7 +112,7 @@ void Function(Store<AppState> store, UpdateKanbanCardDataAction action,
 // void Function(Store<AppState> store, UpdateFieldKanbanCardAction action,
 //     NextDispatcher next) _updateFieldKanbanCardAction() {
 //   return (store, action, next) {
-//     print('_updateKanbanCardAction...');
+//     //print('_updateKanbanCardAction...');
 //     Firestore firestore = Firestore.instance;
 //     firestore
 //         .collection(KanbanCardModel.collection)
@@ -125,7 +125,7 @@ void Function(Store<AppState> store, UpdateKanbanCardDataAction action,
 void Function(Store<AppState> store, DeleteKanbanCardDataAction action,
     NextDispatcher next) _deleteKanbanCardAction() {
   return (store, action, next) {
-    print('_deleteKanbanCardAction...');
+    //print('_deleteKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanCardModel.collection)
@@ -138,7 +138,7 @@ void Function(Store<AppState> store, DeleteKanbanCardDataAction action,
 void Function(Store<AppState> store, AddKanbanCardDataAction action,
     NextDispatcher next) _addKanbanCardAction() {
   return (store, action, next) {
-    print('_addKanbanCardAction...');
+    //print('_addKanbanCardAction...');
     Firestore firestore = Firestore.instance;
     firestore
         .collection(KanbanCardModel.collection)

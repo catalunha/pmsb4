@@ -74,7 +74,7 @@ class _TeamCardAddCDSState extends State<TeamCardAddCDS> {
         padding: const EdgeInsets.all(5),
         child: InkWell(
           onTap: () {
-            // print('removendo user${item.id}');
+            // //print('removendo user${item.id}');
             widget.onRemoveUserTeam(usuario.id);
           },
           child: Tooltip(
