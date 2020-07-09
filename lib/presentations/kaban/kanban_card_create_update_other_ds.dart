@@ -181,7 +181,7 @@ class _KanbanCardCreateUpdateOtherDSState
               ),
               Expanded(
                 child: Container(
-                  height: 115,
+                  //height: 115,
                   // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),
@@ -196,7 +196,7 @@ class _KanbanCardCreateUpdateOtherDSState
               ),
               Expanded(
                 child: Container(
-                  height: 115,
+                  //height: 115,
                   // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),

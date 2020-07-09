@@ -79,16 +79,14 @@ class _TeamCardAddCDSState extends State<TeamCardAddCDS> {
           },
           child: Tooltip(
             message: usuario.displayName,
-            child: Chip(
-              backgroundColor: PmsbColors.card,
-              label: Text(usuario.displayName),
-              avatar: CircleAvatar(
+            child: ClipOval(
+              child: CircleAvatar(
                 backgroundColor: Colors.lightBlue[50],
                 // child: Text(usuario.displayName[0].toUpperCase() +
                 //     usuario.displayName[1].toUpperCase()),
-                backgroundImage: usuario.photoUrl != null
-                    ? NetworkImage(usuario.photoUrl)
-                    : NetworkImage(''),
+                child: usuario.photoUrl != null
+                    ? Image.network(usuario.photoUrl)
+                    : Text(usuario.displayName.substring(0, 2).toUpperCase()),
               ),
             ),
           ),
