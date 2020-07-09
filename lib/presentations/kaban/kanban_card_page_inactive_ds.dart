@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/presentations/kaban/components/short_card_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
-import 'package:pmsb4/routes.dart';
 
 class KanbanCardPageInactiveDS extends StatelessWidget {
   final List<KanbanCardModel> filteredKanbanCardModel;
@@ -26,12 +26,17 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
         title: Text('Cartões Arquivados'),
         //automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.kanbanCardPage);
-          },
-        ),
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+              // Navigator.pushNamed(context, Routes.kanbanCardPage);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KanbanCardPage(),
+                ),
+              );
+            }),
       ),
       body: Container(
         child: Column(

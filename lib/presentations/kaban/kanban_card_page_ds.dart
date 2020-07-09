@@ -221,7 +221,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
                           }
                         },
                         onDragFinish: (oldIndex, newIndex) {
-                          print('oldIndex:$oldIndex, newIndex:$newIndex');
+                          //print('oldIndex:$oldIndex, newIndex:$newIndex');
 
                           setState(() {
                             KanbanCardModel todo =

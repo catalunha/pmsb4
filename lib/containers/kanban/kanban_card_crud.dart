@@ -112,14 +112,18 @@ class _ViewModel {
             AddKanbanCardDataAction(kanbanCardModel: _currentKanbanCardModel));
       },
       onUpdate: (String title, String description, bool priority, bool active) {
-        print('Atualizando $title $description $priority $active');
+        //print('Atualizando $title $description $priority $active');
         if (title != null) _currentKanbanCardModel.title = title;
         if (description != null)
           _currentKanbanCardModel.description = description;
         if (priority != null) _currentKanbanCardModel.priority = priority;
         if (active != null) {
           _currentKanbanCardModel.active = active;
+
           if (active == false) {
+            store.dispatch(CurrentKanbanCardModelAction(id: null));
+
+            //print('KanbanCardCRUD.onUpdate finalizado.');
             KanbanBoardModel _currentKanbanBoardModel =
                 store.state.kanbanBoardState.currentKanbanBoardModel;
             if (_currentKanbanBoardModel?.cardOrder != null) {
@@ -128,16 +132,13 @@ class _ViewModel {
               store.dispatch(UpdateKanbanBoardDataAction(
                   kanbanBoardModel: _currentKanbanBoardModel));
             }
-            store.dispatch(CurrentKanbanCardModelAction(id: null));
           }
         }
-
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel: _currentKanbanCardModel));
-        print('KanbanCardCRUD.onUpdate finalizado.');
       },
       onRemoveUserTeam: (String id) async {
-        print('removendo1 $id');
+        //print('removendo1 $id');
         store.dispatch(RemoveUserToTeamKanbanCardModelAction(id: id));
 
         store.dispatch(UpdateKanbanCardDataAction(

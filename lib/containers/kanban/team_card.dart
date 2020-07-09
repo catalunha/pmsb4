@@ -33,13 +33,13 @@ class _ViewModel {
       addUserTeam: (String id) {
         if (currentKanbanCardModel?.team == null ||
             !currentKanbanCardModel.team.containsKey(id)) {
-          print('addUserTeamCard: Selecionado: $id');
+          //print('addUserTeamCard: Selecionado: $id');
           Team team = currentKanbanBoardModel.team[id];
           store.dispatch(AddUserToTeamKanbanCardModelAction(team: team));
           store.dispatch(UpdateKanbanCardDataAction(
               kanbanCardModel: currentKanbanCardModel));
         } else {
-          print('addUserTeamCard: Já esta no team.');
+          //print('addUserTeamCard: Já esta no team.');
         }
       },
     );

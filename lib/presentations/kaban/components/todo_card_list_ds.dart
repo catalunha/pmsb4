@@ -136,7 +136,7 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
   }
 
   void _onReorder(int oldIndex, int newIndex) {
-    print('oldIndex:$oldIndex | newIndex:$newIndex');
+    //print('oldIndex:$oldIndex | newIndex:$newIndex');
     if (newIndex > oldIndex) {
       newIndex -= 1;
     }

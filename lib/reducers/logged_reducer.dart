@@ -17,20 +17,20 @@ final loggedReducer = combineReducers<LoggedState>([
 
 LoggedState _updateProfileSuccessfulLoggedAction(
     LoggedState state, UpdateProfileSuccessfulLoggedAction action) {
-  print('_userUpdateProfileSuccessfulAction...');
+  //print('_userUpdateProfileSuccessfulAction...');
   return state.copyWith(firebaseUser: action.firebaseUser);
 }
 
 LoggedState _authenticationStatusLoggedAction(
     LoggedState state, AuthenticationStatusLoggedAction action) {
-  print('_authenticationStatusLoggedAction...');
+  //print('_authenticationStatusLoggedAction...');
   return state.copyWith(
       authenticationStatus: action.loggedAuthenticationStatus);
 }
 
 LoggedState _loginSuccessfulLoggedAction(
     LoggedState state, LoginSuccessfulLoggedAction action) {
-  print('_userLoginSuccessfulAction...');
+  //print('_userLoginSuccessfulAction...');
   return state.copyWith(
       authenticationStatus: AuthenticationStatus.authenticated,
       firebaseUser: action.firebaseUser);
@@ -38,7 +38,7 @@ LoggedState _loginSuccessfulLoggedAction(
 
 LoggedState _logoutSuccessfulLoggedAction(
     LoggedState state, LogoutSuccessfulLoggedAction action) {
-  print('_userLogoutSuccessfulAction...');
+  //print('_userLogoutSuccessfulAction...');
   return state.copyWith(
       authenticationStatus: AuthenticationStatus.unInitialized,
       firebaseUser: null);
@@ -46,7 +46,7 @@ LoggedState _logoutSuccessfulLoggedAction(
 
 LoggedState _loginFailLoggedAction(
     LoggedState state, LoginFailLoggedAction action) {
-  print('_userLoginFailAction...');
+  //print('_userLoginFailAction...');
   return state.copyWith(
     authenticationStatus: AuthenticationStatus.unAuthenticated,
     firebaseUser: null,

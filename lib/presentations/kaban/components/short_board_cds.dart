@@ -30,66 +30,48 @@ class ShortBoardCDS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: this.cor,
-      //height: this.altura,
+      height: this.altura,
       width: this.largura,
       child: Column(
         children: [
-          ListTile(
-            onTap: this.onViewKanbanCards,
-            leading: Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
-            trailing: kanbanBoardFilter.toString() ==
-                        KanbanBoardFilter.activeAuthor.toString() ||
-                    kanbanBoardFilter.toString() ==
-                        KanbanBoardFilter.inactive.toString()
-                ? botaoMore()
-                : Container(),
-            title: Text("${this.quadro.title}"),
-            subtitle: Text(
-                "Tarefas em andamento: ${quadro.cardOrder?.length ?? 0}\nDescrição: ${this.quadro.description}"),
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                width: 5,
+                width: 15,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Tooltip(
-                    message: quadro.author?.displayName,
-                    child: CircleAvatar(
-                      backgroundColor: PmsbColors.navbar,
-                      child: quadro.author?.photoUrl == null
-                          ? Text(
-                              quadro.author?.displayName[0].toUpperCase() +
-                                  quadro.author?.displayName[1].toUpperCase(),
-                              style: PmsbStyles.textoSecundario,
-                            )
-                          : Image.network(quadro.author?.photoUrl),
-                      // backgroundImage: quadro.author?.photoUrl != null
-                      //     ? NetworkImage(quadro.author?.photoUrl)
-                      //     : NetworkImage(""),
-                    ),
+              CircleAvatar(
+                radius: 19,
+                child: ClipOval(
+                  child: Center(
+                    child: quadro.author?.photoUrl != null
+                        ? Image.network(quadro.author.photoUrl)
+                        : Icon(Icons.person_add),
                   ),
-                  SizedBox(
-                    height: 1,
-                  ),
-                  Container(
-                    color: PmsbColors.cor_destaque,
-                    width: 25,
-                    height: 4,
-                  )
-                ],
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Wrap(
-                  children: gerarListaUsuarios(),
                 ),
               ),
+              Expanded(
+                child: ListTile(
+                  onTap: this.onViewKanbanCards,
+                  trailing:
+                      Icon(this.quadro.public ? Icons.lock_open : Icons.lock),
+                  title: Text("${this.quadro.title}"),
+                  subtitle: Text(
+                      "Tarefas em andamento: ${quadro.cardOrder?.length ?? 0}\nDescrição: ${this.quadro.description}"),
+                ),
+              ),
+              kanbanBoardFilter.toString() ==
+                          KanbanBoardFilter.activeAuthor.toString() ||
+                      kanbanBoardFilter.toString() ==
+                          KanbanBoardFilter.inactive.toString()
+                  ? botaoMore()
+                  : Container(),
             ],
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              children: gerarListaUsuarios(),
+            ),
           ),
         ],
       ),

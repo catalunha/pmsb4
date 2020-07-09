@@ -65,7 +65,7 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
   void validateData() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      print('validateData feed');
+      //print('validateData feed');
       widget.onCreate(_description, _link);
       _description = null;
       _link = null;

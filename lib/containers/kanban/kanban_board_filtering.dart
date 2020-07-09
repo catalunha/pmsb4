@@ -14,7 +14,7 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
       onSelectFilter: (KanbanBoardFilter filter) {
-        print('KanbanFiltering: ${filter.toString()}');
+        //print('KanbanFiltering: ${filter.toString()}');
         // Como o KanbanBoard nao tem filtro dentro de all a cada filtro busca nova lista no firebase.
         store
             .dispatch(UpdateKanbanBoardFilterAction(kanbanBoardFilter: filter));
