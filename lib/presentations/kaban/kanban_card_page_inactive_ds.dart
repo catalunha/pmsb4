@@ -53,13 +53,16 @@ class KanbanCardPageInactiveDS extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     KanbanCardModel kanbanCardModel =
                         filteredKanbanCardModel[index];
-                    return ShortCardCDS(
-                      arquivado: true,
-                      cor: Colors.blue,
-                      tarefa: kanbanCardModel,
-                      onTap: () {
-                        onActiveTrueCard(kanbanCardModel.id);
-                      },
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: ShortCardCDS(
+                        arquivado: true,
+                        cor: Colors.blue,
+                        tarefa: kanbanCardModel,
+                        onTap: () {
+                          onActiveTrueCard(kanbanCardModel.id);
+                        },
+                      ),
                     );
                   },
                 ),
