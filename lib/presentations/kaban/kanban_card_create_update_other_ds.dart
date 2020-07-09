@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/feed_card_list.dart';
+import 'package:pmsb4/containers/kanban/kanban_card_page.dart';
 import 'package:pmsb4/containers/kanban/todo_card_list.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/kaban/components/team_card_add_cds.dart';
@@ -149,7 +150,12 @@ class _KanbanCardCreateUpdateOtherDSState
                       color: Colors.transparent,
                       onPressed: () {
                         widget.onUpdate(null, null, null, false);
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KanbanCardPage(),
+                          ),
+                        );
                       },
                       icon: Icon(Icons.archive),
                       label: Text("Arquivar"),

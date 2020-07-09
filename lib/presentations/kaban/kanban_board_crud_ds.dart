@@ -245,7 +245,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
           padding: EdgeInsets.all(5),
           child: InkWell(
             onTap: () {
-              // print('removendo user${item.id}');
+              // //print('removendo user${item.id}');
               widget.onRemoveUserTeam(item.id);
             },
             child: Tooltip(
