@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/logged_action.dart';
@@ -18,14 +19,13 @@ import 'package:pmsb4/plataform/resources.dart';
 import 'package:pmsb4/reducers/app_reducer.dart';
 import 'package:pmsb4/routes.dart';
 import 'package:pmsb4/states/app_state.dart';
-import 'package:pmsb4/states/types_states.dart';
 import 'package:redux/redux.dart';
 
 Store<AppState> _store = Store<AppState>(
   appReducer,
   initialState: AppState.initial(),
   middleware: []
-    ..addAll(firebaseAuthenticationMiddleware())
+    ..addAll(firebaseAuthenticationMiddleware(FirebaseAuth.instance))
     ..addAll(firebaseStorageMiddleware())
     ..addAll(firebaseFirestoreUserMiddleware())
     ..addAll(firebaseFirestoreKanbanBoardMiddleware())
