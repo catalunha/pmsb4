@@ -122,29 +122,39 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
           ),
           SizedBox(height: 15),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: width > 1800 ? (width * 0.05) : (width * 0.01),
-              ),
-              child: _listaColunas(context),
-            ),
+            // child: Padding(
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: width > 1800 ? (width * 0.05) : (width * 0.01),
+            //   ),
+            child: _listaColunas(context, width),
+            // ),
           ),
         ],
       ),
     );
   }
 
-  Widget _listaColunas(BuildContext context) {
+  Widget _listaColunas(BuildContext context, double screenWidth) {
     return Container(
-      child: ListView.builder(
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemCount: StageCard.values.length,
-        itemBuilder: (context, indexStage) {
-          List<StageCard> stageCardList = StageCard.values;
-          return _gerarColuna(context, stageCardList[indexStage]);
-        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _listaColuna(context),
+        ),
       ),
     );
+  }
+
+  List<Widget> _listaColuna(context) {
+    List<StageCard> stageCardList = StageCard.values;
+    List<Widget> lista = List<Widget>();
+    int index = 0;
+    stageCardList.forEach((element) {
+      index = stageCardList.indexOf(element);
+      lista.add(_gerarColuna(context, stageCardList[index]));
+    });
+    return lista;
   }
 
   Widget _gerarColuna(BuildContext context, StageCard indexStage) {
