@@ -61,7 +61,7 @@ class _KanbanCardCreateUpdateOtherDSState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("AUTOR: ${widget.author?.displayName} | ${widget.title}"),
+        title: Text("#${widget.number} - ${widget.title}"),
       ),
       backgroundColor: PmsbColors.navbar,
       body: body(),
@@ -111,7 +111,7 @@ class _KanbanCardCreateUpdateOtherDSState
                   child: Container(
                     width: widthPage,
                     child: Text(
-                      "#${widget.number}. Criada em ${widget.created}.\n${widget.description}",
+                      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}.\n${widget.description}.",
                       style: TextStyle(
                           color: PmsbColors.texto_terciario, fontSize: 14),
                     ),
