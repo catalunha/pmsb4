@@ -60,8 +60,8 @@ class _KanbanCardCreateUpdateTitleDSState
                     ),
                     Container(
                       child: Text(
-                          (widget.isCreate ? "Criar nova" : "Editar") +
-                              " tarefa",
+                          (widget.isCreate ? "Criar Nova" : "Editar") +
+                              " Tarefa",
                           style: PmsbStyles.textStyleListPerfil01),
                     ),
                     IconButton(
@@ -82,7 +82,7 @@ class _KanbanCardCreateUpdateTitleDSState
                   width: _width,
                 ),
               ),
-              textoQuadro("Titulo da tarefa"),
+              textoQuadro("Título da Tarefa"),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
@@ -95,7 +95,7 @@ class _KanbanCardCreateUpdateTitleDSState
                   ),
                 ),
               ),
-              textoQuadro("Descrição da tarefa"),
+              textoQuadro("Descrição da Tarefa"),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
@@ -110,25 +110,28 @@ class _KanbanCardCreateUpdateTitleDSState
               ),
               SizedBox(height: 10),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                    color: PmsbColors.cor_destaque,
-                    onPressed: () {
-                      validateData();
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Salvar",
-                        style: TextStyle(
-                          color: PmsbColors.navbar,
-                          fontSize: 14,
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      color: PmsbColors.cor_destaque,
+                      onPressed: () {
+                        validateData();
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Salvar",
+                          style: TextStyle(
+                            color: PmsbColors.texto_primario,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
