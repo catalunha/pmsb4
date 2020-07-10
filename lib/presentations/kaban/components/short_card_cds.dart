@@ -3,6 +3,7 @@ import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:intl/intl.dart';
+import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
 class ShortCardCDS extends StatelessWidget {
   final Color cor;
@@ -30,7 +31,6 @@ class ShortCardCDS extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: tarefa.priority ? Colors.grey[900] : PmsbColors.card,
-
         border: Border(),
       ),
       height: this.altura,
@@ -75,17 +75,31 @@ class ShortCardCDS extends StatelessWidget {
         Tooltip(
           message: '${user.displayName} ${user?.readedCard}',
           child: Container(
-            padding: EdgeInsets.all(1),
+            padding: EdgeInsets.all(3),
             height: 30,
             width: 30,
             child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              // child: Text(user.displayName[0].toUpperCase() +
-              //     user.displayName[1].toUpperCase()),
-              backgroundImage: user.photoUrl != null
-                  ? NetworkImage(user.photoUrl)
-                  : NetworkImage(''),
-            ),
+                backgroundColor: Colors.grey,
+                // child: Text(user.displayName[0].toUpperCase() +
+                //     user.displayName[1].toUpperCase()),
+                // backgroundImage: user.photoUrl != null
+                //     ? NetworkImage(user.photoUrl)
+                //     : NetworkImage(''),
+
+                child: ClipOval(
+                  child: user.photoUrl == null
+                      ? Text(
+                          user.displayName[0].toUpperCase() +
+                              user.displayName[1].toUpperCase(),
+                          style: PmsbStyles.textoSecundario,
+                        )
+                      : Image.network(user.photoUrl),
+                )
+
+                // backgroundImage: user.photoUrl != null
+                //     ? NetworkImage(user.photoUrl)
+                //     : NetworkImage(''),
+                ),
           ),
         ),
         user?.readedCard != null && !user.readedCard
