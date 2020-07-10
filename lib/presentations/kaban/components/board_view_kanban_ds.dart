@@ -11,7 +11,7 @@ import 'package:pmsb4/presentations/kaban/components/column_title_cds.dart';
 import 'package:pmsb4/presentations/kaban/components/short_card_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class BoardViewKanban extends StatelessWidget {
+class BoardViewKanbanDS extends StatelessWidget {
   final KanbanBoardModel currentKanbanBoardModel;
 
   final List<KanbanCardModel> filteredKanbanCardModel;
@@ -19,7 +19,7 @@ class BoardViewKanban extends StatelessWidget {
   final Function(Map<String, String>) onChangeCardOrder;
   final Function(String, StageCard) onChangeStageCard;
 
-  BoardViewKanban({
+  BoardViewKanbanDS({
     Key key,
     this.currentKanbanBoardModel,
     this.filteredKanbanCardModel,
@@ -34,11 +34,14 @@ class BoardViewKanban extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('BoardViewKanbanDS.build');
+    columnItemsList = [];
+    stageCardsList = [];
     buildColumnItemsList(context);
 
     List<BoardList> boardList = List<BoardList>();
     for (int i = 0; i < columnItemsList.length; i++) {
-      boardList.add(_createBoardList(columnItemsList[i]));
+      boardList.add(_createBoardList(columnItemsList[i], context));
     }
 
     return BoardView(
@@ -83,14 +86,14 @@ class BoardViewKanban extends StatelessWidget {
       );
     }
     for (var stageCards in stageCardsList) {
-      // print('${stageCards.stageCard.name}');
+      print('*** ${stageCards.stageCard.name}');
       for (var cards in stageCards.idCards) {
-        print(cards);
+        print('*** $cards');
       }
     }
   }
 
-  Widget _createBoardList(ColumnItems columnItems) {
+  Widget _createBoardList(ColumnItems columnItems, BuildContext context) {
     List<BoardItem> boardItemList = List();
     for (var i = 0; i < columnItems.items.length; i++) {
       boardItemList.insert(i, buildBoardItem(columnItems.items[i]));
@@ -138,21 +141,25 @@ class BoardViewKanban extends StatelessWidget {
 
         //+++ Atualiza ordem dos cards
         Map<String, String> cardOrder = Map<String, String>();
+        cardOrder.clear();
         var index = 1;
         for (var stageCards in stageCardsList) {
-          // print('${stageCards.stageCard.name}');
+          print('+++ ${stageCards.stageCard.name}');
           for (var idCard in stageCards.idCards) {
-            // print(idCard);
+            print('+++ $idCard');
             cardOrder[(index++).toString()] = idCard;
           }
         }
         onChangeCardOrder(cardOrder);
         //---
         //+++ Se houve mudança de colunas entao atualiza o stageCard
-        if (listIndex != oldListIndex) {
-          onChangeStageCard(card, StageCard.values[listIndex]);
-        }
+        // if (listIndex != oldListIndex) {
+        onChangeStageCard(card, StageCard.values[listIndex]);
+        // }
         //---
+        // buildColumnItemsList(context);
+        // columnItemsList = [];
+        // stageCardsList = [];
       },
       onTapItem: (int listIndex, int itemIndex, BoardItemState state) {
         // print(
