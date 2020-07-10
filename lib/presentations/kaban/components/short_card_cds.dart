@@ -30,7 +30,6 @@ class ShortCardCDS extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: tarefa.priority ? Colors.grey[900] : PmsbColors.card,
-
         border: Border(),
       ),
       height: this.altura,
@@ -39,14 +38,14 @@ class ShortCardCDS extends StatelessWidget {
         children: [
           ListTile(
             title: Text("${tarefa.title}"),
-            subtitle: Tooltip(
-              message:
-                  'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}h. ',
-              child:
-                  // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
-                  Text(
-                      "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} dias atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
-            ),
+
+            // message:
+            //'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}h. ',
+            // child:
+            // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
+            subtitle: Text(
+                "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} dias atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
+
             onTap: onTap,
           ),
           Wrap(
