@@ -1,42 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/board_view_kanban.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page_inactive.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
 import 'package:pmsb4/models/kaban_card_model.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/board_view_kanban_cds.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class KanbanCardPageDS extends StatefulWidget {
+class KanbanCardPageDS extends StatelessWidget {
   final KanbanBoardModel currentKanbanBoardModel;
 
-  final List<KanbanCardModel> filteredKanbanCardModel;
-  final Function(String) onCurrentKanbanCardModel;
-  final Function(Map<String, String>) onChangeCardOrder;
-  final Function(String, StageCard) onChangeStageCard;
+  // final List<KanbanCardModel> filteredKanbanCardModel;
+  // final Function(String) onCurrentKanbanCardModel;
+  // final Function(Map<String, String>) onChangeCardOrder;
+  // final Function(String, StageCard) onChangeStageCard;
 
   KanbanCardPageDS({
     Key key,
     this.currentKanbanBoardModel,
-    this.filteredKanbanCardModel,
-    this.onCurrentKanbanCardModel,
-    this.onChangeCardOrder,
-    this.onChangeStageCard,
+    // this.filteredKanbanCardModel,
+    // this.onCurrentKanbanCardModel,
+    // this.onChangeCardOrder,
+    // this.onChangeStageCard,
   }) : super(key: key);
-  @override
-  _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
-}
+//   @override
+//   _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
+// }
 
-class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
+// class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   @override
   Widget build(BuildContext context) {
+    print('KanbanCardPageDS.build');
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: PmsbColors.fundo,
-        title: Text("Cartões para o ${widget.currentKanbanBoardModel?.title}"),
+        title: Text("Cartões para o ${currentKanbanBoardModel?.title}"),
       ),
       backgroundColor: PmsbColors.fundo,
       body: body(context),
@@ -58,7 +59,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  widget.currentKanbanBoardModel?.description,
+                  currentKanbanBoardModel?.description,
                   style: TextStyle(
                       fontSize: 18, color: PmsbColors.texto_terciario),
                 ),
@@ -119,13 +120,7 @@ class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
           ),
           SizedBox(height: 15),
           Expanded(
-            child: BoardViewKanban(
-              currentKanbanBoardModel: widget.currentKanbanBoardModel,
-              filteredKanbanCardModel: widget.filteredKanbanCardModel,
-              onCurrentKanbanCardModel: widget.onCurrentKanbanCardModel,
-              onChangeCardOrder: widget.onChangeCardOrder,
-              onChangeStageCard: widget.onChangeStageCard,
-            ),
+            child: BoardViewKanban(),
           ),
         ],
       ),
