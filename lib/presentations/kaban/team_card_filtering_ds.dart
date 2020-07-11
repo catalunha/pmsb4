@@ -17,7 +17,6 @@ class TeamCardFilteringDS extends StatelessWidget with Components {
 
   @override
   Widget build(BuildContext context) {
-    print('currentTeam:${currentTeam.displayName}');
     return PopupMenuButton<Team>(
         tooltip: "Filtrar por membro",
         color: PmsbColors.navbar,
