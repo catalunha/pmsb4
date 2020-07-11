@@ -4,40 +4,25 @@ import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page_inactive.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
-import 'package:pmsb4/models/kaban_card_model.dart';
-import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardPageDS extends StatelessWidget {
   final KanbanBoardModel currentKanbanBoardModel;
 
-  // final List<KanbanCardModel> filteredKanbanCardModel;
-  // final Function(String) onCurrentKanbanCardModel;
-  // final Function(Map<String, String>) onChangeCardOrder;
-  // final Function(String, StageCard) onChangeStageCard;
-
   KanbanCardPageDS({
     Key key,
     this.currentKanbanBoardModel,
-    // this.filteredKanbanCardModel,
-    // this.onCurrentKanbanCardModel,
-    // this.onChangeCardOrder,
-    // this.onChangeStageCard,
   }) : super(key: key);
-//   @override
-//   _KanbanCardPageDSState createState() => _KanbanCardPageDSState();
-// }
 
-// class _KanbanCardPageDSState extends State<KanbanCardPageDS> {
   @override
   Widget build(BuildContext context) {
-    print('KanbanCardPageDS.build');
+    // print('KanbanCardPageDS.build');
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: PmsbColors.fundo,
-        title: Text("Cartões para o ${currentKanbanBoardModel?.title}"),
+        title: Text("${currentKanbanBoardModel?.title}"),
       ),
       backgroundColor: PmsbColors.fundo,
       body: body(context),
@@ -70,7 +55,6 @@ class KanbanCardPageDS extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundColor: PmsbColors.navbar,
                         child: TeamCardFiltering(),
-                        // child: botaoMore(),
                       ),
                     ),
                     Padding(
@@ -78,7 +62,6 @@ class KanbanCardPageDS extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundColor: PmsbColors.navbar,
                         child: KanbanCardFiltering(),
-                        // child: botaoMore(),
                       ),
                     ),
                     InkWell(
@@ -120,7 +103,7 @@ class KanbanCardPageDS extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Expanded(
-            child: BoardViewKanban(),
+            child: SizedBox(width: 1280, child: BoardViewKanban()),
           ),
         ],
       ),

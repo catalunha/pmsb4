@@ -41,15 +41,14 @@ class ShortCardCDS extends StatelessWidget {
           children: [
             ListTile(
               title: Text("${tarefa.title}"),
-              subtitle:
-                  // Tooltip(
-                  //   message:
-                  //       'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}. Id:${tarefa.id.substring(0, 5)}',
-                  //   child:
-                  // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
-                  Text(
-                      "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} dias atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}. ${tarefa.id.substring(0, 3)}"),
-              // ),
+              subtitle: Tooltip(
+                message:
+                    'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}.\nId:${tarefa.id.substring(0, 5)}.',
+                child:
+                    // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
+                    Text(
+                        "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} ${(DateTime.now().difference(tarefa.created)).inDays == 1 ? "dia" : "dias"} atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
+              ),
               onTap: onTap,
             ),
             Wrap(
