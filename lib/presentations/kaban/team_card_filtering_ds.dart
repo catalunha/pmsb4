@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
-class TeamCardFilteringDS extends StatelessWidget {
+class TeamCardFilteringDS extends StatelessWidget with Components {
   final Team currentTeam;
   final List<Team> teamCard;
 
   final Function(Team) onSelectFilter;
 
-  const TeamCardFilteringDS({
+  TeamCardFilteringDS({
     Key key,
     this.currentTeam,
     this.teamCard,
@@ -20,10 +20,7 @@ class TeamCardFilteringDS extends StatelessWidget {
     return PopupMenuButton<Team>(
         tooltip: "Filtrar por membro",
         color: PmsbColors.navbar,
-        icon: Icon(
-          Icons.supervised_user_circle,
-          color: Colors.white,
-        ),
+        icon: popupIcon(currentTeam),
         onSelected: onSelectFilter,
         itemBuilder: (BuildContext context) {
           // var list = List<PopupMenuEntry<Object>>();
@@ -32,10 +29,7 @@ class TeamCardFilteringDS extends StatelessWidget {
             value: Team(id: null),
             child: ListTile(
               title: Text('Todos'),
-              leading: Icon(
-                Icons.people,
-                color: Colors.black,
-              ),
+              leading: allIcon,
               trailing: currentTeam == Team()
                   ? Icon(Icons.check)
                   : Icon(
@@ -71,5 +65,28 @@ class TeamCardFilteringDS extends StatelessWidget {
           });
           return list;
         });
+  }
+}
+
+class Components {
+  final allIcon = Icon(
+    Icons.people,
+    color: Colors.black,
+  );
+  Widget popupIcon(Team currentTeam) {
+    Widget icon = allIcon;
+    if (currentTeam.id != null) {
+      icon = CircleAvatar(
+        radius: 30,
+        child: ClipOval(
+          child: Center(
+            child: currentTeam?.photoUrl != null
+                ? Image.network(currentTeam.photoUrl)
+                : Icon(Icons.person_add),
+          ),
+        ),
+      );
+    }
+    return icon;
   }
 }

@@ -51,7 +51,7 @@ class KanbanCardPageDS extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 2),
                       child: CircleAvatar(
                         backgroundColor: PmsbColors.navbar,
                         child: TeamCardFiltering(),

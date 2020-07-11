@@ -34,7 +34,7 @@ class BoardViewKanbanDS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BoardViewKanbanDS.build');
+    // print('BoardViewKanbanDS.build');
     columnItemsList = [];
     stageCardsList = [];
     buildColumnItemsList(context);
