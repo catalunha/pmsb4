@@ -47,6 +47,7 @@ class BoardViewKanbanDS extends StatelessWidget {
     return BoardView(
       lists: boardList,
       boardViewController: boardViewController,
+      width: 320,
     );
   }
 
@@ -85,12 +86,12 @@ class BoardViewKanbanDS extends StatelessWidget {
         StageCards(stageCard: stageCard, idCards: idCardList),
       );
     }
-    for (var stageCards in stageCardsList) {
-      print('*** ${stageCards.stageCard.name}');
-      for (var cards in stageCards.idCards) {
-        print('*** $cards');
-      }
-    }
+    // for (var stageCards in stageCardsList) {
+    //   print('*** ${stageCards.stageCard.name}');
+    //   for (var cards in stageCards.idCards) {
+    //     print('*** $cards');
+    //   }
+    // }
   }
 
   Widget _createBoardList(ColumnItems columnItems, BuildContext context) {
@@ -144,9 +145,9 @@ class BoardViewKanbanDS extends StatelessWidget {
         cardOrder.clear();
         var index = 1;
         for (var stageCards in stageCardsList) {
-          print('+++ ${stageCards.stageCard.name}');
+          // print('+++ ${stageCards.stageCard.name}');
           for (var idCard in stageCards.idCards) {
-            print('+++ $idCard');
+            // print('+++ $idCard');
             cardOrder[(index++).toString()] = idCard;
           }
         }
