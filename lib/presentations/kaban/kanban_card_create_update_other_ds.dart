@@ -49,9 +49,8 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
 
 class _KanbanCardCreateUpdateOtherDSState
     extends State<KanbanCardCreateUpdateOtherDS> {
-
   bool _priority;
-  ScrollController scrowllController; 
+  ScrollController scrowllController;
   @override
   void initState() {
     // TODO: implement initState
@@ -78,21 +77,19 @@ class _KanbanCardCreateUpdateOtherDSState
     double width = MediaQuery.of(context).size.width;
     double widthPage = width > 1800 ? (width * 0.8) : (width * 0.95);
 
-    return
-        Scrollbar(
-          controller: scrowllController,
-          isAlwaysShown: true,
-          child: Center(
-            child:
-        Container(
-      width: widthPage,
-      color: Colors.black12,
-      child: ListView(
-        children: <Widget>[
-          _descricao(),
-          _painel(),
-        ],
-      ),
+    return Scrollbar(
+      controller: scrowllController,
+      isAlwaysShown: true,
+      child: Center(
+        child: Container(
+          width: widthPage,
+          color: Colors.black12,
+          child: ListView(
+            children: <Widget>[
+              _descricao(),
+              _painel(),
+            ],
+          ),
         ),
       ),
     );
@@ -221,10 +218,11 @@ class _KanbanCardCreateUpdateOtherDSState
                     //   },
                     // ),
                     child: ListTile(
-                      title: textoTitulo('Esta tarefa é prioridade.'),
+                      title: textoTitulo('Esta tarefa é prioridade ?'),
                       subtitle: _priority
                           ? textoSubtitulo(
-                              'A prioridade desta tarefa é alta sobre as demais.')
+                              'A prioridade desta tarefa é alta sobre as demais.',
+                              color: Colors.yellow)
                           : textoSubtitulo(
                               'Atendimento normal. Sem prioridade sobre as demais.'),
                       leading: Checkbox(
@@ -267,13 +265,14 @@ class _KanbanCardCreateUpdateOtherDSState
     );
   }
 
-  Widget textoSubtitulo(String texto) {
+  Widget textoSubtitulo(String texto,
+      {Color color = PmsbColors.texto_terciario}) {
     return Padding(
       padding: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 30),
       child: Text(
         texto,
         style: TextStyle(
-          color: PmsbColors.texto_terciario,
+          color: color,
           fontSize: 17,
         ),
       ),
