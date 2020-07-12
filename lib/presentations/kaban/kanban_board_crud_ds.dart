@@ -5,7 +5,6 @@ import 'package:pmsb4/presentations/components/input_text.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
-
 class KanbanBoardCRUDDS extends StatefulWidget {
   final bool isCreate;
   final String title;
@@ -121,10 +120,11 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                 ),
               ),
               ListTile(
-                title: textoQuadro('Quadro público ?'),
+                title: textoQuadro('Este quadro é público ?'),
                 subtitle: _public
                     ? textoSubtitulo(
-                        'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.')
+                        'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.',
+                        color: Colors.yellow)
                     : textoSubtitulo('Somente sua equipe pode ver e editar.'),
                 leading: Checkbox(
                   value: _public,
@@ -137,6 +137,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                     );
                   },
                 ),
+                trailing: Icon(_public ? Icons.lock_open : Icons.lock),
               ),
               // textoQuadro(
               //     "Público ? Qualquer pessoa pode ver este quadro. Apenas sua equipe pode editar."),
@@ -212,13 +213,14 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
     );
   }
 
-  Widget textoSubtitulo(String texto) {
+  Widget textoSubtitulo(String texto,
+      {Color color = PmsbColors.texto_terciario}) {
     return Padding(
       padding: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 30),
       child: Text(
         texto,
         style: TextStyle(
-          color: PmsbColors.texto_terciario,
+          color: color,
           fontSize: 17,
         ),
       ),
