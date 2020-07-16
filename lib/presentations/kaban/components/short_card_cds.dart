@@ -76,7 +76,7 @@ class ShortCardCDS extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Tooltip(
-          message: '${user.displayName} ${user?.readedCard}',
+          message: '${user.displayName}',
           child: Container(
             padding: EdgeInsets.all(3),
             height: 30,
