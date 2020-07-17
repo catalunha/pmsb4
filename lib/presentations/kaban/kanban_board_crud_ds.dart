@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/kanban/team_board.dart';
 import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/components/input_text.dart';
@@ -189,7 +190,12 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   color: PmsbColors.cor_destaque,
                   onPressed: () {
                     validateData();
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => KanbanBoardPage(),
+                      ),
+                    );
                   },
                 ),
               ),

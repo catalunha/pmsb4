@@ -54,7 +54,7 @@ class KanbanBoardPage extends StatelessWidget {
         );
       },
       onInit: (Store<AppState> store) {
-        //print('KanbanBoardPage.onInit');
+        // print('KanbanBoardPage.onInit');
         store.dispatch(StreamKanbanBoardDataAction());
       },
       // onDidChange: (viewModel) {
