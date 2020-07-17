@@ -16,7 +16,7 @@ class TodoCardCreateUpdateDS extends StatefulWidget {
 }
 
 class _TodoCardCreateUpdateDSState extends State<TodoCardCreateUpdateDS> {
-  static final formKey = GlobalKey<FormState>();
+  static final formKeyTodoCardCreateUpdateDSState = GlobalKey<FormState>();
   String _title;
 
   @override
@@ -31,7 +31,7 @@ class _TodoCardCreateUpdateDSState extends State<TodoCardCreateUpdateDS> {
 
     Dialog dialogWithImage = Dialog(
       child: Form(
-        key: formKey,
+        key: formKeyTodoCardCreateUpdateDSState,
         child: Container(
           color: PmsbColors.navbar,
           height: _height,
@@ -133,8 +133,8 @@ class _TodoCardCreateUpdateDSState extends State<TodoCardCreateUpdateDS> {
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKeyTodoCardCreateUpdateDSState.currentState.validate()) {
+      formKeyTodoCardCreateUpdateDSState.currentState.save();
       widget.onCreateOrUpdate(_title);
     } else {
       setState(() {});

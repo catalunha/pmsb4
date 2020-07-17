@@ -34,7 +34,7 @@ class KanbanBoardCRUDDS extends StatefulWidget {
 }
 
 class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
-  static final formKey = GlobalKey<FormState>();
+  final formKeyKanbanBoardCRUDDSState = GlobalKey<FormState>();
   String _title;
   String _description;
   bool _public;
@@ -85,7 +85,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
       ),
       child: Container(
         child: Form(
-          key: formKey,
+          key: formKeyKanbanBoardCRUDDSState,
           child: ListView(
             children: <Widget>[
               textoTitulo("Crie um novo Quadro"),
@@ -278,8 +278,8 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKeyKanbanBoardCRUDDSState.currentState.validate()) {
+      formKeyKanbanBoardCRUDDSState.currentState.save();
       widget.onCreateOrUpdate(_title, _description, _public, _active);
     } else {
       setState(() {});

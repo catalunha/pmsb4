@@ -13,7 +13,8 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
   // TextEditingController textController;
   Widget caixaDeEntrada;
   bool entrada;
-  static final formKey = GlobalKey<FormState>();
+  final formKeyFeedCardCreateDSState = GlobalKey<FormState>();
+
   String _description;
   String _link;
   @override
@@ -28,7 +29,7 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
   Widget build(BuildContext context) {
     return Container(
       child: Form(
-        key: formKey,
+        key: formKeyFeedCardCreateDSState,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Container(
@@ -63,8 +64,8 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKeyFeedCardCreateDSState.currentState.validate()) {
+      formKeyFeedCardCreateDSState.currentState.save();
       //print('validateData feed');
       widget.onCreate(_description, _link);
       _description = null;

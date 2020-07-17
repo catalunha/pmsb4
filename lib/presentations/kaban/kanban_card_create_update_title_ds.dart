@@ -25,7 +25,8 @@ class KanbanCardCreateUpdateTitleDS extends StatefulWidget {
 
 class _KanbanCardCreateUpdateTitleDSState
     extends State<KanbanCardCreateUpdateTitleDS> {
-  static final formKey = GlobalKey<FormState>();
+  static final formKeyKanbanCardCreateUpdateTitleDSState =
+      GlobalKey<FormState>();
   String _title;
   String _description;
   _KanbanCardCreateUpdateTitleDSState();
@@ -42,7 +43,7 @@ class _KanbanCardCreateUpdateTitleDSState
 
     Dialog dialogWithImage = Dialog(
       child: Form(
-        key: formKey,
+        key: formKeyKanbanCardCreateUpdateTitleDSState,
         child: Container(
           color: PmsbColors.navbar,
           height: _height,
@@ -161,8 +162,8 @@ class _KanbanCardCreateUpdateTitleDSState
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKeyKanbanCardCreateUpdateTitleDSState.currentState.validate()) {
+      formKeyKanbanCardCreateUpdateTitleDSState.currentState.save();
       if (widget.isCreate) {
         widget.onCreate(_title, _description);
       } else {
