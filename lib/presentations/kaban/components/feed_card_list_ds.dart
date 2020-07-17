@@ -25,7 +25,7 @@ class _FeedCardListDSState extends State<FeedCardListDS> {
       child: Column(
         children: <Widget>[
           ListTile(
-            title: Text("Notícias:"),
+            title: Text("Informações:"),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
