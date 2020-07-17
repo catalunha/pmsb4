@@ -128,6 +128,8 @@ class _FeedCardCreateDSState extends State<FeedCardCreateDS> {
         _link.isEmpty ? null : _link,
       );
       formKeyFeedCardCreateDSState.currentState.reset();
+      _description = null;
+      _link = null;
     } else {
       setState(() {});
     }

@@ -27,59 +27,58 @@ class _FeedCardCDSState extends State<FeedCardCDS> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.01, vertical: 2),
-      child: Card(
-        color: PmsbColors.card,
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Chip(
-                    backgroundColor: PmsbColors.card,
-                    label: Text(widget.feed.author.displayName),
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.lightBlue[50],
-                      // child: Text(
-                      //     widget.feed.author.displayName[0].toUpperCase() +
-                      //         widget.feed.author.displayName[1].toUpperCase()),
-                      backgroundImage: widget.feed.author.photoUrl != null
-                          ? NetworkImage(widget.feed.author.photoUrl)
-                          : NetworkImage(''),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        '${widget.feed.created}',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.01, vertical: 2),
+        child: Card(
+          color: PmsbColors.card,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 10,
+                child: ListTile(
+                  onTap: null,
+                  onLongPress: null,
+                  leading: Tooltip(
+                    message: widget.feed.author.displayName,
+                    child: ClipOval(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.lightBlue[50],
+                        child: widget.feed.author.photoUrl != null
+                            ? Image.network(widget.feed.author.photoUrl)
+                            : Text(widget.feed.author.displayName
+                                .substring(0, 2)
+                                .toUpperCase()),
                       ),
                     ),
-                    (widget.loggedId == widget.feed.author.id) &&
-                            (!widget.feed.bot)
-                        ? botaoMore(id: widget.feed.id)
-                        : Container(),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: 5),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: _selecionarTipoFeed(),
-            ),
-            SizedBox(height: 10),
-          ],
-        ),
-      ),
-    );
+                  ),
+                  title: Text(widget.feed.description),
+                  subtitle: Text(widget.feed.created.toString()),
+                  trailing: widget.feed.link != null
+                      ? IconButton(
+                          icon: Icon(Icons.link),
+                          tooltip: widget.feed.link,
+                          onPressed: () async {
+                            if (widget.feed?.link != null) {
+                              if (await canLaunch(widget.feed.link)) {
+                                await launch(widget.feed.link);
+                              }
+                            }
+                          },
+                        )
+                      : Container(
+                          width: 1,
+                        ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: (widget.loggedId == widget.feed.author.id) &&
+                        (!widget.feed.bot)
+                    ? botaoMore(id: widget.feed.id)
+                    : Container(),
+              )
+            ],
+          ),
+        ));
   }
 
   Widget botaoMore({String id}) {
@@ -123,79 +122,6 @@ class _FeedCardCDSState extends State<FeedCardCDS> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _selecionarTipoFeed() {
-    Widget widgetSelect;
-    if (widget.feed.bot) {
-      widgetSelect = _feedTipoHistorico();
-    } else if (widget.feed?.link != null) {
-      widgetSelect = _feedTipoLink();
-    } else {
-      widgetSelect = _feedTipoTexto();
-    }
-
-    return widgetSelect;
-  }
-
-  Widget _feedTipoLink() {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: InkWell(
-          hoverColor: Colors.white12,
-          onTap: () async {
-            if (widget.feed?.link != null) {
-              if (await canLaunch(widget.feed.link)) {
-                await launch(widget.feed.link);
-              } else {
-                // throw 'Could not launch $feed.link';
-              }
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(width: 10),
-              Icon(Icons.link),
-              SizedBox(width: 20),
-              Text(
-                "${widget.feed.description}",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue[100],
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _feedTipoTexto() {
-    return Container(
-      child: Text(widget.feed.description),
-    );
-  }
-
-  Widget _feedTipoHistorico() {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.feed.description,
-              style:
-                  TextStyle(color: PmsbColors.texto_secundario, fontSize: 16),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
