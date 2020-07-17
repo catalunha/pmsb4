@@ -34,11 +34,16 @@ class _ViewModel {
         store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
       onChangeStageCard: (String idKanbanCardModel, StageCard newStageCard) {
-        KanbanCardModel _currentKanbanCardModel = store
-            .state.kanbanCardState.allKanbanCardModel
-            .firstWhere((element) => element.id == idKanbanCardModel);
+        store.dispatch(CurrentKanbanCardModelAction(id: idKanbanCardModel));
+        KanbanCardModel _currentKanbanCardModel =
+            store.state.kanbanCardState.currentKanbanCardModel;
+        // KanbanCardModel _currentKanbanCardModel = store
+        //     .state.kanbanCardState.allKanbanCardModel
+        //     .firstWhere((element) => element.id == idKanbanCardModel);
         _currentKanbanCardModel.stageCard = newStageCard.toString();
         //+++ atualiza o feed
+        // print(
+        //     'User: ${idKanbanCardModel}. Cartão foi movido para a coluna: ${newStageCard.name}');
         Feed feed = Feed(id: null);
         feed.description =
             'Cartão foi movido para a coluna: ${newStageCard.name}';
@@ -51,6 +56,7 @@ class _ViewModel {
           photoUrl: firebaseUser.photoUrl,
         );
         feed.author = team;
+        // print('Feed: ${feed.toString()}');
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
         //---
         store.dispatch(UpdateKanbanCardDataAction(
