@@ -33,7 +33,7 @@ class _TeamBoardDSState extends State<TeamBoardDS> {
             final userModel = widget.filteredUserModel[index];
             return ListTile(
               title: Text(userModel.displayName),
-              subtitle: Text(userModel.id),
+              // subtitle: Text(userModel.),
               leading: CircleAvatar(
                 minRadius: 20,
                 maxRadius: 20,

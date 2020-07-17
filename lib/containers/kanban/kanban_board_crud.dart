@@ -34,15 +34,25 @@ class _ViewModel {
     KanbanBoardModel _currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
     bool _isCreate = _currentKanbanBoardModel.id == null ? true : false;
+    List<Team> _teamSorted(Map<String, Team> team) {
+      List<Team> _return = [];
+      if (team != null) {
+        _return = team.entries.map((e) => e.value).toList()
+          ..sort((a, b) => a.displayName.compareTo(b.displayName));
+      }
+      return _return;
+    }
+
     return _ViewModel(
         isCreate: _isCreate,
         title: _currentKanbanBoardModel?.title ?? '',
         description: _currentKanbanBoardModel?.description ?? '',
         public: _currentKanbanBoardModel?.public ?? false,
         active: _currentKanbanBoardModel?.active ?? true,
-        team: _currentKanbanBoardModel.team != null
-            ? _currentKanbanBoardModel.team.entries.map((e) => e.value).toList()
-            : [],
+        team: _teamSorted(_currentKanbanBoardModel?.team),
+        //  != null
+        //     ? _currentKanbanBoardModel.team.entries.map((e) => e.value).toList()..sort((a, b) => a.displayName.compareTo(b.displayName))
+        //     : [],
         onCreateOrUpdate:
             (String title, String description, bool public, bool active) {
           _currentKanbanBoardModel.title = title;

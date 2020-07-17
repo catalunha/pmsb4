@@ -18,18 +18,24 @@ class _ViewModel {
     this.teamCard,
     this.addUserTeam,
   });
+
   static _ViewModel fromStore(Store<AppState> store) {
+    List<Team> _teamSorted(Map<String, Team> team) {
+      List<Team> _return = [];
+      if (team != null) {
+        _return = team.entries.map((e) => e.value).toList()
+          ..sort((a, b) => a.displayName.compareTo(b.displayName));
+      }
+      return _return;
+    }
+
     KanbanBoardModel currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
     KanbanCardModel currentKanbanCardModel =
         store.state.kanbanCardState.currentKanbanCardModel;
     return _ViewModel(
-      teamBoard: currentKanbanBoardModel?.team != null
-          ? currentKanbanBoardModel.team.entries.map((e) => e.value).toList()
-          : [],
-      teamCard: currentKanbanCardModel?.team != null
-          ? currentKanbanCardModel.team.entries.map((e) => e.value).toList()
-          : [],
+      teamBoard: _teamSorted(currentKanbanBoardModel?.team),
+      teamCard: _teamSorted(currentKanbanCardModel?.team),
       addUserTeam: (String id) {
         if (currentKanbanCardModel?.team == null ||
             !currentKanbanCardModel.team.containsKey(id)) {

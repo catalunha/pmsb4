@@ -23,8 +23,10 @@ class _ViewModel {
   static _ViewModel fromStore(Store<AppState> store) {
     KanbanBoardModel currentKanbanBoardModel =
         store.state.kanbanBoardState.currentKanbanBoardModel;
+
     return _ViewModel(
-      filteredUserModel: store.state.usersState.filteredUserModel,
+      filteredUserModel: store.state.usersState.filteredUserModel
+        ..sort((a, b) => a.displayName.compareTo(b.displayName)),
       // selectedUserModel: store.state.usersState.selectedUserModel ,
       team: currentKanbanBoardModel.team != null
           ? currentKanbanBoardModel.team.entries.map((e) => e.value).toList()
