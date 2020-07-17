@@ -64,8 +64,11 @@ class ShortCardCDS extends StatelessWidget {
   List<Widget> gerarListaUsuarios() {
     List<Widget> listaEtiqueta = List<Widget>();
     if (tarefa.team?.entries != null) {
-      for (var user in tarefa.team?.entries) {
-        listaEtiqueta.add(userCard(user.value));
+      List<Team> teamList = [];
+      teamList = tarefa.team.entries.map((e) => e.value).toList()
+        ..sort((a, b) => a.displayName.compareTo(b.displayName));
+      for (var user in teamList) {
+        listaEtiqueta.add(userCard(user));
       }
     }
     return listaEtiqueta;

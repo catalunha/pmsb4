@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/models/kaban_board_model.dart';
+import 'package:pmsb4/models/types_models.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 import 'package:pmsb4/states/types_states.dart';
@@ -132,27 +133,30 @@ class ShortBoardCDS extends StatelessWidget {
   List<Widget> gerarListaUsuarios() {
     List<Widget> usuariosWidget = List<Widget>();
     if (this.quadro?.team != null) {
-      for (var usuario in this.quadro.team.entries) {
+      List<Team> teamList = [];
+      teamList = quadro.team.entries.map((e) => e.value).toList()
+        ..sort((a, b) => a.displayName.compareTo(b.displayName));
+      for (var usuario in teamList) {
         usuariosWidget.add(Padding(
           padding: const EdgeInsets.only(
             left: 15,
             bottom: 5,
           ),
           child: Tooltip(
-            message: usuario.value.displayName,
+            message: usuario.displayName,
             child: Padding(
               padding: EdgeInsets.only(bottom: 4),
               child: CircleAvatar(
                 backgroundColor: PmsbColors.navbar,
-                child: usuario.value.photoUrl == null
+                child: usuario.photoUrl == null
                     ? Text(
-                        usuario.value.displayName[0].toUpperCase() +
-                            usuario.value.displayName[1].toUpperCase(),
+                        usuario.displayName[0].toUpperCase() +
+                            usuario.displayName[1].toUpperCase(),
                         style: PmsbStyles.textoSecundario,
                       )
                     : Container(),
-                backgroundImage: usuario.value.photoUrl != null
-                    ? NetworkImage(usuario.value.photoUrl)
+                backgroundImage: usuario.photoUrl != null
+                    ? NetworkImage(usuario.photoUrl)
                     : NetworkImage(''),
               ),
             ),

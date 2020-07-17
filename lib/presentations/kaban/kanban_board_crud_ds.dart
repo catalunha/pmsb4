@@ -253,7 +253,7 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
             },
             child: Tooltip(
               message:
-                  '${item.displayName} ${item.id.substring(0, 5)} . Clique para excluí-lo da equipe deste quadro.',
+                  '${item.displayName}. Clique para excluí-lo da equipe deste quadro. Id:${item.id.substring(0, 5)}',
               child: CircleAvatar(
                 backgroundColor: PmsbColors.navbar,
                 minRadius: 20,
