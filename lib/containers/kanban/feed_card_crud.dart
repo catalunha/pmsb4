@@ -42,6 +42,10 @@ class _ViewModel {
         feed.author = team;
         print(feed.toMap());
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
+        store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+            user: store.state.loggedState.firebaseUserLogged.uid,
+            viewer: false));
+
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
@@ -52,6 +56,10 @@ class _ViewModel {
         feed.link = link.isEmpty || link == '' ? null : link;
         feed.bot = false;
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
+        store.dispatch(UserViewOrUpdateKanbanCardModelAction(
+            user: store.state.loggedState.firebaseUserLogged.uid,
+            viewer: false));
+
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
