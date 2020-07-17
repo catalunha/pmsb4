@@ -83,12 +83,6 @@ class ShortCardCDS extends StatelessWidget {
             width: 30,
             child: CircleAvatar(
                 backgroundColor: Colors.grey,
-                // child: Text(user.displayName[0].toUpperCase() +
-                //     user.displayName[1].toUpperCase()),
-                // backgroundImage: user.photoUrl != null
-                //     ? NetworkImage(user.photoUrl)
-                //     : NetworkImage(''),
-
                 child: ClipOval(
                   child: user.photoUrl == null
                       ? Text(
@@ -97,12 +91,7 @@ class ShortCardCDS extends StatelessWidget {
                           style: PmsbStyles.textoSecundario,
                         )
                       : Image.network(user.photoUrl),
-                )
-
-                // backgroundImage: user.photoUrl != null
-                //     ? NetworkImage(user.photoUrl)
-                //     : NetworkImage(''),
-                ),
+                )),
           ),
         ),
         user?.readedCard != null && !user.readedCard

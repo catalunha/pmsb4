@@ -163,4 +163,8 @@ class Feed {
           created == other.created &&
           id == other.id &&
           bot == other.bot;
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }
