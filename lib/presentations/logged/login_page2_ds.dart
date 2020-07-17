@@ -41,7 +41,7 @@ class LoginPage2DS extends StatefulWidget {
 }
 
 class LoginPage2DSState extends State<LoginPage2DS> {
-  static final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   String _userName;
   String _password;
   LoginPageSizeMap loginPageSizeMap;
@@ -69,7 +69,6 @@ class LoginPage2DSState extends State<LoginPage2DS> {
 
   LoginPageSizeMap definirSizeMap(BuildContext context) {
     if (kIsWeb) {
-
       return MediaQuery.of(context).size.height > 600
           ? LoginPageSizeMap(
               symmetricHorizontal: MediaQuery.of(context).size.width * 0.30,

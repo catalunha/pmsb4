@@ -15,7 +15,7 @@ class FeedCardUpdateDS extends StatefulWidget {
 }
 
 class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
-  static final formKey = GlobalKey<FormState>();
+  final formKeyFeedCardUpdateDSState = GlobalKey<FormState>();
   String _description;
   String _link;
 
@@ -31,7 +31,7 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
 
     Dialog dialogWithImage = Dialog(
       child: Form(
-        key: formKey,
+        key: formKeyFeedCardUpdateDSState,
         child: Container(
           color: PmsbColors.navbar,
           height: _height,
@@ -145,8 +145,8 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
   }
 
   void validateData() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKeyFeedCardUpdateDSState.currentState.validate()) {
+      formKeyFeedCardUpdateDSState.currentState.save();
       widget.onUpdate(_description, _link);
     } else {
       setState(() {});
