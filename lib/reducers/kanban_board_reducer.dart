@@ -21,26 +21,36 @@ final kanbanBoardReducer = combineReducers<KanbanBoardState>([
 
 KanbanBoardState _allKanbanBoardModelAction(
     KanbanBoardState state, AllKanbanBoardModelAction action) {
-  //print('_allKanbanBoardModelAction...');
+  print('_allKanbanBoardModelAction...');
   KanbanBoardState _newState = state.copyWith(
     allKanbanBoardModel: action.allKanbanBoardModel,
   );
+  // print(
+  //     '_allKanbanBoardModelAction1 _newState.kanbanBoardFilter: ${_newState.kanbanBoardFilter}');
   _newState = _updateKanbanBoardFilterAction(
     _newState,
     UpdateKanbanBoardFilterAction(
-        kanbanBoardFilter: _newState.kanbanBoardFilter),
+      kanbanBoardFilter: _newState.kanbanBoardFilter,
+    ),
   );
+  // print(
+  //     '_allKanbanBoardModelAction2 _newState.kanbanBoardFilter: ${_newState.kanbanBoardFilter}');
   _newState = _currentKanbanBoardModelAction(
     _newState,
-    CurrentKanbanBoardModelAction(id: _newState.currentKanbanBoardModel?.id),
+    CurrentKanbanBoardModelAction(
+      id: _newState.currentKanbanBoardModel?.id,
+    ),
   );
+  // print(
+  //     '_allKanbanBoardModelAction3 _newState.kanbanBoardFilter: ${_newState.kanbanBoardFilter}');
   return _newState;
 }
 
 KanbanBoardState _updateKanbanBoardFilterAction(
     KanbanBoardState state, UpdateKanbanBoardFilterAction action) {
-  //print('_updateKanbanBoardFilterAction...');
+  print('_updateKanbanBoardFilterAction...');
   List<KanbanBoardModel> _filteredKanbanBoardModel = [];
+  // print('_filteredKanbanBoardModel:${_filteredKanbanBoardModel.length}');
   if (action.kanbanBoardFilter == KanbanBoardFilter.all) {
     _filteredKanbanBoardModel = state.allKanbanBoardModel;
   } else if (action.kanbanBoardFilter == KanbanBoardFilter.activeAuthor) {
@@ -52,6 +62,10 @@ KanbanBoardState _updateKanbanBoardFilterAction(
   } else if (action.kanbanBoardFilter == KanbanBoardFilter.publics) {
     _filteredKanbanBoardModel = state.allKanbanBoardModel;
   }
+  // print('_filteredKanbanBoardModel:${_filteredKanbanBoardModel.length}');
+
+  // print(
+  //     '_updateKanbanBoardFilterAction: action.kanbanBoardFilter: ${action.kanbanBoardFilter}');
 
   return state.copyWith(
       kanbanBoardFilter: action.kanbanBoardFilter,

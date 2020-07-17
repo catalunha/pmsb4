@@ -141,8 +141,9 @@ class KanbanBoardPageDS extends StatelessWidget {
               );
             },
             onEditCurrentKanbanBoardModel: () {
+              // Navigator.pop(context);
               onCurrentKanbanBoardModel(kanbanBoard.id);
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => KanbanBoardCRUD(),
                 ),

@@ -29,13 +29,16 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
     Stream<QuerySnapshot> streamDocs;
     KanbanBoardFilter currentFilter =
         store.state.kanbanBoardState.kanbanBoardFilter;
+    // print('currentKanbanBoardFilter1: ${currentFilter}');
     if (currentFilter == KanbanBoardFilter.all) {
+      // print('streamDocs==all');
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           // .where('active', isEqualTo: true)
           // .where('author.id', isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.activeAuthor) {
+      // print('streamDocs==activeAuthor');
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: true)
@@ -43,6 +46,7 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
               isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.activeTeam) {
+      // print('streamDocs==activeTeam');
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: true)
@@ -50,6 +54,7 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
               isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.inactive) {
+      // print('streamDocs==inactive');
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: false)
@@ -57,6 +62,7 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
               isEqualTo: store.state.loggedState.firebaseUserLogged.uid)
           .snapshots();
     } else if (currentFilter == KanbanBoardFilter.publics) {
+      // print('streamDocs==publics');
       streamDocs = firestore
           .collection(KanbanBoardModel.collection)
           .where('active', isEqualTo: true)
@@ -67,14 +73,13 @@ void Function(Store<AppState> store, StreamKanbanBoardDataAction action,
         .map((doc) => KanbanBoardModel(doc.documentID).fromFirestore(doc.data))
         .toList());
     listDocs.listen((List<KanbanBoardModel> allKanbanBoardModel) {
-      //print('currentKanbanBoardFilter: ${currentFilter}');
+      // print(
+      //     'currentKanbanBoardFilter2*: ${store.state.kanbanBoardState.kanbanBoardFilter}');
       //print('allKanbanBoardModel: ${allKanbanBoardModel.length}');
       store.dispatch(
           AllKanbanBoardModelAction(allKanbanBoardModel: allKanbanBoardModel));
-      // store.dispatch(AllKanbanCardModelAction(
-      //     allKanbanCardModel: null,
-      //     currentKanbanBoardModel:
-      //         store.state.kanbanBoardState.currentKanbanBoardModel));
+      // store.dispatch(UpdateKanbanBoardFilterAction(
+      //     kanbanBoardFilter: store.state.kanbanBoardState.kanbanBoardFilter));
     });
     next(action);
   };
