@@ -36,6 +36,7 @@ void Function(
     if (_displayName != firebaseUser.displayName) {
       UserUpdateInfo userUpdateInfo = UserUpdateInfo();
       userUpdateInfo.displayName = _displayName;
+      // userUpdateInfo.photoUrl = photoUrl;
       await firebaseUser.updateProfile(userUpdateInfo).then((value) async {
         firebaseUser.reload();
         // FirebaseAuth firebaseAuth = FirebaseAuth.instance;

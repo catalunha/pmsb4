@@ -27,7 +27,7 @@ class _FeedCardCDSState extends State<FeedCardCDS> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.01, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: width * 0.01, vertical: 2),
       child: Card(
         color: PmsbColors.card,
         child: Column(
