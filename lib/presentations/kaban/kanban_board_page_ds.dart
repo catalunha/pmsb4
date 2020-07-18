@@ -133,7 +133,7 @@ class KanbanBoardPageDS extends StatelessWidget {
             kanbanBoardFilter: kanbanBoardFilter,
             onViewKanbanCards: () {
               onCurrentKanbanBoardModel(kanbanBoard.id);
-              // Navigator.pushNamed(context, Routes.kanbanCardPage);
+              // Navigator.pop(context);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => KanbanCardPage(),

@@ -43,7 +43,7 @@ class ShortCardCDS extends StatelessWidget {
               title: Text("${tarefa.title}"),
               subtitle: Tooltip(
                 message:
-                    'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}.\nId:${tarefa.id.substring(0, 5)}.',
+                    'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}.\nId: ${tarefa.id.substring(0, 5)}.',
                 child:
                     // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
                     Text(

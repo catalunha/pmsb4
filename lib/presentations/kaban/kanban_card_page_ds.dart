@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/board_view_kanban.dart';
+import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page_inactive.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
@@ -77,8 +78,8 @@ class KanbanCardPageDS extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
+                        // Navigator.pop(context);
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => KanbanCardPageInactive(),
