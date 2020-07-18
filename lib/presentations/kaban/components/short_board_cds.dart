@@ -157,7 +157,7 @@ class ShortBoardCDS extends StatelessWidget {
                     : Container(),
                 backgroundImage: usuario.photoUrl != null
                     ? NetworkImage(usuario.photoUrl)
-                    : NetworkImage(''),
+                    : null,
               ),
             ),
           ),

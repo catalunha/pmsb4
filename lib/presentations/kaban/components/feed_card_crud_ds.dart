@@ -2,33 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 import 'package:pmsb4/presentations/styles/pmsb_styles.dart';
 
-class FeedCardUpdateDS extends StatefulWidget {
+class FeedCardCRUDDS extends StatefulWidget {
+  final bool isCreate;
   final String description;
   final String link;
+  final Function(String, String) onCreate;
   final Function(String, String) onUpdate;
 
-  const FeedCardUpdateDS({Key key, this.description, this.link, this.onUpdate})
-      : super(key: key);
+  const FeedCardCRUDDS({
+    Key key,
+    this.isCreate,
+    this.description,
+    this.link,
+    this.onUpdate,
+    this.onCreate,
+  }) : super(key: key);
 
   @override
-  _FeedCardUpdateDSState createState() => _FeedCardUpdateDSState();
+  _FeedCardCRUDDSState createState() => _FeedCardCRUDDSState();
 }
 
-class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
+class _FeedCardCRUDDSState extends State<FeedCardCRUDDS> {
   final formKeyFeedCardUpdateDSState = GlobalKey<FormState>();
   String _description;
   String _link;
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height > 1000
-        ? MediaQuery.of(context).size.height * 0.40
-        : MediaQuery.of(context).size.height * 0.60;
+    // double _height = MediaQuery.of(context).size.height > 1000
+    //     ? MediaQuery.of(context).size.height * 0.70
+    //     : MediaQuery.of(context).size.height * 0.60;
 
     double _width = MediaQuery.of(context).size.width > 1000
-        ? MediaQuery.of(context).size.width * 0.45
+        ? MediaQuery.of(context).size.width * 0.8
         : MediaQuery.of(context).size.width * 0.65;
-
+    double _height = 350;
+    // double _width = double.infinity;
     Dialog dialogWithImage = Dialog(
       child: Form(
         key: formKeyFeedCardUpdateDSState,
@@ -48,7 +57,10 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
                       width: 10,
                     ),
                     Container(
-                      child: Text("Editar notícia",
+                      child: Text(
+                          widget.isCreate
+                              ? 'Criar uma informação'
+                              : "Editar esta informação",
                           style: PmsbStyles.textStyleListPerfil01),
                     ),
                     IconButton(
@@ -69,12 +81,13 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
                   width: _width,
                 ),
               ),
-              textoQuadro("Descrição da notícia"),
+              textoQuadro("Descrição"),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
                   initialValue: widget.description,
                   onSaved: (value) => _description = value,
+                  keyboardType: TextInputType.multiline,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -82,7 +95,7 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
                   ),
                 ),
               ),
-              textoQuadro("Link para esta notícia"),
+              textoQuadro("Link para site, arquivo ou pasta. Se necessário."),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextFormField(
@@ -147,7 +160,11 @@ class _FeedCardUpdateDSState extends State<FeedCardUpdateDS> {
   void validateData() {
     if (formKeyFeedCardUpdateDSState.currentState.validate()) {
       formKeyFeedCardUpdateDSState.currentState.save();
-      widget.onUpdate(_description, _link);
+      if (widget.isCreate) {
+        widget.onCreate(_description, _link);
+      } else {
+        widget.onUpdate(_description, _link);
+      }
     } else {
       setState(() {});
     }

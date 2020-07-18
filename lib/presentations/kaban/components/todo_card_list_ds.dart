@@ -26,27 +26,44 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            textoQuadro("Ações"),
-            IconButton(
-              icon: Icon(Icons.add_box),
-              onPressed: () {
-                TodoCardCRUD(id: null);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => TodoCardCRUD(
-                    id: null,
-                  ),
-                );
-              },
-            ),
-          ],
+        ListTile(
+          title: Text("Ações:"),
+          leading: IconButton(
+            tooltip: 'Acrescentar uma ação nova',
+            icon: Icon(Icons.add_box),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => TodoCardCRUD(
+                  id: null,
+                ),
+              );
+            },
+          ),
         ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     textoQuadro("Ações"),
+        //     IconButton(
+        //       tooltip: 'Acrescentar uma ação nova',
+        //       icon: Icon(Icons.add_box),
+        //       onPressed: () {
+        //         TodoCardCRUD(id: null);
+        //         showDialog(
+        //           context: context,
+        //           builder: (BuildContext context) => TodoCardCRUD(
+        //             id: null,
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //   ],
+        // ),
+        // Expanded(child: ,)
         Container(
-          width: 500,
-          height: 500,
+          // width: 400,
+          height: 400,
           //  width : MediaQuery.of(context).size.width;
           //  height : MediaQuery.of(context).size.height;
           child: ReorderableListView(

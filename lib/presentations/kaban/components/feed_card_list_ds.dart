@@ -21,38 +21,51 @@ class FeedCardListDS extends StatefulWidget {
 class _FeedCardListDSState extends State<FeedCardListDS> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text("Informações:"),
+    // return ListView(
+    //   children: getListaComentarios(),
+    // );
+    return Column(
+      children: [
+        ListTile(
+          title: Text("Informações:"),
+          leading: IconButton(
+            tooltip: 'Acrescentar uma informação nova',
+            icon: Icon(Icons.add_box),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => FeedCardCRUD(
+                  id: null,
+                ),
+              );
+            },
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: FeedCardCRUD(
-              id: null,
-            ),
+        ),
+        Container(
+          // width: 500,
+          height: 400,
+          child: ListView(
+            children: getListaComentarios(),
           ),
-          _listaComentario()
-        ],
-      ),
-    );
-  }
-
-  Widget _listaComentario() {
-    return Container(
-      child: Column(children: getListaComentarios()),
+        ),
+      ],
     );
   }
 
   List<Widget> getListaComentarios() {
-    List<Widget> listaComentarios = List<Widget>();
+    List<Widget> listaComentarios = [];
+    // listaComentarios.add(ListTile(
+    //   title: Text("Informações:"),
+    // ));
     for (Feed feed in widget.listFeed) {
       listaComentarios.add(FeedCardCDS(
         feed: feed,
         onDelete: widget.onDelete,
         loggedId: widget.loggedId,
       ));
+      // listaComentarios.add(ListTile(
+      //   title: Text(feed.description),
+      // ));
     }
     return listaComentarios;
   }
