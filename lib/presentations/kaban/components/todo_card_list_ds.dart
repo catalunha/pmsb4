@@ -60,18 +60,24 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
         //     ),
         //   ],
         // ),
-        // Expanded(child: ,)
-        Container(
-          // width: 400,
-          height: 400,
-          //  width : MediaQuery.of(context).size.width;
-          //  height : MediaQuery.of(context).size.height;
+        Expanded(
           child: ReorderableListView(
             scrollDirection: Axis.vertical,
             children: buildItens(),
             onReorder: _onReorder,
           ),
-        ),
+        )
+        // Container(
+        //   // width: 400,
+        //   height: 400,
+        //   //  width : MediaQuery.of(context).size.width;
+        //   //  height : MediaQuery.of(context).size.height;
+        //   child: ReorderableListView(
+        //     scrollDirection: Axis.vertical,
+        //     children: buildItens(),
+        //     onReorder: _onReorder,
+        //   ),
+        // ),
       ],
     );
   }

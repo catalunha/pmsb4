@@ -41,13 +41,18 @@ class _FeedCardListDSState extends State<FeedCardListDS> {
             },
           ),
         ),
-        Container(
-          // width: 500,
-          height: 400,
+        Expanded(
           child: ListView(
             children: getListaComentarios(),
           ),
         ),
+        // Container(
+        //   // width: 500,
+        //   height: 400,
+        //   child: ListView(
+        //     children: getListaComentarios(),
+        //   ),
+        // ),
       ],
     );
   }
