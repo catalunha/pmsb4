@@ -31,7 +31,7 @@ class _ViewModel {
         feed.link = link.isEmpty || link == '' ? null : link;
         feed.bot = false;
         //print('+++ FeedCardCRUD 01');
-        print(feed.toMap());
+        // print(feed.toMap());
         final firebaseUser = store.state.loggedState.firebaseUserLogged;
         Team team = Team(
           id: firebaseUser.uid,
@@ -44,7 +44,6 @@ class _ViewModel {
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.loggedState.firebaseUserLogged.uid,
             viewer: false));
-
         store.dispatch(UpdateKanbanCardDataAction(
             kanbanCardModel:
                 store.state.kanbanCardState.currentKanbanCardModel));
