@@ -83,10 +83,12 @@ class _KanbanCardCreateUpdateOtherDSState
       color: Colors.black45,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           row01(),
           row02(),
-          row03(),
+          // row03(),
+          Expanded(child: row03()),
         ],
       ),
     );
