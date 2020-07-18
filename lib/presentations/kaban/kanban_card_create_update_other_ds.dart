@@ -114,7 +114,7 @@ class _KanbanCardCreateUpdateOtherDSState
                   child: Container(
                     width: widthPage,
                     child: Text(
-                      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}.\n${widget.description}.",
+                      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}. Id: \n${widget.description}.",
                       style: TextStyle(
                           color: PmsbColors.texto_terciario, fontSize: 14),
                     ),
@@ -150,10 +150,12 @@ class _KanbanCardCreateUpdateOtherDSState
                     ),
                     SizedBox(width: 3),
                     RaisedButton.icon(
+                      label: Text("Arquivar"),
                       color: Colors.transparent,
                       onPressed: () {
                         widget.onUpdate(null, null, null, false);
-                        Navigator.push(
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => KanbanCardPage(),
@@ -161,7 +163,6 @@ class _KanbanCardCreateUpdateOtherDSState
                         );
                       },
                       icon: Icon(Icons.archive),
-                      label: Text("Arquivar"),
                       elevation: 0,
                       disabledElevation: 0,
                       disabledColor: Colors.transparent,

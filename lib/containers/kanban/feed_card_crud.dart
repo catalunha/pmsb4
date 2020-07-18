@@ -40,7 +40,7 @@ class _ViewModel {
           photoUrl: firebaseUser.photoUrl,
         );
         feed.author = team;
-        print(feed.toMap());
+        // print(feed.toMap());
         store.dispatch(UpdateFeedKanbanCardModelAction(feed: feed));
         store.dispatch(UserViewOrUpdateKanbanCardModelAction(
             user: store.state.loggedState.firebaseUserLogged.uid,
