@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pmsb4/actions/kanban_card_action.dart';
 import 'package:pmsb4/models/types_models.dart';
-import 'package:pmsb4/presentations/kaban/components/feed_card_create_ds.dart';
-import 'package:pmsb4/presentations/kaban/components/feed_card_update_ds.dart';
+import 'package:pmsb4/presentations/kaban/components/feed_card_crud_ds.dart';
 import 'package:pmsb4/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -29,7 +28,7 @@ class _ViewModel {
       onCreate: (String description, String link) {
         //print('+++ FeedCardCRUD.onCreate $description $link');
         feed.description = description;
-        feed.link = link;
+        feed.link = link.isEmpty || link == '' ? null : link;
         feed.bot = false;
         //print('+++ FeedCardCRUD 01');
         print(feed.toMap());
@@ -77,17 +76,13 @@ class FeedCardCRUD extends StatelessWidget {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.fromStore(store, id),
       builder: (BuildContext context, _ViewModel _viewModel) {
-        if (id == null) {
-          return FeedCardCreateDS(
-            onCreate: _viewModel.onCreate,
-          );
-        } else {
-          return FeedCardUpdateDS(
-            description: _viewModel.description,
-            link: _viewModel.link,
-            onUpdate: _viewModel.onUpdate,
-          );
-        }
+        return FeedCardCRUDDS(
+          isCreate: id == null ? true : false,
+          description: _viewModel.description,
+          link: _viewModel.link,
+          onCreate: _viewModel.onCreate,
+          onUpdate: _viewModel.onUpdate,
+        );
       },
     );
   }

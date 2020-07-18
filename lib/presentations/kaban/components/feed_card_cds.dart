@@ -25,60 +25,60 @@ class FeedCardCDS extends StatefulWidget {
 class _FeedCardCDSState extends State<FeedCardCDS> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.01, vertical: 2),
-        child: Card(
-          color: PmsbColors.card,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 10,
-                child: ListTile(
-                  onTap: null,
-                  onLongPress: null,
-                  leading: Tooltip(
-                    message: widget.feed.author.displayName,
-                    child: ClipOval(
-                      child: CircleAvatar(
-                        backgroundColor: Colors.lightBlue[50],
-                        child: widget.feed.author.photoUrl != null
-                            ? Image.network(widget.feed.author.photoUrl)
-                            : Text(widget.feed.author.displayName
-                                .substring(0, 2)
-                                .toUpperCase()),
-                      ),
+    // double width = MediaQuery.of(context).size.width;
+    return Container(
+      width: double.infinity,
+      child: Card(
+        color: PmsbColors.card,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 10,
+              child: ListTile(
+                onTap: null,
+                onLongPress: null,
+                leading: Tooltip(
+                  message: widget.feed.author?.displayName ?? '',
+                  child: ClipOval(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.lightBlue[50],
+                      child: widget.feed.author?.photoUrl != null
+                          ? Image.network(widget.feed.author.photoUrl)
+                          : Text(widget.feed.author?.displayName ??
+                              ''.substring(0, 2).toUpperCase()),
                     ),
                   ),
-                  title: Text(widget.feed.description),
-                  subtitle: Text(widget.feed.created.toString()),
-                  trailing: widget.feed.link != null
-                      ? IconButton(
-                          icon: Icon(Icons.link),
-                          tooltip: widget.feed.link,
-                          onPressed: () async {
-                            if (widget.feed?.link != null) {
-                              if (await canLaunch(widget.feed.link)) {
-                                await launch(widget.feed.link);
-                              }
-                            }
-                          },
-                        )
-                      : Container(
-                          width: 1,
-                        ),
                 ),
+                title: Text(widget.feed.description),
+                subtitle: Text(widget.feed.created.toString()),
+                trailing: widget.feed.link != null
+                    ? IconButton(
+                        icon: Icon(Icons.link),
+                        tooltip: widget.feed.link,
+                        onPressed: () async {
+                          if (widget.feed?.link != null) {
+                            if (await canLaunch(widget.feed.link)) {
+                              await launch(widget.feed.link);
+                            }
+                          }
+                        },
+                      )
+                    : Container(
+                        width: 1,
+                      ),
               ),
-              Expanded(
-                flex: 1,
-                child: (widget.loggedId == widget.feed.author.id) &&
-                        (!widget.feed.bot)
-                    ? botaoMore(id: widget.feed.id)
-                    : Container(),
-              )
-            ],
-          ),
-        ));
+            ),
+            Expanded(
+              flex: 1,
+              child: (widget.loggedId == widget.feed.author.id) &&
+                      (!widget.feed.bot)
+                  ? botaoMore(id: widget.feed.id)
+                  : Container(),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget botaoMore({String id}) {

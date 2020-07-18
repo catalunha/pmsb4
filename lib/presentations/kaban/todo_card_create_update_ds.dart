@@ -21,13 +21,14 @@ class _TodoCardCreateUpdateDSState extends State<TodoCardCreateUpdateDS> {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height > 1000
-        ? MediaQuery.of(context).size.height * 0.40
-        : MediaQuery.of(context).size.height * 0.60;
+    // double _height = MediaQuery.of(context).size.height > 1000
+    //     ? MediaQuery.of(context).size.height * 0.40
+    //     : MediaQuery.of(context).size.height * 0.60;
 
     double _width = MediaQuery.of(context).size.width > 1000
         ? MediaQuery.of(context).size.width * 0.45
         : MediaQuery.of(context).size.width * 0.65;
+    double _height = 350;
 
     Dialog dialogWithImage = Dialog(
       child: Form(
