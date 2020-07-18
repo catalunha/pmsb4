@@ -65,28 +65,51 @@ class KanbanCardPageDS extends StatelessWidget {
                         child: KanbanCardFiltering(),
                       ),
                     ),
-                    InkWell(
-                      child: Tooltip(
-                        message: "Ver cartões arquivados",
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage("userAvatarUrl"),
-                          backgroundColor: PmsbColors.navbar,
-                          child: Icon(
-                            Icons.archive,
-                            color: Colors.white,
-                          ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        backgroundColor: PmsbColors.navbar,
+                        child: IconButton(
+                          icon: Icon(Icons.archive),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => KanbanCardPageInactive(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                      onTap: () {
-                        // Navigator.pop(context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => KanbanCardPageInactive(),
-                          ),
-                        );
-                      },
                     ),
+                    // IconButton(
+                    //   icon: Icon(Icons.format_align_justify),
+                    //   onPressed: () {
+                    //     TeamCardFiltering();
+                    //   },
+                    // )
+                    // InkWell(
+                    //   child: Tooltip(
+                    //     message: "Ver cartões arquivados",
+                    //     child: CircleAvatar(
+                    //       // backgroundImage: NetworkImage("userAvatarUrl"),
+                    //       backgroundColor: PmsbColors.navbar,
+                    //       child: Icon(
+                    //         Icons.archive,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     // Navigator.pop(context);
+                    //     Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => KanbanCardPageInactive(),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ],
                 )
               ],

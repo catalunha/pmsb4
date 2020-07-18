@@ -69,32 +69,166 @@ class _KanbanCardCreateUpdateOtherDSState
         title: Text("#${widget.number} - ${widget.title}"),
       ),
       backgroundColor: PmsbColors.fundo,
-      body: body(),
+      body: Center(child: body()),
     );
   }
 
   Widget body() {
     double width = MediaQuery.of(context).size.width;
-    double widthPage = width > 1800 ? (width * 0.8) : (width * 0.95);
+    double widthPage = width > 1800 ? (width * 0.8) : width * 0.97;
 
-    return Scrollbar(
-      controller: scrowllController,
-      isAlwaysShown: true,
-      child: Center(
-        child: Container(
-          width: widthPage,
-          color: Colors.black12,
-          child: ListView(
-            children: <Widget>[
-              _descricao(),
-              _painel(),
-            ],
-          ),
-        ),
+    return Container(
+      width: widthPage,
+      color: Colors.black45,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          row01(),
+          row02(),
+          row03(),
+        ],
+      ),
+    );
+
+    // return Scrollbar(
+    //   controller: scrowllController,
+    //   isAlwaysShown: true,
+    //   child: Center(
+    //     child: Container(
+    //       width: widthPage,
+    //       color: Colors.black12,
+    //       child: ListView(
+    //         children: <Widget>[
+    //           // _descricao(),
+    //           // _painel(),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
+  }
+
+  Widget row01() {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(flex: 4, child: description()),
+        Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                edit(),
+                arquive(),
+              ],
+            ))
+      ],
+    );
+  }
+
+  Widget description() {
+    return Text(
+      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}. Id: \n${widget.description}.",
+      style: TextStyle(
+        color: PmsbColors.texto_terciario,
+        fontSize: 14,
       ),
     );
   }
 
+  Widget edit() {
+    return RaisedButton.icon(
+      color: Colors.transparent,
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => KanbanCardCreateUpdateTitleDS(
+            isCreate: false,
+            title: widget.title,
+            description: widget.description,
+            onUpdate: widget.onUpdate,
+          ),
+        );
+      },
+      icon: Icon(Icons.edit),
+      label: Text("Editar"),
+      elevation: 0,
+      disabledElevation: 0,
+      disabledColor: Colors.transparent,
+      focusColor: Colors.transparent,
+    );
+  }
+
+  Widget arquive() {
+    return RaisedButton.icon(
+      label: Text("Arquivar"),
+      color: Colors.transparent,
+      onPressed: () {
+        widget.onUpdate(null, null, null, false);
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => KanbanCardPage(),
+          ),
+        );
+      },
+      icon: Icon(Icons.archive),
+      elevation: 0,
+      disabledElevation: 0,
+      disabledColor: Colors.transparent,
+      focusColor: Colors.transparent,
+    );
+  }
+
+  Widget row02() {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(flex: 2, child: team()),
+        Expanded(flex: 1, child: priority())
+      ],
+    );
+  }
+
+  Widget team() {
+    return TeamCardAddCDS(
+        team: widget.team, onRemoveUserTeam: widget.onRemoveUserTeam);
+  }
+
+  Widget priority() {
+    return SwitchListTile(
+      value: _priority,
+      title: Text('Esta tarefa é prioridade ?'),
+      subtitle: _priority
+          ? Text('A prioridade desta tarefa é maior.',
+              style: TextStyle(color: Colors.yellow))
+          : Text('Atendimento normal.'),
+      onChanged: (value) {
+        widget.onUpdate(null, null, value, null);
+        setState(
+          () {
+            _priority = value;
+          },
+        );
+      },
+    );
+  }
+
+  Widget row03() {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        // Expanded(flex: 2, child: FeedCardList()),
+        Expanded(flex: 1, child: TodoCardList())
+      ],
+    );
+  }
+
+// velhos...
   Widget _descricao() {
     double width = MediaQuery.of(context).size.width;
     double widthPage = width > 1800 ? (width * 0.7) : (width * 0.6);
@@ -197,27 +331,8 @@ class _KanbanCardCreateUpdateOtherDSState
               ),
               Expanded(
                 child: Container(
-                  //height: 115,
-                  // color: Color(0xFF77869c),
                   child: Padding(
                     padding: EdgeInsets.only(top: 2),
-                    // child: SwitchListTile(
-                    //   dense: true,
-                    //   isThreeLine: true,
-                    //   subtitle: _priority
-                    //       ? Text('A prioridade desta tarefa é alta')
-                    //       : Text('Atendimento normal. Sem prioridade.'),
-                    //   title: Text('Prioridade'),
-                    //   value: _priority,
-                    //   onChanged: (value) {
-                    //     widget.onUpdate(null, null, value, null);
-                    //     setState(
-                    //       () {
-                    //         _priority = value;
-                    //       },
-                    //     );
-                    //   },
-                    // ),
                     child: ListTile(
                       title: textoTitulo('Esta tarefa é prioridade ?'),
                       subtitle: _priority
