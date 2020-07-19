@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pmsb4/containers/kanban/board_view_kanban.dart';
-import 'package:pmsb4/containers/kanban/kanban_board_page.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_filtering.dart';
 import 'package:pmsb4/containers/kanban/kanban_card_page_inactive.dart';
 import 'package:pmsb4/containers/kanban/team_card_filtering.dart';
@@ -9,10 +8,12 @@ import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardPageDS extends StatelessWidget {
   final KanbanBoardModel currentKanbanBoardModel;
+  final bool userLogedIsBoardAuthor;
 
   KanbanCardPageDS({
     Key key,
     this.currentKanbanBoardModel,
+    this.userLogedIsBoardAuthor,
   }) : super(key: key);
 
   @override
@@ -65,23 +66,29 @@ class KanbanCardPageDS extends StatelessWidget {
                         child: KanbanCardFiltering(),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: CircleAvatar(
-                        backgroundColor: PmsbColors.navbar,
-                        child: IconButton(
-                          icon: Icon(Icons.archive),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => KanbanCardPageInactive(),
+                    userLogedIsBoardAuthor
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: CircleAvatar(
+                              backgroundColor: PmsbColors.navbar,
+                              child: IconButton(
+                                icon: Icon(Icons.archive),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          KanbanCardPageInactive(),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                            ),
+                          )
+                        : Container(
+                            width: 0,
+                            height: 0,
+                          ),
                     // IconButton(
                     //   icon: Icon(Icons.format_align_justify),
                     //   onPressed: () {
