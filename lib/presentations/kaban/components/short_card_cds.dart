@@ -43,11 +43,11 @@ class ShortCardCDS extends StatelessWidget {
               title: Text("${tarefa.title}"),
               subtitle: Tooltip(
                 message:
-                    'Descrição: ${tarefa.description}.\nModificado em ${DateFormat('dd-MM-yyyy HH:MM').format(tarefa.modified)}.\nId: ${tarefa.id.substring(0, 5)}.',
+                    'Descrição: ${tarefa.description}.\nId: ${tarefa.id.substring(0, 5)}.',
                 child:
                     // ${DateFormat('dd-MM HH').format(tarefa.modified)}h.
                     Text(
-                        "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} ${(DateTime.now().difference(tarefa.created)).inDays == 1 ? "dia" : "dias"} atrás. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
+                        "#${tarefa.number}. ${(DateTime.now().difference(tarefa.created)).inDays} ${(DateTime.now().difference(tarefa.created)).inDays == 1 ? "dia" : "dias"}. ${DateFormat('dd-MM HH:MM').format(tarefa.modified)}. Ações: ${tarefa.todoCompleted}/${tarefa.todoTotal}."),
               ),
               onTap: onTap,
             ),
