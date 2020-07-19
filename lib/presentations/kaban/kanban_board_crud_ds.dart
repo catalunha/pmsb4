@@ -120,16 +120,16 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                   onSaved2: (value) => _description = value,
                 ),
               ),
-              ListTile(
-                title: textoQuadro('Este quadro é público ?'),
-                subtitle: _public
-                    ? textoSubtitulo(
-                        'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.',
-                        color: Colors.yellow)
-                    : textoSubtitulo('Somente sua equipe pode ver e editar.'),
-                leading: Checkbox(
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: SwitchListTile(
                   value: _public,
-                  activeColor: Colors.green,
+                  title: Text('Este quadro é público ?'),
+                  subtitle: _public
+                      ? Text(
+                          'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.',
+                          style: TextStyle(color: Colors.yellow))
+                      : Text('Somente sua equipe pode ver e editar.'),
                   onChanged: (value) {
                     setState(
                       () {
@@ -137,9 +137,30 @@ class KanbanBoardCRUDDSState extends State<KanbanBoardCRUDDS> {
                       },
                     );
                   },
+                  secondary: Icon(_public ? Icons.lock_open : Icons.lock),
                 ),
-                trailing: Icon(_public ? Icons.lock_open : Icons.lock),
               ),
+              // ListTile(
+              //   title: textoQuadro('Este quadro é público ?'),
+              //   subtitle: _public
+              //       ? textoSubtitulo(
+              //           'Qualquer pessoa pode ver este quadro. Mas apenas sua equipe pode editar.',
+              //           color: Colors.yellow)
+              //       : textoSubtitulo('Somente sua equipe pode ver e editar.'),
+              //   leading: Checkbox(
+              //     value: _public,
+              //     activeColor: Colors.green,
+              //     onChanged: (value) {
+              //       setState(
+              //         () {
+              //           _public = value;
+              //         },
+              //       );
+              //     },
+              //   ),
+              //   trailing: Icon(_public ? Icons.lock_open : Icons.lock),
+              // ),
+
               // textoQuadro(
               //     "Público ? Qualquer pessoa pode ver este quadro. Apenas sua equipe pode editar."),
               // Padding(
