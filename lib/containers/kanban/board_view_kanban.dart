@@ -16,10 +16,12 @@ class _ViewModel {
   final Function(String) onCurrentKanbanCardModel;
   final Function(String, StageCard) onChangeStageCard;
   final Function(Map<String, String>) onChangeCardOrder;
+  final bool userLogedIsBoardAuthor;
 
   _ViewModel({
     this.currentKanbanBoardModel,
     this.filteredKanbanCardModel,
+    this.userLogedIsBoardAuthor,
     this.onCurrentKanbanCardModel,
     this.onChangeStageCard,
     this.onChangeCardOrder,
@@ -30,6 +32,8 @@ class _ViewModel {
           store.state.kanbanBoardState.currentKanbanBoardModel,
       filteredKanbanCardModel:
           store.state.kanbanCardState.filteredKanbanCardModel,
+      userLogedIsBoardAuthor: store.state.loggedState.firebaseUserLogged.uid ==
+          store.state.kanbanBoardState.currentKanbanBoardModel.author.id,
       onCurrentKanbanCardModel: (String id) {
         store.dispatch(CurrentKanbanCardModelAction(id: id));
       },
@@ -84,6 +88,7 @@ class BoardViewKanban extends StatelessWidget {
         return BoardViewKanbanDS(
           currentKanbanBoardModel: _viewModel.currentKanbanBoardModel,
           filteredKanbanCardModel: _viewModel.filteredKanbanCardModel,
+          userLogedIsBoardAuthor: _viewModel.userLogedIsBoardAuthor,
           onCurrentKanbanCardModel: _viewModel.onCurrentKanbanCardModel,
           onChangeCardOrder: _viewModel.onChangeCardOrder,
           onChangeStageCard: _viewModel.onChangeStageCard,

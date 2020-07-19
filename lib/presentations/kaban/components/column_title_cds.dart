@@ -4,8 +4,13 @@ import 'package:pmsb4/models/types_models.dart';
 
 class ColumnTitleCDS extends StatelessWidget {
   final StageCard stageCard;
+  final bool userLogedIsBoardAuthor;
 
-  const ColumnTitleCDS({Key key, this.stageCard}) : super(key: key);
+  const ColumnTitleCDS({
+    Key key,
+    this.stageCard,
+    this.userLogedIsBoardAuthor,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +26,8 @@ class ColumnTitleCDS extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          stageCard.toString() == StageCard.todo.toString()
+          (stageCard.toString() == StageCard.todo.toString()) &
+                  userLogedIsBoardAuthor
               ? IconButton(
                   icon: Icon(
                     Icons.add,

@@ -13,8 +13,8 @@ import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class BoardViewKanbanDS extends StatelessWidget {
   final KanbanBoardModel currentKanbanBoardModel;
-
   final List<KanbanCardModel> filteredKanbanCardModel;
+  final bool userLogedIsBoardAuthor;
   final Function(String) onCurrentKanbanCardModel;
   final Function(Map<String, String>) onChangeCardOrder;
   final Function(String, StageCard) onChangeStageCard;
@@ -26,6 +26,7 @@ class BoardViewKanbanDS extends StatelessWidget {
     this.onCurrentKanbanCardModel,
     this.onChangeCardOrder,
     this.onChangeStageCard,
+    this.userLogedIsBoardAuthor,
   }) : super(key: key);
 
   List<ColumnItems> columnItemsList = [];
@@ -61,16 +62,18 @@ class BoardViewKanbanDS extends StatelessWidget {
           shortCardCDSList.add(
             ShortCardCDS(
               arquivado: false,
-              onTap: () {
-                onCurrentKanbanCardModel(kanbanCard.id);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => KanbanCardCRUD(
-                      id: kanbanCard.id,
-                    ),
-                  ),
-                );
-              },
+              onTap: userLogedIsBoardAuthor
+                  ? () {
+                      onCurrentKanbanCardModel(kanbanCard.id);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => KanbanCardCRUD(
+                            id: kanbanCard.id,
+                          ),
+                        ),
+                      );
+                    }
+                  : null,
               tarefa: kanbanCard,
               cor: PmsbColors.card,
             ),
@@ -79,7 +82,10 @@ class BoardViewKanbanDS extends StatelessWidget {
       }
       columnItemsList.add(
         ColumnItems(
-            title: ColumnTitleCDS(stageCard: stageCard),
+            title: ColumnTitleCDS(
+              stageCard: stageCard,
+              userLogedIsBoardAuthor: userLogedIsBoardAuthor,
+            ),
             items: shortCardCDSList),
       );
       stageCardsList.add(
