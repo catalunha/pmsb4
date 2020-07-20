@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart' as uuid;
 
 class _ViewModel {
+  final String id;
   final Team author;
   final String title;
   final String description;
@@ -23,6 +24,7 @@ class _ViewModel {
   final int todoTotal;
   final int number;
   final String created;
+  final String modified;
   final List<Team> team;
 
   final Function(String, String) onCreate;
@@ -30,6 +32,7 @@ class _ViewModel {
   final Function(String) onRemoveUserTeam;
 
   _ViewModel({
+    this.id,
     this.author,
     this.title,
     this.description,
@@ -41,6 +44,7 @@ class _ViewModel {
     this.todoTotal,
     this.number,
     this.created,
+    this.modified,
     this.onCreate,
     this.onUpdate,
   });
@@ -57,6 +61,7 @@ class _ViewModel {
           UpdateKanbanCardDataAction(kanbanCardModel: _currentKanbanCardModel));
     }
     return _ViewModel(
+      id: _currentKanbanCardModel?.id ?? null,
       author: _currentKanbanCardModel.author,
       title: _currentKanbanCardModel?.title ?? '',
       description: _currentKanbanCardModel?.description ?? '',
@@ -66,6 +71,7 @@ class _ViewModel {
       todoTotal: _currentKanbanCardModel?.todoTotal ?? 0,
       number: _currentKanbanCardModel.number,
       created: _currentKanbanCardModel.created.toString(),
+      modified: _currentKanbanCardModel.modified.toString(),
       team: _currentKanbanCardModel.team != null
           ? _currentKanbanCardModel.team.entries.map((e) => e.value).toList()
           : [],
@@ -166,7 +172,9 @@ class KanbanCardCRUD extends StatelessWidget {
           );
         } else {
           return KanbanCardCreateUpdateOtherDS(
+            id: _viewModel.id,
             created: _viewModel.created,
+            modified: _viewModel.modified,
             number: _viewModel.number,
             author: _viewModel.author,
             title: _viewModel.title,

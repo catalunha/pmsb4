@@ -9,6 +9,7 @@ import 'package:pmsb4/presentations/kaban/kanban_card_create_update_title_ds.dar
 import 'package:pmsb4/presentations/styles/pmsb_colors.dart';
 
 class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
+  final String id;
   final bool isCreate;
   final Team author;
   final String title;
@@ -19,6 +20,7 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
   final int todoTotal;
   final int number;
   final String created;
+  final String modified;
 
   final List<Team> team;
   final Function(String, String, bool, bool) onCreate;
@@ -36,11 +38,13 @@ class KanbanCardCreateUpdateOtherDS extends StatefulWidget {
     this.team,
     this.number,
     this.created,
+    this.modified,
     this.onRemoveUserTeam,
     this.onCreate,
     this.onUpdate,
     this.todoCompleted,
     this.todoTotal,
+    this.id,
   }) : super(key: key);
   @override
   _KanbanCardCreateUpdateOtherDSState createState() =>
@@ -115,7 +119,7 @@ class _KanbanCardCreateUpdateOtherDSState
 
   Widget description() {
     return Text(
-      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}. Id: \n${widget.description}.",
+      "Autor: ${widget.author?.displayName}. Criada em ${widget.created}. Modificada em ${widget.modified}. Id: ${widget.id.substring(0, 5)}\n${widget.description}.",
       style: TextStyle(
         color: PmsbColors.texto_terciario,
         fontSize: 14,
