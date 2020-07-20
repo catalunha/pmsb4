@@ -24,24 +24,24 @@ class KanbanBoardFilteringDS extends StatelessWidget {
       ),
       onSelected: onSelectFilter,
       itemBuilder: (BuildContext context) => <PopupMenuItem<KanbanBoardFilter>>[
-        PopupMenuItem<KanbanBoardFilter>(
-          value: KanbanBoardFilter.all,
-          child: Row(
-            children: [
-              SizedBox(width: 2),
-              Icon(
-                Icons.code,
-                color: PmsbColors.texto_primario,
-              ),
-              SizedBox(width: 5),
-              Text(
-                KanbanBoardFilter.all.name,
-                style: PmsbStyles.textoPrimario,
-              ),
-              SizedBox(width: 5),
-            ],
-          ),
-        ),
+        // PopupMenuItem<KanbanBoardFilter>(
+        //   value: KanbanBoardFilter.all,
+        //   child: Row(
+        //     children: [
+        //       SizedBox(width: 2),
+        //       Icon(
+        //         Icons.code,
+        //         color: PmsbColors.texto_primario,
+        //       ),
+        //       SizedBox(width: 5),
+        //       Text(
+        //         KanbanBoardFilter.all.name,
+        //         style: PmsbStyles.textoPrimario,
+        //       ),
+        //       SizedBox(width: 5),
+        //     ],
+        //   ),
+        // ),
         PopupMenuItem<KanbanBoardFilter>(
           value: KanbanBoardFilter.activeAuthor,
           child: Row(
