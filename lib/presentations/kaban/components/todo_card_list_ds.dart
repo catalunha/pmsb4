@@ -128,32 +128,34 @@ class _TodoCardListDSState extends State<TodoCardListDS> {
     List<Widget> list = [];
     int i = 1;
     for (var todo in widget.listTodo) {
-      list.add(ListTile(
-        key: ValueKey(todo),
-        title: Text(todo.title),
-        leading: Checkbox(
-          value: todo.complete,
-          onChanged: (value) {
-            widget.onChangeComplete(todo.id);
-            setState(() {});
+      list.add(
+        ListTile(
+          key: ValueKey(todo),
+          title: Text(todo.title),
+          leading: Checkbox(
+            value: todo.complete,
+            onChanged: (value) {
+              widget.onChangeComplete(todo.id);
+              setState(() {});
+            },
+          ),
+          trailing: IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              widget.onDelete(todo.id);
+              setState(() {});
+            },
+          ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => TodoCardCRUD(
+                id: todo.id,
+              ),
+            );
           },
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            widget.onDelete(todo.id);
-            setState(() {});
-          },
-        ),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => TodoCardCRUD(
-              id: todo.id,
-            ),
-          );
-        },
-      ));
+      );
     }
     return list;
   }
